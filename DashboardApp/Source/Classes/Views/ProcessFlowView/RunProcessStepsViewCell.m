@@ -1,0 +1,42 @@
+//
+//  RunProcessStepsViewCell.m
+//  DashboardApp
+//
+//  Created by Deepali Prabhu on 08/09/17.
+//  Copyright © 2017 Deepali Prabhu. All rights reserved.
+//
+
+#import "RunProcessStepsViewCell.h"
+#import "UIImage+FontAwesome.h"
+
+@implementation RunProcessStepsViewCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+    _stationLabel.layer.cornerRadius = 10.0f;
+    _stationLabel.layer.borderColor = [UIColor grayColor].CGColor;
+    _stationLabel.layer.borderWidth = 1.0f;
+    UIImage *iconCross = [UIImage imageWithIcon:@"fa-times" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:20];
+    [_crossButton setImage:iconCross forState:UIControlStateNormal];
+    UIImage *iconTick = [UIImage imageWithIcon:@"fa-check" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:20];
+    [_tickButton setImage:iconTick forState:UIControlStateNormal];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+}
+
+- (void)setCellData:(NSMutableDictionary *)cellData index:(int)index_{
+    index = index_;
+    _titleLabel.text = [NSString stringWithFormat:@"%d-%@",index,cellData[@"processname"]];
+    _stationLabel.text = cellData[@"stationid"];
+}
+
+- (IBAction)crossButtonPressed:(id)sender {
+    [_delegate crossButtonPressedAtIndex:index];
+}
+
+
+
+@end
