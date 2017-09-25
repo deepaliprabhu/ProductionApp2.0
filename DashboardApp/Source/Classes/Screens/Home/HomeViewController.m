@@ -85,10 +85,10 @@
     todoView = [ToDoView createView];
     todoView.frame = CGRectMake(0, 50, _todoView.frame.size.width, _todoView.frame.size.height-50);
     todoView.delegate = self;
-    [_todoView addSubview:todoView];
+    //[_todoView addSubview:todoView];
     
     roadBlocksView = [RoadBlocksView createView];
-    roadBlocksView.frame = CGRectMake(0, 50, _todoView.frame.size.width, _todoView.frame.size.height-50);
+    roadBlocksView.frame = CGRectMake(0, 50, _inProcessView.frame.size.width, _inProcessView.frame.size.height-50);
     roadBlocksView.delegate = self;
     [_roadBlocksView addSubview:roadBlocksView];
     
@@ -159,6 +159,12 @@
 - (void) runSelectedAtIndex:(int)runId {
     RunViewController *runVC = [RunViewController new];
     [runVC setRun:[__DataManager getRunWithId:runId]];
+    [self.navigationController pushViewController:runVC animated:false];
+}
+
+- (void) runSelected:(Run*)run {
+    RunViewController *runVC = [RunViewController new];
+    [runVC setRun:run];
     [self.navigationController pushViewController:runVC animated:false];
 }
 

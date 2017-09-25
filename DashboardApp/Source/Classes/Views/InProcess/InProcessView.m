@@ -58,6 +58,10 @@ __CREATEVIEW(InProcessView, @"InProcessView", 0);
     return cell;
 }
 
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [_delegate runSelected:runsArray[indexPath.row]];
+}
+
 - (void)getRunCompletionStatus {
     for (int i=0; i < runsArray.count; ++i) {
         Run *run = runsArray[i];

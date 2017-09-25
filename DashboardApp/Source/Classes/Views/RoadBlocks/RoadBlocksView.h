@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Defines.h"
+#import "Run.h"
 
 @protocol RoadBlocksViewDelegate;
 @interface RoadBlocksView : UIView<UITableViewDelegate, UITableViewDataSource> {
@@ -22,4 +23,6 @@ __CREATEVIEWH(RoadBlocksView);
 
 @protocol RoadBlocksViewDelegate <NSObject>
 - (void)setRoadBlocksLabel:(int)count;
+- (void) runSelected:(Run*)run;
+
 @end

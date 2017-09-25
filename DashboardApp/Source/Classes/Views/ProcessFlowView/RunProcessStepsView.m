@@ -28,6 +28,7 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
 - (void)initView {
     self.layer.cornerRadius = 8.0f;
     processStepsArray = [[NSMutableArray alloc] init];
+    selectedProcessesArray = [[NSMutableArray alloc] init];
     _processFlowButton.layer.cornerRadius = 6.0f;
     _documentationButton.layer.cornerRadius = 6.0f;
     _historyButton.layer.cornerRadius = 6.0f;
@@ -55,6 +56,12 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
     [self getProcessFlow];
 }
 
+- (void)setUpWorkInstructionsForString:(NSString*)wiString {
+    workInstructionsArray = [[NSMutableArray alloc] init];
+    workInstructionsArray = [[wiString componentsSeparatedByString:@"\n"] mutableCopy];
+    [_wiTableView reloadData];
+}
+
 - (void)setRun:(Run*)run_ {
     run = run_;
 }
@@ -72,6 +79,9 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView isEqual:_wiTableView]) {
+        return 50.0f;
+    }
     return 35.0f;
 }
 
@@ -79,7 +89,10 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
     if ([tableView isEqual:_commonProcessesTableView]) {
         return [commonProcessesArray count];
     }
-    return [processStepsArray count];
+    else if ([tableView isEqual:_runProcessesTableView]) {
+        return [processStepsArray count];
+    }
+    return [workInstructionsArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -93,7 +106,7 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
          [cell setCellData:[commonProcessesArray objectAtIndex:indexPath.row] index:indexPath.row];
         return cell;
     }
-    else {
+    else if ([tableView isEqual:_runProcessesTableView]){
         static NSString *simpleTableIdentifier = @"RunProcessStepsViewCell";
         RunProcessStepsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
         if (cell == nil) {
@@ -103,15 +116,55 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
         [cell setCellData:[processStepsArray objectAtIndex:indexPath.row] index:indexPath.row];
         return cell;
     }
+    else {
+        static NSString *CellIdentifier = @"identifier";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (cell == nil)
+        {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+        
+        cell.textLabel.text = workInstructionsArray[indexPath.row];
+        cell.textLabel.font = [cell.textLabel.font fontWithSize:11];
+        cell.textLabel.numberOfLines = 2;
+       // cell.imageView.image = [UIImage imageNamed:@"placeholder.png"];
+        
+        return cell;
+    }
     return nil;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView isEqual:_commonProcessesTableView]) {
+        [self setUpWorkInstructionsForString:commonProcessesArray[indexPath.row][@"workinstructions"]];
+        [self showProcessInfoViewWithData:commonProcessesArray[indexPath.row]];
+    }
+    else if ([tableView isEqual:_runProcessesTableView]){
+        [self setUpWorkInstructionsForString:processStepsArray[indexPath.row][@"workinstructions"]];
+        [self showProcessInfoViewWithData:processStepsArray[indexPath.row]];
+    }
+    else {
+        
+    }
 }
 
 - (void)addButtonPressedAtIndex:(int)index {
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
     NSMutableDictionary *processDict = commonProcessesArray[index];
     [processStepsArray addObject:processDict];
+    NSMutableDictionary *selectedProcessData = [[NSMutableDictionary alloc] init];
+     [selectedProcessData setObject:processDict[@"processno"] forKey:@"processno"];
+     [selectedProcessData setObject:[NSString stringWithFormat:@"%lu",selectedProcessesArray.count+1] forKey:@"stepid"];
+     [selectedProcessData setObject:processDict[@"op1"] forKey:@"op1"];
+     [selectedProcessData setObject:processDict[@"op2"] forKey:@"op2"];
+     [selectedProcessData setObject:processDict[@"op3"] forKey:@"op3"];
+     [selectedProcessData setObject:processDict[@"time"] forKey:@"time"];
+    [selectedProcessData setObject:@"archive" forKey:@"processstatus"];
+     [selectedProcessData setObject:[dateFormat stringFromDate:[NSDate date]] forKey:@"timestamp"];
+     [selectedProcessData setObject:@"" forKey:@"comments"];
+     [selectedProcessesArray addObject:selectedProcessData];
     [_runProcessesTableView reloadData];
 }
 
@@ -123,7 +176,7 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
 - (void)getProcessFlow {
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
-    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getProcessFlow&process_ctrl_id=%@-%@",@"IPROBE-3000-0001", @"PC1"] withTag:3];
+    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getProcessFlow&process_ctrl_id=%@-%@-%@",[run getProductNumber], @"PC1",@"1.0"] withTag:3];
 }
 
 - (void) parseJsonResponse:(NSData*)jsonData withTag:(int)tag{
@@ -131,7 +184,7 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
         commonProcessesArray = [[NSMutableArray alloc] init];
     }
     if(tag == 4){
-        [self getProcessFlow];
+       // [self getProcessFlow];
         return;
     }
     
@@ -156,7 +209,7 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
             if (tag == 1) {
                 commonProcessesArray = json;
                 //[self setupDropDownList];
-                [self getProcessFlow];
+               // [self getProcessFlow];
             }
             if (tag == 3) {
                 processStepsArray = [[NSMutableArray alloc] init];
@@ -165,13 +218,13 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
                 //[_pickOriginatorButton setTitle:jsonDict[@"originator"] forState:UIControlStateNormal];
                // _commentsTextView.text = jsonDict[@"comments"];
                // processCntrlId = jsonDict[@"process_ctrl_id"];
-               // [_statusButton setTitle:jsonDict[@"status"] forState:UIControlStateNormal];
-               // _versionLabel.text = jsonDict[@"version"];
+                [_statusButton setTitle:jsonDict[@"status"] forState:UIControlStateNormal];
+                _versionLabel.text = jsonDict[@"version"];
                 NSMutableArray* jsonProcessesArray = jsonDict[@"processes"];
                 NSLog(@"json processes array=%@",jsonProcessesArray);
                 for (int i=0; i < jsonProcessesArray.count; ++i) {
                     NSDictionary *processDict = jsonProcessesArray[i];
-                    [self getProcessWithNo:[processDict[@"processno"] intValue]];
+                    [self getProcessWithNo:processDict[@"processno"]];
                 }
                 NSLog(@"processes Array=%@",processStepsArray);
                 [_runProcessesTableView reloadData];
@@ -188,13 +241,13 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
     
 }
 
-- (void)getProcessWithNo:(int)processNo {
+- (void)getProcessWithNo:(NSString*)processNo {
     // NSLog(@"common processes:%@",commonProcessesArray);
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-dd-MM"];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
     for (int i=0; i < commonProcessesArray.count; ++i) {
         NSMutableDictionary *processData = commonProcessesArray[i];
-        if ([processData[@"processno"] intValue] == processNo) {
+        if ([processData[@"processno"] isEqualToString:processNo]) {
             /*NSMutableDictionary *selectedProcessData = [[NSMutableDictionary alloc] init];
             [selectedProcessData setObject:processData[@"processno"] forKey:@"processno"];
             [selectedProcessData setObject:[NSString stringWithFormat:@"%lu",selectedProcessesArray.count+1] forKey:@"stepid"];
@@ -207,6 +260,32 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
             [processStepsArray addObject:processData];
         }
     }
+}
+
+/*- (IBAction)submitButtonPressed:(id)sender {
+    if (selectedProcessesArray.count > 0) {
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd"];
+        NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",[run getProductNumber],@"PC1",_versionLabel.text],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",[run getProductName], @"PC1", _versionLabel.text], @"process_ctrl_name",product[@"Product Id"],@"ProductId",_versionLabel.text, @"VersionId", @"archive", @"Status", @"Arvind", @"Originator", @"Mason", @"Approver", _commentsTextView.text,@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
+        _versionLabel.text = _versionTF.text;
+        [__DataManager syncProcesses:selectedProcessesArray withProcessData:processData];
+    }
+}*/
+
+- (void)showProcessInfoViewWithData:(NSMutableDictionary*)processData {
+    _processInfoView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _processInfoView.layer.borderWidth = 1.0f;
+    _processInfoView.hidden = false;
+    _processNameLabel.text = [NSString stringWithFormat:@"%@: %@",processData[@"stationid"],processData[@"processname"]];
+    _timeLabel.text = processData[@"time"];
+    _operator1Label.text = processData[@"op1"];
+    _operator2Label.text = processData[@"op2"];
+    _operator3Label.text = processData[@"op3"];
+    
+}
+
+- (IBAction)closeProcessInfoView {
+    _processInfoView.hidden = true;
 }
 
 

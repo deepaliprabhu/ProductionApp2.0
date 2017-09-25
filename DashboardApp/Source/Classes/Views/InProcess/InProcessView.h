@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Defines.h"
+#import "Run.h"
 
 @protocol InProcessViewDelegate;
 @interface InProcessView : UIView<UITableViewDelegate, UITableViewDataSource> {
@@ -22,4 +23,5 @@ __CREATEVIEWH(InProcessView);
 
 @protocol InProcessViewDelegate <NSObject>
 - (void)setInProcessLabel:(int)count;
+- (void) runSelected:(Run*)run;
 @end

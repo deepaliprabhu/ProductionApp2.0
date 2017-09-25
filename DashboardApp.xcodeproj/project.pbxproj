@@ -109,6 +109,12 @@
 		9F85677C1F739B710067ABE1 /* XTEMP-2000-0010.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F85674F1F739B710067ABE1 /* XTEMP-2000-0010.png */; };
 		9F85677D1F739B710067ABE1 /* XTEMP-2001-0000.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F8567501F739B710067ABE1 /* XTEMP-2001-0000.png */; };
 		9F85677E1F739B710067ABE1 /* XTEMP-2001-0005.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F8567511F739B710067ABE1 /* XTEMP-2001-0005.png */; };
+		9F85678E1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8567861F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.m */; };
+		9F85678F1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F8567871F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.xib */; };
+		9F8567901F73DDB10067ABE1 /* OperatorEntryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8567891F73DDB10067ABE1 /* OperatorEntryView.m */; };
+		9F8567911F73DDB10067ABE1 /* OperatorEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F85678A1F73DDB10067ABE1 /* OperatorEntryView.xib */; };
+		9F8567921F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F85678C1F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.m */; };
+		9F8567931F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F85678D1F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.xib */; };
 		9F8AF75E1F559441008027B1 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F8AF75D1F559441008027B1 /* placeholder.png */; };
 		9F909AAD1F4EBB4E00DBFA63 /* GanttView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F909AAC1F4EBB4E00DBFA63 /* GanttView.m */; };
 		9F909AAF1F4EBB6200DBFA63 /* GanttView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F909AAE1F4EBB6200DBFA63 /* GanttView.xib */; };
@@ -272,6 +278,15 @@
 		9F85674F1F739B710067ABE1 /* XTEMP-2000-0010.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XTEMP-2000-0010.png"; sourceTree = "<group>"; };
 		9F8567501F739B710067ABE1 /* XTEMP-2001-0000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XTEMP-2001-0000.png"; sourceTree = "<group>"; };
 		9F8567511F739B710067ABE1 /* XTEMP-2001-0005.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XTEMP-2001-0005.png"; sourceTree = "<group>"; };
+		9F8567851F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperatorEntryCollectionViewCell.h; sourceTree = "<group>"; };
+		9F8567861F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperatorEntryCollectionViewCell.m; sourceTree = "<group>"; };
+		9F8567871F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OperatorEntryCollectionViewCell.xib; sourceTree = "<group>"; };
+		9F8567881F73DDB10067ABE1 /* OperatorEntryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperatorEntryView.h; sourceTree = "<group>"; };
+		9F8567891F73DDB10067ABE1 /* OperatorEntryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperatorEntryView.m; sourceTree = "<group>"; };
+		9F85678A1F73DDB10067ABE1 /* OperatorEntryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OperatorEntryView.xib; sourceTree = "<group>"; };
+		9F85678B1F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperatorTitleCollectionViewCell.h; sourceTree = "<group>"; };
+		9F85678C1F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperatorTitleCollectionViewCell.m; sourceTree = "<group>"; };
+		9F85678D1F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OperatorTitleCollectionViewCell.xib; sourceTree = "<group>"; };
 		9F8AF75D1F559441008027B1 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		9F909AAB1F4EBB4E00DBFA63 /* GanttView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GanttView.h; sourceTree = "<group>"; };
 		9F909AAC1F4EBB4E00DBFA63 /* GanttView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GanttView.m; sourceTree = "<group>"; };
@@ -362,7 +377,8 @@
 				9F03A9191F4563C900A7A316 /* DemandListView.m */,
 				9F03A91B1F4563DD00A7A316 /* DemandListView.xib */,
 			);
-			path = DemandList;
+			name = DemandList;
+			path = ../../Views/DemandList;
 			sourceTree = "<group>";
 		};
 		9F03A91D1F45665100A7A316 /* Cell */ = {
@@ -386,7 +402,8 @@
 				9F7767431F572A640092F603 /* RunListTableView.m */,
 				9F7767451F572A780092F603 /* RunListTableView.xib */,
 			);
-			path = RunList;
+			name = RunList;
+			path = ../../Views/RunList;
 			sourceTree = "<group>";
 		};
 		9F056B2A1F433F32002F3B61 /* TopBar */ = {
@@ -396,7 +413,8 @@
 				9F056B2C1F433F32002F3B61 /* TopBarView.m */,
 				9F056B2D1F433F32002F3B61 /* TopBarView.xib */,
 			);
-			path = TopBar;
+			name = TopBar;
+			path = ../../Views/TopBar;
 			sourceTree = "<group>";
 		};
 		9F056B351F43464F002F3B61 /* Utils */ = {
@@ -406,6 +424,19 @@
 				9FD12D941F44411A00F0E0A8 /* Constants.h */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		9F10558A1F763CC0000ED9B4 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				9F85678B1F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.h */,
+				9F85678C1F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.m */,
+				9F85678D1F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.xib */,
+				9F8567851F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.h */,
+				9F8567861F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.m */,
+				9F8567871F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.xib */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		9F252A551F4D46C00056DA8F /* Dashboard */ = {
@@ -464,28 +495,20 @@
 		9F40AD7B1F2F4669002C64BA /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				9F03A9171F4563B300A7A316 /* DemandList */,
+				9F909AAA1F4EBB3800DBFA63 /* Gantt */,
+				9FD12D7C1F43FD2800F0E0A8 /* Overview */,
+				9F056B291F433F32002F3B61 /* RunList */,
+				9FA264591F48A13D004C882E /* Tasklist */,
+				9F471D0C1F542B9300B294B7 /* RoadBlocks */,
+				9F471CF51F53FF2000B294B7 /* InProcess */,
+				9F471D011F541F7700B294B7 /* ToDo */,
+				9F056B2A1F433F32002F3B61 /* TopBar */,
 				9F40AD7C1F2F469A002C64BA /* HomeViewController.h */,
 				9F40AD7D1F2F469A002C64BA /* HomeViewController.m */,
 				9F40AD7E1F2F469A002C64BA /* HomeViewController.xib */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		9F40AD811F2F4870002C64BA /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				9F9B53A31F5FC2EF008D6C67 /* ProcessFlowView */,
-				9F471D0C1F542B9300B294B7 /* RoadBlocks */,
-				9F471D011F541F7700B294B7 /* ToDo */,
-				9F471CF51F53FF2000B294B7 /* InProcess */,
-				9F909AAA1F4EBB3800DBFA63 /* Gantt */,
-				9FA264591F48A13D004C882E /* Tasklist */,
-				9F03A9171F4563B300A7A316 /* DemandList */,
-				9FD12D7C1F43FD2800F0E0A8 /* Overview */,
-				9F056B291F433F32002F3B61 /* RunList */,
-				9F056B2A1F433F32002F3B61 /* TopBar */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		9F471CEB1F53DD3700B294B7 /* SSToolKit */ = {
@@ -509,7 +532,8 @@
 				9F471CF71F53FF3600B294B7 /* InProcessView.m */,
 				9F471CF91F53FF4600B294B7 /* InProcessView.xib */,
 			);
-			path = InProcess;
+			name = InProcess;
+			path = ../../Views/InProcess;
 			sourceTree = "<group>";
 		};
 		9F471CFB1F54001300B294B7 /* Cell */ = {
@@ -532,7 +556,8 @@
 				9F471D061F541F7700B294B7 /* ToDoViewCell.m */,
 				9F471D071F541F7700B294B7 /* ToDoViewCell.xib */,
 			);
-			path = ToDo;
+			name = ToDo;
+			path = ../../Views/ToDo;
 			sourceTree = "<group>";
 		};
 		9F471D0C1F542B9300B294B7 /* RoadBlocks */ = {
@@ -545,7 +570,8 @@
 				9F471D111F542B9300B294B7 /* RoadBlocksViewCell.m */,
 				9F471D121F542B9300B294B7 /* RoadBlocksViewCell.xib */,
 			);
-			path = RoadBlocks;
+			name = RoadBlocks;
+			path = ../../Views/RoadBlocks;
 			sourceTree = "<group>";
 		};
 		9F4DE4141F558EBC0016DB03 /* MBCircularBar */ = {
@@ -611,6 +637,18 @@
 			path = ProductImages;
 			sourceTree = "<group>";
 		};
+		9F8567841F73DDB10067ABE1 /* OperatorEntry */ = {
+			isa = PBXGroup;
+			children = (
+				9F10558A1F763CC0000ED9B4 /* Cell */,
+				9F8567881F73DDB10067ABE1 /* OperatorEntryView.h */,
+				9F8567891F73DDB10067ABE1 /* OperatorEntryView.m */,
+				9F85678A1F73DDB10067ABE1 /* OperatorEntryView.xib */,
+			);
+			name = OperatorEntry;
+			path = ../../Views/OperatorEntry;
+			sourceTree = "<group>";
+		};
 		9F909AAA1F4EBB3800DBFA63 /* Gantt */ = {
 			isa = PBXGroup;
 			children = (
@@ -619,7 +657,8 @@
 				9F909AAC1F4EBB4E00DBFA63 /* GanttView.m */,
 				9F909AAE1F4EBB6200DBFA63 /* GanttView.xib */,
 			);
-			path = Gantt;
+			name = Gantt;
+			path = ../../Views/Gantt;
 			sourceTree = "<group>";
 		};
 		9F977EE91F62728B009C2B6D /* Cell */ = {
@@ -643,7 +682,8 @@
 				9F022F671F618DED000E138B /* RunProcessStepsView.m */,
 				9F022F691F618E03000E138B /* RunProcessStepsView.xib */,
 			);
-			path = ProcessFlowView;
+			name = ProcessFlowView;
+			path = ../../Views/ProcessFlowView;
 			sourceTree = "<group>";
 		};
 		9FA264591F48A13D004C882E /* Tasklist */ = {
@@ -654,7 +694,8 @@
 				9FA2645E1F48A179004C882E /* TasklistView.m */,
 				9FA264601F48A1BD004C882E /* TasklistView.xib */,
 			);
-			path = Tasklist;
+			name = Tasklist;
+			path = ../../Views/Tasklist;
 			sourceTree = "<group>";
 		};
 		9FA264621F48A30C004C882E /* Cell */ = {
@@ -687,7 +728,8 @@
 				9FD12D7E1F43FD4400F0E0A8 /* OverviewView.m */,
 				9FD12D801F43FD5600F0E0A8 /* OverviewView.xib */,
 			);
-			path = Overview;
+			name = Overview;
+			path = ../../Views/Overview;
 			sourceTree = "<group>";
 		};
 		9FD12D821F443A1400F0E0A8 /* Cell */ = {
@@ -714,6 +756,8 @@
 		9FD12D9C1F4473A600F0E0A8 /* Run */ = {
 			isa = PBXGroup;
 			children = (
+				9F9B53A31F5FC2EF008D6C67 /* ProcessFlowView */,
+				9F8567841F73DDB10067ABE1 /* OperatorEntry */,
 				9FD12DA21F449F8B00F0E0A8 /* Cell */,
 				9FD12D9D1F4473B900F0E0A8 /* RunViewController.h */,
 				9FD12D9E1F4473B900F0E0A8 /* RunViewController.m */,
@@ -819,7 +863,6 @@
 			isa = PBXGroup;
 			children = (
 				9F056B351F43464F002F3B61 /* Utils */,
-				9F40AD811F2F4870002C64BA /* Views */,
 				9FEEE59A1EEFF881005B5ECA /* Controllers */,
 				9FEEE59B1EEFF881005B5ECA /* Data */,
 				9FEEE59C1EEFF881005B5ECA /* Screens */,
@@ -954,6 +997,7 @@
 				9F85675F1F739B710067ABE1 /* IPROBE-4000-0001.png in Resources */,
 				9F8567541F739B710067ABE1 /* GrillVilleElite.png in Resources */,
 				9F8AF75E1F559441008027B1 /* placeholder.png in Resources */,
+				9F8567931F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.xib in Resources */,
 				9F252A591F4D4D9E0056DA8F /* shipmentBgImage.png in Resources */,
 				9F8567601F739B710067ABE1 /* IPROBE-4000-0002.png in Resources */,
 				9F8567761F739B710067ABE1 /* SentinelNextWithDisplay.png in Resources */,
@@ -998,11 +1042,13 @@
 				9F8567651F739B710067ABE1 /* IPROBE-4000-0007.png in Resources */,
 				9F252A571F4D46C00056DA8F /* stockBgImage.png in Resources */,
 				9F7767461F572A780092F603 /* RunListTableView.xib in Resources */,
+				9F8567911F73DDB10067ABE1 /* OperatorEntryView.xib in Resources */,
 				9F8567561F739B710067ABE1 /* ICBLUE-1000-0003.png in Resources */,
 				9F252A5B1F4D4F400056DA8F /* demandsBgImage.png in Resources */,
 				9FA264671F48A32C004C882E /* TasklistViewCell.xib in Resources */,
 				9F022F6A1F618E03000E138B /* RunProcessStepsView.xib in Resources */,
 				9F8567791F739B710067ABE1 /* XTEMP-1060.png in Resources */,
+				9F85678F1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.xib in Resources */,
 				9F85676B1F739B710067ABE1 /* IPROBE-4000-0017.png in Resources */,
 				9F3FF6D61F4BF1F800F52F64 /* FontAwesome.ttf in Resources */,
 				9F909AAF1F4EBB6200DBFA63 /* GanttView.xib in Resources */,
@@ -1019,8 +1065,11 @@
 			files = (
 				9F471CF41F53DD3700B294B7 /* SSGradientView.m in Sources */,
 				9F3FF6CD1F4BDF7500F52F64 /* FAImageView.m in Sources */,
+				9F8567921F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.m in Sources */,
 				9FD12D8E1F443CEF00F0E0A8 /* ConnectionManager.m in Sources */,
+				9F8567901F73DDB10067ABE1 /* OperatorEntryView.m in Sources */,
 				9FD12D8F1F443CEF00F0E0A8 /* DataManager.m in Sources */,
+				9F85678E1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.m in Sources */,
 				9F977EED1F6272AE009C2B6D /* RunProcessStepsViewCell.m in Sources */,
 				9F471D131F542B9300B294B7 /* RoadBlocksView.m in Sources */,
 				9FD12D861F443A3700F0E0A8 /* RunListViewCell.m in Sources */,

@@ -54,6 +54,10 @@ __CREATEVIEW(RoadBlocksView, @"RoadBlocksView", 0);
     return cell;
 }
 
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [_delegate runSelected:runsArray[indexPath.row]];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

@@ -16,7 +16,7 @@
 __CREATEVIEW(GanttView, @"GanttView", 0);
 
 - (void)initView {
-    stationsArray = [NSMutableArray arrayWithObjects:@"",@"0-NonLine Process",@"1-Inward Testing", @"2-Soldering",@"3-Mechanical Assembly",@"4-Final Inspection", @"5-Cleaning & Packaging", @"6-Moulding",nil];
+    stationsArray = [NSMutableArray arrayWithObjects:@"",@"S1-Store Activities",@"S2-Material Issue", @"S3-Contract Manufacturing",@"S4-Misc Activities",@"S5-Inspection & Testing", @"S6-Soldering", @"S7-Moulding", @"S8-Machanical Assembly", @"S9-Final Inspection", @"S10-Product Packaging", @"S11-Case Packaging",@"S12-Dispatch",nil];
     [self thisWeekArray];
     [_collectionView reloadData];
     [_leftCollectionView reloadData];
@@ -25,10 +25,10 @@ __CREATEVIEW(GanttView, @"GanttView", 0);
 
 - (void)setRunType:(int)type {
     if (type == 0) {
-        stationsArray = [NSMutableArray arrayWithObjects:@"",@"0-NonLine Process",@"1-Pick N Place", @"2-ThroughHole Assembly",@"3-Inspection",@"4-Cleaning",@"5-Ready For Dispatch" ,@"6-Dispatched",nil];
+    stationsArray = [NSMutableArray arrayWithObjects:@"",@"S1-Store Activities",@"S2-Material Issue", @"S3-Contract Manufacturing",@"S4-Misc Activities",@"S5-Inspection & Testing", @"S6-Soldering", @"S7-Moulding", @"S8-Machanical Assembly", @"S9-Final Inspection", @"S10-Product Packaging", @"S11-Case Packaging",@"S12-Dispatch",nil];
     }
     else {
-        stationsArray = [NSMutableArray arrayWithObjects:@"",@"0-NonLine Process",@"1-Inward Testing", @"2-Soldering",@"3-Mechanical Assembly",@"4-Final Inspection", @"5-Cleaning & Packaging", @"6-Moulding",nil];
+    stationsArray = [NSMutableArray arrayWithObjects:@"",@"S1-Store Activities",@"S2-Material Issue", @"S3-Contract Manufacturing",@"S4-Misc Activities",@"S5-Inspection & Testing", @"S6-Soldering", @"S7-Moulding", @"S8-Machanical Assembly", @"S9-Final Inspection", @"S10-Product Packaging", @"S11-Case Packaging",@"S12-Dispatch",nil];
     }
 }
 

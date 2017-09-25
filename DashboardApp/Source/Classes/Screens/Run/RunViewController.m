@@ -9,6 +9,9 @@
 #import "RunViewController.h"
 #import "ConnectionManager.h"
 #import "RunPartsViewCell.h"
+#import "ServerManager.h"
+#import "Constants.h"
+#import "DataManager.h"
 
 @interface RunViewController ()
 
@@ -25,7 +28,13 @@
     _reportsButton.layer.cornerRadius = 6.0f;
     _ganttButton.layer.cornerRadius = 6.0f;
     _photoButton.layer.cornerRadius = 20.0f;
-    _inProcessView.layer.cornerRadius = 29.0f;
+    _thisYearView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _thisYearView.layer.borderWidth = 1.0f;
+    _lastYearView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _lastYearView.layer.borderWidth = 1.0f;
+    _prevLastYearView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _prevLastYearView.layer.borderWidth = 1.0f;
+    /*_inProcessView.layer.cornerRadius = 29.0f;
     _inProcessView.layer.borderColor = [UIColor grayColor].CGColor;
     _inProcessView.layer.borderWidth = 1.2f;
     _readyView.layer.cornerRadius = 29.0f;
@@ -39,7 +48,7 @@
     _rejectView.layer.borderWidth = 1.2f;
     _shippedView.layer.cornerRadius = 29.0f;
     _shippedView.layer.borderColor = [UIColor grayColor].CGColor;
-    _shippedView.layer.borderWidth = 1.2f;
+    _shippedView.layer.borderWidth = 1.2f;*/
     
     _runTitleLabel.text = [NSString stringWithFormat:@"%d: %@ - %d Units",[run getRunId], [run getProductName], [run getQuantity]];
     _productIdLabel.text = [run getProductNumber];
@@ -52,6 +61,9 @@
     }
     _statusLabel.text = [run getStatus];
     _reqDateLabel.text = [run getRequestDate];
+    _updatedDateLabel.text = [run getRunData][@"Updated"];
+    _shippingDateLabel.text = [run getRunData][@"Shipping"];
+    _versionLabel.text = [run getRunData][@"Version"];
     if ([run getRunData][@"Inprocess"]) {
         _inProcessLabel.text = [run getRunData][@"Inprocess"];
     }
@@ -83,7 +95,23 @@
     runProcessStepsView.delegate = self;
     [self.view addSubview:runProcessStepsView];
     
+    operatorEntryView = [OperatorEntryView createView];
+    operatorEntryView.frame = CGRectMake(0, 0, _bottomPaneView.frame.size.width, _bottomPaneView.frame.size.height);
+    [operatorEntryView initView];
+    //operatorEntryView.hidden = true;
+    //tasklistView.delegate = self;
+    [_bottomPaneView addSubview:operatorEntryView];
+    [self getProductSales];
+
     [self getPartsShort];
+    [__ServerManager getProcessList];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(initProcesses) name:kNotificationCommonProcessesReceived object:nil];
+}
+
+- (void) initProcesses {
+    commonProcessesArray = [__DataManager getCommonProcesses];
+    [self getProcessFlow];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -133,7 +161,19 @@
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     NSString *reqString = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/get_short_parts.php?id=%d",[run getRunId]];
-    [connectionManager makeRequest:reqString withTag:3];
+    [connectionManager makeRequest:reqString withTag:1];
+}
+
+- (void)getProcessFlow {
+    ConnectionManager *connectionManager = [ConnectionManager new];
+    connectionManager.delegate = self;
+    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getProcessFlow&process_ctrl_id=%@-%@-%@",[run getProductNumber], @"PC1",@"1.0"] withTag:2];
+}
+
+- (void)getProductSales {
+    ConnectionManager *connectionManager = [ConnectionManager new];
+    connectionManager.delegate = self;
+    [connectionManager makeRequest:[NSString stringWithFormat:@"http://www.aginova.info/aginova/json/product_sales.php?pid=%@",[run getProductNumber]] withTag:3];
 }
 
 - (void) parseJsonResponse:(NSData*)jsonData withTag:(int)tag{
@@ -153,11 +193,50 @@
     if ([json isKindOfClass:[NSArray class]]){
          NSLog(@"json Array = %@",json);
         if (json.count > 0) {
-            partsArray = json;
-            [_tableView reloadData];
-            for (int i=0; i < json.count; ++i) {
-
+            if (tag == 1) {
+                partsArray = json;
+                [_tableView reloadData];
+                for (int i=0; i < json.count; ++i) {
+                    
+                }
             }
+            else if (tag == 3) {
+                NSMutableDictionary *jsonData = json[0];
+                _thisYearCountLabel.text = jsonData[@"Current Yr Sold"];
+                _lastYearCountLabel.text = jsonData[@"Previous Yr Sold"];
+            }
+            else {
+                processesArray = [[NSMutableArray alloc] init];
+                NSDictionary *jsonDict = json[0];
+                NSMutableArray* jsonProcessesArray = jsonDict[@"processes"];
+                NSLog(@"json processes array=%@",jsonProcessesArray);
+                for (int i=0; i < jsonProcessesArray.count; ++i) {
+                    NSDictionary *processDict = jsonProcessesArray[i];
+                    [self getProcessWithNo:processDict[@"processno"]];
+                }
+                [operatorEntryView setProcessesArray:processesArray];
+            }
+        }
+    }
+}
+
+- (void)getProcessWithNo:(NSString*)processNo {
+    // NSLog(@"common processes:%@",commonProcessesArray);
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-dd-MM"];
+    for (int i=0; i < commonProcessesArray.count; ++i) {
+        NSMutableDictionary *processData = commonProcessesArray[i];
+        if ([processData[@"processno"] isEqualToString:processNo]) {
+            /*NSMutableDictionary *selectedProcessData = [[NSMutableDictionary alloc] init];
+             [selectedProcessData setObject:processData[@"processno"] forKey:@"processno"];
+             [selectedProcessData setObject:[NSString stringWithFormat:@"%lu",selectedProcessesArray.count+1] forKey:@"stepid"];
+             [selectedProcessData setObject:@"A" forKey:@"operator"];
+             [selectedProcessData setObject:@"1" forKey:@"time"];
+             [selectedProcessData setObject:@"1" forKey:@"points"];
+             [selectedProcessData setObject:[dateFormat stringFromDate:[NSDate date]] forKey:@"timestamp"];
+             [selectedProcessData setObject:@"Test" forKey:@"comments"];
+             //[selectedProcessesArray addObject:selectedProcessData];*/
+            [processesArray addObject:processData];
         }
     }
 }

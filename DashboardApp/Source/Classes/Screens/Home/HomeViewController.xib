@@ -15,8 +15,8 @@
                 <outlet property="_activityLogImageView" destination="5Ab-r3-ND2" id="c8p-8x-j9B"/>
                 <outlet property="_bottomPaneView" destination="YdR-WF-n59" id="xqo-51-QWe"/>
                 <outlet property="_doneImageView" destination="EOF-Bs-mvo" id="HLU-td-deG"/>
-                <outlet property="_inProcessCountLabel" destination="0qG-G6-2fq" id="uhd-hE-D9y"/>
-                <outlet property="_inProcessView" destination="2gF-7T-CBz" id="LFC-2u-THk"/>
+                <outlet property="_inProcessCountLabel" destination="yfr-Ce-uoj" id="BQ2-In-gkm"/>
+                <outlet property="_inProcessView" destination="z5x-kt-8wu" id="eUv-dt-zww"/>
                 <outlet property="_leftPaneView" destination="m4j-Qb-3bo" id="e4v-Hy-NxC"/>
                 <outlet property="_overviewView" destination="ICX-OQ-N5E" id="Cqw-py-XX0"/>
                 <outlet property="_roadBlocksView" destination="czA-hO-YEu" id="PGf-Le-TVy"/>
@@ -25,9 +25,7 @@
                 <outlet property="_tasklistButton" destination="r23-0t-knN" id="GES-Wt-1Fe"/>
                 <outlet property="_tasklistImageView" destination="cjk-8z-guT" id="Ndl-12-UaD"/>
                 <outlet property="_titleButton" destination="aUa-rq-TXU" id="SBX-f7-xuS"/>
-                <outlet property="_todoCountLabel" destination="yfr-Ce-uoj" id="iFT-ha-TXj"/>
                 <outlet property="_todoImageView" destination="Mef-Qs-m6N" id="zBS-1r-3j5"/>
-                <outlet property="_todoView" destination="z5x-kt-8wu" id="H44-CK-5H1"/>
                 <outlet property="_topPaneView" destination="EEm-6r-wwp" id="CJ2-UO-hGq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -45,7 +43,7 @@
                             <rect key="frame" x="8" y="8" width="309" height="250"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="In Process (0)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qG-G6-2fq">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Done (0)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qG-G6-2fq">
                                     <rect key="frame" x="54" y="8" width="193" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -66,7 +64,7 @@
                                     <rect key="frame" x="23" y="10" width="25" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To Do (0)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfr-Ce-uoj">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="In Process (0)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfr-Ce-uoj">
                                     <rect key="frame" x="69" y="8" width="193" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>

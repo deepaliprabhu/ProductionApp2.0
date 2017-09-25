@@ -15,6 +15,7 @@
 @protocol RunProcessStepsViewDelegate;
 @interface RunProcessStepsView : UIView {
     IBOutlet UILabel *_runTitleLabel;
+    IBOutlet UILabel *_versionLabel;
     IBOutlet UITableView *_runProcessesTableView;
     IBOutlet UITableView *_commonProcessesTableView;
     IBOutlet UIView *_commonProcessesView;
@@ -27,11 +28,23 @@
     IBOutlet UIButton *_reportsButton;
     IBOutlet UIButton *_ganttButton;
     IBOutlet UIButton *_submitButton;
+    IBOutlet UIButton *_statusButton;
+    
+    IBOutlet UILabel *_processNameLabel;
+    IBOutlet UILabel *_timeLabel;
+    IBOutlet UILabel *_pointsLabel;
+    IBOutlet UILabel *_operator1Label;
+    IBOutlet UILabel *_operator2Label;
+    IBOutlet UILabel *_operator3Label;
+    IBOutlet UITableView *_wiTableView;
+    IBOutlet UIView *_processInfoView;
     
     Run *run;
     
     NSMutableArray *processStepsArray;
     NSMutableArray *commonProcessesArray;
+    NSMutableArray *selectedProcessesArray;
+    NSMutableArray *workInstructionsArray;
 }
 __pd(RunProcessStepsViewDelegate);
 __CREATEVIEWH(RunProcessStepsView);
