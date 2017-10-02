@@ -18,6 +18,9 @@ __CREATEVIEW(GanttView, @"GanttView", 0);
 - (void)initView {
     stationsArray = [NSMutableArray arrayWithObjects:@"",@"S1-Store Activities",@"S2-Material Issue", @"S3-Contract Manufacturing",@"S4-Misc Activities",@"S5-Inspection & Testing", @"S6-Soldering", @"S7-Moulding", @"S8-Machanical Assembly", @"S9-Final Inspection", @"S10-Product Packaging", @"S11-Case Packaging",@"S12-Dispatch",nil];
     [self thisWeekArray];
+    [_scrollView setContentSize:CGSizeMake(50*17+192, stationsArray.count*25)];
+        //[_collectionView setFrame:CGRectMake(_collectionView.frame.origin.x, _collectionView.frame.origin.y, 16*50, 25*stationsArray.count)];
+    [_dragView setFrame:CGRectMake(_leftCollectionView.frame.size.width, _collectionView.frame.origin.y, _collectionView.frame.size.width, stationsArray.count*25)];
     [_collectionView reloadData];
     [_leftCollectionView reloadData];
     //[_tableView reloadData];
@@ -35,9 +38,9 @@ __CREATEVIEW(GanttView, @"GanttView", 0);
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
     if ([view isEqual:_leftCollectionView]) {
-        return 8;
+        return stationsArray.count;
     }
-    return 139;
+    return stationsArray.count*17;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -75,10 +78,10 @@ __CREATEVIEW(GanttView, @"GanttView", 0);
         [collectionView registerNib:[UINib nibWithNibName:identifier bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:identifier];
 
         CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-        int rowIndex = indexPath.row%8;
+        int rowIndex = indexPath.row%stationsArray.count;
         NSMutableDictionary *dict;
         if (rowIndex == 0) {
-            dict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:datesArray[indexPath.row/8],@"RunId", nil];
+            dict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:datesArray[indexPath.row/stationsArray.count],@"RunId", nil];
             cell.backgroundColor = [UIColor clearColor];
             
         }
@@ -151,13 +154,13 @@ __CREATEVIEW(GanttView, @"GanttView", 0);
     NSTimeInterval interval;
     int startDate, endDate;
     
-    [cal rangeOfUnit:NSMonthCalendarUnit
+    [cal rangeOfUnit:NSWeekCalendarUnit
            startDate:&startOfTheWeek
             interval:&interval
              forDate:now];
     //startOfWeek holds now the first day of the week, according to locale (monday vs. sunday)
     
-    endOfWeek = [startOfTheWeek dateByAddingTimeInterval:interval];
+    endOfWeek = [startOfTheWeek dateByAddingTimeInterval:interval*3];
     startDate = [[dateFormat stringFromDate:startOfTheWeek] intValue];
     endDate = [[dateFormat stringFromDate:endOfWeek] intValue];
     [dateFormat setDateFormat:@"dd/MM"];

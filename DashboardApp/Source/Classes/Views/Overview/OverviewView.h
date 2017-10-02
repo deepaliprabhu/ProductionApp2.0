@@ -57,4 +57,5 @@ __CREATEVIEWH(OverviewView);
 @protocol OverviewViewDelegate <NSObject>
 - (void) runsSelected;
 - (void) demandsSelected;
+- (void) processControlSelected;
 @end

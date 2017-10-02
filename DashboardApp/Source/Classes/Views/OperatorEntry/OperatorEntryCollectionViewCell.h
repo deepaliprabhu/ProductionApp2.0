@@ -7,10 +7,29 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Defines.h"
+#import "CKCalendarView.h"
+#import "DropDownListView.h"
 
-@interface OperatorEntryCollectionViewCell : UICollectionViewCell {
+
+@protocol OperatorEntryCollectionViewDelegate;
+@interface OperatorEntryCollectionViewCell : UICollectionViewCell<UITextFieldDelegate, CKCalendarDelegate, kDropDownListViewDelegate> {
     IBOutlet UITextField *_titleTF;
+    
+    DropDownListView * dropDownList;
+    
+    NSMutableArray *operatorArray;
+    NSMutableDictionary *data;
+    int row,col;
 }
-- (void)setCellData:(NSMutableDictionary*)cellData rowIndex:(int)index;
+__pd(OperatorEntryCollectionViewDelegate);
+- (void)setCellData:(NSMutableDictionary*)cellData rowIndex:(int)rowIndex colIndex:(int)colIndex;
+@property(nonatomic, weak) CKCalendarView *calendar;
+@property(nonatomic, strong) UILabel *dateLabel;
+@property(nonatomic, strong) NSDateFormatter *dateFormatter;
+@property(nonatomic, strong) NSDate *minimumDate;
+@end
 
+@protocol OperatorEntryCollectionViewDelegate <NSObject>
+- (void)updateProcessWithText:(NSString*)text row:(int)rowIndex col:(int)colIndex;
 @end

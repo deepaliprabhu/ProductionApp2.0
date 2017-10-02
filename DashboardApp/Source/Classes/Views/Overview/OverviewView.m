@@ -107,4 +107,8 @@ __CREATEVIEW(OverviewView, @"OverviewView", 0);
     [_delegate demandsSelected];
 }
 
+- (IBAction)processControlPressed:(id)sender {
+    [_delegate processControlSelected];
+}
+
 @end

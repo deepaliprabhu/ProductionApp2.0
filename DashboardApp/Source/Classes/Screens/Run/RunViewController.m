@@ -12,6 +12,9 @@
 #import "ServerManager.h"
 #import "Constants.h"
 #import "DataManager.h"
+#import "UIView+RNActivityView.h"
+#import "UIImage+FontAwesome.h"
+
 
 @interface RunViewController ()
 
@@ -49,6 +52,10 @@
     _shippedView.layer.cornerRadius = 29.0f;
     _shippedView.layer.borderColor = [UIColor grayColor].CGColor;
     _shippedView.layer.borderWidth = 1.2f;*/
+    
+    statusArray = [NSMutableArray arrayWithObjects:@"On Hold:Parts Short", @"On Hold:Low Priority",@"NEW: Parts Shortage", @"NEW: BOM Inspection", @"NEW: Ready To Submit", @"In Progress", @"Ready For Dispatch",@"Shipped", @"Closed",nil];
+    
+    dispatchArray = [@[@"--", @"Next Week", @"Shipped", @"Pick a date"] mutableCopy];
     
     _runTitleLabel.text = [NSString stringWithFormat:@"%d: %@ - %d Units",[run getRunId], [run getProductName], [run getQuantity]];
     _productIdLabel.text = [run getProductNumber];
@@ -98,20 +105,22 @@
     operatorEntryView = [OperatorEntryView createView];
     operatorEntryView.frame = CGRectMake(0, 0, _bottomPaneView.frame.size.width, _bottomPaneView.frame.size.height);
     [operatorEntryView initView];
-    //operatorEntryView.hidden = true;
-    //tasklistView.delegate = self;
+    operatorEntryView.delegate = self;
     [_bottomPaneView addSubview:operatorEntryView];
     [self getProductSales];
 
     [self getPartsShort];
     [__ServerManager getProcessList];
+    [self.navigationController.view showActivityViewWithLabel:@"fetching data"];
+    [self.navigationController.view hideActivityViewWithAfterDelay:60];
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(initProcesses) name:kNotificationCommonProcessesReceived object:nil];
 }
 
 - (void) initProcesses {
     commonProcessesArray = [__DataManager getCommonProcesses];
-    [self getProcessFlow];
+    [operatorEntryView setCommonProcessesArray:commonProcessesArray];
+    [self getRunProcessFlow];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -127,6 +136,148 @@
     _tintView.hidden = false;
     runProcessStepsView.hidden = false;
     [runProcessStepsView initView];
+}
+
+- (IBAction)statsPressed:(id)sender {
+    NSMutableDictionary *obj = [run getRunData];
+    if (!([obj[@"Shipping"] isEqualToString:@""]||[obj[@"Shipping"] isEqualToString:@" "]||[obj[@"Shipping"] isEqualToString:@"--"])) {
+        NSRange range = [obj[@"Shipping"] rangeOfString:@"("];
+        NSString *shippingString = [obj[@"Shipping"] substringToIndex:range.location];
+        if (![shippingString isEqualToString:@""]) {
+            [_pickShippingButton setTitle:shippingString forState:UIControlStateNormal];
+        }
+        selectedShipping = shippingString;
+        NSString *shippingCount= [obj[@"Shipping"] substringFromIndex:range.location];
+        shippingCount = [shippingCount stringByReplacingOccurrencesOfString:@")" withString:@""];
+        shippingCount = [shippingCount stringByReplacingOccurrencesOfString:@"(" withString:@""];
+        _countTF.text = shippingCount;
+    }
+    else {
+        if ([obj[@"Shipping"] isEqualToString:@"--"]) {
+            [_pickShippingButton setTitle:@"--" forState:UIControlStateNormal];
+            selectedShipping = @"--";
+        }
+    }
+    selectedStatus = [run getStatus];
+    [_pickStatusButton setTitle:[run getStatus] forState:UIControlStateNormal];
+    _inProcessTF.text = [run getRunData][@"Inprocess"];
+    _readyTF.text = [run getRunData][@"Ready"];
+    _reworkTF.text = [run getRunData][@"Rework"];
+    _rejectTF.text = [run getRunData][@"Reject"];
+    _shippedTF.text = [run getRunData][@"Shipped"];
+    
+    UIImage *iconCross = [UIImage imageWithIcon:@"fa-times" backgroundColor:[UIColor clearColor] iconColor:[UIColor whiteColor] fontSize:20];
+    [_closeEditButton setImage:iconCross forState:UIControlStateNormal];
+    UIImage *iconTick = [UIImage imageWithIcon:@"fa-check" backgroundColor:[UIColor clearColor] iconColor:[UIColor whiteColor] fontSize:20];
+    [_saveEditButton setImage:iconTick forState:UIControlStateNormal];
+    _editStatsView.frame = CGRectMake(30, 70, _editStatsView.frame.size.width, _editStatsView.frame.size.height);
+    [self.view addSubview:_editStatsView];
+}
+
+- (IBAction)closeEditPressed:(id)sender {
+    [_editStatsView removeFromSuperview];
+}
+
+- (IBAction)saveEditPressed:(id)sender {
+    [_editStatsView removeFromSuperview];
+    _shippingDateLabel.text = [NSString stringWithFormat:@"%@(%@)",selectedShipping,_countTF.text];
+    NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:_readyTF.text,@"Ready", _reworkTF.text, @"Rework", _inProcessTF.text, @"InProcess", _rejectTF.text, @"Reject", _shippedTF.text, @"Shipped", selectedStatus, @"Status",[NSString stringWithFormat:@"%@(%@)",selectedShipping,_countTF.text], @"Shipping", nil];
+    [run updateRunData:dictionary];
+    //[self updateRunData:dictionary];
+    [__DataManager syncRun:[run getRunId]];
+}
+
+- (IBAction)pickStatusPressed:(id)sender {
+    if(dropDown == nil) {
+        CGFloat f = 235;
+        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :statusArray :nil :@"down"];
+        dropDown.tag = 1;
+        dropDown.backgroundColor = [UIColor orangeColor];
+        dropDown.delegate = self;
+    }
+    else {
+        [dropDown hideDropDown:sender];
+        dropDown = nil;
+    }
+}
+
+- (IBAction)pickShippingPressed:(id)sender {
+    if(dropDown == nil) {
+        CGFloat f = 235;
+        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :dispatchArray :nil :@"down"];
+        dropDown.tag = 2;
+        dropDown.backgroundColor = [UIColor orangeColor];
+        dropDown.delegate = self;
+    }
+    else {
+        [dropDown hideDropDown:sender];
+        dropDown = nil;
+    }
+}
+
+- (void) selectedListIndex:(int)index {
+    //selectedOperator = operatorArray[index];
+    if (dropDown.tag == 1) {
+        selectedStatus = statusArray[index];
+    }
+    else {
+        if (index == 3) {
+            CKCalendarView *calendar = [[CKCalendarView alloc] initWithStartDay:startMonday];
+            self.calendar = calendar;
+            calendar.delegate = self;
+            // calendar.tag = tag;
+            self.dateFormatter = [[NSDateFormatter alloc] init];
+            [self.dateFormatter setDateFormat:@"dd/MM/yyyy"];
+            self.minimumDate = [self.dateFormatter dateFromString:@"20/09/2012"];
+            
+            calendar.onlyShowCurrentMonth = NO;
+            calendar.adaptHeightToNumberOfWeeksInMonth = YES;
+            
+            calendar.frame = CGRectMake(10, 260, 300, 320);
+            [self.view addSubview:calendar];
+        }
+        else {
+            selectedShipping = dispatchArray[index];
+        }
+    }
+    dropDown = nil;
+}
+
+- (void) niDropDownDelegateMethod: (NIDropDown *) sender {
+    dropDown = nil;
+}
+
+#pragma mark - CKCalendarDelegate
+
+- (void)calendar:(CKCalendarView *)calendar configureDateItem:(CKDateItem *)dateItem forDate:(NSDate *)date {
+    // TODO: play with the coloring if we want to...
+    // dateItem.backgroundColor = [UIColor redColor];
+    // dateItem.textColor = [UIColor whiteColor];
+}
+
+- (BOOL)calendar:(CKCalendarView *)calendar willSelectDate:(NSDate *)date {
+    return true;
+}
+
+- (void)calendar:(CKCalendarView *)calendar didSelectDate:(NSDate *)date {
+    NSString *dateString = [self.dateFormatter stringFromDate:date];
+    [calendar removeFromSuperview];
+    [_pickShippingButton setTitle:dateString forState:UIControlStateNormal];
+    selectedShipping = dateString;
+}
+
+- (BOOL)calendar:(CKCalendarView *)calendar willChangeToMonth:(NSDate *)date {
+    if ([date laterDate:self.minimumDate] == date) {
+        self.calendar.backgroundColor = [UIColor grayColor];
+        return YES;
+    } else {
+        self.calendar.backgroundColor = [UIColor grayColor];
+        return NO;
+    }
+}
+
+- (void)calendar:(CKCalendarView *)calendar didLayoutInRect:(CGRect)frame {
+    NSLog(@"calendar layout: %@", NSStringFromCGRect(frame));
 }
 
 - (void)setRun:(Run*)run_ {
@@ -157,6 +308,23 @@
 }
 
 
+- (void)setUpRunFlow {
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d_%@-%@-%@",[run getRunId],[run getProductNumber],@"PC1", @"1.0"],@"run_flow_id", @"Arvind",@"updatedBy",[dateFormat stringFromDate:[NSDate date]], @"updatedTimestamp" , nil];
+    [__DataManager syncRunProcesses:flowProcessesArray withProcessData:processData];
+}
+
+- (void)updateProcess:(NSMutableDictionary*)processesData {
+    flowProcessesArray = [[NSMutableArray alloc] init];
+    [flowProcessesArray addObject:processesData];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d_%@-%@-%@",[run getRunId],[run getProductNumber],@"PC1", @"1.0"],@"run_flow_id", @"Arvind",@"updatedBy",[dateFormat stringFromDate:[NSDate date]], @"updatedTimestamp" , nil];
+    [__DataManager updateRunProcesses:flowProcessesArray withProcessData:processData];
+}
+
+
 - (void)getPartsShort {
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
@@ -170,6 +338,12 @@
     [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getProcessFlow&process_ctrl_id=%@-%@-%@",[run getProductNumber], @"PC1",@"1.0"] withTag:2];
 }
 
+- (void)getRunProcessFlow {
+    ConnectionManager *connectionManager = [ConnectionManager new];
+    connectionManager.delegate = self;
+    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getRunProcessFlow&run_flow_id=%d_%@-%@-%@",[run getRunId],[run getProductNumber], @"PC1",@"1.0"] withTag:4];
+}
+
 - (void)getProductSales {
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
@@ -178,6 +352,7 @@
 
 - (void) parseJsonResponse:(NSData*)jsonData withTag:(int)tag{
     //[self.view bringSubviewToFront:_scrollView];
+    flowProcessesArray = [[NSMutableArray alloc] init];
     NSString *partShortString = @"";
     NSError* error;
     NSString *dataString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
@@ -188,8 +363,14 @@
     
     if (error) {
         NSLog(@"error parsing json");
+        if (tag == 4) {
+            [self getProcessFlow];
+            [self.navigationController.view hideActivityView];
+        }
     }
-    
+    if (tag == 4) {
+        [self.navigationController.view hideActivityView];
+    }
     if ([json isKindOfClass:[NSArray class]]){
          NSLog(@"json Array = %@",json);
         if (json.count > 0) {
@@ -205,16 +386,32 @@
                 _thisYearCountLabel.text = jsonData[@"Current Yr Sold"];
                 _lastYearCountLabel.text = jsonData[@"Previous Yr Sold"];
             }
+            else if (tag == 4) {
+                flowProcessesArray = [[NSMutableArray alloc] init];
+                NSDictionary *jsonDict = json[0];
+                NSMutableArray* jsonProcessesArray = jsonDict[@"processes"];
+                if (jsonProcessesArray.count > 0) {
+                    [operatorEntryView setProcessesArray:jsonProcessesArray];
+                }
+                else {
+                    [self getProcessFlow];
+                }
+            }
             else {
+                [self.navigationController.view hideActivityView];
                 processesArray = [[NSMutableArray alloc] init];
                 NSDictionary *jsonDict = json[0];
                 NSMutableArray* jsonProcessesArray = jsonDict[@"processes"];
                 NSLog(@"json processes array=%@",jsonProcessesArray);
+               // flowProcessesArray = jsonProcessesArray;
                 for (int i=0; i < jsonProcessesArray.count; ++i) {
                     NSDictionary *processDict = jsonProcessesArray[i];
                     [self getProcessWithNo:processDict[@"processno"]];
+                    [self setProductProcessToFlow:processDict];
                 }
-                [operatorEntryView setProcessesArray:processesArray];
+               // [operatorEntryView setProcessesArray:processesArray];
+                NSLog(@"flowProcessesArray=%@",flowProcessesArray);
+                [self setUpRunFlow];
             }
         }
     }
@@ -241,6 +438,31 @@
     }
 }
 
+- (void)setProductProcessToFlow:(NSMutableDictionary*)processFlowData {
+    // NSLog(@"common processes:%@",commonProcessesArray);
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    for (int i=0; i < commonProcessesArray.count; ++i) {
+        NSMutableDictionary *processData = commonProcessesArray[i];
+        if ([processData[@"processno"] isEqualToString:processFlowData[@"processno"]]) {
+            NSMutableDictionary *selectedProcessData = [[NSMutableDictionary alloc] init];
+            [selectedProcessData setObject:processData[@"processno"] forKey:@"processno"];
+            [selectedProcessData setObject:processData[@"op1"] forKey:@"operator"];
+            [selectedProcessData setObject:@"" forKey:@"dateAssigned"];
+            [selectedProcessData setObject:@"" forKey:@"dateCompleted"];
+            [selectedProcessData setObject:@"" forKey:@"qtyEntered"];
+            [selectedProcessData setObject:@"" forKey:@"qtyOkay"];
+            [selectedProcessData setObject:@"" forKey:@"qtyRework"];
+            [selectedProcessData setObject:@"" forKey:@"dateReject"];
+            [selectedProcessData setObject:@"Open" forKey:@"status"];
+            [selectedProcessData setObject:@"" forKey:@"rating"];
+            [selectedProcessData setObject:@"" forKey:@"comments"];
+            [selectedProcessData setObject:[NSString stringWithFormat:@"%lu",flowProcessesArray.count+1] forKey:@"stepid"];
+            [flowProcessesArray addObject:selectedProcessData];
+        }
+    }
+}
+
 - (void) parseJsonResponse:(NSData*)jsonData {
     
 }
@@ -248,6 +470,12 @@
 - (void)closeProcessStepsView {
     runProcessStepsView.hidden = true;
     _tintView.hidden = true;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSLog(@"textFieldShouldReturn called");
+    [textField resignFirstResponder];
+    return true;
 }
 
 /*

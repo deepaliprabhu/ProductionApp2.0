@@ -232,9 +232,37 @@ static DataManager *_sharedInstance = nil;
     count++;
     
     if (count > 0) {
-        jsonString = [NSString stringWithFormat:@"&process_cntrl_id=%@&process_cntrl_name=%@&originator=%@&approver=%@&comments=%@&timestamp=%@&description=%@&productid=%@&versionid=%@&status=%@&count=%lu&json=%@",processData[@"process_cntrl_id"], processData[@"process_cntrl_name"], processData[@"Originator"], processData[@"Approver"],processData[@"Originator"], processData[@"Approver"], processData[@"Description"],processData[@"ProductId"],processData[@"VersionId"],processData[@"Status"],(unsigned long)processesArray.count,jsonString];
+        jsonString = [NSString stringWithFormat:@"&process_ctrl_id=%@&process_ctrl_name=%@&originator=%@&approver=%@&comments=%@&timestamp=%@&description=%@&productid=%@&versionid=%@&status=%@&count=%lu&json=%@",processData[@"process_ctrl_id"], processData[@"process_ctrl_name"], processData[@"Originator"], processData[@"Approver"],processData[@"Comments"], processData[@"Timestamp"], processData[@"Description"],processData[@"ProductId"],processData[@"VersionId"],processData[@"Status"],(unsigned long)processesArray.count,jsonString];
         [__ServerManager setDelegate:self];
-        [__ServerManager updateProcessFlowWithJsonString:jsonString];
+        [__ServerManager addProcessFlowWithJsonString:jsonString];
+    }
+    NSLog(@"json string = %@",jsonString);
+}
+
+- (void)syncRunProcesses:(NSMutableArray*)processesArray withProcessData:(NSMutableDictionary*)processData {
+    int count = 0;
+    NSString *jsonString = @"";
+    jsonString = [jsonString stringByAppendingString:[self jsonString:processesArray WithPrettyPrint:false]];
+    count++;
+    
+    if (count > 0) {
+        jsonString = [NSString stringWithFormat:@"&run_flow_id=%@&updatedTimestamp=%@&updatedBy=%@&count=%lu&json=%@",processData[@"run_flow_id"], processData[@"updatedTimestamp"], @"Arvind",(unsigned long)processesArray.count,jsonString];
+        [__ServerManager setDelegate:self];
+        [__ServerManager addRunProcessFlowWithJsonString:jsonString];
+    }
+    NSLog(@"json string = %@",jsonString);
+}
+
+- (void)updateRunProcesses:(NSMutableArray*)processesArray withProcessData:(NSMutableDictionary*)processData {
+    int count = 0;
+    NSString *jsonString = @"";
+    jsonString = [jsonString stringByAppendingString:[self jsonString:processesArray WithPrettyPrint:false]];
+    count++;
+    
+    if (count > 0) {
+        jsonString = [NSString stringWithFormat:@"&run_flow_id=%@&updatedTimestamp=%@&updatedBy=%@&count=%lu&json=%@",processData[@"run_flow_id"], processData[@"updatedTimestamp"], @"Arvind",(unsigned long)processesArray.count,jsonString];
+        [__ServerManager setDelegate:self];
+        [__ServerManager updateRunProcessFlowWithJsonString:jsonString];
     }
     NSLog(@"json string = %@",jsonString);
 }
@@ -372,6 +400,34 @@ static DataManager *_sharedInstance = nil;
 - (void)updateProcessAtIndex:(int)index process:(NSMutableDictionary*)processData {
     [commonProcessesArray replaceObjectAtIndex:index withObject:processData];
     [editedProcessesArray addObject:processData];
+}
+
+- (void)setProductsArray:(NSMutableArray*)productsArray_ {
+    productsArray = productsArray_;
+    __notifyObj(kNotificationProductsReceived, nil);
+}
+
+- (NSMutableArray*)getProductsArray {
+    return productsArray;
+}
+
+- (NSMutableDictionary*)getProcessForNo:(NSString*)processNo {
+    for (int i=0; i < commonProcessesArray.count; ++i) {
+        NSMutableDictionary *processData = commonProcessesArray[i];
+        if ([processData[@"processno"] isEqualToString:processNo]) {
+            return processData;
+        }
+    }
+    return nil;
+}
+- (NSString*)getTimeForProcessNo:(NSString*)processNo {
+    for (int i=0; i < commonProcessesArray.count; ++i) {
+        NSMutableDictionary *processData = commonProcessesArray[i];
+        if ([processData[@"processno"] isEqualToString:processNo]) {
+            return processData[@"time"];
+        }
+    }
+    return nil;
 }
 
 @end

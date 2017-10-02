@@ -15,6 +15,7 @@
     IBOutlet UICollectionView *_leftCollectionView;
     IBOutlet UITableView *_tableView;
     IBOutlet UIView *_dragView;
+    IBOutlet UIScrollView *_scrollView;
     
     NSMutableArray *stationsArray;
     NSMutableArray *datesArray;

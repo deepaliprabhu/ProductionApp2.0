@@ -19,6 +19,7 @@
     NSMutableArray *runDefects;
     NSMutableArray *runFeedbacks;
     NSMutableArray *runPartsShort;
+    NSMutableArray *runFlowProcesses;
     NSMutableDictionary *runData;
     
     UIColor *runColor;
@@ -86,4 +87,6 @@
 - (int)getRunCompletion;
 - (void)setRunColor:(UIColor*)color;
 - (UIColor*)getRunColor;
+- (void)setRunFlowProcesses:(NSMutableArray*)flowProcessesArray;
+- (NSMutableArray*)getRunFlowProcesses;
 @end

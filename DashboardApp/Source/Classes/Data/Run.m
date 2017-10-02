@@ -71,7 +71,7 @@
 
 - (void)updateRunData:(NSDictionary*)runData_ {
     _inProcess = [[runData_ objectForKey:@"InProcess"] intValue];
-    _ready = [[runData_ objectForKey:@"Quantity"] intValue];
+    _ready = [[runData_ objectForKey:@"Ready"] intValue];
     _shipped = [[runData_ objectForKey:@"Shipped"] intValue];
     _rework = [[runData_ objectForKey:@"Rework"] intValue];
     _reject = [[runData_ objectForKey:@"Reject"] intValue];
@@ -81,7 +81,7 @@
     [runData setValue:_status forKey:@"Status"];
     //[runData setValue:[runData_ objectForKey:@"Quantity"] forKey:@"Qty"];
     [runData setValue:[runData_ objectForKey:@"Shipped"] forKey:@"Shipped"];
-    [runData setValue:[runData_ objectForKey:@"Quantity"] forKey:@"Ready"];
+    [runData setValue:[runData_ objectForKey:@"Ready"] forKey:@"Ready"];
     [runData setValue:[runData_ objectForKey:@"Rework"] forKey:@"Rework"];
     [runData setValue:[runData_ objectForKey:@"Reject"] forKey:@"Reject"];
     [runData setValue:[runData_ objectForKey:@"InProcess"] forKey:@"Inprocess"];
@@ -206,6 +206,14 @@
 
 - (UIColor*)getRunColor {
     return runColor;
+}
+
+- (void)setRunFlowProcesses:(NSMutableArray*)flowProcessesArray {
+    runFlowProcesses = flowProcessesArray;
+}
+
+- (NSMutableArray*)getRunFlowProcesses {
+    return runFlowProcesses;
 }
 
 @end

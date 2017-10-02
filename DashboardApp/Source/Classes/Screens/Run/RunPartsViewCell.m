@@ -28,6 +28,12 @@
     _puneStockLabel.text = cellData[@"Pune"];
     _recoPuneLabel.text = cellData[@"RECO_PUNE"];
     _recoMasonLabel.text = cellData[@"RECO_MASON"];
+    if ([cellData[@"color"] isEqualToString:@"red"]) {
+        _partNameLabel.textColor = [UIColor redColor];
+    }
+    if ([cellData[@"color"] isEqualToString:@"yellow"]) {
+        _partNameLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:160.0f/255.0f blue:30.0f/255.0f alpha:1.0f];
+    }
 }
 
 @end

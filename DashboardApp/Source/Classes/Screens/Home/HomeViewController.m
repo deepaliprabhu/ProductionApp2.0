@@ -13,6 +13,8 @@
 #import "RunViewController.h"
 #import "UIImage+FontAwesome.h"
 #import "GanttView.h"
+#import "UIView+RNActivityView.h"
+#import "ProductListViewController.h"
 
 
 @interface HomeViewController ()
@@ -109,7 +111,8 @@
     [_activityLogButton setBackgroundColor:[UIColor colorWithRed:244.0f/255.0f green:248.0f/255.0f blue:251.0f/255.0f alpha:1.0f]];
     
     [self.view bringSubviewToFront:_titleButton];
-    
+    [self.navigationController.view showActivityViewWithLabel:@"fetching data"];
+    [self.navigationController.view hideActivityViewWithAfterDelay:60];
     [__ServerManager getRunsList];
     [__ServerManager getDemands];
     selectedRunType = 1;
@@ -132,6 +135,11 @@
     demandListView.hidden = false;
 }
 
+- (void) processControlSelected {
+    ProductListViewController *productListVC = [ProductListViewController new];
+    [self.navigationController pushViewController:productListVC animated:NO];
+}
+
 - (void) closeSelected {
     overviewView.hidden = false;
     demandListView.hidden = true;
@@ -147,6 +155,7 @@
     [inProcessView initView];
     [todoView initView];
     [roadBlocksView initView];
+    [self.navigationController.view hideActivityView];
 }
 
 - (void) initDemands {

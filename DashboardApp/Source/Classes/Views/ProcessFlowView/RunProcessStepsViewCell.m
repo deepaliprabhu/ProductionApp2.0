@@ -8,6 +8,7 @@
 
 #import "RunProcessStepsViewCell.h"
 #import "UIImage+FontAwesome.h"
+#import "DataManager.h"
 
 @implementation RunProcessStepsViewCell
 
@@ -29,8 +30,9 @@
 
 - (void)setCellData:(NSMutableDictionary *)cellData index:(int)index_{
     index = index_;
-    _titleLabel.text = [NSString stringWithFormat:@"%d-%@",index,cellData[@"processname"]];
-    _stationLabel.text = cellData[@"stationid"];
+    NSMutableDictionary *processData = [__DataManager getProcessForNo:cellData[@"processno"]];
+    _titleLabel.text = [NSString stringWithFormat:@"%@-%@",processData[@"processno"],processData[@"processname"]];
+    _stationLabel.text = processData[@"stationid"];
 }
 
 - (IBAction)crossButtonPressed:(id)sender {

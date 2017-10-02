@@ -39,8 +39,10 @@ __pds(ServerProtocol);
 - (void)getJobsListTest;
 - (void)getProcessList;
 - (void)updateCommonProcessesWithJsonString:(NSString*)jsonString;
-- (void)updateProcessFlowWithJsonString:(NSString*)jsonString;
-
+- (void)addProcessFlowWithJsonString:(NSString*)jsonString;
+- (void)addRunProcessFlowWithJsonString:(NSString*)jsonString;
+- (void)updateRunProcessFlowWithJsonString:(NSString*)jsonString;
+- (void)getProductList;
 @end
 
 @protocol ServerProtocol <NSObject>

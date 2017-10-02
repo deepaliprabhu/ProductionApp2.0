@@ -31,6 +31,7 @@
     NSMutableArray *thisWeekOperationsArray;
     NSMutableArray *commonProcessesArray;
     NSMutableArray *editedProcessesArray;
+    NSMutableArray *productsArray;
 }
 
 + (id) sharedInstance;
@@ -78,6 +79,12 @@ __pds(DataManagerProtocol);
 - (void)updateProcessAtIndex:(int)index process:(NSMutableDictionary*)processData;
 - (void)syncCommonProcesses;
 - (void)syncProcesses:(NSMutableArray*)processesArray withProcessData:(NSMutableDictionary*)processData;
+- (void)syncRunProcesses:(NSMutableArray*)processesArray withProcessData:(NSMutableDictionary*)processData;
+- (void)updateRunProcesses:(NSMutableArray*)processesArray withProcessData:(NSMutableDictionary*)processData;
+- (void)setProductsArray:(NSMutableArray*)productsArray_;
+- (NSMutableArray*)getProductsArray;
+- (NSMutableDictionary*)getProcessForNo:(NSString*)processNo;
+- (NSString*)getTimeForProcessNo:(NSString*)processNo;
 @end
 
 @protocol DataManagerProtocol <NSObject>

@@ -10,8 +10,10 @@
 #import "Run.h"
 #import "RunProcessStepsView.h"
 #import "OperatorEntryView.h"
+#import "NIDropDown.h"
+#import "CKCalendarView.h"
 
-@interface RunViewController : UIViewController {
+@interface RunViewController : UIViewController<NIDropDownDelegate, CKCalendarDelegate> {
     IBOutlet UILabel *_runTitleLabel;
     IBOutlet UILabel *_productIdLabel;
     IBOutlet UILabel *_priorityLabel;
@@ -48,15 +50,37 @@
     IBOutlet UIView *_lastYearView;
     IBOutlet UIView *_prevLastYearView;
     
+    IBOutlet UIButton *_pickStatusButton;
+    IBOutlet UIButton *_pickShippingButton;
+    IBOutlet UIButton *_closeEditButton;
+    IBOutlet UIButton *_saveEditButton;
+    IBOutlet UITextField *_countTF;
+    IBOutlet UITextField *_inProcessTF;
+    IBOutlet UITextField *_readyTF;
+    IBOutlet UITextField *_reworkTF;
+    IBOutlet UITextField *_rejectTF;
+    IBOutlet UITextField *_shippedTF;
+    IBOutlet UIView *_editStatsView;
+    
     Run *run;
     RunProcessStepsView *runProcessStepsView;
     OperatorEntryView *operatorEntryView;
+    NIDropDown *dropDown;
     
     NSMutableArray *partsArray;
     NSMutableArray *processesArray;
     NSMutableArray *commonProcessesArray;
+    NSMutableArray *dispatchArray;
+    NSMutableArray *statusArray;
+    NSMutableArray *flowProcessesArray;
     
+    NSString *selectedShipping;
+    NSString *selectedStatus;
 }
+@property(nonatomic, weak) CKCalendarView *calendar;
+@property(nonatomic, strong) UILabel *dateLabel;
+@property(nonatomic, strong) NSDateFormatter *dateFormatter;
+@property(nonatomic, strong) NSDate *minimumDate;
 - (void)setRun:(Run*)run_;
 
 @end

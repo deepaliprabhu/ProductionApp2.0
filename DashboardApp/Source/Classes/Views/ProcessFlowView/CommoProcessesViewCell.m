@@ -28,7 +28,7 @@
 
 - (void)setCellData:(NSMutableDictionary *)cellData index:(int)index_{
     index = index_;
-    _titleLabel.text = cellData[@"processname"];
+    _titleLabel.text = [NSString stringWithFormat:@"%@-%@",cellData[@"processno"],cellData[@"processname"]];
 }
 
 - (IBAction)addButtonPressed:(id)sender {

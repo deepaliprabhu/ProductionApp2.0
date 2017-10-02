@@ -109,12 +109,27 @@ static ServerManager *_sharedInstance = nil;
     [connectionManager makeRequest:urlString];
 }
 
-- (void)updateProcessFlowWithJsonString:(NSString*)jsonString {
+- (void)addProcessFlowWithJsonString:(NSString*)jsonString {
     NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateProcessFlow&do=add%@",[self urlEncodeUsingEncoding:jsonString]];
     connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makeRequest:urlString];
 }
+
+- (void)addRunProcessFlowWithJsonString:(NSString*)jsonString {
+    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateRunProcessFlow&do=add%@",[self urlEncodeUsingEncoding:jsonString]];
+    connectionManager = [ConnectionManager new];
+    connectionManager.delegate = self;
+    [connectionManager makeRequest:urlString];
+}
+
+- (void)updateRunProcessFlowWithJsonString:(NSString*)jsonString {
+    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateRunProcessFlow&do=update%@",[self urlEncodeUsingEncoding:jsonString]];
+    connectionManager = [ConnectionManager new];
+    connectionManager.delegate = self;
+    [connectionManager makeRequest:urlString];
+}
+
 - (void)getPartsShort {
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
@@ -168,6 +183,12 @@ static ServerManager *_sharedInstance = nil;
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makeRequest:@"http://aginova.info/aginova/json/processes.php?call=getProcessList" withTag:9];
+}
+
+- (void)getProductList {
+    ConnectionManager *connectionManager = [ConnectionManager new];
+    connectionManager.delegate = self;
+    [connectionManager makeRequest:@"http://aginova.info/aginova/json/product_list.php" withTag:10];
 }
 
 - (void) displayErrorWithMessage:(NSString*)errorMessage {
@@ -228,6 +249,7 @@ static ServerManager *_sharedInstance = nil;
 
 
     dataString = [dataString stringByReplacingOccurrencesOfString:@"\"orange peel\"" withString:@"s"];
+    //dataString = [dataString stringByReplacingOccurrencesOfString:@",\"" withString:@""];
     dataString = [dataString stringByReplacingOccurrencesOfString:@"	" withString:@""];
 
     if (tag == 6) {
@@ -303,6 +325,10 @@ static ServerManager *_sharedInstance = nil;
                 break;
             case 9: {
                 [__DataManager setCommonProcesses:[json mutableCopy]];
+            }
+                break;
+            case 10: {
+                [__DataManager setProductsArray:[json mutableCopy]];
             }
                 break;
             default:
