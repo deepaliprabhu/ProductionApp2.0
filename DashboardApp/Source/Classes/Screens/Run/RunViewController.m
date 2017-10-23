@@ -25,17 +25,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+
     _processFlowButton.layer.cornerRadius = 6.0f;
     _documentationButton.layer.cornerRadius = 6.0f;
     _historyButton.layer.cornerRadius = 6.0f;
     _reportsButton.layer.cornerRadius = 6.0f;
     _ganttButton.layer.cornerRadius = 6.0f;
     _photoButton.layer.cornerRadius = 20.0f;
-    _thisYearView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _thisYearView.layer.borderColor = [UIColor colorWithRed:102.0f/255.0f green:102.0f/255.0f blue:102.0f/255.0f alpha:1.0f].CGColor;
     _thisYearView.layer.borderWidth = 1.0f;
-    _lastYearView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _lastYearView.layer.borderColor = [UIColor colorWithRed:102.0f/255.0f green:102.0f/255.0f blue:102.0f/255.0f alpha:1.0f].CGColor;
     _lastYearView.layer.borderWidth = 1.0f;
-    _prevLastYearView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _prevLastYearView.layer.borderColor = [UIColor colorWithRed:102.0f/255.0f green:102.0f/255.0f blue:102.0f/255.0f alpha:1.0f].CGColor;
     _prevLastYearView.layer.borderWidth = 1.0f;
     /*_inProcessView.layer.cornerRadius = 29.0f;
     _inProcessView.layer.borderColor = [UIColor grayColor].CGColor;
@@ -106,6 +107,7 @@
     operatorEntryView.frame = CGRectMake(0, 0, _bottomPaneView.frame.size.width, _bottomPaneView.frame.size.height);
     [operatorEntryView initView];
     operatorEntryView.delegate = self;
+    [operatorEntryView setRun:run];
     [_bottomPaneView addSubview:operatorEntryView];
     [self getProductSales];
 
@@ -115,6 +117,24 @@
     [self.navigationController.view hideActivityViewWithAfterDelay:60];
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(initProcesses) name:kNotificationCommonProcessesReceived object:nil];
+    
+    UIImage *iconCogs = [UIImage imageWithIcon:@"fa-cogs" backgroundColor:[UIColor clearColor] iconColor:[UIColor whiteColor] fontSize:15];
+    [_processFlowButton setImage:iconCogs forState:UIControlStateNormal];
+    
+    UIImage *iconList = [UIImage imageWithIcon:@"fa-list" backgroundColor:[UIColor clearColor] iconColor:[UIColor whiteColor] fontSize:15];
+    [_ganttButton setImage:iconList forState:UIControlStateNormal];
+    
+    UIImage *iconBook = [UIImage imageWithIcon:@"fa-book" backgroundColor:[UIColor clearColor] iconColor:[UIColor whiteColor] fontSize:15];
+    [_documentationButton setImage:iconBook forState:UIControlStateNormal];
+    
+    UIImage *iconHourGlass = [UIImage imageWithIcon:@"fa-hourglass-half" backgroundColor:[UIColor clearColor] iconColor:[UIColor whiteColor] fontSize:15];
+    [_historyButton setImage:iconHourGlass forState:UIControlStateNormal];
+    
+    UIImage *iconFile = [UIImage imageWithIcon:@"fa-file" backgroundColor:[UIColor clearColor] iconColor:[UIColor whiteColor] fontSize:15];
+    [_reportsButton setImage:iconFile forState:UIControlStateNormal];
+    backgroundDimmingView = [self buildBackgroundDimmingView];
+    [self.view addSubview:backgroundDimmingView];
+    backgroundDimmingView.hidden = true;
 }
 
 - (void) initProcesses {
@@ -128,13 +148,42 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (UIView *)buildBackgroundDimmingView{
+    UIView *bgView;
+    //blur effect for iOS8
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat frameHeight = screenRect.size.height;
+    CGFloat frameWidth = screenRect.size.width;
+    CGFloat sideLength = frameHeight > frameWidth ? frameHeight : frameWidth;
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1) {
+        UIBlurEffect *eff = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        bgView = [[UIVisualEffectView alloc] initWithEffect:eff];
+        bgView.frame = CGRectMake(0, 0, sideLength, sideLength);
+    }
+    else {
+        bgView = [[UIView alloc] initWithFrame:self.view.frame];
+        bgView.backgroundColor = [UIColor blackColor];
+    }
+    bgView.alpha = 0.7;
+    return bgView;
+}
+
+- (void)showBackgroundDimmingView {
+    backgroundDimmingView.hidden = false;
+}
+
+- (void)hideBackgroundDimmingView {
+    backgroundDimmingView.hidden = true;
+}
+
 - (IBAction)closeButtonPressed:(id)sender {
     [self.navigationController popViewControllerAnimated:false];
 }
 
 - (IBAction)processStepsPressed:(id)sender {
-    _tintView.hidden = false;
+    [self showBackgroundDimmingView];
     runProcessStepsView.hidden = false;
+    [self.view bringSubviewToFront:runProcessStepsView];
     [runProcessStepsView initView];
 }
 
@@ -184,6 +233,14 @@
     NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:_readyTF.text,@"Ready", _reworkTF.text, @"Rework", _inProcessTF.text, @"InProcess", _rejectTF.text, @"Reject", _shippedTF.text, @"Shipped", selectedStatus, @"Status",[NSString stringWithFormat:@"%@(%@)",selectedShipping,_countTF.text], @"Shipping", nil];
     [run updateRunData:dictionary];
     //[self updateRunData:dictionary];
+    [__DataManager syncRun:[run getRunId]];
+}
+
+- (void)updateRunStats:(NSMutableDictionary*)statsData {
+    _inProcessLabel.text = statsData[@"InProcess"];
+    _reworkLabel.text = statsData[@"Rework"];
+    _rejectLabel.text = statsData[@"Reject"];
+    [run updateRunStats:statsData];
     [__DataManager syncRun:[run getRunId]];
 }
 
@@ -307,6 +364,13 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
+-(NSString *)urlEncodeUsingEncoding:(NSString*)string {
+    return (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL,
+                                                                                 (CFStringRef)string,
+                                                                                 NULL,
+                                                                                 (CFStringRef)@"!*'\"() ",
+                                                                                 CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)));
+}
 
 - (void)setUpRunFlow {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -335,7 +399,7 @@
 - (void)getProcessFlow {
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
-    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getProcessFlow&process_ctrl_id=%@-%@-%@",[run getProductNumber], @"PC1",@"1.0"] withTag:2];
+    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getProcessFlow&process_ctrl_id=%@-%@-%@",[self urlEncodeUsingEncoding:[run getProductNumber]], @"PC1",@"1.0"] withTag:2];
 }
 
 - (void)getRunProcessFlow {
@@ -469,7 +533,7 @@
 
 - (void)closeProcessStepsView {
     runProcessStepsView.hidden = true;
-    _tintView.hidden = true;
+    [self hideBackgroundDimmingView];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

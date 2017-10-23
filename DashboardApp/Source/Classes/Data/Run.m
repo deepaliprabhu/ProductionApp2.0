@@ -90,6 +90,16 @@
     NSLog(@"updated rundata=%@",runData);
 }
 
+- (void)updateRunStats:(NSDictionary*)statsData {
+    _inProcess = [[statsData objectForKey:@"InProcess"] intValue];
+    _rework = [[statsData objectForKey:@"Rework"] intValue];
+    _reject = [[statsData objectForKey:@"Reject"] intValue];
+    
+    [runData setValue:[statsData objectForKey:@"Rework"] forKey:@"Rework"];
+    [runData setValue:[statsData objectForKey:@"Reject"] forKey:@"Reject"];
+    [runData setValue:[statsData objectForKey:@"InProcess"] forKey:@"Inprocess"];
+}
+
 - (NSMutableDictionary*)getRunData {
     return runData;
 }

@@ -89,4 +89,5 @@
 - (UIColor*)getRunColor;
 - (void)setRunFlowProcesses:(NSMutableArray*)flowProcessesArray;
 - (NSMutableArray*)getRunFlowProcesses;
+- (void)updateRunStats:(NSDictionary*)statsData;
 @end

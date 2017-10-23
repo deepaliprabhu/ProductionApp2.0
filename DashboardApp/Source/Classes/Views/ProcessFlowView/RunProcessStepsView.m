@@ -128,6 +128,7 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
         cell.textLabel.text = workInstructionsArray[indexPath.row];
         cell.textLabel.font = [cell.textLabel.font fontWithSize:11];
         cell.textLabel.numberOfLines = 2;
+        cell.textLabel.textColor = [UIColor grayColor];
        // cell.imageView.image = [UIImage imageNamed:@"placeholder.png"];
         
         return cell;
@@ -227,7 +228,9 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
                     [self getProcessWithNo:processDict[@"processno"]];
                 }
                 NSLog(@"processes Array=%@",processStepsArray);
+                [self filterProcesses];
                 [_runProcessesTableView reloadData];
+                [self tableView:_runProcessesTableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
             }
         }
     }
@@ -239,6 +242,20 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
 
 - (void) parseJsonResponse:(NSData*)jsonData {
     
+}
+
+- (void)filterProcesses {
+    NSString *runCategory = [run getRunData][@"Category"];
+    NSMutableArray *filteredArray = [[NSMutableArray alloc] init];
+    for (int i=0; i < processStepsArray.count; ++i) {
+        NSMutableDictionary *processData = processStepsArray[i];
+        NSMutableDictionary *commonProcessData = [__DataManager getProcessForNo:processData[@"processno"]];
+        if(([commonProcessData[@"category"] isEqualToString:runCategory])||([commonProcessData[@"category"] isEqualToString:@"Common"])) {
+            [filteredArray addObject:processData];
+        }
+    }
+    processStepsArray = filteredArray;
+    NSLog(@"filteredArray = %@",filteredArray);
 }
 
 - (void)getProcessWithNo:(NSString*)processNo {
@@ -274,15 +291,12 @@ __CREATEVIEW(RunProcessStepsView, @"RunProcessStepsView", 0);
 }*/
 
 - (void)showProcessInfoViewWithData:(NSMutableDictionary*)processData {
-    _processInfoView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _processInfoView.layer.borderWidth = 1.0f;
     _processInfoView.hidden = false;
     _processNameLabel.text = [NSString stringWithFormat:@"%@: %@",processData[@"stationid"],processData[@"processname"]];
     _timeLabel.text = processData[@"time"];
     _operator1Label.text = processData[@"op1"];
     _operator2Label.text = processData[@"op2"];
     _operator3Label.text = processData[@"op3"];
-    
 }
 
 - (IBAction)closeProcessInfoView {

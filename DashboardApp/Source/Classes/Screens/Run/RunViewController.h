@@ -61,6 +61,7 @@
     IBOutlet UITextField *_rejectTF;
     IBOutlet UITextField *_shippedTF;
     IBOutlet UIView *_editStatsView;
+    UIView *backgroundDimmingView;
     
     Run *run;
     RunProcessStepsView *runProcessStepsView;

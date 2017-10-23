@@ -17,6 +17,7 @@
     IBOutlet UITextField *_titleTF;
     
     DropDownListView * dropDownList;
+    CKCalendarView *calendar;
     
     NSMutableArray *operatorArray;
     NSMutableDictionary *data;
@@ -24,6 +25,7 @@
 }
 __pd(OperatorEntryCollectionViewDelegate);
 - (void)setCellData:(NSMutableDictionary*)cellData rowIndex:(int)rowIndex colIndex:(int)colIndex;
+- (void)removeCalendar;
 @property(nonatomic, weak) CKCalendarView *calendar;
 @property(nonatomic, strong) UILabel *dateLabel;
 @property(nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -31,5 +33,7 @@ __pd(OperatorEntryCollectionViewDelegate);
 @end
 
 @protocol OperatorEntryCollectionViewDelegate <NSObject>
+- (void)tintViewDisplayed:(OperatorEntryCollectionViewCell*)cell;
 - (void)updateProcessWithText:(NSString*)text row:(int)rowIndex col:(int)colIndex;
+- (void)showEntryViewAtColIndex:(int)colIndex;
 @end

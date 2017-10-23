@@ -15,6 +15,8 @@
     IBOutlet UIImageView *_searchImageView;
     IBOutlet UIImageView *_helpImageView;
     IBOutlet UIImageView *_downImageView;
+    IBOutlet UIView *_userView;
+    IBOutlet UIView *_loginView;
 }
 __CREATEVIEWH(TopBarView);
 - (void)initView;

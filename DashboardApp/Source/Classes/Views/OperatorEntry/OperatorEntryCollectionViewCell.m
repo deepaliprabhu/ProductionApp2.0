@@ -31,7 +31,12 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField.tag == 0) {
-        [self showPopUpWithTitle:@"Set Status" withOption:operatorArray xy:CGPointMake(16, 0) size:CGSizeMake(287, 260) isMultiple:NO];
+        [self showPopUpWithTitle:@"Set Operator" withOption:operatorArray xy:CGPointMake(16, 0) size:CGSizeMake(287, 260) isMultiple:NO];
+        [_delegate tintViewDisplayed:self];
+        return false;
+    }
+    else if (textField.tag > 1 && textField.tag < 6) {
+        [_delegate showEntryViewAtColIndex:col];
         return false;
     }
     else {
@@ -43,7 +48,7 @@
     NSLog(@"textFieldDidBeginEditing called");
     if ((textField.tag == 6)||(textField.tag == 7)) {
         [_titleTF resignFirstResponder];
-        CKCalendarView *calendar = [[CKCalendarView alloc] initWithStartDay:startMonday];
+        calendar = [[CKCalendarView alloc] initWithStartDay:startMonday];
         self.calendar = calendar;
         calendar.delegate = self;
         // calendar.tag = tag;
@@ -56,6 +61,7 @@
         
         calendar.frame = CGRectMake(20, 0, 270, 270);
         [self.superview.superview.superview addSubview:calendar];
+        [_delegate tintViewDisplayed:self];
         //[_delegate updateProcessWithText:_titleTF.text row:row col:col];
     }
     if (textField.tag == 0) {
@@ -105,6 +111,11 @@
 
 - (void)calendar:(CKCalendarView *)calendar didLayoutInRect:(CGRect)frame {
     NSLog(@"calendar layout: %@", NSStringFromCGRect(frame));
+}
+
+- (void)removeCalendar {
+    [calendar removeFromSuperview];
+    [dropDownList DropDownListViewDidCancel];
 }
 
 

@@ -24,6 +24,7 @@
 // If animated is YES, PopListView will be appeared with FadeIn effect.
 - (void)showInView:(UIView *)aView animated:(BOOL)animated;
 -(void)SetBackGroundDropDown_R:(CGFloat)r G:(CGFloat)g B:(CGFloat)b alpha:(CGFloat)alph;
+- (void)DropDownListViewDidCancel;
 @end
 
 @protocol kDropDownListViewDelegate <NSObject>
