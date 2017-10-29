@@ -397,9 +397,13 @@
 }
 
 - (void)getProcessFlow {
+    NSString *productNumber = [run getProductNumber];
+    if ([productNumber isEqualToString:@"RCPT-1001-0004"]) {
+        productNumber = @"EZ-1000-0002";
+    }
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
-    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getProcessFlow&process_ctrl_id=%@-%@-%@",[self urlEncodeUsingEncoding:[run getProductNumber]], @"PC1",@"1.0"] withTag:2];
+    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getProcessFlow&process_ctrl_id=%@-%@-%@",[self urlEncodeUsingEncoding:productNumber], @"PC1",@"1.0"] withTag:2];
 }
 
 - (void)getRunProcessFlow {

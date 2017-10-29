@@ -38,7 +38,7 @@
             self.frame = CGRectMake(btn.origin.x, btn.origin.y, btn.size.width, 0);
             self.layer.shadowOffset = CGSizeMake(-5, -5);
         }else if ([direction isEqualToString:@"down"]) {
-            self.frame = CGRectMake(btn.origin.x, btn.origin.y+btn.size.height, btn.size.width, 0);
+            self.frame = CGRectMake(btn.origin.x+100, btn.origin.y+btn.size.height, btn.size.width, 0);
             self.layer.shadowOffset = CGSizeMake(-5, 5);
         }
         
@@ -60,7 +60,7 @@
         if ([direction isEqualToString:@"up"]) {
             self.frame = CGRectMake(btn.origin.x, btn.origin.y-*height, btn.size.width, *height);
         } else if([direction isEqualToString:@"down"]) {
-            self.frame = CGRectMake(btn.origin.x, btn.origin.y+btn.size.height+30, btn.size.width, *height);
+            self.frame = CGRectMake(btn.origin.x+100, btn.origin.y+btn.size.height+30, btn.size.width, *height);
         }
         table.frame = CGRectMake(0, 0, btn.size.width, *height);
         [UIView commitAnimations];

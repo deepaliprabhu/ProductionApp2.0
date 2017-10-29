@@ -34,4 +34,8 @@
     _stockDateLabel.text = cellData[@"stock_when"];
     _notesTextView.text = cellData[@"Notes"];
 }
+
+- (void)setExpectedDate:(NSString*)dateString {
+    _shippingLabel.text = dateString;
+}
 @end
