@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Defines.h"
+#import "ProductModel.h"
 
 @protocol ProductViewDelegate;
 @interface ProductCollectionViewCell : UICollectionViewCell {
@@ -16,8 +17,10 @@
     
     int index;
 }
+
 __pd(ProductViewDelegate);
-- (void)setCellData:(NSMutableDictionary*)cellData atIndex:(int)index;
+- (void)setCellData:(ProductModel*)p atIndex:(int)index_;
+
 @end
 
 @protocol ProductViewDelegate <NSObject>

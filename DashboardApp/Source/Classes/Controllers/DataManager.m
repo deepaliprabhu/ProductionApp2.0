@@ -11,6 +11,7 @@
 #import "Defines.h"
 #import "ServerManager.h"
 #import "ConnectionManager.h"
+#import "ProductModel.h"
 //#import <Realm/Realm.h>
 
 static DataManager *_sharedInstance = nil;
@@ -403,7 +404,11 @@ static DataManager *_sharedInstance = nil;
 }
 
 - (void)setProductsArray:(NSMutableArray*)productsArray_ {
-    productsArray = productsArray_;
+    productsArray = [NSMutableArray array];
+    for (NSDictionary *d in productsArray_) {
+        ProductModel *p = [ProductModel objectFrom:d];
+        [productsArray addObject:p];
+    }
     __notifyObj(kNotificationProductsReceived, nil);
 }
 

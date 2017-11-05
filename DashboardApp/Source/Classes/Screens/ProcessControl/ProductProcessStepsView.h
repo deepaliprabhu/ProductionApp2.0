@@ -12,6 +12,7 @@
 #import "CommonProcessesViewCell.h"
 #import "Run.h"
 #import "DropDownListView.h"
+#import "ProductModel.h"
 
 @protocol ProductProcessStepsViewDelegate;
 @interface ProductProcessStepsView : UIView<kDropDownListViewDelegate> {
@@ -48,14 +49,14 @@
     NSMutableArray *workInstructionsArray;
     NSMutableArray *statusOptionsArray;
     
-    NSMutableDictionary *productData;
+    ProductModel *_product;
     
     NSString *processCntrlId;
 }
 __pd(ProductProcessStepsViewDelegate);
 __CREATEVIEWH(ProductProcessStepsView);
 - (void)initView;
-- (void)setProductData:(NSMutableDictionary*)productData_;
+- (void)setProductData:(ProductModel*)p;
 
 @end
 

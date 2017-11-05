@@ -328,7 +328,7 @@ static ServerManager *_sharedInstance = nil;
             }
                 break;
             case 10: {
-                [__DataManager setProductsArray:[json mutableCopy]];
+                [__DataManager setProductsArray:json];
             }
                 break;
             default:

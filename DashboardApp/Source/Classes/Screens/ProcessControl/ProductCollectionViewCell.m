@@ -10,29 +10,37 @@
 
 @implementation ProductCollectionViewCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-- (void)setCellData:(NSMutableDictionary*)cellData atIndex:(int)index_{
+- (void)setCellData:(ProductModel*)p atIndex:(int)index_
+{
     index = index_;
-    _titleLabel.text = cellData[@"Name"];
-    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",cellData[@"Product Number"]]];
-    if (image) {
+    _titleLabel.text = p.name;
+    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", p.productNumber]];
+    if (image)
         [_imageView setImage:image];
-    }
-    else {
+    else
         [_imageView setImage:[UIImage imageNamed:@"placeholder.png"]];
+    
+    if ([p.productStatus isEqualToString:@"InActive"])
+    {
+        _titleLabel.alpha = 0.3;
+        _imageView.alpha  = 0.3;
     }
-    if (([[cellData[@"Status"] lowercaseString] isEqualToString:@"archive"])||([[cellData[@"Status"] lowercaseString] isEqualToString:@"open"])) {
-        self.backgroundColor = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:2.0f/255.0f alpha:0.2f];
+    else
+    {
+        _titleLabel.alpha = 1;
+        _imageView.alpha  = 1;
     }
-    if ([[cellData[@"Status"] lowercaseString] containsString:@"waiting"]) {
-        self.backgroundColor = [UIColor colorWithRed:131.0f/255.0f green:188.0f/255.0f blue:72.0f/255.0f alpha:0.4f];
+    
+    NSString *status = [p.status lowercaseString];
+    if (([status isEqualToString:@"archive"])||([status isEqualToString:@"open"])) {
+        self.backgroundColor = ccolora(255, 255, 255, 0.2);
+    } else if ([status containsString:@"waiting"]) {
+        self.backgroundColor = ccolora(131, 188, 72, 0.4);
     }
 }
 
 - (IBAction)productPressed:(id)sender {
     [_delegate viewProductAtIndex:index];
 }
+
 @end

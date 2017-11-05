@@ -7,23 +7,61 @@
 //
 
 #import "ProductGroupView.h"
-#import "ProductCollectionViewCell.h"
+#import "ProdAPI.h"
+#import "LoadingView.h"
 
 @implementation ProductGroupView
 
 __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
 
-- (void)initViewWithTitle:(NSString*)title {
+- (void)initViewWithTitle:(NSString*)title
+{
     _titleLabel.text = title;
-    //self.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    //self.layer.borderWidth = 1.0f;
-   // self.layer.cornerRadius = 8.0f;
 }
 
-- (void)setProductsArray:(NSMutableArray*)productsArray_ {
+- (void)setProductsArray:(NSArray*)productsArray_
+{
     productsArray = productsArray_;
     [_collectionView reloadData];
+    
+    if (_screenIsForAdmin == true)
+        [self layoutCountLabel];
 }
+
+#pragma mark - ProductViewDelegate
+
+- (void)viewProductAtIndex:(int)index
+{
+    ProductModel *p = productsArray[index];
+    if (_screenIsForAdmin == true)
+    {
+        NSString *newStatus = nil;
+        if ([p.productStatus isEqualToString:@"InActive"])
+            newStatus = @"Active";
+        else
+            newStatus = @"InActive";
+        
+        [LoadingView showLoading:@"Updating..."];
+        [[ProdAPI sharedInstance] updateProduct:p.productID status:newStatus withCompletion:^(BOOL success, id response) {
+            
+            if (success == true) {
+                if ([newStatus isEqualToString:@"Active"])
+                    [LoadingView showShortMessage:@"Product activated"];
+                else
+                    [LoadingView showShortMessage:@"Product disabled"];
+                p.productStatus = newStatus;
+                [_collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
+                [self layoutCountLabel];
+            } else {
+                [LoadingView showShortMessage:@"Error, try again later!"];
+            }
+        }];
+    }
+    else
+        [_delegate viewProductSteps:p];
+}
+
+#pragma mark - UICollectionViewDelegate
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
@@ -34,7 +72,6 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
     return 1;
 }
 
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
     static NSString *identifier = @"ProductCollectionViewCell";
@@ -43,7 +80,7 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
     
     ProductCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     cell.delegate = self;
-    [cell setCellData:productsArray[indexPath.row] atIndex:indexPath.row];
+    [cell setCellData:productsArray[indexPath.row] atIndex:(int)indexPath.row];
     
     return cell;
 }
@@ -63,17 +100,19 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     return 0.0;
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
-- (void)viewProductAtIndex:(int)index {
-    NSMutableDictionary *productData = productsArray[index];
-    NSLog(@"product selected=%@",productData[@"Name"]);
-    [_delegate viewProductSteps:productData];
+#pragma mark - Layout
+
+- (void) layoutCountLabel
+{
+    int c = 0;
+    for (ProductModel *p in productsArray)
+    {
+        if ([p.productStatus isEqualToString:@"InActive"] == false)
+            c = c + 1;
+    }
+    
+    _countLabel.text = cstrf(@"%d/%lu", c, (unsigned long)productsArray.count);
 }
+
 @end

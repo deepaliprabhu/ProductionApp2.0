@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ProductProcessStepsView.h"
+#import "ProductGroupView.h"
 
-@interface ProductListViewController : UIViewController<ProductProcessStepsViewDelegate> {
+@interface ProductListViewController : UIViewController<ProductProcessStepsViewDelegate, ProductGroupViewDelegate> {
     IBOutlet UIView *_productGroupView;
     UIView *backgroundDimmingView;
 
@@ -19,5 +20,7 @@
     NSMutableArray *productGroupsArray;
     NSMutableArray *productGroupViewsArray;
 }
+
+@property (nonatomic, unsafe_unretained) BOOL screenIsForAdmin;
 
 @end

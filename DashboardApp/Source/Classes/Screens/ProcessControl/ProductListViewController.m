@@ -10,24 +10,81 @@
 #import "ServerManager.h"
 #import "DataManager.h"
 #import "Constants.h"
-#import "ProductGroupView.h"
-
-@interface ProductListViewController ()
-
-@end
+#import "ProductModel.h"
 
 @implementation ProductListViewController
+{
+    __weak IBOutlet UIButton *_adminButton;
+}
+
+#pragma mark - View lifecycle
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    productGroupsArray = [NSMutableArray arrayWithObjects:@"Argus",@"iCelsius", @"GrillVille",@"Bluetooth",@"Others",nil];
+    
+    if (_screenIsForAdmin == true) {
+        _adminButton.alpha = 0;
+    }
+    
+    productGroupsArray = [NSMutableArray arrayWithObjects:@"Sentinel", @"Inspector", @"GrillVille", @"Misc.",nil];
     [__ServerManager getProductList];
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(initProductList) name:kNotificationProductsReceived object:nil];
 }
 
-- (UIView *)buildBackgroundDimmingView{
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (_screenIsForAdmin == false)
+        [self reloadData];
+}
+
+#pragma mark - Actions
+
+- (IBAction)closePressed:(id)sender {
+    
+    if (_screenIsForAdmin == true) {
+        [self dismissViewControllerAnimated:true completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:false];
+    }
+}
+
+- (IBAction) adminButtonTapped {
+    
+    ProductListViewController *productListVC = [ProductListViewController new];
+    productListVC.screenIsForAdmin = true;
+    [self.navigationController presentViewController:productListVC animated:true completion:nil];
+}
+
+#pragma mark - ProductViewGroupDelegate
+
+- (void) viewProductSteps:(ProductModel *)product
+{
+    if (_screenIsForAdmin == false) {
+
+        backgroundDimmingView.hidden = false;
+        productProcessStepsView = [ProductProcessStepsView createView];
+        productProcessStepsView.frame = CGRectMake(self.view.frame.size.width/2-productProcessStepsView.frame.size.width/2, self.view.frame.size.height/2-productProcessStepsView.frame.size.height/2, productProcessStepsView.frame.size.width, productProcessStepsView.frame.size.height);
+        [productProcessStepsView setProductData:product];
+        productProcessStepsView.delegate = self;
+        [productProcessStepsView initView];
+        [self.view addSubview:productProcessStepsView];
+    }
+}
+
+#pragma mark - ProductProcessStepsViewDelegate
+
+- (void)closeProcessStepsView {
+    backgroundDimmingView.hidden = true;
+    [productProcessStepsView removeFromSuperview];
+}
+
+#pragma mark - Layout
+
+- (UIView *)buildBackgroundDimmingView {
     UIView *bgView;
     //blur effect for iOS8
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -47,14 +104,30 @@
     return bgView;
 }
 
-- (void) initProductList{
+#pragma mark - Utils
+
+- (void) reloadData
+{
+    for (int i=0; i < productGroupViewsArray.count; ++i)
+    {
+        ProductGroupView *productGroupView = productGroupViewsArray[i];
+        [productGroupView setProductsArray:[self filteredProductsArrayForIndex:i]];
+    }
+}
+
+- (void) initProductList
+{
     productsArray = [__DataManager getProductsArray];
     [self initProductGroupViews];
 }
 
-- (void)initProductGroupViews {
-    for (int i=0; i < productGroupsArray.count; ++i) {
+- (void)initProductGroupViews
+{
+    productGroupViewsArray = [NSMutableArray array];
+    for (int i=0; i < productGroupsArray.count; ++i)
+    {
         ProductGroupView *productGroupView = [ProductGroupView createView];
+        productGroupView.screenIsForAdmin = _screenIsForAdmin;
         productGroupView.frame = CGRectMake(25, 160+i*(productGroupView.frame.size.height+10), productGroupView.frame.size.width, productGroupView.frame.size.height);
         [productGroupView initViewWithTitle:productGroupsArray[i]];
         [productGroupView setProductsArray:[self filteredProductsArrayForIndex:i]];
@@ -62,72 +135,43 @@
         [self.view addSubview:productGroupView];
         [productGroupViewsArray addObject:productGroupView];
     }
+    
     backgroundDimmingView = [self buildBackgroundDimmingView];
     [self.view addSubview:backgroundDimmingView];
     [self.view bringSubviewToFront:productProcessStepsView];
     backgroundDimmingView.hidden = true;
 }
 
-- (NSMutableArray*)filteredProductsArrayForIndex:(int)index {
+- (NSArray*) filteredProductsArrayForIndex:(int)index
+{
     NSMutableArray *filteredArray = [[NSMutableArray alloc] init];
     for (int i=0; i < productsArray.count; ++i) {
-        NSMutableDictionary *productData = productsArray[i];
-        if (index == 3) {
-            if (([productData[@"Product Status"] isEqualToString:@"Production"]||[productData[@"Product Status"] isEqualToString:@"In dev"])&&(([[productData[@"Name"] lowercaseString] containsString:[@"Receptor" lowercaseString]])||([[productData[@"Name"] lowercaseString] containsString:[@"Inspector" lowercaseString]])||([[productData[@"Name"] lowercaseString] containsString:[@"icblue" lowercaseString]])||([[productData[@"Group"] lowercaseString] isEqualToString:@"icelsius blue"]))) {
-                [filteredArray addObject:productData];
-            }
+        
+        ProductModel *p = productsArray[i];
+        
+        if (_screenIsForAdmin == false && p.isVisible == false)
+            continue;
+        
+        if ([[p.name lowercaseString] containsString:@"sentinel"])
+        {
+            if (index == 0)
+                [filteredArray addObject:p];
         }
-        else if (index == 2) {
-            if (([productData[@"Product Status"] isEqualToString:@"Production"]||[productData[@"Product Status"] isEqualToString:@"In dev"])&&(([[productData[@"Name"] lowercaseString] containsString:[@"GrillVille" lowercaseString]])||([[productData[@"Name"] lowercaseString] containsString:[@"Elite" lowercaseString]])||([[productData[@"Group"] lowercaseString] isEqualToString:@"grillville"]))) {
-                [filteredArray addObject:productData];
-            }
+        else if ([[p.name lowercaseString] containsString:@"receptor"] || [[p.name lowercaseString] containsString:@"inspector"])
+        {
+            if (index == 1)
+                [filteredArray addObject:p];
         }
-        else if (index == 1) {
-            if (([productData[@"Product Status"] isEqualToString:@"Production"]||[productData[@"Product Status"] isEqualToString:@"In dev"])&&(([[productData[@"Name"] lowercaseString] containsString:[@"iCelsius Wireless" lowercaseString]])||([[productData[@"Name"] lowercaseString] containsString:[@"iCelsius Wireless" lowercaseString]])||([[productData[@"Group"] lowercaseString] isEqualToString:@"icelsius"]))) {
-                [filteredArray addObject:productData];
-            }
+        else if ([[p.name lowercaseString] containsString:@"grillville"])
+        {
+            if (index == 2)
+                [filteredArray addObject:p];
         }
-        else {
-            if (([[productData[@"Group"] lowercaseString] isEqualToString:[productGroupsArray[index] lowercaseString]])&&([productData[@"Product Status"] isEqualToString:@"Production"]||[productData[@"Product Status"] isEqualToString:@"In dev"])) {
-                [filteredArray addObject:productData];
-            }
-        }
+        else if (index == 3)
+            [filteredArray addObject:p];
     }
+    
     return filteredArray;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)closePressed:(id)sender {
-    [self.navigationController popViewControllerAnimated:false];
-}
-
-- (void)viewProductSteps:(NSMutableDictionary*)productData {
-    backgroundDimmingView.hidden = false;
-    productProcessStepsView = [ProductProcessStepsView createView];
-    productProcessStepsView.frame = CGRectMake(self.view.frame.size.width/2-productProcessStepsView.frame.size.width/2, self.view.frame.size.height/2-productProcessStepsView.frame.size.height/2, productProcessStepsView.frame.size.width, productProcessStepsView.frame.size.height);
-    [productProcessStepsView setProductData:productData];
-    productProcessStepsView.delegate = self;
-    [productProcessStepsView initView];
-    [self.view addSubview:productProcessStepsView];
-}
-
-- (void)closeProcessStepsView {
-    backgroundDimmingView.hidden = true;
-    [productProcessStepsView removeFromSuperview];
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

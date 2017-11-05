@@ -43,7 +43,7 @@ __CREATEVIEW(ProductProcessStepsView, @"ProductProcessStepsView", 0);
     UIImage *iconRight = [UIImage imageWithIcon:@"fa-chevron-circle-right" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:20];
     [_submitImageView setImage:iconRight];
     
-    _runTitleLabel.text = productData[@"Product Number"];
+    _runTitleLabel.text = _product.productNumber;
     [__ServerManager getProcessList];
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(initProcesses) name:kNotificationCommonProcessesReceived object:nil];
@@ -63,8 +63,8 @@ __CREATEVIEW(ProductProcessStepsView, @"ProductProcessStepsView", 0);
     [_wiTableView reloadData];
 }
 
-- (void)setProductData:(NSMutableDictionary*)productData_ {
-    productData = productData_;
+- (void)setProductData:(ProductModel*)p {
+    _product = p;
 }
 
 - (IBAction)addProcessFromListPressed:(id)sender {
@@ -179,14 +179,14 @@ __CREATEVIEW(ProductProcessStepsView, @"ProductProcessStepsView", 0);
 - (IBAction)submitToProductionPressed {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",productData[@"Product Number"],@"PC1",_versionLabel.text],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",productData[@"Name"], @"PC1", _versionLabel.text], @"process_ctrl_name",productData[@"Product Id"],@"ProductId",_versionLabel.text, @"VersionId", _statusButton.titleLabel.text, @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
+    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",_product.productNumber,@"PC1",_versionLabel.text],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",_product.name, @"PC1", _versionLabel.text], @"process_ctrl_name",_product.productID,@"ProductId",_versionLabel.text, @"VersionId", _statusButton.titleLabel.text, @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
     [__DataManager syncProcesses:selectedProcessesArray withProcessData:processData];
 }
 
 - (void)getProcessFlow {
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
-    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getProcessFlow&process_ctrl_id=%@-%@-%@",productData[@"Product Number"], @"PC1",@"1.0"] withTag:3];
+    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getProcessFlow&process_ctrl_id=%@-%@-%@",_product.productNumber, @"PC1",@"1.0"] withTag:3];
 }
 
 - (void)deleteProcessFromListAtIndex:(int)index {
