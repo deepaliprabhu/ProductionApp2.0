@@ -2,17 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "settingsIcon.png",
+      "filename" : "productDeactivatedIcon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "settingsIcon@2x.png",
+      "filename" : "productDeactivatedIcon@2x.png",
       "scale" : "2x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x"
     }
   ],
   "info" : {

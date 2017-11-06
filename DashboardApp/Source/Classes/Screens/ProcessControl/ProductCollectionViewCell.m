@@ -9,8 +9,11 @@
 #import "ProductCollectionViewCell.h"
 
 @implementation ProductCollectionViewCell
+{
+    __weak IBOutlet UIImageView *_stateImageView;
+}
 
-- (void)setCellData:(ProductModel*)p atIndex:(int)index_
+- (void)setCellData:(ProductModel*)p atIndex:(int)index_ forAdmin:(BOOL)isAdmin
 {
     index = index_;
     _titleLabel.text = p.name;
@@ -20,22 +23,21 @@
     else
         [_imageView setImage:[UIImage imageNamed:@"placeholder.png"]];
     
-    if ([p.productStatus isEqualToString:@"InActive"])
+    if (isAdmin == true)
     {
-        _titleLabel.alpha = 0.3;
-        _imageView.alpha  = 0.3;
-    }
-    else
+        if ([p.productStatus isEqualToString:@"InActive"])
+            _stateImageView.image = ccimg(@"productDeactivatedIcon");
+        else
+            _stateImageView.image = ccimg(@"productActivatedIcon");
+    } else
     {
-        _titleLabel.alpha = 1;
-        _imageView.alpha  = 1;
-    }
-    
-    NSString *status = [p.status lowercaseString];
-    if (([status isEqualToString:@"archive"])||([status isEqualToString:@"open"])) {
-        self.backgroundColor = ccolora(255, 255, 255, 0.2);
-    } else if ([status containsString:@"waiting"]) {
-        self.backgroundColor = ccolora(131, 188, 72, 0.4);
+        _stateImageView.image = nil;
+        NSString *status = [p.status lowercaseString];
+        if (([status isEqualToString:@"archive"])||([status isEqualToString:@"open"])) {
+            self.backgroundColor = ccolora(255, 255, 255, 0.2);
+        } else if ([status containsString:@"waiting"]) {
+            self.backgroundColor = ccolora(131, 188, 72, 0.4);
+        }
     }
 }
 

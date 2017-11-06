@@ -12,6 +12,7 @@
 
 @protocol ProductViewDelegate;
 @interface ProductCollectionViewCell : UICollectionViewCell {
+    
     IBOutlet UILabel *_titleLabel;
     IBOutlet UIImageView *_imageView;
     
@@ -19,7 +20,7 @@
 }
 
 __pd(ProductViewDelegate);
-- (void)setCellData:(ProductModel*)p atIndex:(int)index_;
+- (void)setCellData:(ProductModel*)p atIndex:(int)index_ forAdmin:(BOOL)isAdmin;
 
 @end
 

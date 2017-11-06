@@ -9,6 +9,7 @@
 #import "ProductGroupView.h"
 #import "ProdAPI.h"
 #import "LoadingView.h"
+#import "UIAlertView+Blocks.h"
 
 @implementation ProductGroupView
 
@@ -36,25 +37,24 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
     if (_screenIsForAdmin == true)
     {
         NSString *newStatus = nil;
+        NSString *alertMessage = nil;
+        NSString *buttonText = nil;
         if ([p.productStatus isEqualToString:@"InActive"])
+        {
             newStatus = @"Active";
+            alertMessage = @"Are you sure you want to activate this product?";
+            buttonText = @"Activate";
+        }
         else
+        {
             newStatus = @"InActive";
+            alertMessage = @"Are you sure you want to deactivate this product?";
+            buttonText = @"Deactivate";
+        }
         
-        [LoadingView showLoading:@"Updating..."];
-        [[ProdAPI sharedInstance] updateProduct:p.productID status:newStatus withCompletion:^(BOOL success, id response) {
-            
-            if (success == true) {
-                if ([newStatus isEqualToString:@"Active"])
-                    [LoadingView showShortMessage:@"Product activated"];
-                else
-                    [LoadingView showShortMessage:@"Product disabled"];
-                p.productStatus = newStatus;
-                [_collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
-                [self layoutCountLabel];
-            } else {
-                [LoadingView showShortMessage:@"Error, try again later!"];
-            }
+        [UIAlertView showWithTitle:nil message:alertMessage cancelButtonTitle:@"Cancel" otherButtonTitles:@[buttonText] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex == 1)
+                [self changeStatus:newStatus ofProduct:p atIndex:index];
         }];
     }
     else
@@ -80,7 +80,7 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
     
     ProductCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     cell.delegate = self;
-    [cell setCellData:productsArray[indexPath.row] atIndex:(int)indexPath.row];
+    [cell setCellData:productsArray[indexPath.row] atIndex:(int)indexPath.row forAdmin:_screenIsForAdmin];
     
     return cell;
 }
@@ -113,6 +113,27 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
     }
     
     _countLabel.text = cstrf(@"%d/%lu", c, (unsigned long)productsArray.count);
+}
+
+#pragma mark - Utils
+
+- (void) changeStatus:(NSString*)newStatus ofProduct:(ProductModel*)p atIndex:(int)index
+{
+    [LoadingView showLoading:@"Updating..."];
+    [[ProdAPI sharedInstance] updateProduct:p.productID status:newStatus withCompletion:^(BOOL success, id response) {
+        
+        if (success == true) {
+            if ([newStatus isEqualToString:@"Active"])
+                [LoadingView showShortMessage:@"Product activated"];
+            else
+                [LoadingView showShortMessage:@"Product deactivated"];
+            p.productStatus = newStatus;
+            [_collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
+            [self layoutCountLabel];
+        } else {
+            [LoadingView showShortMessage:@"Error, try again later!"];
+        }
+    }];
 }
 
 @end
