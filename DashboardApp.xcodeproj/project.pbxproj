@@ -1588,7 +1588,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aginova.productionapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Production App 2 AdHoc";
+				PROVISIONING_PROFILE_SPECIFIER = "AdHoc] ProductionApp 2.0";
 			};
 			name = Debug;
 		};
@@ -1605,7 +1605,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aginova.productionapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Production App 2 AdHoc";
+				PROVISIONING_PROFILE_SPECIFIER = "AdHoc] ProductionApp 2.0";
 			};
 			name = Release;
 		};
