@@ -167,8 +167,6 @@
 		9FD12DA71F449FB400F0E0A8 /* RunPartsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FD12DA51F449FB300F0E0A8 /* RunPartsViewCell.xib */; };
 		9FEEE5801EEFEFA2005B5ECA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEEE57F1EEFEFA2005B5ECA /* main.m */; };
 		9FEEE5831EEFEFA2005B5ECA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEEE5821EEFEFA2005B5ECA /* AppDelegate.m */; };
-		9FEEE5861EEFEFA2005B5ECA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEEE5851EEFEFA2005B5ECA /* ViewController.m */; };
-		9FEEE5891EEFEFA2005B5ECA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FEEE5871EEFEFA2005B5ECA /* Main.storyboard */; };
 		9FEEE58B1EEFEFA2005B5ECA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FEEE58A1EEFEFA2005B5ECA /* Assets.xcassets */; };
 		9FEEE58E1EEFEFA2005B5ECA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FEEE58C1EEFEFA2005B5ECA /* LaunchScreen.storyboard */; };
 		9FF0A61B1F7E447C006486AA /* ProductProcessStepsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0A6191F7E447C006486AA /* ProductProcessStepsView.m */; };
@@ -192,6 +190,13 @@
 		D22767941FAE4B5400215D87 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = D22767821FAE4B5400215D87 /* UIRefreshControl+AFNetworking.m */; };
 		D22767951FAE4B5400215D87 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = D22767841FAE4B5400215D87 /* UIWebView+AFNetworking.m */; };
 		D22767991FAE4B8000215D87 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D22767981FAE4B8000215D87 /* Reachability.m */; };
+		D28386531FB2285600BB304C /* RunPartsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = D28386511FB2285600BB304C /* RunPartsScreen.m */; };
+		D28386541FB2285600BB304C /* RunPartsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D28386521FB2285600BB304C /* RunPartsScreen.xib */; };
+		D28386561FB23B5E00BB304C /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D28386551FB23B5E00BB304C /* Roboto-Bold.ttf */; };
+		D283865A1FB23CA800BB304C /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D28386571FB23CA800BB304C /* Roboto-Light.ttf */; };
+		D283865B1FB23CA800BB304C /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D28386581FB23CA800BB304C /* Roboto-Medium.ttf */; };
+		D283865C1FB23CA800BB304C /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D28386591FB23CA800BB304C /* Roboto-Regular.ttf */; };
+		D283865F1FB2476C00BB304C /* PartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D283865E1FB2476C00BB304C /* PartModel.m */; };
 		D28A35671FB046FC00AE6B51 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = D28A35661FB046FB00AE6B51 /* UIAlertView+Blocks.m */; };
 		D2A44F2D1FAF1FD400DF37B8 /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A44F2C1FAF1FD400DF37B8 /* ProductModel.m */; };
 		D2A44F311FAF2BBA00DF37B8 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A44F2E1FAF2BB900DF37B8 /* LoadingView.m */; };
@@ -414,9 +419,6 @@
 		9FEEE57F1EEFEFA2005B5ECA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9FEEE5811EEFEFA2005B5ECA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9FEEE5821EEFEFA2005B5ECA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		9FEEE5841EEFEFA2005B5ECA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		9FEEE5851EEFEFA2005B5ECA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		9FEEE5881EEFEFA2005B5ECA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9FEEE58A1EEFEFA2005B5ECA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FEEE58D1EEFEFA2005B5ECA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FEEE58F1EEFEFA2005B5ECA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -462,6 +464,15 @@
 		D22767841FAE4B5400215D87 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		D22767971FAE4B8000215D87 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		D22767981FAE4B8000215D87 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		D28386501FB2285600BB304C /* RunPartsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunPartsScreen.h; sourceTree = "<group>"; };
+		D28386511FB2285600BB304C /* RunPartsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunPartsScreen.m; sourceTree = "<group>"; };
+		D28386521FB2285600BB304C /* RunPartsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunPartsScreen.xib; sourceTree = "<group>"; };
+		D28386551FB23B5E00BB304C /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		D28386571FB23CA800BB304C /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		D28386581FB23CA800BB304C /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		D28386591FB23CA800BB304C /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		D283865D1FB2476C00BB304C /* PartModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartModel.h; sourceTree = "<group>"; };
+		D283865E1FB2476C00BB304C /* PartModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartModel.m; sourceTree = "<group>"; };
 		D28A35651FB046FB00AE6B51 /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
 		D28A35661FB046FB00AE6B51 /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		D2A44F2B1FAF1FD400DF37B8 /* ProductModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductModel.h; sourceTree = "<group>"; };
@@ -649,6 +660,10 @@
 		9F3FF6D11F4BDFBE00F52F64 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				D28386571FB23CA800BB304C /* Roboto-Light.ttf */,
+				D28386581FB23CA800BB304C /* Roboto-Medium.ttf */,
+				D28386591FB23CA800BB304C /* Roboto-Regular.ttf */,
+				D28386551FB23B5E00BB304C /* Roboto-Bold.ttf */,
 				9F3FF6D51F4BEF5500F52F64 /* FontAwesome.ttf */,
 			);
 			path = Fonts;
@@ -981,6 +996,7 @@
 		9FD12D9C1F4473A600F0E0A8 /* Run */ = {
 			isa = PBXGroup;
 			children = (
+				D283864F1FB2283300BB304C /* RunPartsScreen */,
 				9F9B53A31F5FC2EF008D6C67 /* ProcessFlowView */,
 				9F8567841F73DDB10067ABE1 /* OperatorEntry */,
 				9FD12DA21F449F8B00F0E0A8 /* Cell */,
@@ -1026,9 +1042,6 @@
 				9FEEE5981EEFF881005B5ECA /* Source */,
 				9FEEE5811EEFEFA2005B5ECA /* AppDelegate.h */,
 				9FEEE5821EEFEFA2005B5ECA /* AppDelegate.m */,
-				9FEEE5841EEFEFA2005B5ECA /* ViewController.h */,
-				9FEEE5851EEFEFA2005B5ECA /* ViewController.m */,
-				9FEEE5871EEFEFA2005B5ECA /* Main.storyboard */,
 				9FEEE5951EEFF881005B5ECA /* Resources */,
 				9FEEE58A1EEFEFA2005B5ECA /* Assets.xcassets */,
 				9FEEE58C1EEFEFA2005B5ECA /* LaunchScreen.storyboard */,
@@ -1117,6 +1130,8 @@
 				9FD12D921F443DBC00F0E0A8 /* Run.m */,
 				D2A44F2B1FAF1FD400DF37B8 /* ProductModel.h */,
 				D2A44F2C1FAF1FD400DF37B8 /* ProductModel.m */,
+				D283865D1FB2476C00BB304C /* PartModel.h */,
+				D283865E1FB2476C00BB304C /* PartModel.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1215,6 +1230,16 @@
 			path = Reachability;
 			sourceTree = "<group>";
 		};
+		D283864F1FB2283300BB304C /* RunPartsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				D28386501FB2285600BB304C /* RunPartsScreen.h */,
+				D28386511FB2285600BB304C /* RunPartsScreen.m */,
+				D28386521FB2285600BB304C /* RunPartsScreen.xib */,
+			);
+			path = RunPartsScreen;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1241,7 +1266,7 @@
 		9FEEE5731EEFEFA2005B5ECA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Deepali Prabhu";
 				TargetAttributes = {
 					9FEEE57A1EEFEFA2005B5ECA = {
@@ -1283,6 +1308,7 @@
 				9F056B281F433469002F3B61 /* Icon.png in Resources */,
 				9F85677E1F739B710067ABE1 /* XTEMP-2001-0005.png in Resources */,
 				9F85676D1F739B710067ABE1 /* IWIFI-1000-0001.png in Resources */,
+				D283865C1FB23CA800BB304C /* Roboto-Regular.ttf in Resources */,
 				D227678B1FAE4B5400215D87 /* LICENSE in Resources */,
 				9FD12D871F443A3700F0E0A8 /* RunListViewCell.xib in Resources */,
 				9F8567721F739B710067ABE1 /* RCPT-1001-0001.png in Resources */,
@@ -1299,10 +1325,11 @@
 				9F8567751F739B710067ABE1 /* SentinelNextRTDWithDisplay.png in Resources */,
 				9F8567551F739B710067ABE1 /* ICBLUE-1000-0002.png in Resources */,
 				9FEEE58B1EEFEFA2005B5ECA /* Assets.xcassets in Resources */,
-				9FEEE5891EEFEFA2005B5ECA /* Main.storyboard in Resources */,
 				9F7AB1A61F7D233C0013CBE1 /* drop_down@2x.png in Resources */,
 				9F7FE63A1F7BA572005CB4DF /* DKB-1000-0001.png in Resources */,
+				D283865B1FB23CA800BB304C /* Roboto-Medium.ttf in Resources */,
 				D2A44F321FAF2BBA00DF37B8 /* LoadingView.xib in Resources */,
+				D28386561FB23B5E00BB304C /* Roboto-Bold.ttf in Resources */,
 				9F85675F1F739B710067ABE1 /* IPROBE-4000-0001.png in Resources */,
 				9F3144BA1F7ABFD200B9D32C /* left_arrow@2x.png in Resources */,
 				9F8567541F739B710067ABE1 /* GrillVilleElite.png in Resources */,
@@ -1353,6 +1380,7 @@
 				9F85676A1F739B710067ABE1 /* IPROBE-4000-0012.png in Resources */,
 				9F8567741F739B710067ABE1 /* SentinelNextRTD.png in Resources */,
 				9FD12DA71F449FB400F0E0A8 /* RunPartsViewCell.xib in Resources */,
+				D283865A1FB23CA800BB304C /* Roboto-Light.ttf in Resources */,
 				9F8567701F739B710067ABE1 /* RCPT-1000-0008.png in Resources */,
 				9F8567641F739B710067ABE1 /* IPROBE-4000-0006.png in Resources */,
 				9F03A91C1F4563DD00A7A316 /* DemandListView.xib in Resources */,
@@ -1368,6 +1396,7 @@
 				9F3144BC1F7ABFD200B9D32C /* right_arrow@2x.png in Resources */,
 				9F8567791F739B710067ABE1 /* XTEMP-1060.png in Resources */,
 				9F85678F1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.xib in Resources */,
+				D28386541FB2285600BB304C /* RunPartsScreen.xib in Resources */,
 				9F85676B1F739B710067ABE1 /* IPROBE-4000-0017.png in Resources */,
 				9F3FF6D61F4BF1F800F52F64 /* FontAwesome.ttf in Resources */,
 				9F7FE5701F7B8DEE005CB4DF /* ProductGroupView.xib in Resources */,
@@ -1409,6 +1438,7 @@
 				9F056B321F433F51002F3B61 /* RunListView.m in Sources */,
 				9F7FE56E1F7B8DD8005CB4DF /* ProductGroupView.m in Sources */,
 				9FD12D9A1F44707A00F0E0A8 /* MIBadgeButton.m in Sources */,
+				D283865F1FB2476C00BB304C /* PartModel.m in Sources */,
 				9FD12D9B1F44707A00F0E0A8 /* MIBadgeLabel.m in Sources */,
 				D22767941FAE4B5400215D87 /* UIRefreshControl+AFNetworking.m in Sources */,
 				9F3144B81F7ABFD200B9D32C /* CKCalendarView.m in Sources */,
@@ -1419,7 +1449,6 @@
 				9FD12D7F1F43FD4400F0E0A8 /* OverviewView.m in Sources */,
 				9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */,
 				9F7FE5691F7B78C2005CB4DF /* ProductListViewController.m in Sources */,
-				9FEEE5861EEFEFA2005B5ECA /* ViewController.m in Sources */,
 				9F471CFF1F54003300B294B7 /* InProcessViewCell.m in Sources */,
 				D2A44F2D1FAF1FD400DF37B8 /* ProductModel.m in Sources */,
 				9F909AAD1F4EBB4E00DBFA63 /* GanttView.m in Sources */,
@@ -1437,6 +1466,7 @@
 				D227678E1FAE4B5400215D87 /* AFImageDownloader.m in Sources */,
 				9F03A9211F45667700A7A316 /* DemandListViewCell.m in Sources */,
 				9FC2B0E31F792502008B7F42 /* RNActivityView.m in Sources */,
+				D28386531FB2285600BB304C /* RunPartsScreen.m in Sources */,
 				D2A44F311FAF2BBA00DF37B8 /* LoadingView.m in Sources */,
 				9F3FF6CE1F4BDF7500F52F64 /* UIFont+FontAwesome.m in Sources */,
 				9F7767441F572A640092F603 /* RunListTableView.m in Sources */,
@@ -1464,14 +1494,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9FEEE5871EEFEFA2005B5ECA /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9FEEE5881EEFEFA2005B5ECA /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9FEEE58C1EEFEFA2005B5ECA /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1493,7 +1515,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1501,7 +1525,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1527,7 +1555,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE_SPECIFIER = "Production App 2 AdHoc";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1544,7 +1572,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1552,7 +1582,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

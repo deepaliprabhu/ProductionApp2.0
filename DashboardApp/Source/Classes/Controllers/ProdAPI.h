@@ -14,5 +14,7 @@
 
 + (ProdAPI*) sharedInstance;
 - (void) updateProduct:(NSString*)productID status:(NSString*)status withCompletion:(void (^)(BOOL success, id response))block;
+- (void) getPartsForRun:(NSInteger)runID withCompletion:(void (^)(BOOL success, id response))block;
+- (void) getShortsForRun:(NSInteger)runID withCompletion:(void (^)(BOOL success, id response))block;
 
 @end

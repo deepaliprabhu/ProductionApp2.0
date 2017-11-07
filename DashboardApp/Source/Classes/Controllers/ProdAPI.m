@@ -55,6 +55,18 @@ static ProdAPI *_sharedInstance = nil;
     [self callGETURL:url completion:block];
 }
 
+- (void) getPartsForRun:(NSInteger)runID withCompletion:(void (^)(BOOL success, id response))block
+{
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/get_run_parts.php?id=%ld", (long)runID];
+    [self callGETURL:url completion:block];
+}
+
+- (void) getShortsForRun:(NSInteger)runID withCompletion:(void (^)(BOOL, id))block
+{
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/get_short_parts.php?id=%ld", (long)runID];
+    [self callGETURL:url completion:block];
+}
+
 - (void) callPOST:(NSString*)url parameters:(NSDictionary*)params completion:(void (^)(BOOL success, id response))block
 {
     [_manager POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -78,8 +90,9 @@ static ProdAPI *_sharedInstance = nil;
         const void *data = [responseObject bytes];
         if (data != nil)
         {
-            NSString* respStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];// [NSString stringWithUTF8String:data];
-            block(YES, respStr);
+            id obj = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+//            NSString* respStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];// [NSString stringWithUTF8String:data];
+            block(YES, obj);
         }
         else
             block(YES, nil);

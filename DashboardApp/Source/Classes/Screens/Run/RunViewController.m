@@ -14,6 +14,7 @@
 #import "DataManager.h"
 #import "UIView+RNActivityView.h"
 #import "UIImage+FontAwesome.h"
+#import "RunPartsScreen.h"
 
 
 @interface RunViewController ()
@@ -136,6 +137,17 @@
     [self.view addSubview:backgroundDimmingView];
     backgroundDimmingView.hidden = true;
 }
+
+#pragma mark - Actions
+
+- (IBAction) infoPartsButtonTapped
+{
+    RunPartsScreen *screen = [[RunPartsScreen alloc] initWithNibName:@"RunPartsScreen" bundle:nil];
+    screen.run = run;
+    [self.navigationController pushViewController:screen animated:true];
+}
+
+#pragma mark - 
 
 - (void) initProcesses {
     commonProcessesArray = [__DataManager getCommonProcesses];
@@ -362,6 +374,8 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
 }
 
 -(NSString *)urlEncodeUsingEncoding:(NSString*)string {
