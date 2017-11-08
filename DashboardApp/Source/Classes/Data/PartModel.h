@@ -12,7 +12,19 @@
 
 @property (nonatomic, strong) NSString *lausanne;
 @property (nonatomic, strong) NSString *mason;
+@property (nonatomic, strong) NSString *recoMason;
 @property (nonatomic, strong) NSString *pune;
+@property (nonatomic, strong) NSString *recoPune;
+@property (nonatomic, strong) NSString *p2;
+@property (nonatomic, strong) NSString *recoP2;
+@property (nonatomic, strong) NSString *s2;
+@property (nonatomic, strong) NSString *recoS2;
+@property (nonatomic, strong) NSString *color;
+@property (nonatomic, strong) NSString *count;
+@property (nonatomic, strong) NSString *part;
+@property (nonatomic, strong) NSString *po;
+@property (nonatomic, strong) NSString *transferID;
 
++ (PartModel*) partFrom:(NSDictionary*)data;
 
 @end

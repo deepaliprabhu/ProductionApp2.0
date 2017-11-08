@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B649A871FB3236400B8DC78 /* PartsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B649A851FB3236400B8DC78 /* PartsCell.m */; };
+		3B649A881FB3236400B8DC78 /* PartsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B649A861FB3236400B8DC78 /* PartsCell.xib */; };
 		9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F022F671F618DED000E138B /* RunProcessStepsView.m */; };
 		9F022F6A1F618E03000E138B /* RunProcessStepsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F022F691F618E03000E138B /* RunProcessStepsView.xib */; };
 		9F03A91A1F4563C900A7A316 /* DemandListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F03A9191F4563C900A7A316 /* DemandListView.m */; };
@@ -204,6 +206,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B649A841FB3236400B8DC78 /* PartsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartsCell.h; sourceTree = "<group>"; };
+		3B649A851FB3236400B8DC78 /* PartsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartsCell.m; sourceTree = "<group>"; };
+		3B649A861FB3236400B8DC78 /* PartsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartsCell.xib; sourceTree = "<group>"; };
 		9F022F661F618DED000E138B /* RunProcessStepsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunProcessStepsView.h; sourceTree = "<group>"; };
 		9F022F671F618DED000E138B /* RunProcessStepsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunProcessStepsView.m; sourceTree = "<group>"; };
 		9F022F691F618E03000E138B /* RunProcessStepsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunProcessStepsView.xib; sourceTree = "<group>"; };
@@ -1236,6 +1241,9 @@
 				D28386501FB2285600BB304C /* RunPartsScreen.h */,
 				D28386511FB2285600BB304C /* RunPartsScreen.m */,
 				D28386521FB2285600BB304C /* RunPartsScreen.xib */,
+				3B649A841FB3236400B8DC78 /* PartsCell.h */,
+				3B649A851FB3236400B8DC78 /* PartsCell.m */,
+				3B649A861FB3236400B8DC78 /* PartsCell.xib */,
 			);
 			path = RunPartsScreen;
 			sourceTree = "<group>";
@@ -1329,6 +1337,7 @@
 				9F7FE63A1F7BA572005CB4DF /* DKB-1000-0001.png in Resources */,
 				D283865B1FB23CA800BB304C /* Roboto-Medium.ttf in Resources */,
 				D2A44F321FAF2BBA00DF37B8 /* LoadingView.xib in Resources */,
+				3B649A881FB3236400B8DC78 /* PartsCell.xib in Resources */,
 				D28386561FB23B5E00BB304C /* Roboto-Bold.ttf in Resources */,
 				9F85675F1F739B710067ABE1 /* IPROBE-4000-0001.png in Resources */,
 				9F3144BA1F7ABFD200B9D32C /* left_arrow@2x.png in Resources */,
@@ -1423,6 +1432,7 @@
 				9F85678E1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.m in Sources */,
 				9F977EED1F6272AE009C2B6D /* RunProcessStepsViewCell.m in Sources */,
 				9F471D131F542B9300B294B7 /* RoadBlocksView.m in Sources */,
+				3B649A871FB3236400B8DC78 /* PartsCell.m in Sources */,
 				9FD12D861F443A3700F0E0A8 /* RunListViewCell.m in Sources */,
 				D28A35671FB046FC00AE6B51 /* UIAlertView+Blocks.m in Sources */,
 				9F7AB1A71F7D233C0013CBE1 /* DropDownListView.m in Sources */,
