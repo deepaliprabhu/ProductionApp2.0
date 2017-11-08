@@ -10,9 +10,10 @@
 #import "Defines.h"
 #import "ProductCollectionViewCell.h"
 #import "ProductModel.h"
+#import "ProductAdminPopover.h"
 
 @protocol ProductGroupViewDelegate;
-@interface ProductGroupView : UIView <ProductViewDelegate> {
+@interface ProductGroupView : UIView <ProductViewDelegate, ProductAdminPopoverDelegate> {
     IBOutlet UILabel *_titleLabel;
     IBOutlet UIScrollView *_scrollView;
     IBOutlet UICollectionView *_collectionView;

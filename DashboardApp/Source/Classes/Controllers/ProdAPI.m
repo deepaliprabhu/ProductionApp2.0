@@ -101,6 +101,19 @@ static ProdAPI *_sharedInstance = nil;
     }];
 }
 
+- (void) uploadPhoto:(NSData*)img {
+    
+    [_manager POST:@"http://www.aginova.info/aginova/json/api_product_images" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithFileData:img name:@"staticname" fileName:@"testimage.jpg" mimeType:@"image/jpeg"];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"PROGRESS %@", uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"SUCCES %@", responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"FAIL %@", error);
+    }];
+}
+
 #pragma mark - Reachability
 
 - (void) checkForReachability

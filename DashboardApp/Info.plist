@@ -56,5 +56,11 @@
 	<string>UIStatusBarStyleBlackTranslucent</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>info</string>
+	<key>NSCameraUsageDescription</key>
+	<string>info</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>info</string>
 </dict>
 </plist>

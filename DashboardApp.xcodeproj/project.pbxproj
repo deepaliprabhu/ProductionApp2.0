@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3B649A871FB3236400B8DC78 /* PartsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B649A851FB3236400B8DC78 /* PartsCell.m */; };
 		3B649A881FB3236400B8DC78 /* PartsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B649A861FB3236400B8DC78 /* PartsCell.xib */; };
+		3BCDA4181FB346560021BC03 /* ProductAdminPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA4161FB346560021BC03 /* ProductAdminPopover.m */; };
+		3BCDA4191FB346560021BC03 /* ProductAdminPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BCDA4171FB346560021BC03 /* ProductAdminPopover.xib */; };
 		9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F022F671F618DED000E138B /* RunProcessStepsView.m */; };
 		9F022F6A1F618E03000E138B /* RunProcessStepsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F022F691F618E03000E138B /* RunProcessStepsView.xib */; };
 		9F03A91A1F4563C900A7A316 /* DemandListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F03A9191F4563C900A7A316 /* DemandListView.m */; };
@@ -209,6 +211,9 @@
 		3B649A841FB3236400B8DC78 /* PartsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartsCell.h; sourceTree = "<group>"; };
 		3B649A851FB3236400B8DC78 /* PartsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartsCell.m; sourceTree = "<group>"; };
 		3B649A861FB3236400B8DC78 /* PartsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartsCell.xib; sourceTree = "<group>"; };
+		3BCDA4151FB346560021BC03 /* ProductAdminPopover.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductAdminPopover.h; sourceTree = "<group>"; };
+		3BCDA4161FB346560021BC03 /* ProductAdminPopover.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductAdminPopover.m; sourceTree = "<group>"; };
+		3BCDA4171FB346560021BC03 /* ProductAdminPopover.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductAdminPopover.xib; sourceTree = "<group>"; };
 		9F022F661F618DED000E138B /* RunProcessStepsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunProcessStepsView.h; sourceTree = "<group>"; };
 		9F022F671F618DED000E138B /* RunProcessStepsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunProcessStepsView.m; sourceTree = "<group>"; };
 		9F022F691F618E03000E138B /* RunProcessStepsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunProcessStepsView.xib; sourceTree = "<group>"; };
@@ -802,6 +807,9 @@
 				9F7FE56C1F7B8DD8005CB4DF /* ProductGroupView.h */,
 				9F7FE56D1F7B8DD8005CB4DF /* ProductGroupView.m */,
 				9F7FE56F1F7B8DEE005CB4DF /* ProductGroupView.xib */,
+				3BCDA4151FB346560021BC03 /* ProductAdminPopover.h */,
+				3BCDA4161FB346560021BC03 /* ProductAdminPopover.m */,
+				3BCDA4171FB346560021BC03 /* ProductAdminPopover.xib */,
 			);
 			name = ProductGroupView;
 			sourceTree = "<group>";
@@ -1365,6 +1373,7 @@
 				9F85676C1F739B710067ABE1 /* IPROBE-4200-0001.png in Resources */,
 				9F8567621F739B710067ABE1 /* IPROBE-4000-0004-1.png in Resources */,
 				9F8567671F739B710067ABE1 /* IPROBE-4000-0009.png in Resources */,
+				3BCDA4191FB346560021BC03 /* ProductAdminPopover.xib in Resources */,
 				9F8567731F739B710067ABE1 /* SentinelNext.png in Resources */,
 				9F8567591F739B710067ABE1 /* IPROBE-1001-0002.png in Resources */,
 				9F03A9221F45667700A7A316 /* DemandListViewCell.xib in Resources */,
@@ -1492,6 +1501,7 @@
 				9F471CF21F53DD3700B294B7 /* SSBorderedView.m in Sources */,
 				9F3FF6D01F4BDF7500F52F64 /* UIImage+FontAwesome.m in Sources */,
 				9F471D081F541F7700B294B7 /* ToDoView.m in Sources */,
+				3BCDA4181FB346560021BC03 /* ProductAdminPopover.m in Sources */,
 				9F056B2E1F433F32002F3B61 /* TopBarView.m in Sources */,
 				9F3144AF1F7A307600B9D32C /* NIDropDown.m in Sources */,
 				9F40AD7F1F2F469A002C64BA /* HomeViewController.m in Sources */,

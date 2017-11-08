@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *productStatus;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *photo;
 
 + (ProductModel*) objectFrom:(NSDictionary*)data;
 - (BOOL) isVisible;

@@ -9,7 +9,6 @@
 #import "ProductGroupView.h"
 #import "ProdAPI.h"
 #import "LoadingView.h"
-#import "UIAlertView+Blocks.h"
 
 @implementation ProductGroupView
 
@@ -33,32 +32,28 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
 
 - (void)viewProductAtIndex:(int)index
 {
-    ProductModel *p = productsArray[index];
+    ProductModel *product = productsArray[index];
     if (_screenIsForAdmin == true)
     {
-        NSString *newStatus = nil;
-        NSString *alertMessage = nil;
-        NSString *buttonText = nil;
-        if ([p.productStatus isEqualToString:@"InActive"])
-        {
-            newStatus = @"Active";
-            alertMessage = @"Are you sure you want to activate this product?";
-            buttonText = @"Activate";
-        }
-        else
-        {
-            newStatus = @"InActive";
-            alertMessage = @"Are you sure you want to deactivate this product?";
-            buttonText = @"Deactivate";
-        }
+        UICollectionViewLayoutAttributes *attr =  [_collectionView layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+        CGRect rect = [_collectionView convertRect:attr.frame toView:self.superview.superview];
         
-        [UIAlertView showWithTitle:nil message:alertMessage cancelButtonTitle:@"Cancel" otherButtonTitles:@[buttonText] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            if (buttonIndex == 1)
-                [self changeStatus:newStatus ofProduct:p atIndex:index];
-        }];
+        ProductAdminPopover *screen = [[ProductAdminPopover alloc] initWithNibName:@"ProductAdminPopover" bundle:nil];
+        screen.product = product;
+        screen.delegate = self;
+        UIPopoverController *p = [[UIPopoverController alloc] initWithContentViewController:screen];
+        [p presentPopoverFromRect:rect inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
     }
     else
-        [_delegate viewProductSteps:p];
+        [_delegate viewProductSteps:product];
+}
+
+#pragma mark - ProductAdminPopoverDelegate
+
+- (void) statusChangedForProducts {
+    
+    [_collectionView reloadData];
+    [self layoutCountLabel];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -113,27 +108,6 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
     }
     
     _countLabel.text = cstrf(@"%d/%lu", c, (unsigned long)productsArray.count);
-}
-
-#pragma mark - Utils
-
-- (void) changeStatus:(NSString*)newStatus ofProduct:(ProductModel*)p atIndex:(int)index
-{
-    [LoadingView showLoading:@"Updating..."];
-    [[ProdAPI sharedInstance] updateProduct:p.productID status:newStatus withCompletion:^(BOOL success, id response) {
-        
-        if (success == true) {
-            if ([newStatus isEqualToString:@"Active"])
-                [LoadingView showShortMessage:@"Product activated"];
-            else
-                [LoadingView showShortMessage:@"Product deactivated"];
-            p.productStatus = newStatus;
-            [_collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
-            [self layoutCountLabel];
-        } else {
-            [LoadingView showShortMessage:@"Error, try again later!"];
-        }
-    }];
 }
 
 @end
