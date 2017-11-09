@@ -10,7 +10,6 @@
 #import "Defines.h"
 #import "ProductModel.h"
 
-@protocol ProductViewDelegate;
 @interface ProductCollectionViewCell : UICollectionViewCell {
     
     IBOutlet UILabel *_titleLabel;
@@ -19,11 +18,6 @@
     int index;
 }
 
-__pd(ProductViewDelegate);
-- (void)setCellData:(ProductModel*)p atIndex:(int)index_ forAdmin:(BOOL)isAdmin;
+- (void) setCellData:(ProductModel*)p atIndex:(int)index_ forAdmin:(BOOL)isAdmin;
 
-@end
-
-@protocol ProductViewDelegate <NSObject>
-- (void)viewProductAtIndex:(int)index;
 @end

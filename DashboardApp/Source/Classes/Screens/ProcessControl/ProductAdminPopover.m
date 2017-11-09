@@ -45,7 +45,7 @@
 
 - (void) initLayout {
     
-    if (_product.photo == nil)
+    if ([_product photoURL] == nil)
         [_photoButton setTitle:@"Add Photo" forState:UIControlStateNormal];
     else
         [_photoButton setTitle:@"Change Photo" forState:UIControlStateNormal];

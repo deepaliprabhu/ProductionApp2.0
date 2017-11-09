@@ -36,6 +36,7 @@
 		8919BE9A1FB4DD5100EE6839 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8919BE881FB4DD5100EE6839 /* UIView+WebCacheOperation.m */; };
 		8919BE9B1FB4DD5100EE6839 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8919BE8C1FB4DD5100EE6839 /* UIButton+WebCache.m */; };
 		8919BE9E1FB4E47D00EE6839 /* LayoutUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8919BE9C1FB4E47D00EE6839 /* LayoutUtils.m */; };
+		8919BEA11FB4EEF200EE6839 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 8919BE9F1FB4EEF100EE6839 /* UIView+Screenshot.m */; };
 		9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F022F671F618DED000E138B /* RunProcessStepsView.m */; };
 		9F022F6A1F618E03000E138B /* RunProcessStepsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F022F691F618E03000E138B /* RunProcessStepsView.xib */; };
 		9F03A91A1F4563C900A7A316 /* DemandListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F03A9191F4563C900A7A316 /* DemandListView.m */; };
@@ -292,6 +293,8 @@
 		8919BE8D1FB4DD5100EE6839 /* UIImage+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GIF.h"; sourceTree = "<group>"; };
 		8919BE9C1FB4E47D00EE6839 /* LayoutUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayoutUtils.m; sourceTree = "<group>"; };
 		8919BE9D1FB4E47D00EE6839 /* LayoutUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutUtils.h; sourceTree = "<group>"; };
+		8919BE9F1FB4EEF100EE6839 /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
+		8919BEA01FB4EEF100EE6839 /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
 		9F022F661F618DED000E138B /* RunProcessStepsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunProcessStepsView.h; sourceTree = "<group>"; };
 		9F022F671F618DED000E138B /* RunProcessStepsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunProcessStepsView.m; sourceTree = "<group>"; };
 		9F022F691F618E03000E138B /* RunProcessStepsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunProcessStepsView.xib; sourceTree = "<group>"; };
@@ -736,6 +739,8 @@
 				D2A44F301FAF2BBA00DF37B8 /* LoadingView.xib */,
 				8919BE9D1FB4E47D00EE6839 /* LayoutUtils.h */,
 				8919BE9C1FB4E47D00EE6839 /* LayoutUtils.m */,
+				8919BEA01FB4EEF100EE6839 /* UIView+Screenshot.h */,
+				8919BE9F1FB4EEF100EE6839 /* UIView+Screenshot.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1641,6 +1646,7 @@
 				9FD12D7F1F43FD4400F0E0A8 /* OverviewView.m in Sources */,
 				8919BE931FB4DD5100EE6839 /* UIImage+MultiFormat.m in Sources */,
 				8919BE9E1FB4E47D00EE6839 /* LayoutUtils.m in Sources */,
+				8919BEA11FB4EEF200EE6839 /* UIView+Screenshot.m in Sources */,
 				9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */,
 				9F7FE5691F7B78C2005CB4DF /* ProductListViewController.m in Sources */,
 				9F471CFF1F54003300B294B7 /* InProcessViewCell.m in Sources */,

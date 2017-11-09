@@ -11,7 +11,7 @@
 #import "ProductGroupView.h"
 
 @interface ProductListViewController : UIViewController<ProductProcessStepsViewDelegate, ProductGroupViewDelegate> {
-    IBOutlet UIView *_productGroupView;
+    
     UIView *backgroundDimmingView;
 
     ProductProcessStepsView *productProcessStepsView;
@@ -22,5 +22,6 @@
 }
 
 @property (nonatomic, unsafe_unretained) BOOL screenIsForAdmin;
+@property (nonatomic, strong) UIImage *image;
 
 @end

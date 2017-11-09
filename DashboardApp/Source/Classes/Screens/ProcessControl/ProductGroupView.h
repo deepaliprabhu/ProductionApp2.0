@@ -13,7 +13,7 @@
 #import "ProductAdminPopover.h"
 
 @protocol ProductGroupViewDelegate;
-@interface ProductGroupView : UIView <ProductViewDelegate, ProductAdminPopoverDelegate> {
+@interface ProductGroupView : UIView <ProductAdminPopoverDelegate> {
     IBOutlet UILabel *_titleLabel;
     IBOutlet UIScrollView *_scrollView;
     IBOutlet UICollectionView *_collectionView;

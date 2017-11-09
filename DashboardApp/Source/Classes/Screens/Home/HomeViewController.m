@@ -15,7 +15,7 @@
 #import "GanttView.h"
 #import "UIView+RNActivityView.h"
 #import "ProductListViewController.h"
-
+#import "UIView+Screenshot.h"
 
 @interface HomeViewController ()
 
@@ -137,7 +137,8 @@
 
 - (void) processControlSelected {
     ProductListViewController *productListVC = [ProductListViewController new];
-    [self.navigationController pushViewController:productListVC animated:NO];
+    productListVC.image = [self.view screenshot];
+    [self.navigationController pushViewController:productListVC animated:true];
 }
 
 - (void) closeSelected {

@@ -16,6 +16,8 @@
 @implementation ProductListViewController
 {
     __weak IBOutlet UIButton *_adminButton;
+    __weak IBOutlet UIView   *_productGroupView;
+    __weak IBOutlet UIImageView *_backgroundImageView;
 }
 
 #pragma mark - View lifecycle
@@ -24,6 +26,7 @@
     
     [super viewDidLoad];
     
+    [self initLayout];
     if (_screenIsForAdmin == true) {
         _adminButton.alpha = 0;
     }
@@ -49,7 +52,7 @@
     if (_screenIsForAdmin == true) {
         [self dismissViewControllerAnimated:true completion:nil];
     } else {
-        [self.navigationController popViewControllerAnimated:false];
+        [self.navigationController popViewControllerAnimated:true];
     }
 }
 
@@ -85,6 +88,14 @@
 
 #pragma mark - Layout
 
+- (void) initLayout {
+    
+    _productGroupView.layer.masksToBounds = true;
+    _productGroupView.layer.cornerRadius  = 9;
+    
+    [self addBlur];
+}
+
 - (UIView *)buildBackgroundDimmingView {
     UIView *bgView;
     //blur effect for iOS8
@@ -103,6 +114,19 @@
     }
     bgView.alpha = 0.7;
     return bgView;
+}
+
+- (void) addBlur {
+    
+    _backgroundImageView.image = _image;
+    
+    UIBlurEffect *eff = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    UIVisualEffectView *v = [[UIVisualEffectView alloc] initWithEffect:eff];
+    v.frame = _backgroundImageView.bounds;
+    v.alpha = 0.9;
+    _backgroundImageView.alpha = 0.9;
+    
+    [_backgroundImageView addSubview:v];
 }
 
 #pragma mark - Utils
@@ -129,11 +153,11 @@
     {
         ProductGroupView *productGroupView = [ProductGroupView createView];
         productGroupView.screenIsForAdmin = _screenIsForAdmin;
-        productGroupView.frame = CGRectMake(25, 160+i*(productGroupView.frame.size.height+10), productGroupView.frame.size.width, productGroupView.frame.size.height);
+        productGroupView.frame = CGRectMake(37, 117+i*117, 888, 117);
         [productGroupView initViewWithTitle:productGroupsArray[i]];
         [productGroupView setProductsArray:[self filteredProductsArrayForIndex:i]];
         productGroupView.delegate = self;
-        [self.view addSubview:productGroupView];
+        [_productGroupView addSubview:productGroupView];
         [productGroupViewsArray addObject:productGroupView];
     }
     

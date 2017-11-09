@@ -1,85 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Light.ttf">
+            <string>Roboto-Light</string>
+        </array>
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductGroupView"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ProductGroupView">
-            <rect key="frame" x="0.0" y="0.0" width="984" height="143"/>
+            <rect key="frame" x="0.0" y="0.0" width="888" height="117"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Miscelanneous" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iof-Ad-ZpI">
-                    <rect key="frame" x="20" y="20" width="100" height="36"/>
-                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Misc." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iof-Ad-ZpI">
+                    <rect key="frame" x="6" y="15" width="52" height="20"/>
+                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="22"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aX6-bF-DFh">
-                    <rect key="frame" x="20" y="55" width="100" height="36"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XNX-jS-IgW">
-                    <rect key="frame" x="128" y="-1" width="836" height="144"/>
-                    <subviews>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="DAo-pZ-Il9">
-                            <rect key="frame" x="0.0" y="28" width="836" height="120"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="120" id="elD-mn-TrI"/>
-                            </constraints>
-                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="35" id="6mF-D6-mmH">
-                                <size key="itemSize" width="100" height="120"/>
-                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            </collectionViewFlowLayout>
-                            <connections>
-                                <outlet property="dataSource" destination="iN0-l3-epB" id="iqM-vB-jcW"/>
-                                <outlet property="delegate" destination="iN0-l3-epB" id="3rF-7V-WIM"/>
-                            </connections>
-                        </collectionView>
-                    </subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aX6-bF-DFh">
+                    <rect key="frame" x="6" y="32" width="100" height="36"/>
                     <constraints>
-                        <constraint firstItem="DAo-pZ-Il9" firstAttribute="top" secondItem="XNX-jS-IgW" secondAttribute="topMargin" id="9pl-Mu-zOj"/>
-                        <constraint firstAttribute="bottom" secondItem="DAo-pZ-Il9" secondAttribute="bottom" id="Bk2-kV-jqE"/>
-                        <constraint firstItem="DAo-pZ-Il9" firstAttribute="leading" secondItem="XNX-jS-IgW" secondAttribute="leading" id="Ubm-qB-BeG"/>
-                        <constraint firstAttribute="trailing" secondItem="DAo-pZ-Il9" secondAttribute="trailing" id="aco-QE-ieS"/>
-                        <constraint firstItem="DAo-pZ-Il9" firstAttribute="centerX" secondItem="XNX-jS-IgW" secondAttribute="centerX" id="iZ3-Ng-Tp3"/>
+                        <constraint firstAttribute="height" constant="36" id="Ebf-52-qmR"/>
+                        <constraint firstAttribute="width" constant="100" id="Mrv-HX-hg0"/>
                     </constraints>
-                </scrollView>
+                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="DAo-pZ-Il9">
+                    <rect key="frame" x="122" y="0.0" width="766" height="117"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="6mF-D6-mmH">
+                        <size key="itemSize" width="130" height="117"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="iN0-l3-epB" id="iqM-vB-jcW"/>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="3rF-7V-WIM"/>
+                    </connections>
+                </collectionView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3q9-7z-4ku">
-                    <rect key="frame" x="20" y="143" width="944" height="1"/>
+                    <rect key="frame" x="0.0" y="116" width="888" height="1"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="XNX-jS-IgW" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="5lL-ax-MJf"/>
-                <constraint firstAttribute="bottom" secondItem="iof-Ad-ZpI" secondAttribute="bottom" constant="87" id="IAA-su-uio"/>
-                <constraint firstAttribute="trailing" secondItem="XNX-jS-IgW" secondAttribute="trailing" constant="20" id="OBd-PY-rg7"/>
-                <constraint firstItem="XNX-jS-IgW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="128" id="UdI-Nd-IZv"/>
-                <constraint firstItem="XNX-jS-IgW" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottomMargin" id="fCK-XW-ovc"/>
-                <constraint firstItem="iof-Ad-ZpI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="qhn-Fq-9f1"/>
-                <constraint firstItem="iof-Ad-ZpI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="sBv-cE-JL8"/>
-                <constraint firstItem="XNX-jS-IgW" firstAttribute="leading" secondItem="iof-Ad-ZpI" secondAttribute="trailing" constant="8" id="yam-V0-tPq"/>
+                <constraint firstAttribute="bottom" secondItem="iof-Ad-ZpI" secondAttribute="bottom" constant="82" id="IAA-su-uio"/>
+                <constraint firstItem="DAo-pZ-Il9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="NqM-hM-cvR"/>
+                <constraint firstItem="DAo-pZ-Il9" firstAttribute="leading" secondItem="aX6-bF-DFh" secondAttribute="trailing" constant="16" id="TFh-s9-qVC"/>
+                <constraint firstAttribute="bottom" secondItem="DAo-pZ-Il9" secondAttribute="bottom" id="bdO-Bv-3BD"/>
+                <constraint firstItem="aX6-bF-DFh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="32" id="d60-q5-NFI"/>
+                <constraint firstItem="aX6-bF-DFh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="6" id="iAz-pZ-G01"/>
+                <constraint firstItem="iof-Ad-ZpI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="6" id="qhn-Fq-9f1"/>
+                <constraint firstAttribute="trailing" secondItem="DAo-pZ-Il9" secondAttribute="trailing" id="qkP-kk-Zfh"/>
+                <constraint firstItem="iof-Ad-ZpI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="sBv-cE-JL8"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="_collectionView" destination="DAo-pZ-Il9" id="u3O-7T-4pG"/>
                 <outlet property="_countLabel" destination="aX6-bF-DFh" id="rJG-dh-SYG"/>
-                <outlet property="_scrollView" destination="XNX-jS-IgW" id="o2E-fm-nNt"/>
                 <outlet property="_titleLabel" destination="iof-Ad-ZpI" id="80s-wB-wRa"/>
             </connections>
             <point key="canvasLocation" x="35" y="-165.5"/>

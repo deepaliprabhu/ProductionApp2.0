@@ -28,26 +28,6 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
         [self layoutCountLabel];
 }
 
-#pragma mark - ProductViewDelegate
-
-- (void)viewProductAtIndex:(int)index
-{
-    ProductModel *product = productsArray[index];
-    if (_screenIsForAdmin == true)
-    {
-        UICollectionViewLayoutAttributes *attr =  [_collectionView layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-        CGRect rect = [_collectionView convertRect:attr.frame toView:self.superview.superview];
-        
-        ProductAdminPopover *screen = [[ProductAdminPopover alloc] initWithNibName:@"ProductAdminPopover" bundle:nil];
-        screen.product = product;
-        screen.delegate = self;
-        UIPopoverController *p = [[UIPopoverController alloc] initWithContentViewController:screen];
-        [p presentPopoverFromRect:rect inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
-    }
-    else
-        [_delegate viewProductSteps:product];
-}
-
 #pragma mark - ProductAdminPopoverDelegate
 
 - (void) statusChangedForProducts {
@@ -74,26 +54,27 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
     [collectionView registerNib:[UINib nibWithNibName:identifier bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:identifier];
     
     ProductCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    cell.delegate = self;
     [cell setCellData:productsArray[indexPath.row] atIndex:(int)indexPath.row forAdmin:_screenIsForAdmin];
     
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-}
-
-- (UIEdgeInsets)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(0, 0, 0, 0); // top, left, bottom, right
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     
-    return 0.0;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 0.0;
+    ProductModel *product = productsArray[indexPath.row];
+    if (_screenIsForAdmin == true)
+    {
+        UICollectionViewLayoutAttributes *attr =  [_collectionView layoutAttributesForItemAtIndexPath:indexPath];
+        CGRect rect = [_collectionView convertRect:attr.frame toView:self.superview.superview.superview];
+        
+        ProductAdminPopover *screen = [[ProductAdminPopover alloc] initWithNibName:@"ProductAdminPopover" bundle:nil];
+        screen.product = product;
+        screen.delegate = self;
+        UIPopoverController *p = [[UIPopoverController alloc] initWithContentViewController:screen];
+        [p presentPopoverFromRect:rect inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
+    }
+    else
+        [_delegate viewProductSteps:product];
 }
 
 #pragma mark - Layout
