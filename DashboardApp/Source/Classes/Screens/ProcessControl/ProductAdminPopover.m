@@ -19,6 +19,8 @@
 @implementation ProductAdminPopover {
     __weak IBOutlet UISwitch *_switch;
     __weak IBOutlet UIButton *_photoButton;
+    
+    NSString *_imageName;
 }
 
 - (void) viewDidLoad {
@@ -68,21 +70,22 @@
     
     [LoadingView showLoading:@"Uploading..."];
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-    [[ProdAPI sharedInstance] uploadPhoto:[self optimizedImageFor:image] forProductID:_product.productID delegate:self];
+    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+    _imageName = [NSString stringWithFormat:@"image%@%.0f.jpg", _product.productID, time];
+    [[ProdAPI sharedInstance] uploadPhoto:[self optimizedImageFor:image] name:_imageName forProductID:_product.productID delegate:self];
 }
 
 #pragma mark - FTPProtocol
 
 - (void) imageUploaded {
     
-    NSString *imageName = [NSString stringWithFormat:@"image%@.jpg", _product.productID];
-    [[ProdAPI sharedInstance] updateProduct:_product.productID image:imageName withCompletion:^(BOOL success, id response) {
+    [[ProdAPI sharedInstance] updateProduct:_product.productID image:_imageName withCompletion:^(BOOL success, id response) {
        
         if (success == true) {
             [LoadingView removeLoading];
-            [[SDImageCache sharedImageCache] clearMemory];
-            [[SDImageCache sharedImageCache] clearDisk];
-            _product.photo = imageName;
+//            [[SDImageCache sharedImageCache] clearMemory];
+//            [[SDImageCache sharedImageCache] clearDisk];
+            _product.photo = _imageName;
             [_delegate statusChangedForProducts];
         } else {
             [LoadingView showShortMessage:@"Error, please try again later!"];

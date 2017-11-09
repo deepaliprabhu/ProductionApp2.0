@@ -113,7 +113,7 @@ static ProdAPI *_sharedInstance = nil;
     }];
 }
 
-- (void) uploadPhoto:(NSData*)img forProductID:(NSString*)productID delegate:(id <FTPProtocol>)d {
+- (void) uploadPhoto:(NSData*)img name:(NSString*)name forProductID:(NSString*)productID delegate:(id <FTPProtocol>)d {
 
     if (_ftpRequestAlreadyStarted == true) {
         [LoadingView showShortMessage:@"Please wait for the previous request!"];
@@ -123,11 +123,9 @@ static ProdAPI *_sharedInstance = nil;
     _ftpRequestAlreadyStarted = true;
     _delegate = d;
     
-    NSString *imageName = [NSString stringWithFormat:@"image%@.jpg", productID];
-    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *imagePath = [documentsDirectory stringByAppendingPathComponent:imageName];
+    NSString *imagePath = [documentsDirectory stringByAppendingPathComponent:name];
     [img writeToFile:imagePath atomically:YES];
     
     if (self.requestsManager == nil) {
@@ -135,7 +133,7 @@ static ProdAPI *_sharedInstance = nil;
         self.requestsManager.delegate = self;
     }
     
-    [self.requestsManager addRequestForUploadFileAtLocalPath:imagePath toRemotePath:[NSString stringWithFormat:@"/%@", imageName]];
+    [self.requestsManager addRequestForUploadFileAtLocalPath:imagePath toRemotePath:[NSString stringWithFormat:@"/%@", name]];
     [self.requestsManager startProcessingRequests];
 }
 

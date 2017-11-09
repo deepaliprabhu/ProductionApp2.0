@@ -13,12 +13,19 @@
 #import "ProductModel.h"
 #import "ProdAPI.h"
 
+@interface ProductListViewController ()// <FTPProtocol>
+
+@end
+
 @implementation ProductListViewController
 {
     __weak IBOutlet UIView   *_productGroupView;
     __weak IBOutlet UIImageView *_backgroundImageView;
     
     BOOL _screenIsForAdmin;
+//    int _currentIndex;
+//    NSString *_imageName;
+//    NSString *_productID;
 }
 
 #pragma mark - View lifecycle
@@ -33,6 +40,10 @@
     [__ServerManager getProductList];
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(initProductList) name:kNotificationProductsReceived object:nil];
+    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self uploadImages];
+//    });
 }
 
 #pragma mark - Actions
@@ -187,5 +198,44 @@
     
     return filteredArray;
 }
+
+//- (void) uploadImages
+//{
+//    NSLog(@"%d/%lu", _currentIndex, (unsigned long)productsArray.count);
+//    if (_currentIndex >= productsArray.count)
+//        return;
+//
+//    ProductModel *p = productsArray[_currentIndex];
+//    UIImage *img = [UIImage imageNamed:p.productNumber];
+//    if (img != nil) {
+//        NSData *imgData = UIImageJPEGRepresentation(img, 1);
+//        NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+//        _imageName = [NSString stringWithFormat:@"image%@%.0f.jpg", p.productID, time];
+//        _productID = p.productID;
+//        [[ProdAPI sharedInstance] uploadPhoto:imgData name:_imageName forProductID:p.productID delegate:self];
+//    } else {
+//        _currentIndex = _currentIndex + 1;
+//        [self uploadImages];
+//    }
+//}
+//
+//- (void) imageUploaded {
+//
+//    [[ProdAPI sharedInstance] updateProduct:_productID image:_imageName withCompletion:^(BOOL success, id response) {
+//
+//        if (success == true) {
+//            NSLog(@"SSSUCCESS");
+//        } else {
+//            NSLog(@"FFFAIL");
+//        }
+//        _currentIndex = _currentIndex + 1;
+//        [self uploadImages];
+//    }];
+//}
+//
+//- (void) failImageUpload {
+//    _currentIndex = _currentIndex + 1;
+//    [self uploadImages];
+//}
 
 @end
