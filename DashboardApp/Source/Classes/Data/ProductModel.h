@@ -19,5 +19,6 @@
 
 + (ProductModel*) objectFrom:(NSDictionary*)data;
 - (BOOL) isVisible;
+- (NSURL*) photoURL;
 
 @end

@@ -18,6 +18,7 @@
     p.productStatus = data[@"Product Status"];
     p.status = data[@"Status"];
     p.name = data[@"Name"];
+    p.photo = data[@"Images"];
     return p;
 }
 
@@ -25,6 +26,15 @@
 {
     BOOL status = ([_productStatus isEqualToString:@"Production"]||[_productStatus isEqualToString:@"In dev"]||[_productStatus isEqualToString:@"Active"]);
     return status;
+}
+
+- (NSURL*) photoURL {
+    
+    if (_photo == nil || _photo.length == 0) {
+        return nil;
+    } else {
+        return [NSURL URLWithString:[NSString stringWithFormat:@"https://www.aginova.com/production_app_images/%@", _photo]];
+    }
 }
 
 @end

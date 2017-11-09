@@ -10,7 +10,7 @@
 #import "LoadingView.h"
 #import "ProdAPI.h"
 
-@interface ProductAdminPopover ()
+@interface ProductAdminPopover () <FTPProtocol>
 
 @end
 
@@ -64,8 +64,30 @@
     [self dismissViewControllerAnimated:true completion:nil];
     
     UIImage *image = info[UIImagePickerControllerOriginalImage];
+    [LoadingView showLoading:@"Uploading..."];
     NSData *data = UIImageJPEGRepresentation(image, 0.5);
-    [[ProdAPI sharedInstance] uploadPhoto:data];
+    [[ProdAPI sharedInstance] uploadPhoto:data forProductID:_product.productID delegate:self];
+}
+
+#pragma mark - FTPProtocol
+
+- (void) imageUploaded {
+    
+    NSString *imageName = [NSString stringWithFormat:@"image%@.jpg", _product.productID];
+    [[ProdAPI sharedInstance] updateProduct:_product.productID image:imageName withCompletion:^(BOOL success, id response) {
+       
+        if (success == true) {
+            [LoadingView showShortMessage:@"Image uploaded"];
+            _product.photo = imageName;
+            [_delegate statusChangedForProducts];
+        } else {
+            [LoadingView showShortMessage:@"Error, please try again later!"];
+        }
+    }];
+}
+
+- (void) failImageUpload {
+    [LoadingView showShortMessage:@"Error, please try again later!"];
 }
 
 #pragma mark - Utils

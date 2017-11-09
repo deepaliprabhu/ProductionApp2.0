@@ -7,6 +7,7 @@
 //
 
 #import "ProductCollectionViewCell.h"
+#import "UIImageView+AFNetworking.h"
 
 @implementation ProductCollectionViewCell
 {
@@ -17,11 +18,11 @@
 {
     index = index_;
     _titleLabel.text = p.name;
-    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", p.productNumber]];
-    if (image)
-        [_imageView setImage:image];
-    else
+    
+    if ([p photoURL] == nil)
         [_imageView setImage:[UIImage imageNamed:@"placeholder.png"]];
+    else
+        [_imageView setImageWithURL:[p photoURL]];
     
     if (isAdmin == true)
     {

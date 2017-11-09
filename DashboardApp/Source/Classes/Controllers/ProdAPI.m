@@ -9,16 +9,22 @@
 #import "ProdAPI.h"
 #import "AFNetworking.h"
 #import "Reachability.h"
+#import "GRRequestsManager.h"
+#import "LoadingView.h"
 
 static ProdAPI *_sharedInstance = nil;
 
-@interface ProdAPI()
+@interface ProdAPI() <GRRequestsManagerDelegate>
+
 @property (nonatomic, strong) Reachability *internetReachability;
+@property (nonatomic, strong) GRRequestsManager *requestsManager;
+
 @end
 
 @implementation ProdAPI
 {
     AFHTTPSessionManager *_manager;
+    BOOL _ftpRequestAlreadyStarted;
 }
 
 + (ProdAPI*) sharedInstance
@@ -47,6 +53,12 @@ static ProdAPI *_sharedInstance = nil;
     AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
     securityPolicy.allowInvalidCertificates = YES;
     _manager.securityPolicy = securityPolicy;
+}
+
+- (void) updateProduct:(NSString*)productID image:(NSString*)image withCompletion:(void (^)(BOOL success, id response))block
+{
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_product_images&productid=%@&images=%@", productID, image];
+    [self callGETURL:url completion:block];
 }
 
 - (void) updateProduct:(NSString*)productID status:(NSString*)status withCompletion:(void (^)(BOOL success, id response))block
@@ -101,17 +113,42 @@ static ProdAPI *_sharedInstance = nil;
     }];
 }
 
-- (void) uploadPhoto:(NSData*)img {
+- (void) uploadPhoto:(NSData*)img forProductID:(NSString*)productID delegate:(id <FTPProtocol>)d {
+
+    if (_ftpRequestAlreadyStarted == true) {
+        [LoadingView showShortMessage:@"Please wait for the previous request!"];
+        return;
+    }
     
-    [_manager POST:@"http://www.aginova.info/aginova/json/api_product_images" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        [formData appendPartWithFileData:img name:@"staticname" fileName:@"testimage.jpg" mimeType:@"image/jpeg"];
-    } progress:^(NSProgress * _Nonnull uploadProgress) {
-        NSLog(@"PROGRESS %@", uploadProgress);
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"SUCCES %@", responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"FAIL %@", error);
-    }];
+    _ftpRequestAlreadyStarted = true;
+    _delegate = d;
+    
+    NSString *imageName = [NSString stringWithFormat:@"image%@.jpg", productID];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *imagePath = [documentsDirectory stringByAppendingPathComponent:imageName];
+    [img writeToFile:imagePath atomically:YES];
+    
+    if (self.requestsManager == nil) {
+        self.requestsManager = [[GRRequestsManager alloc] initWithHostname:@"ftp://ftp.aginova.com" user:@"andreiapp" password:@"An123@3!9"];
+        self.requestsManager.delegate = self;
+    }
+    
+    [self.requestsManager addRequestForUploadFileAtLocalPath:imagePath toRemotePath:[NSString stringWithFormat:@"/%@", imageName]];
+    [self.requestsManager startProcessingRequests];
+}
+
+#pragma mark -
+
+- (void)requestsManager:(id<GRRequestsManagerProtocol>)requestsManager didFailRequest:(id<GRRequestProtocol>)request withError:(NSError *)error {
+    _ftpRequestAlreadyStarted = false;
+    [_delegate failImageUpload];
+}
+
+- (void)requestsManager:(id<GRRequestsManagerProtocol>)requestsManager didCompleteUploadRequest:(id<GRDataExchangeRequestProtocol>)request {
+    _ftpRequestAlreadyStarted = false;
+    [_delegate imageUploaded];
 }
 
 #pragma mark - Reachability

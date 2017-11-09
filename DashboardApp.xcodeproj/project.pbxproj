@@ -11,6 +11,16 @@
 		3B649A881FB3236400B8DC78 /* PartsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B649A861FB3236400B8DC78 /* PartsCell.xib */; };
 		3BCDA4181FB346560021BC03 /* ProductAdminPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA4161FB346560021BC03 /* ProductAdminPopover.m */; };
 		3BCDA4191FB346560021BC03 /* ProductAdminPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BCDA4171FB346560021BC03 /* ProductAdminPopover.xib */; };
+		3BDAB1B31FB47B7700EFD566 /* GRRequestsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAB19C1FB47B7700EFD566 /* GRRequestsManager.m */; };
+		3BDAB1B41FB47B7700EFD566 /* GRCreateDirectoryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAB1A01FB47B7700EFD566 /* GRCreateDirectoryRequest.m */; };
+		3BDAB1B51FB47B7700EFD566 /* GRDeleteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAB1A21FB47B7700EFD566 /* GRDeleteRequest.m */; };
+		3BDAB1B61FB47B7700EFD566 /* GRDownloadRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAB1A41FB47B7700EFD566 /* GRDownloadRequest.m */; };
+		3BDAB1B71FB47B7700EFD566 /* GRListingRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAB1A61FB47B7700EFD566 /* GRListingRequest.m */; };
+		3BDAB1B81FB47B7700EFD566 /* GRRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAB1A81FB47B7700EFD566 /* GRRequest.m */; };
+		3BDAB1B91FB47B7700EFD566 /* GRUploadRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAB1AB1FB47B7700EFD566 /* GRUploadRequest.m */; };
+		3BDAB1BA1FB47B7700EFD566 /* GRError.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAB1AE1FB47B7700EFD566 /* GRError.m */; };
+		3BDAB1BB1FB47B7700EFD566 /* GRQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAB1B01FB47B7700EFD566 /* GRQueue.m */; };
+		3BDAB1BC1FB47B7700EFD566 /* GRStreamInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAB1B21FB47B7700EFD566 /* GRStreamInfo.m */; };
 		9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F022F671F618DED000E138B /* RunProcessStepsView.m */; };
 		9F022F6A1F618E03000E138B /* RunProcessStepsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F022F691F618E03000E138B /* RunProcessStepsView.xib */; };
 		9F03A91A1F4563C900A7A316 /* DemandListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F03A9191F4563C900A7A316 /* DemandListView.m */; };
@@ -214,6 +224,28 @@
 		3BCDA4151FB346560021BC03 /* ProductAdminPopover.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductAdminPopover.h; sourceTree = "<group>"; };
 		3BCDA4161FB346560021BC03 /* ProductAdminPopover.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductAdminPopover.m; sourceTree = "<group>"; };
 		3BCDA4171FB346560021BC03 /* ProductAdminPopover.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductAdminPopover.xib; sourceTree = "<group>"; };
+		3BDAB19B1FB47B7700EFD566 /* GRRequestsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRRequestsManager.h; sourceTree = "<group>"; };
+		3BDAB19C1FB47B7700EFD566 /* GRRequestsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRRequestsManager.m; sourceTree = "<group>"; };
+		3BDAB19D1FB47B7700EFD566 /* GRRequestsManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRRequestsManagerProtocol.h; sourceTree = "<group>"; };
+		3BDAB19F1FB47B7700EFD566 /* GRCreateDirectoryRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRCreateDirectoryRequest.h; sourceTree = "<group>"; };
+		3BDAB1A01FB47B7700EFD566 /* GRCreateDirectoryRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRCreateDirectoryRequest.m; sourceTree = "<group>"; };
+		3BDAB1A11FB47B7700EFD566 /* GRDeleteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRDeleteRequest.h; sourceTree = "<group>"; };
+		3BDAB1A21FB47B7700EFD566 /* GRDeleteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRDeleteRequest.m; sourceTree = "<group>"; };
+		3BDAB1A31FB47B7700EFD566 /* GRDownloadRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRDownloadRequest.h; sourceTree = "<group>"; };
+		3BDAB1A41FB47B7700EFD566 /* GRDownloadRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRDownloadRequest.m; sourceTree = "<group>"; };
+		3BDAB1A51FB47B7700EFD566 /* GRListingRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRListingRequest.h; sourceTree = "<group>"; };
+		3BDAB1A61FB47B7700EFD566 /* GRListingRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRListingRequest.m; sourceTree = "<group>"; };
+		3BDAB1A71FB47B7700EFD566 /* GRRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRRequest.h; sourceTree = "<group>"; };
+		3BDAB1A81FB47B7700EFD566 /* GRRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRRequest.m; sourceTree = "<group>"; };
+		3BDAB1A91FB47B7700EFD566 /* GRRequestProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRRequestProtocol.h; sourceTree = "<group>"; };
+		3BDAB1AA1FB47B7700EFD566 /* GRUploadRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRUploadRequest.h; sourceTree = "<group>"; };
+		3BDAB1AB1FB47B7700EFD566 /* GRUploadRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRUploadRequest.m; sourceTree = "<group>"; };
+		3BDAB1AD1FB47B7700EFD566 /* GRError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRError.h; sourceTree = "<group>"; };
+		3BDAB1AE1FB47B7700EFD566 /* GRError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRError.m; sourceTree = "<group>"; };
+		3BDAB1AF1FB47B7700EFD566 /* GRQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRQueue.h; sourceTree = "<group>"; };
+		3BDAB1B01FB47B7700EFD566 /* GRQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRQueue.m; sourceTree = "<group>"; };
+		3BDAB1B11FB47B7700EFD566 /* GRStreamInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRStreamInfo.h; sourceTree = "<group>"; };
+		3BDAB1B21FB47B7700EFD566 /* GRStreamInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRStreamInfo.m; sourceTree = "<group>"; };
 		9F022F661F618DED000E138B /* RunProcessStepsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunProcessStepsView.h; sourceTree = "<group>"; };
 		9F022F671F618DED000E138B /* RunProcessStepsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunProcessStepsView.m; sourceTree = "<group>"; };
 		9F022F691F618E03000E138B /* RunProcessStepsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunProcessStepsView.xib; sourceTree = "<group>"; };
@@ -497,6 +529,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F252A661F4DBFA50056DA8F /* CFNetwork.framework in Frameworks */,
 				9F252A7A1F4DC0FA0056DA8F /* libsqlite3.tbd in Frameworks */,
 				9F252A781F4DC0B40056DA8F /* StoreKit.framework in Frameworks */,
 				9F252A761F4DC0980056DA8F /* Security.framework in Frameworks */,
@@ -507,7 +540,6 @@
 				9F252A6E1F4DC06A0056DA8F /* CoreLocation.framework in Frameworks */,
 				9F252A6A1F4DC0620056DA8F /* AudioToolbox.framework in Frameworks */,
 				9F252A681F4DBFAC0056DA8F /* SystemConfiguration.framework in Frameworks */,
-				9F252A661F4DBFA50056DA8F /* CFNetwork.framework in Frameworks */,
 				9F252A641F4DBF9E0056DA8F /* libc++.tbd in Frameworks */,
 				9F252A611F4DBE660056DA8F /* Parse.framework in Frameworks */,
 				9F252A601F4DBE660056DA8F /* Bolts.framework in Frameworks */,
@@ -517,6 +549,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3BDAB19A1FB47B7700EFD566 /* GoldRaccoon */ = {
+			isa = PBXGroup;
+			children = (
+				3BDAB19B1FB47B7700EFD566 /* GRRequestsManager.h */,
+				3BDAB19C1FB47B7700EFD566 /* GRRequestsManager.m */,
+				3BDAB19D1FB47B7700EFD566 /* GRRequestsManagerProtocol.h */,
+				3BDAB19E1FB47B7700EFD566 /* Requests */,
+				3BDAB1AC1FB47B7700EFD566 /* Utils */,
+			);
+			path = GoldRaccoon;
+			sourceTree = "<group>";
+		};
+		3BDAB19E1FB47B7700EFD566 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				3BDAB19F1FB47B7700EFD566 /* GRCreateDirectoryRequest.h */,
+				3BDAB1A01FB47B7700EFD566 /* GRCreateDirectoryRequest.m */,
+				3BDAB1A11FB47B7700EFD566 /* GRDeleteRequest.h */,
+				3BDAB1A21FB47B7700EFD566 /* GRDeleteRequest.m */,
+				3BDAB1A31FB47B7700EFD566 /* GRDownloadRequest.h */,
+				3BDAB1A41FB47B7700EFD566 /* GRDownloadRequest.m */,
+				3BDAB1A51FB47B7700EFD566 /* GRListingRequest.h */,
+				3BDAB1A61FB47B7700EFD566 /* GRListingRequest.m */,
+				3BDAB1A71FB47B7700EFD566 /* GRRequest.h */,
+				3BDAB1A81FB47B7700EFD566 /* GRRequest.m */,
+				3BDAB1A91FB47B7700EFD566 /* GRRequestProtocol.h */,
+				3BDAB1AA1FB47B7700EFD566 /* GRUploadRequest.h */,
+				3BDAB1AB1FB47B7700EFD566 /* GRUploadRequest.m */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		3BDAB1AC1FB47B7700EFD566 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3BDAB1AD1FB47B7700EFD566 /* GRError.h */,
+				3BDAB1AE1FB47B7700EFD566 /* GRError.m */,
+				3BDAB1AF1FB47B7700EFD566 /* GRQueue.h */,
+				3BDAB1B01FB47B7700EFD566 /* GRQueue.m */,
+				3BDAB1B11FB47B7700EFD566 /* GRStreamInfo.h */,
+				3BDAB1B21FB47B7700EFD566 /* GRStreamInfo.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		9F03A9171F4563B300A7A316 /* DemandList */ = {
 			isa = PBXGroup;
 			children = (
@@ -1162,6 +1239,7 @@
 		9FEEE59D1EEFF881005B5ECA /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				3BDAB19A1FB47B7700EFD566 /* GoldRaccoon */,
 				D22767961FAE4B8000215D87 /* Reachability */,
 				D227675F1FAE4B5400215D87 /* AFNetworking */,
 				9F7AB19C1F7D233C0013CBE1 /* kDropDown */,
@@ -1450,6 +1528,7 @@
 				D22767891FAE4B5400215D87 /* AFURLResponseSerialization.m in Sources */,
 				9FD12D901F443CEF00F0E0A8 /* ServerManager.m in Sources */,
 				9F4DE41A1F558EBC0016DB03 /* MBCircularProgressBarView.m in Sources */,
+				3BDAB1B81FB47B7700EFD566 /* GRRequest.m in Sources */,
 				D22767901FAE4B5400215D87 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				D22767871FAE4B5400215D87 /* AFSecurityPolicy.m in Sources */,
 				D22767951FAE4B5400215D87 /* UIWebView+AFNetworking.m in Sources */,
@@ -1459,18 +1538,24 @@
 				9FD12D9A1F44707A00F0E0A8 /* MIBadgeButton.m in Sources */,
 				D283865F1FB2476C00BB304C /* PartModel.m in Sources */,
 				9FD12D9B1F44707A00F0E0A8 /* MIBadgeLabel.m in Sources */,
+				3BDAB1B71FB47B7700EFD566 /* GRListingRequest.m in Sources */,
 				D22767941FAE4B5400215D87 /* UIRefreshControl+AFNetworking.m in Sources */,
 				9F3144B81F7ABFD200B9D32C /* CKCalendarView.m in Sources */,
 				9FF0A61B1F7E447C006486AA /* ProductProcessStepsView.m in Sources */,
+				3BDAB1B41FB47B7700EFD566 /* GRCreateDirectoryRequest.m in Sources */,
 				9FD12DA61F449FB400F0E0A8 /* RunPartsViewCell.m in Sources */,
 				D227678F1FAE4B5400215D87 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				D22767921FAE4B5400215D87 /* UIImageView+AFNetworking.m in Sources */,
+				3BDAB1B91FB47B7700EFD566 /* GRUploadRequest.m in Sources */,
+				3BDAB1BA1FB47B7700EFD566 /* GRError.m in Sources */,
 				9FD12D7F1F43FD4400F0E0A8 /* OverviewView.m in Sources */,
 				9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */,
 				9F7FE5691F7B78C2005CB4DF /* ProductListViewController.m in Sources */,
 				9F471CFF1F54003300B294B7 /* InProcessViewCell.m in Sources */,
+				3BDAB1B61FB47B7700EFD566 /* GRDownloadRequest.m in Sources */,
 				D2A44F2D1FAF1FD400DF37B8 /* ProductModel.m in Sources */,
 				9F909AAD1F4EBB4E00DBFA63 /* GanttView.m in Sources */,
+				3BDAB1B31FB47B7700EFD566 /* GRRequestsManager.m in Sources */,
 				D22767911FAE4B5400215D87 /* UIButton+AFNetworking.m in Sources */,
 				9FA2645F1F48A179004C882E /* TasklistView.m in Sources */,
 				D22767881FAE4B5400215D87 /* AFURLRequestSerialization.m in Sources */,
@@ -1481,6 +1566,7 @@
 				9F7767401F56D6E90092F603 /* LeftCollectionViewCell.m in Sources */,
 				D227678D1FAE4B5400215D87 /* AFAutoPurgingImageCache.m in Sources */,
 				D22767851FAE4B5400215D87 /* AFHTTPSessionManager.m in Sources */,
+				3BDAB1BC1FB47B7700EFD566 /* GRStreamInfo.m in Sources */,
 				9FC2B0E41F792502008B7F42 /* UIView+RNActivityView.m in Sources */,
 				D227678E1FAE4B5400215D87 /* AFImageDownloader.m in Sources */,
 				9F03A9211F45667700A7A316 /* DemandListViewCell.m in Sources */,
@@ -1499,9 +1585,11 @@
 				9F7AB1A81F7D233C0013CBE1 /* DropDownViewCell.m in Sources */,
 				9F7FE5751F7B9CAA005CB4DF /* ProductCollectionViewCell.m in Sources */,
 				9F471CF21F53DD3700B294B7 /* SSBorderedView.m in Sources */,
+				3BDAB1B51FB47B7700EFD566 /* GRDeleteRequest.m in Sources */,
 				9F3FF6D01F4BDF7500F52F64 /* UIImage+FontAwesome.m in Sources */,
 				9F471D081F541F7700B294B7 /* ToDoView.m in Sources */,
 				3BCDA4181FB346560021BC03 /* ProductAdminPopover.m in Sources */,
+				3BDAB1BB1FB47B7700EFD566 /* GRQueue.m in Sources */,
 				9F056B2E1F433F32002F3B61 /* TopBarView.m in Sources */,
 				9F3144AF1F7A307600B9D32C /* NIDropDown.m in Sources */,
 				9F40AD7F1F2F469A002C64BA /* HomeViewController.m in Sources */,
