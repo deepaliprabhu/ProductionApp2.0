@@ -21,7 +21,6 @@
     NSMutableArray *productGroupViewsArray;
 }
 
-@property (nonatomic, unsafe_unretained) BOOL screenIsForAdmin;
 @property (nonatomic, strong) UIImage *image;
 
 @end

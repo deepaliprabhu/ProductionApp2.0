@@ -24,11 +24,7 @@
     if ([p photoURL] == nil)
         [_imageView setImage:[UIImage imageNamed:@"placeholder.png"]];
     else
-    {
-        if ([p.productID isEqualToString:@"405"]) {
-            NSLog(@"da");
-        }
-        
+    {   
         [_spinner startAnimating];
         [_imageView sd_setImageWithURL:[p photoURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [_spinner stopAnimating];

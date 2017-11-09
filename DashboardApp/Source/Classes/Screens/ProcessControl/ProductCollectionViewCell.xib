@@ -17,30 +17,30 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProductCollectionViewCell" id="gTV-IL-0wX" customClass="ProductCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="130" height="117"/>
+            <rect key="frame" x="0.0" y="0.0" width="136" height="117"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="130" height="117"/>
+                <rect key="frame" x="0.0" y="0.0" width="136" height="117"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d5I-Q0-8Nr">
-                        <rect key="frame" x="30" y="8" width="70" height="70"/>
+                        <rect key="frame" x="33" y="8" width="70" height="70"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="70" id="IQa-74-I13"/>
                             <constraint firstAttribute="height" constant="70" id="r4m-6n-kjL"/>
                         </constraints>
                     </imageView>
                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="I9s-yr-zCT">
-                        <rect key="frame" x="55" y="33" width="20" height="20"/>
+                        <rect key="frame" x="58" y="33" width="20" height="20"/>
                     </activityIndicatorView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="PmV-sQ-RlA">
-                        <rect key="frame" x="5" y="83" width="120" height="31"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="PmV-sQ-RlA">
+                        <rect key="frame" x="4" y="83" width="128" height="31"/>
                         <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V32-Ok-Ar4">
-                        <rect key="frame" x="84" y="57" width="24" height="24"/>
+                        <rect key="frame" x="87" y="57" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="M4O-hy-SAa"/>
                             <constraint firstAttribute="width" constant="24" id="Zod-J6-Qas"/>
@@ -49,16 +49,16 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="PmV-sQ-RlA" firstAttribute="top" secondItem="V32-Ok-Ar4" secondAttribute="bottom" constant="2" id="2aw-b2-lLO"/>
                 <constraint firstItem="V32-Ok-Ar4" firstAttribute="centerY" secondItem="d5I-Q0-8Nr" secondAttribute="centerY" constant="26" id="4Iy-I9-14y"/>
-                <constraint firstAttribute="trailing" secondItem="PmV-sQ-RlA" secondAttribute="trailing" constant="5" id="AzL-81-BKb"/>
+                <constraint firstItem="PmV-sQ-RlA" firstAttribute="top" secondItem="V32-Ok-Ar4" secondAttribute="bottom" constant="2" id="Axv-S3-AQC"/>
                 <constraint firstItem="V32-Ok-Ar4" firstAttribute="centerX" secondItem="d5I-Q0-8Nr" secondAttribute="centerX" constant="31" id="ERF-fm-A5m"/>
+                <constraint firstAttribute="bottom" secondItem="PmV-sQ-RlA" secondAttribute="bottom" constant="3" id="H8P-fK-r5m"/>
                 <constraint firstItem="d5I-Q0-8Nr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="X0v-FY-fXB"/>
                 <constraint firstItem="I9s-yr-zCT" firstAttribute="centerY" secondItem="d5I-Q0-8Nr" secondAttribute="centerY" id="bTo-Kw-7Rg"/>
-                <constraint firstItem="PmV-sQ-RlA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="qxQ-5v-Edw"/>
+                <constraint firstAttribute="trailing" secondItem="PmV-sQ-RlA" secondAttribute="trailing" constant="4" id="uXS-mw-cMR"/>
                 <constraint firstItem="I9s-yr-zCT" firstAttribute="centerX" secondItem="d5I-Q0-8Nr" secondAttribute="centerX" id="usu-Z3-bND"/>
                 <constraint firstItem="d5I-Q0-8Nr" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="v63-5w-7qn"/>
-                <constraint firstAttribute="bottom" secondItem="PmV-sQ-RlA" secondAttribute="bottom" constant="3" id="xLn-Pw-sLR"/>
+                <constraint firstItem="PmV-sQ-RlA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="vQa-eY-S6G"/>
             </constraints>
             <size key="customSize" width="100" height="105"/>
             <connections>

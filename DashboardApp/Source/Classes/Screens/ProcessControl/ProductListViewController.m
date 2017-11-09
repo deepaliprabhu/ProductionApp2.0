@@ -15,21 +15,19 @@
 
 @implementation ProductListViewController
 {
-    __weak IBOutlet UIButton *_adminButton;
     __weak IBOutlet UIView   *_productGroupView;
     __weak IBOutlet UIImageView *_backgroundImageView;
+    
+    BOOL _screenIsForAdmin;
 }
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     
     [super viewDidLoad];
     
     [self initLayout];
-    if (_screenIsForAdmin == true) {
-        _adminButton.alpha = 0;
-    }
     
     productGroupsArray = [NSMutableArray arrayWithObjects:@"Sentinel", @"Inspector", @"GrillVille", @"Misc.",nil];
     [__ServerManager getProductList];
@@ -37,30 +35,21 @@
     [center addObserver:self selector:@selector(initProductList) name:kNotificationProductsReceived object:nil];
 }
 
-- (void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    if (_screenIsForAdmin == false)
-        [self reloadData];
-}
-
 #pragma mark - Actions
 
 - (IBAction)closePressed:(id)sender {
-    
-    if (_screenIsForAdmin == true) {
-        [self dismissViewControllerAnimated:true completion:nil];
-    } else {
-        [self.navigationController popViewControllerAnimated:true];
-    }
+    [self.navigationController popViewControllerAnimated:true];
 }
 
-- (IBAction) adminButtonTapped {
+- (IBAction) adminSwitchTapped {
     
-    ProductListViewController *productListVC = [ProductListViewController new];
-    productListVC.screenIsForAdmin = true;
-    [self.navigationController presentViewController:productListVC animated:true completion:nil];
+    _screenIsForAdmin = !_screenIsForAdmin;
+    for (int i=0; i < productGroupViewsArray.count; ++i)
+    {
+        ProductGroupView *productGroupView = productGroupViewsArray[i];
+        productGroupView.screenIsForAdmin = _screenIsForAdmin;
+        [productGroupView setProductsArray:[self filteredProductsArrayForIndex:i]];
+    }
 }
 
 #pragma mark - ProductViewGroupDelegate

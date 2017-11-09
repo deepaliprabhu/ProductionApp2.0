@@ -24,7 +24,8 @@
 - (void) viewDidLoad {
     
     [super viewDidLoad];
-    self.preferredContentSize = CGSizeMake(320, 200);
+    self.preferredContentSize = CGSizeMake(138, 134);
+    [self initLayout];
 }
 
 #pragma mark - Actions

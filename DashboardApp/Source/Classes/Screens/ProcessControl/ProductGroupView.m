@@ -23,9 +23,16 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
 {
     productsArray = productsArray_;
     [_collectionView reloadData];
+}
+
+- (void) reloadData {
+    [_collectionView reloadData];
+}
+
+- (void) setScreenIsForAdmin:(BOOL)screenIsForAdmin {
     
-    if (_screenIsForAdmin == true)
-        [self layoutCountLabel];
+    _screenIsForAdmin = screenIsForAdmin;
+    [self layoutCountLabel];
 }
 
 #pragma mark - ProductAdminPopoverDelegate
@@ -71,7 +78,7 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
         screen.product = product;
         screen.delegate = self;
         UIPopoverController *p = [[UIPopoverController alloc] initWithContentViewController:screen];
-        [p presentPopoverFromRect:rect inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
+        [p presentPopoverFromRect:rect inView:self.superview.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
     }
     else
         [_delegate viewProductSteps:product];
@@ -88,7 +95,10 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
             c = c + 1;
     }
     
-    _countLabel.text = cstrf(@"%d/%lu", c, (unsigned long)productsArray.count);
+    if (_screenIsForAdmin == true)
+        _countLabel.text = cstrf(@"%d/%lu", c, (unsigned long)productsArray.count);
+    else
+        _countLabel.text = @"";
 }
 
 @end

@@ -15,7 +15,6 @@
 @protocol ProductGroupViewDelegate;
 @interface ProductGroupView : UIView <ProductAdminPopoverDelegate> {
     IBOutlet UILabel *_titleLabel;
-    IBOutlet UIScrollView *_scrollView;
     IBOutlet UICollectionView *_collectionView;
     __weak IBOutlet UILabel *_countLabel;
     
@@ -28,6 +27,7 @@ __CREATEVIEWH(ProductGroupView);
 
 - (void)initViewWithTitle:(NSString*)title;
 - (void)setProductsArray:(NSArray*)productsArray_;
+- (void) reloadData;
 
 @end
 
