@@ -9,6 +9,8 @@
 #import "ProductAdminPopover.h"
 #import "LoadingView.h"
 #import "ProdAPI.h"
+#import "SDImageCache.h"
+#import "LayoutUtils.h"
 
 @interface ProductAdminPopover () <FTPProtocol>
 
@@ -63,10 +65,9 @@
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     [self dismissViewControllerAnimated:true completion:nil];
     
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
     [LoadingView showLoading:@"Uploading..."];
-    NSData *data = UIImageJPEGRepresentation(image, 0.5);
-    [[ProdAPI sharedInstance] uploadPhoto:data forProductID:_product.productID delegate:self];
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    [[ProdAPI sharedInstance] uploadPhoto:[self optimizedImageFor:image] forProductID:_product.productID delegate:self];
 }
 
 #pragma mark - FTPProtocol
@@ -77,7 +78,9 @@
     [[ProdAPI sharedInstance] updateProduct:_product.productID image:imageName withCompletion:^(BOOL success, id response) {
        
         if (success == true) {
-            [LoadingView showShortMessage:@"Image uploaded"];
+            [LoadingView removeLoading];
+            [[SDImageCache sharedImageCache] clearMemory];
+            [[SDImageCache sharedImageCache] clearDisk];
             _product.photo = imageName;
             [_delegate statusChangedForProducts];
         } else {
@@ -135,6 +138,29 @@
             [LoadingView showShortMessage:@"Error, try again later!"];
         }
     }];
+}
+
+- (NSData*) optimizedImageFor:(UIImage*)i {
+    
+    NSData *data = UIImageJPEGRepresentation(i, 0.7);
+    if (data.length/1024 > 300) {
+        
+        UIImage *qImage = [UIImage imageWithData:data];
+        CGFloat scaleFactor = 1.0;
+        if (qImage.size.width > qImage.size.height)
+            scaleFactor = qImage.size.width/1024.0;
+        else
+            scaleFactor = qImage.size.height/1024.0;
+        
+        if (scaleFactor > 1)
+            scaleFactor = 1.0 / scaleFactor;
+        
+        UIImage *scaledImage = [LayoutUtils imageWithImage:qImage scaledToSize:CGSizeMake(qImage.size.width*scaleFactor, qImage.size.height*scaleFactor)];
+        NSData *scaledData = UIImageJPEGRepresentation(scaledImage, 0.8);
+        return scaledData;
+    }
+    
+    return data;
 }
 
 @end

@@ -7,11 +7,12 @@
 //
 
 #import "ProductCollectionViewCell.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+WebCache.h"
 
 @implementation ProductCollectionViewCell
 {
     __weak IBOutlet UIImageView *_stateImageView;
+    __weak IBOutlet UIActivityIndicatorView *_spinner;
 }
 
 - (void)setCellData:(ProductModel*)p atIndex:(int)index_ forAdmin:(BOOL)isAdmin
@@ -19,10 +20,16 @@
     index = index_;
     _titleLabel.text = p.name;
     
+    [_spinner stopAnimating];
     if ([p photoURL] == nil)
         [_imageView setImage:[UIImage imageNamed:@"placeholder.png"]];
     else
-        [_imageView setImageWithURL:[p photoURL]];
+    {
+        [_spinner startAnimating];
+        [_imageView sd_setImageWithURL:[p photoURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [_spinner stopAnimating];
+        }];
+    }
     
     if (isAdmin == true)
     {
