@@ -11,6 +11,9 @@
 #import "LoadingView.h"
 
 @implementation ProductGroupView
+{
+    UIPopoverController *_adminPopover;
+}
 
 __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
 
@@ -41,6 +44,15 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
     
     [_collectionView reloadData];
     [self layoutCountLabel];
+}
+
+- (void) presentPhotoPicker:(UIImagePickerController *)p {
+    [_adminPopover dismissPopoverAnimated:true];
+    [_delegate presentPhotoPicker:p];
+}
+
+- (void) dismissPhotoPicker {
+    [_delegate dismissPhotoPicker];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -77,8 +89,9 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
         ProductAdminPopover *screen = [[ProductAdminPopover alloc] initWithNibName:@"ProductAdminPopover" bundle:nil];
         screen.product = product;
         screen.delegate = self;
-        UIPopoverController *p = [[UIPopoverController alloc] initWithContentViewController:screen];
-        [p presentPopoverFromRect:rect inView:self.superview.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
+        screen.sourceRect = rect;
+        _adminPopover = [[UIPopoverController alloc] initWithContentViewController:screen];
+        [_adminPopover presentPopoverFromRect:rect inView:self.superview.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
     }
     else
         [_delegate viewProductSteps:product];

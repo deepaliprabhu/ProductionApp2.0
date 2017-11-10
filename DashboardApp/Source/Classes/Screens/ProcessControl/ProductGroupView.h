@@ -34,5 +34,7 @@ __CREATEVIEWH(ProductGroupView);
 @protocol ProductGroupViewDelegate <NSObject>
 
 - (void) viewProductSteps:(ProductModel*)product;
+- (void) presentPhotoPicker:(UIImagePickerController *)p;
+- (void) dismissPhotoPicker;
 
 @end

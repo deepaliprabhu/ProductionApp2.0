@@ -67,6 +67,7 @@
 
 - (void) viewProductSteps:(ProductModel *)product
 {
+    NSLog(@"PRODUCT %@", product.productNumber);
     if (_screenIsForAdmin == false) {
 
         backgroundDimmingView.hidden = false;
@@ -77,6 +78,14 @@
         [productProcessStepsView initView];
         [self.view addSubview:productProcessStepsView];
     }
+}
+
+- (void) presentPhotoPicker:(UIImagePickerController *)p {
+    [self presentViewController:p animated:true completion:nil];
+}
+
+- (void) dismissPhotoPicker {
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 #pragma mark - ProductProcessStepsViewDelegate

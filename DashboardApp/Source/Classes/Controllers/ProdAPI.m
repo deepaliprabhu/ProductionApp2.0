@@ -128,10 +128,8 @@ static ProdAPI *_sharedInstance = nil;
     NSString *imagePath = [documentsDirectory stringByAppendingPathComponent:name];
     [img writeToFile:imagePath atomically:YES];
     
-    if (self.requestsManager == nil) {
-        self.requestsManager = [[GRRequestsManager alloc] initWithHostname:@"ftp://ftp.aginova.com" user:@"andreiapp" password:@"An123@3!9"];
-        self.requestsManager.delegate = self;
-    }
+    self.requestsManager = [[GRRequestsManager alloc] initWithHostname:@"ftp://ftp.aginova.com" user:@"andreiapp" password:@"An123@3!9"];
+    self.requestsManager.delegate = self;
     
     [self.requestsManager addRequestForUploadFileAtLocalPath:imagePath toRemotePath:[NSString stringWithFormat:@"/%@", name]];
     [self.requestsManager startProcessingRequests];

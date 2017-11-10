@@ -62,11 +62,11 @@
 #pragma mark - UIImagePickerProtocol
 
 - (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [_delegate dismissPhotoPicker];
 }
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [_delegate dismissPhotoPicker];
     
     [LoadingView showLoading:@"Uploading..."];
     UIImage *image = info[UIImagePickerControllerOriginalImage];
@@ -126,7 +126,11 @@
     UIImagePickerController *picker = [UIImagePickerController new];
     picker.sourceType = source;
     picker.delegate = self;
-    [self presentViewController:picker animated:true completion:nil];
+    picker.modalPresentationStyle = UIModalPresentationPopover;
+    UIPopoverPresentationController *pp = picker.popoverPresentationController;
+    pp.sourceRect = _sourceRect;
+    pp.sourceView = self.view.superview.superview.superview.superview;
+    [_delegate presentPhotoPicker:picker];
 }
 
 - (void) changeStatus:(NSString*)newStatus
