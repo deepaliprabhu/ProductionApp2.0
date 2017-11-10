@@ -11,6 +11,7 @@
 #import "ProdAPI.h"
 #import "SDImageCache.h"
 #import "LayoutUtils.h"
+#import "Defines.h"
 
 @interface ProductAdminPopover () <FTPProtocol>
 
@@ -72,19 +73,20 @@
     UIImage *image = info[UIImagePickerControllerOriginalImage];
     NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
     _imageName = [NSString stringWithFormat:@"image%@%.0f.jpg", _product.productID, time];
-    [[ProdAPI sharedInstance] uploadPhoto:[self optimizedImageFor:image] name:_imageName forProductID:_product.productID delegate:self];
+    NSData *d = [self optimizedImageFor:image];
+    [[ProdAPI sharedInstance] uploadPhoto:d name:_imageName forProductID:_product.productID delegate:self];
 }
 
 #pragma mark - FTPProtocol
 
 - (void) imageUploaded {
-    
+
     [[ProdAPI sharedInstance] updateProduct:_product.productID image:_imageName withCompletion:^(BOOL success, id response) {
-       
+        
         if (success == true) {
             [LoadingView removeLoading];
-//            [[SDImageCache sharedImageCache] clearMemory];
-//            [[SDImageCache sharedImageCache] clearDisk];
+            //            [[SDImageCache sharedImageCache] clearMemory];
+            //            [[SDImageCache sharedImageCache] clearDisk];
             _product.photo = _imageName;
             [_delegate statusChangedForProducts];
         } else {
@@ -150,7 +152,7 @@
 
 - (NSData*) optimizedImageFor:(UIImage*)i {
     
-    NSData *data = UIImageJPEGRepresentation(i, 0.7);
+    NSData *data = UIImageJPEGRepresentation(i, 1);
     if (data.length/1024 > 300) {
         
         UIImage *qImage = [UIImage imageWithData:data];

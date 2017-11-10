@@ -9,15 +9,15 @@
 #import "ProdAPI.h"
 #import "AFNetworking.h"
 #import "Reachability.h"
-#import "GRRequestsManager.h"
+#import "BRRequest.h"
+#import "BRRequestUpload.h"
 #import "LoadingView.h"
 
 static ProdAPI *_sharedInstance = nil;
 
-@interface ProdAPI() <GRRequestsManagerDelegate>
+@interface ProdAPI() <BRRequestDelegate>
 
 @property (nonatomic, strong) Reachability *internetReachability;
-@property (nonatomic, strong) GRRequestsManager *requestsManager;
 
 @end
 
@@ -25,6 +25,9 @@ static ProdAPI *_sharedInstance = nil;
 {
     AFHTTPSessionManager *_manager;
     BOOL _ftpRequestAlreadyStarted;
+    
+    BRRequestUpload *uploadFile;
+    NSData *uploadData;
 }
 
 + (ProdAPI*) sharedInstance
@@ -114,7 +117,7 @@ static ProdAPI *_sharedInstance = nil;
 }
 
 - (void) uploadPhoto:(NSData*)img name:(NSString*)name forProductID:(NSString*)productID delegate:(id <FTPProtocol>)d {
-
+    
     if (_ftpRequestAlreadyStarted == true) {
         [LoadingView showShortMessage:@"Please wait for the previous request!"];
         return;
@@ -122,29 +125,41 @@ static ProdAPI *_sharedInstance = nil;
     
     _ftpRequestAlreadyStarted = true;
     _delegate = d;
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *imagePath = [documentsDirectory stringByAppendingPathComponent:name];
-    [img writeToFile:imagePath atomically:YES];
-    
-    self.requestsManager = [[GRRequestsManager alloc] initWithHostname:@"ftp://ftp.aginova.com" user:@"andreiapp" password:@"An123@3!9"];
-    self.requestsManager.delegate = self;
-    
-    [self.requestsManager addRequestForUploadFileAtLocalPath:imagePath toRemotePath:[NSString stringWithFormat:@"/%@", name]];
-    [self.requestsManager startProcessingRequests];
+
+    uploadData = img;
+    uploadFile = [[BRRequestUpload alloc] initWithDelegate: self];
+    uploadFile.path = [NSString stringWithFormat:@"/%@", name];
+    uploadFile.hostname = @"ftp.aginova.com";
+    uploadFile.username = @"andreiapp";
+    uploadFile.password = @"An123@3!9";
+
+    [uploadFile start];
 }
 
 #pragma mark -
 
-- (void)requestsManager:(id<GRRequestsManagerProtocol>)requestsManager didFailRequest:(id<GRRequestProtocol>)request withError:(NSError *)error {
+- (NSData *) requestDataToSend: (BRRequestUpload *) request
+{
+    NSData *temp = uploadData;
+    uploadData = nil;
+    return temp;
+}
+
+- (void) requestCompleted: (BRRequest *) request
+{
+    uploadFile = nil;
+    _ftpRequestAlreadyStarted = false;
+    [_delegate imageUploaded];
+}
+
+- (void) requestFailed:(BRRequest *) request
+{
     _ftpRequestAlreadyStarted = false;
     [_delegate failImageUpload];
 }
 
-- (void)requestsManager:(id<GRRequestsManagerProtocol>)requestsManager didCompleteUploadRequest:(id<GRDataExchangeRequestProtocol>)request {
-    _ftpRequestAlreadyStarted = false;
-    [_delegate imageUploaded];
+- (BOOL)shouldOverwriteFileWithRequest:(BRRequest *)request { 
+    return true;
 }
 
 #pragma mark - Reachability
