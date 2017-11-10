@@ -37,6 +37,9 @@
 		894018801FB5A0E4002B8AFD /* BRRequest+_UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018761FB5A0E4002B8AFD /* BRRequest+_UserData.m */; };
 		894018811FB5A0E4002B8AFD /* BRRequestListDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018771FB5A0E4002B8AFD /* BRRequestListDirectory.m */; };
 		894018821FB5A0E4002B8AFD /* BRRequestCreateDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018781FB5A0E4002B8AFD /* BRRequestCreateDirectory.m */; };
+		894018861FB5E77E002B8AFD /* PurchaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018841FB5E77E002B8AFD /* PurchaseCell.m */; };
+		894018871FB5E77E002B8AFD /* PurchaseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894018851FB5E77E002B8AFD /* PurchaseCell.xib */; };
+		8940188A1FB5EFAC002B8AFD /* PurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018891FB5EFAC002B8AFD /* PurchaseModel.m */; };
 		9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F022F671F618DED000E138B /* RunProcessStepsView.m */; };
 		9F022F6A1F618E03000E138B /* RunProcessStepsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F022F691F618E03000E138B /* RunProcessStepsView.xib */; };
 		9F03A91A1F4563C900A7A316 /* DemandListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F03A9191F4563C900A7A316 /* DemandListView.m */; };
@@ -246,6 +249,11 @@
 		894018761FB5A0E4002B8AFD /* BRRequest+_UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRRequest+_UserData.m"; sourceTree = "<group>"; };
 		894018771FB5A0E4002B8AFD /* BRRequestListDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRequestListDirectory.m; sourceTree = "<group>"; };
 		894018781FB5A0E4002B8AFD /* BRRequestCreateDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRequestCreateDirectory.m; sourceTree = "<group>"; };
+		894018831FB5E77E002B8AFD /* PurchaseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PurchaseCell.h; sourceTree = "<group>"; };
+		894018841FB5E77E002B8AFD /* PurchaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PurchaseCell.m; sourceTree = "<group>"; };
+		894018851FB5E77E002B8AFD /* PurchaseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PurchaseCell.xib; sourceTree = "<group>"; };
+		894018881FB5EFAC002B8AFD /* PurchaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PurchaseModel.h; sourceTree = "<group>"; };
+		894018891FB5EFAC002B8AFD /* PurchaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PurchaseModel.m; sourceTree = "<group>"; };
 		9F022F661F618DED000E138B /* RunProcessStepsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunProcessStepsView.h; sourceTree = "<group>"; };
 		9F022F671F618DED000E138B /* RunProcessStepsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunProcessStepsView.m; sourceTree = "<group>"; };
 		9F022F691F618E03000E138B /* RunProcessStepsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunProcessStepsView.xib; sourceTree = "<group>"; };
@@ -1141,6 +1149,8 @@
 				D2A44F2C1FAF1FD400DF37B8 /* ProductModel.m */,
 				D283865D1FB2476C00BB304C /* PartModel.h */,
 				D283865E1FB2476C00BB304C /* PartModel.m */,
+				894018881FB5EFAC002B8AFD /* PurchaseModel.h */,
+				894018891FB5EFAC002B8AFD /* PurchaseModel.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1247,6 +1257,9 @@
 				D28386501FB2285600BB304C /* RunPartsScreen.h */,
 				D28386511FB2285600BB304C /* RunPartsScreen.m */,
 				D28386521FB2285600BB304C /* RunPartsScreen.xib */,
+				894018831FB5E77E002B8AFD /* PurchaseCell.h */,
+				894018841FB5E77E002B8AFD /* PurchaseCell.m */,
+				894018851FB5E77E002B8AFD /* PurchaseCell.xib */,
 				3B649A841FB3236400B8DC78 /* PartsCell.h */,
 				3B649A851FB3236400B8DC78 /* PartsCell.m */,
 				3B649A861FB3236400B8DC78 /* PartsCell.xib */,
@@ -1370,6 +1383,7 @@
 				9F3FF6D61F4BF1F800F52F64 /* FontAwesome.ttf in Resources */,
 				9F7FE5701F7B8DEE005CB4DF /* ProductGroupView.xib in Resources */,
 				9F909AAF1F4EBB6200DBFA63 /* GanttView.xib in Resources */,
+				894018871FB5E77E002B8AFD /* PurchaseCell.xib in Resources */,
 				9FB1BEAF1F514343008D179E /* CollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1397,11 +1411,13 @@
 				9F977EED1F6272AE009C2B6D /* RunProcessStepsViewCell.m in Sources */,
 				9F471D131F542B9300B294B7 /* RoadBlocksView.m in Sources */,
 				8919BE901FB4DD5100EE6839 /* UIImageView+HighlightedWebCache.m in Sources */,
+				894018861FB5E77E002B8AFD /* PurchaseCell.m in Sources */,
 				3B649A871FB3236400B8DC78 /* PartsCell.m in Sources */,
 				9FD12D861F443A3700F0E0A8 /* RunListViewCell.m in Sources */,
 				D28A35671FB046FC00AE6B51 /* UIAlertView+Blocks.m in Sources */,
 				9F7AB1A71F7D233C0013CBE1 /* DropDownListView.m in Sources */,
 				8940187A1FB5A0E4002B8AFD /* BRRequestError.m in Sources */,
+				8940188A1FB5EFAC002B8AFD /* PurchaseModel.m in Sources */,
 				D227675B1FAE49A400215D87 /* ProdAPI.m in Sources */,
 				D22767931FAE4B5400215D87 /* UIProgressView+AFNetworking.m in Sources */,
 				D22767891FAE4B5400215D87 /* AFURLResponseSerialization.m in Sources */,

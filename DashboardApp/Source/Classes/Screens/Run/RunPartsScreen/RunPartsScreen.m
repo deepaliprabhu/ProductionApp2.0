@@ -12,22 +12,40 @@
 #import "PartModel.h"
 #import "PartsCell.h"
 #import "Defines.h"
+#import "PurchaseCell.h"
+#import "PurchaseModel.h"
 
-@interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end
 
 @implementation RunPartsScreen
 {
+    __unsafe_unretained IBOutlet UICollectionView *_purchasesCollectionView;
+    
     __unsafe_unretained IBOutlet UIView *_partsHolderView;
     __unsafe_unretained IBOutlet UIButton *_partsButton;
     __unsafe_unretained IBOutlet UIButton *_shortButton;
     __unsafe_unretained IBOutlet UITableView *_componentsTable;
     __unsafe_unretained IBOutlet UITextField *_searchTextField;
     
+    __unsafe_unretained IBOutlet UIView *_historyView;
+    __unsafe_unretained IBOutlet UIView *_masonStockView;
+    __unsafe_unretained IBOutlet UILabel *_masonStockLabel;
+    __unsafe_unretained IBOutlet UILabel *_masonDateLabel;
+    __unsafe_unretained IBOutlet UIView *_transitStockView;
+    __unsafe_unretained IBOutlet UILabel *_transitStockLabel;
+    __unsafe_unretained IBOutlet UILabel *_transitDateLabel;
+    __unsafe_unretained IBOutlet UIView *_puneStockView;
+    __unsafe_unretained IBOutlet UILabel *_puneStockLabel;
+    __unsafe_unretained IBOutlet UILabel *_puneDateLabel;
+    __unsafe_unretained IBOutlet UILabel *_partTitleLabel;
+    __unsafe_unretained IBOutlet UILabel *_stockLabel;
+    
     NSMutableArray *_visibleObjs;
     NSMutableArray *_shorts;
     NSMutableArray *_parts;
+    NSMutableArray *_purchases;
     
     BOOL _partsAreSelected;
 }
@@ -37,6 +55,7 @@
     [super viewDidLoad];
     [self initLayout];
     
+    _purchases = [NSMutableArray array];
     _visibleObjs = [NSMutableArray array];
     _partsAreSelected = true;
     [self layoutButtons];
@@ -63,6 +82,11 @@
     _partsAreSelected = false;
     [self layoutButtons];
     [self getShorts];
+}
+
+- (IBAction) historyButtonTapped {
+    
+    
 }
 
 #pragma mark - UITextFieldDelegate
@@ -93,6 +117,23 @@
     return true;
 }
 
+#pragma mark - UICollectionViewDelegate
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return _purchases.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    PurchaseCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PurchaseCell" forIndexPath:indexPath];
+    [cell layoutWith:_purchases[indexPath.row] atIndex:(int)indexPath.row];
+    return cell;
+}
+
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -120,6 +161,10 @@
     return cell;
 }
 
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self layoutWith:_visibleObjs[indexPath.row]];
+}
+
 #pragma mark - Layout
 
 - (void) layoutButtons {
@@ -139,10 +184,52 @@
 
 - (void) initLayout {
     
-    _partsHolderView.layer.shadowOffset = ccs(0, 1);
-    _partsHolderView.layer.shadowColor = [UIColor blackColor].CGColor;
-    _partsHolderView.layer.shadowRadius = 2;
-    _partsHolderView.layer.shadowOpacity = 0.2;
+    [_purchasesCollectionView registerClass:[PurchaseCell class] forCellWithReuseIdentifier:@"PurchaseCell"];
+    UINib *cellNib = [UINib nibWithNibName:@"PurchaseCell" bundle:nil];
+    [_purchasesCollectionView registerNib:cellNib forCellWithReuseIdentifier:@"PurchaseCell"];
+    
+    [self addShadowTo:_partsHolderView];
+    [self addShadowTo:_masonStockView];
+    [self addShadowTo:_historyView];
+    [self addShadowTo:_puneStockView];
+    [self addShadowTo:_transitStockView];
+}
+
+- (void) addShadowTo:(UIView*)v {
+    
+    v.layer.shadowOffset = ccs(0, 1);
+    v.layer.shadowColor = [UIColor blackColor].CGColor;
+    v.layer.shadowRadius = 2;
+    v.layer.shadowOpacity = 0.2;
+}
+
+- (void) layoutWith:(PartModel*)part {
+    
+    if (part != nil) {
+        
+        NSDateFormatter *d = [NSDateFormatter new];
+        d.dateFormat = @"MM.dd.yyyy";
+        
+        _partTitleLabel.text = part.part;
+        _stockLabel.text = [NSString stringWithFormat:@"%d", [part totalStock]];
+        _masonDateLabel.text = [d stringFromDate:part.recoMasonDate];
+        _masonStockLabel.text = part.mason;
+        _transitDateLabel.text = [d stringFromDate:part.transitDate];
+        _transitStockLabel.text = part.transit;
+        _puneDateLabel.text = [d stringFromDate:part.recoPuneDate];
+        _puneStockLabel.text = part.pune;
+        
+        [self getPurchasesFor:part];
+    } else {
+        _stockLabel.text = @"-";
+        _partTitleLabel.text = @"-";
+        _masonDateLabel.text = @"-";
+        _masonStockLabel.text = @"-";
+        _transitDateLabel.text = @"-";
+        _transitStockLabel.text = @"-";
+        _puneDateLabel.text = @"-";
+        _puneStockLabel.text = @"-";
+    }
 }
 
 #pragma mark - Utils
@@ -196,6 +283,30 @@
             }
             [_visibleObjs addObjectsFromArray:_shorts];
             [_componentsTable reloadData];
+        } else {
+            [LoadingView showShortMessage:@"Error, try again later!"];
+        }
+    }];
+}
+
+- (void) getPurchasesFor:(PartModel*)m {
+    
+    [_purchases removeAllObjects];
+    [_purchasesCollectionView reloadData];
+    [LoadingView showLoading:@"Loading..."];
+    
+    [[ProdAPI sharedInstance] getPurchasesForPart:m.part withCompletion:^(BOOL success, id response) {
+        
+        if (success) {
+            if ([response isKindOfClass:[NSArray class]]) {
+                [LoadingView removeLoading];
+                for (NSDictionary *d in response) {
+                    [_purchases addObject:[PurchaseModel objFrom:d]];
+                }
+                [_purchasesCollectionView reloadData];
+            } else {
+                [LoadingView showShortMessage:@"No purchases!"];
+            }
         } else {
             [LoadingView showShortMessage:@"Error, try again later!"];
         }

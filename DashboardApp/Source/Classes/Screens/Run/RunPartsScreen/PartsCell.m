@@ -20,6 +20,12 @@
 - (void) layoutWith:(PartModel*)m {
     
     _nameLabel.text = m.part;
+    _vendorLabel.text = m.vendor;
+    _stockLabel.text = [NSString stringWithFormat:@"%d", [m totalStock]];
+    if (m.pricePerUnit != nil)
+        _priceLabel.text = [NSString stringWithFormat:@"%@$", m.pricePerUnit];
+    else
+        _priceLabel.text = @"-$";
 }
 
 @end
