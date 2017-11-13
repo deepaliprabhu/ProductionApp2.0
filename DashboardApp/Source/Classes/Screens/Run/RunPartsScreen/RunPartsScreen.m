@@ -42,17 +42,23 @@
     __unsafe_unretained IBOutlet UILabel *_partTitleLabel;
     __unsafe_unretained IBOutlet UILabel *_stockLabel;
     
+    __unsafe_unretained IBOutlet UILabel *_titleLabel;
+    
     NSMutableArray *_visibleObjs;
     NSMutableArray *_shorts;
     NSMutableArray *_parts;
     NSMutableArray *_purchases;
     
     BOOL _partsAreSelected;
+    
+    CGFloat _cost;
 }
 
 - (void) viewDidLoad {
 
     [super viewDidLoad];
+    
+    _cost = -1;
     [self initLayout];
     
     _purchases = [NSMutableArray array];
@@ -184,6 +190,8 @@
 
 - (void) initLayout {
     
+    [self layoutTitle];
+    
     [_purchasesCollectionView registerClass:[PurchaseCell class] forCellWithReuseIdentifier:@"PurchaseCell"];
     UINib *cellNib = [UINib nibWithNibName:@"PurchaseCell" bundle:nil];
     [_purchasesCollectionView registerNib:cellNib forCellWithReuseIdentifier:@"PurchaseCell"];
@@ -193,6 +201,14 @@
     [self addShadowTo:_historyView];
     [self addShadowTo:_puneStockView];
     [self addShadowTo:_transitStockView];
+}
+
+- (void) layoutTitle {
+    
+    if (_cost < 0)
+        _titleLabel.text = [NSString stringWithFormat:@"Product %@, Run %ld", _run.productName, (long)_run.runId];
+    else
+        _titleLabel.text = [NSString stringWithFormat:@"Product %@, Run %ld, BOM %.2f$", _run.productName, (long)_run.runId, _cost];
 }
 
 - (void) addShadowTo:(UIView*)v {
@@ -254,6 +270,16 @@
             for (NSDictionary *d in response) {
                 [_parts addObject:[PartModel partFrom:d]];
             }
+            
+            _cost = 0;
+            for (PartModel *p in _parts) {
+                _cost += [p.qty intValue]*[p.pricePerUnit floatValue];
+            }
+            [self layoutTitle];
+            
+            NSString *title = [NSString stringWithFormat:@"Parts (%lu)", (unsigned long)_parts.count];
+            [_partsButton setTitle:title forState:UIControlStateNormal];
+            
             [_visibleObjs addObjectsFromArray:_parts];
             [_componentsTable reloadData];
         } else {
@@ -282,6 +308,10 @@
             for (NSDictionary *d in response) {
                 [_shorts addObject:[PartModel partFrom:d]];
             }
+            
+            NSString *title = [NSString stringWithFormat:@"Shorts (%lu)", (unsigned long)_shorts.count];
+            [_shortButton setTitle:title forState:UIControlStateNormal];
+            
             [_visibleObjs addObjectsFromArray:_shorts];
             [_componentsTable reloadData];
         } else {

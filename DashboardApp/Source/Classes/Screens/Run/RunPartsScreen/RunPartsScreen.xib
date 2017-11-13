@@ -37,6 +37,7 @@
                 <outlet property="_searchTextField" destination="Ymd-pp-BYK" id="M7t-HH-UkN"/>
                 <outlet property="_shortButton" destination="Pk1-2k-SfJ" id="GUO-v5-GtY"/>
                 <outlet property="_stockLabel" destination="4On-1N-xOk" id="Q6D-cC-3zf"/>
+                <outlet property="_titleLabel" destination="yZe-Is-jEv" id="O1s-w2-wOU"/>
                 <outlet property="_transitDateLabel" destination="vZz-es-qTD" id="sJQ-WA-lRM"/>
                 <outlet property="_transitStockLabel" destination="yxi-pn-TPi" id="dxH-Mm-0Ls"/>
                 <outlet property="_transitStockView" destination="YgN-i9-e8k" id="2pV-hp-3hD"/>
@@ -58,11 +59,11 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xtb-nx-Hfd">
                     <rect key="frame" x="0.0" y="20" width="1024" height="61"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Parts List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZe-Is-jEv">
-                            <rect key="frame" x="420" y="20" width="184" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZe-Is-jEv">
+                            <rect key="frame" x="262" y="20" width="500" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="kgU-6v-8UY"/>
-                                <constraint firstAttribute="width" constant="184" id="qGN-YJ-VMK"/>
+                                <constraint firstAttribute="width" constant="500" id="qGN-YJ-VMK"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="21"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
