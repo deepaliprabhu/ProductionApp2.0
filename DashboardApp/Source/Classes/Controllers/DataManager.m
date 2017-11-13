@@ -409,6 +409,7 @@ static DataManager *_sharedInstance = nil;
         ProductModel *p = [ProductModel objectFrom:d];
         [productsArray addObject:p];
     }
+    [productsArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"order" ascending:true]]];
     __notifyObj(kNotificationProductsReceived, nil);
 }
 

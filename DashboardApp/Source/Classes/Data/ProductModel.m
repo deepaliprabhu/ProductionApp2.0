@@ -19,6 +19,13 @@
     p.status = data[@"Status"];
     p.name = data[@"Name"];
     p.photo = data[@"Images"];
+    
+    NSString *order = data[@"Order"];
+    if (order.length == 0)
+        p.order = 0;
+    else
+        p.order = INT_MAX;
+    
     return p;
 }
 
