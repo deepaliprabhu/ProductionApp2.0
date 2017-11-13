@@ -39,20 +39,6 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="DAo-pZ-Il9">
-                    <rect key="frame" x="122" y="0.0" width="766" height="117"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="6mF-D6-mmH">
-                        <size key="itemSize" width="136" height="117"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    </collectionViewFlowLayout>
-                    <connections>
-                        <outlet property="dataSource" destination="iN0-l3-epB" id="iqM-vB-jcW"/>
-                        <outlet property="delegate" destination="iN0-l3-epB" id="3rF-7V-WIM"/>
-                    </connections>
-                </collectionView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3q9-7z-4ku">
                     <rect key="frame" x="0.0" y="116" width="888" height="1"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -62,18 +48,13 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="iof-Ad-ZpI" secondAttribute="bottom" constant="82" id="IAA-su-uio"/>
-                <constraint firstItem="DAo-pZ-Il9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="NqM-hM-cvR"/>
-                <constraint firstItem="DAo-pZ-Il9" firstAttribute="leading" secondItem="aX6-bF-DFh" secondAttribute="trailing" constant="16" id="TFh-s9-qVC"/>
-                <constraint firstAttribute="bottom" secondItem="DAo-pZ-Il9" secondAttribute="bottom" id="bdO-Bv-3BD"/>
                 <constraint firstItem="aX6-bF-DFh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="32" id="d60-q5-NFI"/>
                 <constraint firstItem="aX6-bF-DFh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="6" id="iAz-pZ-G01"/>
                 <constraint firstItem="iof-Ad-ZpI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="6" id="qhn-Fq-9f1"/>
-                <constraint firstAttribute="trailing" secondItem="DAo-pZ-Il9" secondAttribute="trailing" id="qkP-kk-Zfh"/>
                 <constraint firstItem="iof-Ad-ZpI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="sBv-cE-JL8"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="_collectionView" destination="DAo-pZ-Il9" id="u3O-7T-4pG"/>
                 <outlet property="_countLabel" destination="aX6-bF-DFh" id="rJG-dh-SYG"/>
                 <outlet property="_titleLabel" destination="iof-Ad-ZpI" id="80s-wB-wRa"/>
             </connections>

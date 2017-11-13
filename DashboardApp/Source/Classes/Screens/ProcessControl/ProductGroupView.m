@@ -9,27 +9,39 @@
 #import "ProductGroupView.h"
 #import "ProdAPI.h"
 #import "LoadingView.h"
+#import "GMGridView.h"
+#import "GMGridViewLayoutStrategies.h"
+
+@interface ProductGroupView() <GMGridViewDataSource, GMGridViewActionDelegate, GMGridViewSortingDelegate>
+@end
 
 @implementation ProductGroupView
 {
+    GMGridView *_gridView;
     UIPopoverController *_adminPopover;
 }
 
 __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
+
+- (void) awakeFromNib
+{
+    [super awakeFromNib];
+    [self addGridView];
+}
 
 - (void)initViewWithTitle:(NSString*)title
 {
     _titleLabel.text = title;
 }
 
-- (void)setProductsArray:(NSArray*)productsArray_
+- (void)setProductsArray:(NSMutableArray*)productsArray_
 {
     productsArray = productsArray_;
-    [_collectionView reloadData];
+    [_gridView reloadData];
 }
 
 - (void) reloadData {
-    [_collectionView reloadData];
+    [_gridView reloadData];
 }
 
 - (void) setScreenIsForAdmin:(BOOL)screenIsForAdmin {
@@ -42,7 +54,7 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
 
 - (void) statusChangedForProducts {
     
-    [_collectionView reloadData];
+    [_gridView reloadData];
     [self layoutCountLabel];
 }
 
@@ -55,36 +67,45 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
     [_delegate dismissPhotoPicker];
 }
 
-#pragma mark - UICollectionViewDelegate
+#pragma mark - GridViewDelegate
 
-- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
-{
+- (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView {
     return productsArray.count;
 }
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+- (CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    return CGSizeMake(136, 117);
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
-{
-    static NSString *identifier = @"ProductCollectionViewCell";
+- (GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index {
     
-    [collectionView registerNib:[UINib nibWithNibName:identifier bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:identifier];
+    GMGridViewCell *cell = [gridView dequeueReusableCell];
+    if (cell == nil)
+        cell = [GMGridViewCell new];
     
-    ProductCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    [cell setCellData:productsArray[indexPath.row] atIndex:(int)indexPath.row forAdmin:_screenIsForAdmin];
+    if (cell.contentView != nil)
+        [cell.contentView removeFromSuperview];
+    
+    ProductCollectionViewCell *prCell = [[NSBundle mainBundle] loadNibNamed:@"ProductCollectionViewCell" owner:nil options:nil][0];
+    [prCell setCellData:productsArray[index] atIndex:(int)index forAdmin:_screenIsForAdmin];
+    cell.contentView = prCell;
+    cell.backgroundColor = [UIColor clearColor];
+    cell.contentView.backgroundColor = [UIColor clearColor];
     
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)GMGridView:(GMGridView *)gridView canDeleteItemAtIndex:(NSInteger)index {
+    return false;
+}
+
+- (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position {
     
-    ProductModel *product = productsArray[indexPath.row];
+    ProductModel *product = productsArray[position];
     if (_screenIsForAdmin == true)
     {
-        UICollectionViewLayoutAttributes *attr =  [_collectionView layoutAttributesForItemAtIndexPath:indexPath];
-        CGRect rect = [_collectionView convertRect:attr.frame toView:self.superview.superview.superview];
+        GMGridViewCell *cell = [_gridView cellForItemAtIndex:position];
+        CGRect rect = [_gridView convertRect:cell.frame toView:self.superview.superview.superview];
         
         ProductAdminPopover *screen = [[ProductAdminPopover alloc] initWithNibName:@"ProductAdminPopover" bundle:nil];
         screen.product = product;
@@ -95,6 +116,30 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
     }
     else
         [_delegate viewProductSteps:product];
+}
+
+- (void)GMGridView:(GMGridView *)gridView didStartMovingCell:(GMGridViewCell *)cell {
+}
+
+- (void)GMGridView:(GMGridView *)gridView didEndMovingCell:(GMGridViewCell *)cell {
+    [_delegate updateProductOrders];
+}
+
+- (BOOL)GMGridView:(GMGridView *)gridView shouldAllowShakingBehaviorWhenMovingCell:(GMGridViewCell *)view atIndex:(NSInteger)index {
+    return _screenIsForAdmin;
+}
+
+- (BOOL)GMGridView:(GMGridView *)gridView shouldMoveItemAt:(NSInteger)item {
+    return _screenIsForAdmin;
+}
+
+- (void)GMGridView:(GMGridView *)gridView exchangeItemAtIndex:(NSInteger)index1 withItemAtIndex:(NSInteger)index2 {
+    [productsArray exchangeObjectAtIndex:index1 withObjectAtIndex:index2];
+    [_delegate exchangeProduct:productsArray[index1] withProduct:productsArray[index2]];
+}
+
+- (void)GMGridView:(GMGridView *)gridView moveItemAtIndex:(NSInteger)oldIndex toIndex:(NSInteger)newIndex {
+    
 }
 
 #pragma mark - Layout
@@ -112,6 +157,27 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
         _countLabel.text = cstrf(@"%d/%lu", c, (unsigned long)productsArray.count);
     else
         _countLabel.text = @"";
+}
+
+- (void) addGridView {
+    
+    if (_gridView == nil) {
+        [_gridView removeFromSuperview];
+        _gridView = nil;
+    }
+    
+    _gridView = [[GMGridView alloc] initWithFrame:CGRectMake(122, 0, 766, 117)];
+    _gridView.layer.masksToBounds = true;
+    _gridView.backgroundColor = [UIColor clearColor];
+    _gridView.minEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    _gridView.itemSpacing = 0;
+    _gridView.layoutStrategy = [GMGridViewLayoutHorizontalStrategy new];
+    _gridView.centerGrid  = false;
+    _gridView.actionDelegate = self;
+    _gridView.sortingDelegate = self;
+    _gridView.dataSource = self;
+    _gridView.style = GMGridViewStyleSwap;
+    [self addSubview:_gridView];
 }
 
 @end

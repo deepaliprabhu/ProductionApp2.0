@@ -15,10 +15,9 @@
 @protocol ProductGroupViewDelegate;
 @interface ProductGroupView : UIView <ProductAdminPopoverDelegate> {
     IBOutlet UILabel *_titleLabel;
-    IBOutlet UICollectionView *_collectionView;
     __weak IBOutlet UILabel *_countLabel;
     
-    NSArray *productsArray;
+    NSMutableArray *productsArray;
 }
 __pd(ProductGroupViewDelegate);
 __CREATEVIEWH(ProductGroupView);
@@ -26,13 +25,15 @@ __CREATEVIEWH(ProductGroupView);
 @property (nonatomic, unsafe_unretained) BOOL screenIsForAdmin;
 
 - (void)initViewWithTitle:(NSString*)title;
-- (void)setProductsArray:(NSArray*)productsArray_;
+- (void)setProductsArray:(NSMutableArray*)productsArray_;
 - (void) reloadData;
 
 @end
 
 @protocol ProductGroupViewDelegate <NSObject>
 
+- (void) updateProductOrders;
+- (void) exchangeProduct:(ProductModel*)p1 withProduct:(ProductModel*)p2;
 - (void) viewProductSteps:(ProductModel*)product;
 - (void) presentPhotoPicker:(UIImagePickerController *)p;
 - (void) dismissPhotoPicker;

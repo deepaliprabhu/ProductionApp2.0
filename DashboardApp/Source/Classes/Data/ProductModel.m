@@ -22,9 +22,9 @@
     
     NSString *order = data[@"Order"];
     if (order.length == 0)
-        p.order = 0;
-    else
         p.order = INT_MAX;
+    else
+        p.order = [order intValue];
     
     return p;
 }

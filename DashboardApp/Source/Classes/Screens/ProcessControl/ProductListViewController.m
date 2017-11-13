@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import "ProductModel.h"
 #import "ProdAPI.h"
+#import "LoadingView.h"
 
 @interface ProductListViewController ()
 
@@ -23,6 +24,9 @@
     __weak IBOutlet UIImageView *_backgroundImageView;
     
     BOOL _screenIsForAdmin;
+    
+    NSMutableArray *_productsToBeReordered;
+    int _numberOfOrderRequests;
 }
 
 #pragma mark - View lifecycle
@@ -33,6 +37,7 @@
     
     [self initLayout];
     
+    _productsToBeReordered = [NSMutableArray array];
     productGroupsArray = [NSMutableArray arrayWithObjects:@"Sentinel", @"Inspector", @"GrillVille", @"Misc.",nil];
     [__ServerManager getProductList];
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -47,6 +52,7 @@
 
 - (IBAction) adminSwitchTapped {
     
+    [_productsToBeReordered removeAllObjects];
     _screenIsForAdmin = !_screenIsForAdmin;
     for (int i=0; i < productGroupViewsArray.count; ++i)
     {
@@ -60,7 +66,6 @@
 
 - (void) viewProductSteps:(ProductModel *)product
 {
-    NSLog(@"PRODUCT %@", product.productNumber);
     if (_screenIsForAdmin == false) {
 
         backgroundDimmingView.hidden = false;
@@ -79,6 +84,51 @@
 
 - (void) dismissPhotoPicker {
     [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (void) exchangeProduct:(ProductModel *)p1 withProduct:(ProductModel *)p2 {
+
+    int i1 = -1, i2 = -1;
+    NSUInteger c = productsArray.count;
+    for (int i=0; i<c; i++) {
+        
+        ProductModel *p = productsArray[i];
+        if ([p.productID isEqualToString:p1.productID])
+            i1 = i;
+        else if ([p.productID isEqualToString:p2.productID])
+            i2 = i;
+    }
+    
+    if (i1 > -1 && i2 > -1) {
+        p1.order = i2;
+        p2.order = i1;
+        [_productsToBeReordered addObject:p1];
+        [_productsToBeReordered addObject:p2];
+        [productsArray exchangeObjectAtIndex:i1 withObjectAtIndex:i2];
+    }
+}
+
+- (void) updateProductOrders {
+    
+    _numberOfOrderRequests = 0;
+    [LoadingView showLoading:@"Saving order..."];
+    for (ProductModel *p in _productsToBeReordered) {
+        
+        [[ProdAPI sharedInstance] setOrder:p.order forProduct:p.productID withCompletion:^(BOOL success, id response) {
+            
+            _numberOfOrderRequests++;
+            if (_numberOfOrderRequests == _productsToBeReordered.count) {
+                [_productsToBeReordered removeAllObjects];
+                [LoadingView removeLoading];
+            }
+                
+            if (success == true) {
+                
+            } else {
+                
+            }
+        }];
+    }
 }
 
 #pragma mark - ProductProcessStepsViewDelegate
@@ -169,7 +219,7 @@
     backgroundDimmingView.hidden = true;
 }
 
-- (NSArray*) filteredProductsArrayForIndex:(int)index
+- (NSMutableArray*) filteredProductsArrayForIndex:(int)index
 {
     NSMutableArray *filteredArray = [[NSMutableArray alloc] init];
     for (int i=0; i < productsArray.count; ++i) {
