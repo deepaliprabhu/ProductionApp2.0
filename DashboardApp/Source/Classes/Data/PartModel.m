@@ -48,7 +48,7 @@ static NSDateFormatter *_formatter = nil;
 }
 
 - (int) totalStock {
-    int total = [_mason intValue] + [_pune intValue] + [_transit intValue];
+    int total = [_mason intValue] + [_pune intValue] + [_transit intValue] + [_lausanne intValue];
     return total;
 }
 

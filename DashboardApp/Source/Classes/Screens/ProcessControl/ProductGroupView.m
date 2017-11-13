@@ -38,6 +38,7 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
 {
     productsArray = productsArray_;
     [_gridView reloadData];
+    [self layoutCountLabel];
 }
 
 - (void) reloadData {
@@ -146,17 +147,22 @@ __CREATEVIEW(ProductGroupView, @"ProductGroupView", 0);
 
 - (void) layoutCountLabel
 {
-    int c = 0;
-    for (ProductModel *p in productsArray)
-    {
-        if ([p.productStatus isEqualToString:@"InActive"] == false)
-            c = c + 1;
+    if (_screenIsForAdmin == false) {
+        _countLabel.text = cstrf(@"%lu", (unsigned long)productsArray.count);
+    } else {
+        
+        int c = 0;
+        for (ProductModel *p in productsArray)
+        {
+            if ([p isVisible])
+                c = c + 1;
+        }
+        
+        if (_screenIsForAdmin == true)
+            _countLabel.text = cstrf(@"%d/%lu", c, (unsigned long)productsArray.count);
+        else
+            _countLabel.text = @"";
     }
-    
-    if (_screenIsForAdmin == true)
-        _countLabel.text = cstrf(@"%d/%lu", c, (unsigned long)productsArray.count);
-    else
-        _countLabel.text = @"";
 }
 
 - (void) addGridView {

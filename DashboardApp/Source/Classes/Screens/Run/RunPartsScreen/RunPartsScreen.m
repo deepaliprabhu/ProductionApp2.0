@@ -220,6 +220,7 @@
         _puneStockLabel.text = part.pune;
         
         [self getPurchasesFor:part];
+        [self getRunsFor:part];
     } else {
         _stockLabel.text = @"-";
         _partTitleLabel.text = @"-";
@@ -310,6 +311,13 @@
         } else {
             [LoadingView showShortMessage:@"Error, try again later!"];
         }
+    }];
+}
+
+- (void) getRunsFor:(PartModel*)m {
+    
+    [[ProdAPI sharedInstance] getRunsFor:m.part withCompletion:^(BOOL success, id response) {
+        NSLog(@"res");
     }];
 }
 
