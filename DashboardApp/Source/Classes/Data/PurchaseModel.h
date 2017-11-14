@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) NSString *qty;
 @property (nonatomic, strong) NSString *price;
+@property (nonatomic, strong) NSDate *createdDate;
 @property (nonatomic, strong) NSDate *expectedDate;
 
 + (PurchaseModel*) objFrom:(NSDictionary*)data;

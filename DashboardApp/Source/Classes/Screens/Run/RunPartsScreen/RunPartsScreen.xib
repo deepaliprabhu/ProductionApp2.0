@@ -23,6 +23,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RunPartsScreen">
             <connections>
                 <outlet property="_componentsTable" destination="SnP-Us-Sab" id="0MF-Gu-Aad"/>
+                <outlet property="_detailsHolderView" destination="FLx-ck-1RW" id="3Hx-AK-3dg"/>
                 <outlet property="_historyView" destination="7HG-Gd-57G" id="poq-gm-z4y"/>
                 <outlet property="_masonDateLabel" destination="giU-lu-ptg" id="u5w-P0-OAY"/>
                 <outlet property="_masonStockLabel" destination="RAU-vY-jYG" id="2Tw-mJ-eaS"/>
@@ -35,6 +36,7 @@
                 <outlet property="_puneStockView" destination="N1R-rO-sgL" id="0fd-SU-oRB"/>
                 <outlet property="_purchasesCollectionView" destination="HJd-iU-yYK" id="bAb-Ko-lPP"/>
                 <outlet property="_searchTextField" destination="Ymd-pp-BYK" id="M7t-HH-UkN"/>
+                <outlet property="_seeDetailsLabel" destination="oWr-Wr-SBW" id="6j9-ji-fke"/>
                 <outlet property="_shortButton" destination="Pk1-2k-SfJ" id="GUO-v5-GtY"/>
                 <outlet property="_stockLabel" destination="4On-1N-xOk" id="Q6D-cC-3zf"/>
                 <outlet property="_titleLabel" destination="yZe-Is-jEv" id="O1s-w2-wOU"/>
@@ -238,7 +240,7 @@
                         <constraint firstItem="Pk1-2k-SfJ" firstAttribute="leading" secondItem="vTq-No-RFn" secondAttribute="trailing" id="qWU-BR-AqN"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FLx-ck-1RW">
+                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FLx-ck-1RW">
                     <rect key="frame" x="376" y="132" width="648" height="607"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qqk-aD-Uf9">
@@ -428,9 +430,20 @@
                         <constraint firstAttribute="trailing" secondItem="qqk-aD-Uf9" secondAttribute="trailing" id="Ofd-6o-tc0"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Parts/Shorts items in order to see details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oWr-Wr-SBW">
+                    <rect key="frame" x="518" y="425" width="364" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="Vx7-f1-rUj"/>
+                        <constraint firstAttribute="width" constant="364" id="cmi-hZ-gaY"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.94117647059999998" green="0.95686274510000002" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="oWr-Wr-SBW" firstAttribute="centerY" secondItem="FLx-ck-1RW" secondAttribute="centerY" id="2Eh-Uc-lwy"/>
                 <constraint firstItem="lnI-y5-NXe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4Zg-mm-Awq"/>
                 <constraint firstItem="WMi-Tj-HQM" firstAttribute="top" secondItem="Xtb-nx-Hfd" secondAttribute="bottom" constant="16" id="5Qk-qE-4Ox"/>
                 <constraint firstItem="FLx-ck-1RW" firstAttribute="leading" secondItem="WMi-Tj-HQM" secondAttribute="trailing" id="9RN-ZQ-H6D"/>
@@ -441,6 +454,7 @@
                 <constraint firstItem="WMi-Tj-HQM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="JrT-so-1KM"/>
                 <constraint firstAttribute="trailing" secondItem="Xtb-nx-Hfd" secondAttribute="trailing" id="KaU-4f-TZp"/>
                 <constraint firstItem="FLx-ck-1RW" firstAttribute="top" secondItem="Xtb-nx-Hfd" secondAttribute="bottom" constant="51" id="bu4-6C-szT"/>
+                <constraint firstItem="oWr-Wr-SBW" firstAttribute="centerX" secondItem="FLx-ck-1RW" secondAttribute="centerX" id="cB7-X3-eyD"/>
                 <constraint firstItem="Xtb-nx-Hfd" firstAttribute="top" secondItem="lnI-y5-NXe" secondAttribute="bottom" id="ehK-1k-1wv"/>
                 <constraint firstAttribute="bottom" secondItem="WMi-Tj-HQM" secondAttribute="bottom" constant="29" id="nGG-Gr-FCz"/>
                 <constraint firstItem="lnI-y5-NXe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="pu3-ML-AZf"/>

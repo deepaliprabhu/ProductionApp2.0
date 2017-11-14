@@ -23,6 +23,7 @@ static NSDateFormatter *_formatter = nil;
     PurchaseModel *m = [PurchaseModel new];
     m.poID = data[@"poid"];
     m.vendor = data[@"Vendor"];
+    m.createdDate = [_formatter dateFromString:data[@"created"]];
     m.expectedDate = [_formatter dateFromString:data[@"expectdate"]];
     m.status = data[@"status"];
     m.qty = data[@"qty"];

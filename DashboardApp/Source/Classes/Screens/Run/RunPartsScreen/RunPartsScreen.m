@@ -21,6 +21,9 @@
 
 @implementation RunPartsScreen
 {
+    __unsafe_unretained IBOutlet UIView *_detailsHolderView;
+    __unsafe_unretained IBOutlet UILabel *_seeDetailsLabel;
+    
     __unsafe_unretained IBOutlet UICollectionView *_purchasesCollectionView;
     
     __unsafe_unretained IBOutlet UIView *_partsHolderView;
@@ -223,6 +226,9 @@
     
     if (part != nil) {
         
+        _detailsHolderView.alpha = 1;
+        _seeDetailsLabel.alpha = 0;
+        
         NSDateFormatter *d = [NSDateFormatter new];
         d.dateFormat = @"MM.dd.yyyy";
         
@@ -238,6 +244,10 @@
         [self getPurchasesFor:part];
         [self getRunsFor:part];
     } else {
+        
+        _detailsHolderView.alpha = 0;
+        _seeDetailsLabel.alpha = 1;
+        
         _stockLabel.text = @"-";
         _partTitleLabel.text = @"-";
         _masonDateLabel.text = @"-";
