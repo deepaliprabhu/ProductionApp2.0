@@ -14,6 +14,10 @@
 #import "Defines.h"
 #import "PurchaseCell.h"
 #import "PurchaseModel.h"
+#import "RunModel.h"
+#import "RunPartCell.h"
+
+const CGFloat kMinTableHeight = 144;
 
 @interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -25,6 +29,10 @@
     __unsafe_unretained IBOutlet UILabel *_seeDetailsLabel;
     
     __unsafe_unretained IBOutlet UICollectionView *_purchasesCollectionView;
+    __unsafe_unretained IBOutlet UITableView *_runsTableView;
+    __unsafe_unretained IBOutlet NSLayoutConstraint *_runsHolderHeightConstraint;
+    __unsafe_unretained IBOutlet UILabel *_noRunsLabel;
+    __unsafe_unretained IBOutlet UILabel *_noPurchasesLabel;
     
     __unsafe_unretained IBOutlet UIView *_partsHolderView;
     __unsafe_unretained IBOutlet UIButton *_partsButton;
@@ -51,6 +59,7 @@
     NSMutableArray *_shorts;
     NSMutableArray *_parts;
     NSMutableArray *_purchases;
+    NSMutableArray *_runs;
     
     BOOL _partsAreSelected;
     
@@ -64,6 +73,7 @@
     _cost = -1;
     [self initLayout];
     
+    _runs = [NSMutableArray array];
     _purchases = [NSMutableArray array];
     _visibleObjs = [NSMutableArray array];
     _partsAreSelected = true;
@@ -150,28 +160,54 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _visibleObjs.count;
+    
+    if (tableView == _runsTableView)
+        return _runs.count;
+    else
+        return _visibleObjs.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 32;
+    
+    if (tableView == _runsTableView)
+        return 34;
+    else
+        return 32;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *identifier = @"PartsCell";
-    PartsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil) {
-        cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
+    if (tableView == _runsTableView) {
+        
+        static NSString *identifier = @"RunPartCell";
+        RunPartCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
+        }
+        
+        [cell layoutWith:_runs[indexPath.row] at:(int)indexPath.row];
+        
+        return cell;
+    } else {
+        
+        static NSString *identifier = @"PartsCell";
+        PartsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
+        }
+        
+        [cell layoutWith:_visibleObjs[indexPath.row]];
+        
+        return cell;
     }
-
-    [cell layoutWith:_visibleObjs[indexPath.row]];
-    
-    return cell;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self layoutWith:_visibleObjs[indexPath.row]];
+    
+    if (tableView == _runsTableView) {
+        
+    } else
+        [self layoutWith:_visibleObjs[indexPath.row]];
 }
 
 #pragma mark - Layout
@@ -340,13 +376,14 @@
         
         if (success) {
             if ([response isKindOfClass:[NSArray class]]) {
+                _noPurchasesLabel.alpha = 0;
                 [LoadingView removeLoading];
                 for (NSDictionary *d in response) {
                     [_purchases addObject:[PurchaseModel objFrom:d]];
                 }
                 [_purchasesCollectionView reloadData];
             } else {
-                [LoadingView showShortMessage:@"No purchases!"];
+                _noPurchasesLabel.alpha = 1;
             }
         } else {
             [LoadingView showShortMessage:@"Error, try again later!"];
@@ -356,8 +393,32 @@
 
 - (void) getRunsFor:(PartModel*)m {
     
+    [_runs removeAllObjects];
+    [_runsTableView reloadData];
+    
     [[ProdAPI sharedInstance] getRunsFor:m.part withCompletion:^(BOOL success, id response) {
-        NSLog(@"res");
+
+        if (success) {
+            
+            if ([response isKindOfClass:[NSArray class]]) {
+                for (NSDictionary *d in response) {
+                    [_runs addObject:[RunModel objectFrom:d]];
+                }
+                [_runsTableView reloadData];
+            }
+        }
+        
+        if (_runs.count > 0) {
+            _noRunsLabel.alpha = 0;
+            int c = MIN((int)_runs.count-1, 4);
+            _runsHolderHeightConstraint.constant = kMinTableHeight + c*[RunPartCell height];
+        } else {
+            _noRunsLabel.alpha = 1;
+            _runsHolderHeightConstraint.constant = kMinTableHeight;
+        }
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view layoutIfNeeded];
+        }];
     }];
 }
 

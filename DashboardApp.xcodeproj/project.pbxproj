@@ -40,6 +40,9 @@
 		894018861FB5E77E002B8AFD /* PurchaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018841FB5E77E002B8AFD /* PurchaseCell.m */; };
 		894018871FB5E77E002B8AFD /* PurchaseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894018851FB5E77E002B8AFD /* PurchaseCell.xib */; };
 		8940188A1FB5EFAC002B8AFD /* PurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018891FB5EFAC002B8AFD /* PurchaseModel.m */; };
+		894C5F5A1FBB0ED300FA4E5D /* RunModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 894C5F591FBB0ED300FA4E5D /* RunModel.m */; };
+		894C5F5E1FBB147600FA4E5D /* RunPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894C5F5C1FBB147600FA4E5D /* RunPartCell.m */; };
+		894C5F5F1FBB147600FA4E5D /* RunPartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894C5F5D1FBB147600FA4E5D /* RunPartCell.xib */; };
 		89854AE71FB97B3A00C6E38D /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADB1FB97B3A00C6E38D /* GMGridView.m */; };
 		89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADF1FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m */; };
 		89854AE91FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854AE01FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m */; };
@@ -259,6 +262,11 @@
 		894018851FB5E77E002B8AFD /* PurchaseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PurchaseCell.xib; sourceTree = "<group>"; };
 		894018881FB5EFAC002B8AFD /* PurchaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PurchaseModel.h; sourceTree = "<group>"; };
 		894018891FB5EFAC002B8AFD /* PurchaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PurchaseModel.m; sourceTree = "<group>"; };
+		894C5F581FBB0ED300FA4E5D /* RunModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunModel.h; sourceTree = "<group>"; };
+		894C5F591FBB0ED300FA4E5D /* RunModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunModel.m; sourceTree = "<group>"; };
+		894C5F5B1FBB147600FA4E5D /* RunPartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunPartCell.h; sourceTree = "<group>"; };
+		894C5F5C1FBB147600FA4E5D /* RunPartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunPartCell.m; sourceTree = "<group>"; };
+		894C5F5D1FBB147600FA4E5D /* RunPartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunPartCell.xib; sourceTree = "<group>"; };
 		89854ADB1FB97B3A00C6E38D /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
 		89854ADC1FB97B3A00C6E38D /* GMGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridViewCell.h; sourceTree = "<group>"; };
 		89854ADD1FB97B3A00C6E38D /* GMGridViewCell+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridViewCell+Extended.h"; sourceTree = "<group>"; };
@@ -1187,6 +1195,8 @@
 				D283865E1FB2476C00BB304C /* PartModel.m */,
 				894018881FB5EFAC002B8AFD /* PurchaseModel.h */,
 				894018891FB5EFAC002B8AFD /* PurchaseModel.m */,
+				894C5F581FBB0ED300FA4E5D /* RunModel.h */,
+				894C5F591FBB0ED300FA4E5D /* RunModel.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1300,6 +1310,9 @@
 				3B649A841FB3236400B8DC78 /* PartsCell.h */,
 				3B649A851FB3236400B8DC78 /* PartsCell.m */,
 				3B649A861FB3236400B8DC78 /* PartsCell.xib */,
+				894C5F5B1FBB147600FA4E5D /* RunPartCell.h */,
+				894C5F5C1FBB147600FA4E5D /* RunPartCell.m */,
+				894C5F5D1FBB147600FA4E5D /* RunPartCell.xib */,
 			);
 			path = RunPartsScreen;
 			sourceTree = "<group>";
@@ -1395,6 +1408,7 @@
 				9F7767411F56D6E90092F603 /* LeftCollectionViewCell.xib in Resources */,
 				9F3144BB1F7ABFD200B9D32C /* right_arrow.png in Resources */,
 				3BCDA4191FB346560021BC03 /* ProductAdminPopover.xib in Resources */,
+				894C5F5F1FBB147600FA4E5D /* RunPartCell.xib in Resources */,
 				9F03A9221F45667700A7A316 /* DemandListViewCell.xib in Resources */,
 				9F471CFA1F53FF4600B294B7 /* InProcessView.xib in Resources */,
 				9F7AB1A41F7D233C0013CBE1 /* check_mark@2x.png in Resources */,
@@ -1491,6 +1505,7 @@
 				9F7FE5691F7B78C2005CB4DF /* ProductListViewController.m in Sources */,
 				9F471CFF1F54003300B294B7 /* InProcessViewCell.m in Sources */,
 				D2A44F2D1FAF1FD400DF37B8 /* ProductModel.m in Sources */,
+				894C5F5A1FBB0ED300FA4E5D /* RunModel.m in Sources */,
 				9F909AAD1F4EBB4E00DBFA63 /* GanttView.m in Sources */,
 				D22767911FAE4B5400215D87 /* UIButton+AFNetworking.m in Sources */,
 				9FA2645F1F48A179004C882E /* TasklistView.m in Sources */,
@@ -1526,6 +1541,7 @@
 				9FEEE5801EEFEFA2005B5ECA /* main.m in Sources */,
 				8919BE991FB4DD5100EE6839 /* UIImageView+WebCache.m in Sources */,
 				9FD12D931F443DBC00F0E0A8 /* Run.m in Sources */,
+				894C5F5E1FBB147600FA4E5D /* RunPartCell.m in Sources */,
 				89854AE91FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				8919BE951FB4DD5100EE6839 /* SDWebImagePrefetcher.m in Sources */,
 				9F7AB1A81F7D233C0013CBE1 /* DropDownViewCell.m in Sources */,

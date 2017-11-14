@@ -79,6 +79,7 @@ static ProdAPI *_sharedInstance = nil;
 - (void) getRunsFor:(NSString*)partID withCompletion:(void (^)(BOOL success, id response))block
 {
     NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/parts_for_runs.php?partno=%@", partID];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [self callGETURL:url completion:block];
 }
 
