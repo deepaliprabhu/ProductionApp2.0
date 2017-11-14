@@ -112,14 +112,23 @@ const CGFloat kMinTableHeight = 144;
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
-    NSString * searchStr = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    NSString * searchStr = [[textField.text stringByReplacingCharactersInRange:range withString:string] lowercaseString];
     NSMutableIndexSet *set = [NSMutableIndexSet indexSet];
-    for (int i=0; i<_visibleObjs.count; i++) {
-        PartModel *p = _visibleObjs[i];
-        if ([p.part containsString:searchStr] == false)
-            [set addIndex:i];
+    
+    if (searchStr.length == 0) {
+        [_visibleObjs removeAllObjects];
+        if (_partsAreSelected == true)
+            [_visibleObjs addObjectsFromArray:_parts];
+        else
+            [_visibleObjs addObjectsFromArray:_shorts];
+    } else {
+        for (int i=0; i<_visibleObjs.count; i++) {
+            PartModel *p = _visibleObjs[i];
+            if ([[p.part lowercaseString] containsString:searchStr] == false)
+                [set addIndex:i];
+        }
+        [_visibleObjs removeObjectsAtIndexes:set];
     }
-    [_visibleObjs removeObjectsAtIndexes:set];
     [_componentsTable reloadData];
     
     return true;
@@ -375,9 +384,9 @@ const CGFloat kMinTableHeight = 144;
     [[ProdAPI sharedInstance] getPurchasesForPart:m.part withCompletion:^(BOOL success, id response) {
         
         if (success) {
+            [LoadingView removeLoading];
             if ([response isKindOfClass:[NSArray class]]) {
                 _noPurchasesLabel.alpha = 0;
-                [LoadingView removeLoading];
                 for (NSDictionary *d in response) {
                     [_purchases addObject:[PurchaseModel objFrom:d]];
                 }
@@ -410,7 +419,7 @@ const CGFloat kMinTableHeight = 144;
         
         if (_runs.count > 0) {
             _noRunsLabel.alpha = 0;
-            int c = MIN((int)_runs.count-1, 4);
+            float c = MIN((int)_runs.count-1, 3.2);
             _runsHolderHeightConstraint.constant = kMinTableHeight + c*[RunPartCell height];
         } else {
             _noRunsLabel.alpha = 1;
