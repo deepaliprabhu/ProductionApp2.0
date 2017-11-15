@@ -27,7 +27,7 @@
                         <rect key="frame" x="16" y="5" width="90" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
-                        <color key="textColor" red="0.2627450980392157" green="0.76078431372549016" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.8749431022428571" green="0.18043209472857141" blue="0.15617450108571426" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="GQw-qX-FEg">

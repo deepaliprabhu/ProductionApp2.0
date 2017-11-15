@@ -16,6 +16,7 @@
 #import "RunModel.h"
 #import "RunPartCell.h"
 #import "PurchasePartCell.h"
+#import "PartHistoryScreen.h"
 
 const CGFloat kMinTableHeight = 144;
 
@@ -55,6 +56,7 @@ const CGFloat kMinTableHeight = 144;
     
     __unsafe_unretained IBOutlet UILabel *_titleLabel;
     __unsafe_unretained IBOutlet UILabel *_vendorLabel;
+    __unsafe_unretained IBOutlet UILabel *_priceLabel;
     
     NSMutableArray *_visibleObjs;
     NSMutableArray *_shorts;
@@ -65,6 +67,8 @@ const CGFloat kMinTableHeight = 144;
     BOOL _partsAreSelected;
     
     CGFloat _cost;
+    
+    __unsafe_unretained PartModel *_visiblePart;
 }
 
 - (void) viewDidLoad {
@@ -83,6 +87,15 @@ const CGFloat kMinTableHeight = 144;
 }
 
 #pragma mark - Actions
+
+- (IBAction) priceButtonTapped {
+    
+    PartHistoryScreen *screen = [[PartHistoryScreen alloc] initWithNibName:@"PartHistoryScreen" bundle:nil];
+    screen.part = _visiblePart;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    CGRect rect = [_priceLabel convertRect:_priceLabel.bounds toView:self.view];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:true];
+}
 
 - (IBAction) backButtonTapped {
     [self.navigationController popViewControllerAnimated:true];
@@ -220,7 +233,8 @@ const CGFloat kMinTableHeight = 144;
     if (tableView == _runsTableView || tableView == _purchasesTableView) {
         
     } else
-        [self layoutWith:_visibleObjs[indexPath.row]];
+        _visiblePart = _visibleObjs[indexPath.row];
+        [self layoutWith:_visiblePart];
 }
 
 #pragma mark - Layout
@@ -285,6 +299,7 @@ const CGFloat kMinTableHeight = 144;
         _transitStockLabel.text = part.transit;
         _puneDateLabel.text = [d stringFromDate:part.recoPuneDate];
         _puneStockLabel.text = part.pune;
+        _priceLabel.text = [NSString stringWithFormat:@"$%@", part.pricePerUnit];
         
         [self getPurchasesFor:part];
         [self getRunsFor:part];
@@ -293,6 +308,7 @@ const CGFloat kMinTableHeight = 144;
         _detailsHolderView.alpha = 0;
         _seeDetailsLabel.alpha = 1;
         
+        _priceLabel.text = @"$-";
         _stockLabel.text = @"-";
         _partTitleLabel.text = @"-";
         _masonDateLabel.text = @"-";

@@ -33,6 +33,7 @@
                 <outlet property="_partTitleLabel" destination="XAi-0T-dwM" id="ehg-aa-Fb7"/>
                 <outlet property="_partsButton" destination="vTq-No-RFn" id="It3-0X-Utd"/>
                 <outlet property="_partsHolderView" destination="oIQ-LA-ETr" id="cJd-Sx-4px"/>
+                <outlet property="_priceLabel" destination="a3I-20-Iik" id="pxV-FR-nyV"/>
                 <outlet property="_puneDateLabel" destination="OeE-f3-snl" id="Zvn-vK-kql"/>
                 <outlet property="_puneStockLabel" destination="ncv-Kf-QZf" id="y1f-lm-BRu"/>
                 <outlet property="_puneStockView" destination="N1R-rO-sgL" id="0fd-SU-oRB"/>
@@ -167,7 +168,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" red="0.93609845638275146" green="0.93607044219970703" blue="0.93608629703521729" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="cR2-yX-fpZ"/>
                                     </constraints>
@@ -265,6 +266,13 @@
                                     <color key="textColor" red="0.22352941179999999" green="0.21960784310000001" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3I-20-Iik">
+                                    <rect key="frame" x="498" y="9" width="105" height="23"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="19"/>
+                                    <color key="textColor" red="0.22352941179999999" green="0.21960784310000001" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4On-1N-xOk">
                                     <rect key="frame" x="76" y="38" width="68" height="23"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -273,7 +281,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAi-0T-dwM">
-                                    <rect key="frame" x="120" y="9" width="464" height="23"/>
+                                    <rect key="frame" x="120" y="9" width="399" height="23"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="19"/>
                                     <color key="textColor" red="0.22352941179999999" green="0.21960784310000001" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -392,6 +400,14 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bn7-dJ-KyP">
+                                    <rect key="frame" x="527" y="1" width="96" height="40"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="dropdownPriceIcon"/>
+                                    <connections>
+                                        <action selector="priceButtonTapped" destination="-1" eventType="touchUpInside" id="Jui-IH-TV5"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -632,6 +648,7 @@
     </objects>
     <resources>
         <image name="backButtonIcon" width="36" height="10"/>
+        <image name="dropdownPriceIcon" width="15" height="7"/>
         <image name="searchPartsIcon" width="14" height="15"/>
     </resources>
 </document>
