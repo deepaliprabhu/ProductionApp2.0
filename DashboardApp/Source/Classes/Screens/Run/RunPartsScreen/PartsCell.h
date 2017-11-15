@@ -11,6 +11,7 @@
 
 @interface PartsCell : UITableViewCell
 
-- (void) layoutWith:(PartModel*)m;
+- (void) layoutWithPart:(PartModel*)m;
+- (void) layoutWithShort:(PartModel*)m;
 
 @end

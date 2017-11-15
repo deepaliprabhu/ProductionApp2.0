@@ -47,6 +47,7 @@
                 <outlet property="_transitDateLabel" destination="vZz-es-qTD" id="sJQ-WA-lRM"/>
                 <outlet property="_transitStockLabel" destination="yxi-pn-TPi" id="dxH-Mm-0Ls"/>
                 <outlet property="_transitStockView" destination="YgN-i9-e8k" id="2pV-hp-3hD"/>
+                <outlet property="_vendorLabel" destination="CXE-o0-ycU" id="mmu-0m-Hdm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

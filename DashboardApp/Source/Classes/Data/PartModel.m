@@ -36,7 +36,13 @@ static NSDateFormatter *_formatter = nil;
     p.s2 = data[@"S2"];
     p.color = data[@"color"];
     p.part = data[@"part"];
-    p.po = data[@"po"];
+    
+    NSString *po = data[@"po"];
+    if (po.length > 0) {
+        po = [po stringByReplacingOccurrencesOfString:@"<span >(" withString:@""];
+        po = [po stringByReplacingOccurrencesOfString:@")</span>" withString:@""];
+        p.po = po;
+    }
     p.pricePerUnit = data[@"price_per_unit"];
     p.qty = data[@"qty_per_pcb"];
     p.shortValue = data[@"short"];

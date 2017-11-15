@@ -54,6 +54,7 @@ const CGFloat kMinTableHeight = 144;
     __unsafe_unretained IBOutlet UILabel *_stockLabel;
     
     __unsafe_unretained IBOutlet UILabel *_titleLabel;
+    __unsafe_unretained IBOutlet UILabel *_vendorLabel;
     
     NSMutableArray *_visibleObjs;
     NSMutableArray *_shorts;
@@ -91,6 +92,7 @@ const CGFloat kMinTableHeight = 144;
     
     _searchTextField.text = @"";
     _partsAreSelected = true;
+    _vendorLabel.text = @"VENDOR";
     [self layoutButtons];
     [self getParts];
 }
@@ -99,6 +101,8 @@ const CGFloat kMinTableHeight = 144;
     
     _searchTextField.text = @"";
     _partsAreSelected = false;
+    _vendorLabel.text = @"OPEN PO";
+    [self layoutNumberOfPOs];
     [self layoutButtons];
     [self getShorts];
 }
@@ -202,7 +206,10 @@ const CGFloat kMinTableHeight = 144;
             cell = [[NSBundle mainBundle] loadNibNamed:identifier2 owner:nil options:nil][0];
         }
         
-        [cell layoutWith:_visibleObjs[indexPath.row]];
+        if (_partsAreSelected)
+            [cell layoutWithPart:_visibleObjs[indexPath.row]];
+        else
+            [cell layoutWithShort:_visibleObjs[indexPath.row]];
         
         return cell;
     }
@@ -297,6 +304,17 @@ const CGFloat kMinTableHeight = 144;
     }
 }
 
+- (void) layoutNumberOfPOs {
+    
+    int c = 0;
+    for (PartModel *p in _shorts) {
+        if (p.po != nil)
+            c++;
+    }
+    
+    _vendorLabel.text = [NSString stringWithFormat:@"OPEN PO(%d)", c];
+}
+
 #pragma mark - Utils
 
 - (void) getParts {
@@ -354,8 +372,11 @@ const CGFloat kMinTableHeight = 144;
         if (success) {
             [LoadingView removeLoading];
             for (NSDictionary *d in response) {
-                [_shorts addObject:[PartModel partFrom:d]];
+                PartModel *p = [PartModel partFrom:d];
+                [_shorts addObject:p];
             }
+            
+            [self layoutNumberOfPOs];
             
             NSString *title = [NSString stringWithFormat:@"Shorts (%lu)", (unsigned long)_shorts.count];
             [_shortButton setTitle:title forState:UIControlStateNormal];
@@ -383,6 +404,7 @@ const CGFloat kMinTableHeight = 144;
                 for (NSDictionary *d in response) {
                     [_purchases addObject:[PurchaseModel objFrom:d]];
                 }
+                [_purchases sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"createdDate" ascending:false]]];
                 [_purchasesTableView reloadData];
             } else {
                 _noPurchasesLabel.alpha = 1;
