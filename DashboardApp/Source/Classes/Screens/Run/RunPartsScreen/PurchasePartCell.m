@@ -1,19 +1,19 @@
 //
-//  PurchaseCell.m
+//  PurchasePartCell.m
 //  DashboardApp
 //
-//  Created by Andrei Ghidoarca on 10/11/2017.
+//  Created by Andrei Ghidoarca on 15/11/2017.
 //  Copyright © 2017 Deepali Prabhu. All rights reserved.
 //
 
-#import "PurchaseCell.h"
+#import "PurchasePartCell.h"
 
 static NSDateFormatter *_dateFormatter = nil;
 
-@implementation PurchaseCell
+@implementation PurchasePartCell
 {
-    __unsafe_unretained IBOutlet UIView *_backgroundView;
-    __unsafe_unretained IBOutlet UILabel *_titleLabel;
+    __unsafe_unretained IBOutlet UIView *_bgView;
+    __unsafe_unretained IBOutlet UILabel *_statusLabel;
     __unsafe_unretained IBOutlet UILabel *_vendorLabel;
     __unsafe_unretained IBOutlet UILabel *_qtyLabel;
     __unsafe_unretained IBOutlet UILabel *_priceLabel;
@@ -28,38 +28,41 @@ static NSDateFormatter *_dateFormatter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _dateFormatter = [NSDateFormatter new];
-        _dateFormatter.dateFormat = @"dd.MM.yyyy";
+        _dateFormatter.dateFormat = @"dd MMM yyyy";
     });
-    
-    _backgroundView.layer.shadowOffset = CGSizeMake(0, 1);
-    _backgroundView.layer.shadowColor = [UIColor blackColor].CGColor;
-    _backgroundView.layer.shadowRadius = 2;
-    _backgroundView.layer.shadowOpacity = 0.2;
 }
 
 - (void) layoutWith:(PurchaseModel*)m atIndex:(int)index {
     
-    _createdDateLabel.text = [NSString stringWithFormat:@"created on %@", [_dateFormatter stringFromDate:m.createdDate]];
+    if (index%2 == 0) {
+        _bgView.backgroundColor = [UIColor whiteColor];
+    } else {
+        _bgView.backgroundColor = [UIColor clearColor];
+    }
     
+    _createdDateLabel.text = [_dateFormatter stringFromDate:m.createdDate];
+
     if ([m.expectedDate compare:[NSDate date]] == NSOrderedAscending)
-        _expectedDateLabel.text = [NSString stringWithFormat:@"finished on %@", [_dateFormatter stringFromDate:m.expectedDate]];
+        _expectedDateLabel.text = [_dateFormatter stringFromDate:m.expectedDate];
     else {
-        int days = (int)[self daysBetweenDate:[NSDate date] andDate:m.expectedDate];
-        if (days > 0)
-            _expectedDateLabel.text = [NSString stringWithFormat:@"%d %@ left", days, days==1?@"day":@"days"];
+        
+        if (m.expectedDate == nil)
+            _expectedDateLabel.text = @"-";
         else {
             
-            NSTimeInterval time = [m.expectedDate timeIntervalSinceDate:[NSDate date]];
-            int hours = time/3600;
-            _expectedDateLabel.text = [NSString stringWithFormat:@"%d %@ left", hours, hours==1?@"hour":@"hours"];
+            int days = (int)[self daysBetweenDate:[NSDate date] andDate:m.expectedDate];
+            if (days > 0)
+                _expectedDateLabel.text = [NSString stringWithFormat:@"%d %@ left", days, days==1?@"day":@"days"];
+            else {
+                
+                NSTimeInterval time = [m.expectedDate timeIntervalSinceDate:[NSDate date]];
+                int hours = time/3600;
+                _expectedDateLabel.text = [NSString stringWithFormat:@"%d %@ left", hours, hours==1?@"hour":@"hours"];
+            }
         }
     }
     
-    if (m.status.length > 0) {
-        _titleLabel.text = [NSString stringWithFormat:@"%d. %@", index+1, m.status];
-    } else {
-        _titleLabel.text = [NSString stringWithFormat:@"PO %d", index+1];
-    }
+    _statusLabel.text = m.status;
     _vendorLabel.text = m.vendor;
     _qtyLabel.text = m.qty;
     _priceLabel.text = [NSString stringWithFormat:@"%@$", m.price];

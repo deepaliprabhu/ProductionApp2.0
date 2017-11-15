@@ -12,14 +12,14 @@
 #import "PartModel.h"
 #import "PartsCell.h"
 #import "Defines.h"
-#import "PurchaseCell.h"
 #import "PurchaseModel.h"
 #import "RunModel.h"
 #import "RunPartCell.h"
+#import "PurchasePartCell.h"
 
 const CGFloat kMinTableHeight = 144;
 
-@interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @end
 
@@ -28,7 +28,7 @@ const CGFloat kMinTableHeight = 144;
     __unsafe_unretained IBOutlet UIView *_detailsHolderView;
     __unsafe_unretained IBOutlet UILabel *_seeDetailsLabel;
     
-    __unsafe_unretained IBOutlet UICollectionView *_purchasesCollectionView;
+    __unsafe_unretained IBOutlet UITableView *_purchasesTableView;
     __unsafe_unretained IBOutlet UITableView *_runsTableView;
     __unsafe_unretained IBOutlet NSLayoutConstraint *_runsHolderHeightConstraint;
     __unsafe_unretained IBOutlet UILabel *_noRunsLabel;
@@ -145,23 +145,6 @@ const CGFloat kMinTableHeight = 144;
     return true;
 }
 
-#pragma mark - UICollectionViewDelegate
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _purchases.count;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    PurchaseCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PurchaseCell" forIndexPath:indexPath];
-    [cell layoutWith:_purchases[indexPath.row] atIndex:(int)indexPath.row];
-    return cell;
-}
-
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -170,7 +153,9 @@ const CGFloat kMinTableHeight = 144;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (tableView == _runsTableView)
+    if (tableView == _purchasesTableView)
+        return _purchases.count;
+    else if (tableView == _runsTableView)
         return _runs.count;
     else
         return _visibleObjs.count;
@@ -178,7 +163,7 @@ const CGFloat kMinTableHeight = 144;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (tableView == _runsTableView)
+    if (tableView == _runsTableView || tableView == _purchasesTableView)
         return 34;
     else
         return 32;
@@ -186,12 +171,24 @@ const CGFloat kMinTableHeight = 144;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (tableView == _runsTableView) {
+    if (tableView == _purchasesTableView) {
         
-        static NSString *identifier = @"RunPartCell";
-        RunPartCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        static NSString *identifier3 = @"PurchasePartCell";
+        PurchasePartCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier3];
         if (cell == nil) {
-            cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
+            cell = [[NSBundle mainBundle] loadNibNamed:identifier3 owner:nil options:nil][0];
+        }
+
+        [cell layoutWith:_purchases[indexPath.row] atIndex:(int)indexPath.row];
+        
+        return cell;
+    }
+    else if (tableView == _runsTableView) {
+        
+        static NSString *identifier1 = @"RunPartCell";
+        RunPartCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier1];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:identifier1 owner:nil options:nil][0];
         }
         
         [cell layoutWith:_runs[indexPath.row] at:(int)indexPath.row];
@@ -199,10 +196,10 @@ const CGFloat kMinTableHeight = 144;
         return cell;
     } else {
         
-        static NSString *identifier = @"PartsCell";
-        PartsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        static NSString *identifier2 = @"PartsCell";
+        PartsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier2];
         if (cell == nil) {
-            cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
+            cell = [[NSBundle mainBundle] loadNibNamed:identifier2 owner:nil options:nil][0];
         }
         
         [cell layoutWith:_visibleObjs[indexPath.row]];
@@ -213,7 +210,7 @@ const CGFloat kMinTableHeight = 144;
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (tableView == _runsTableView) {
+    if (tableView == _runsTableView || tableView == _purchasesTableView) {
         
     } else
         [self layoutWith:_visibleObjs[indexPath.row]];
@@ -239,10 +236,6 @@ const CGFloat kMinTableHeight = 144;
 - (void) initLayout {
     
     [self layoutTitle];
-    
-    [_purchasesCollectionView registerClass:[PurchaseCell class] forCellWithReuseIdentifier:@"PurchaseCell"];
-    UINib *cellNib = [UINib nibWithNibName:@"PurchaseCell" bundle:nil];
-    [_purchasesCollectionView registerNib:cellNib forCellWithReuseIdentifier:@"PurchaseCell"];
     
     [self addShadowTo:_partsHolderView];
     [self addShadowTo:_masonStockView];
@@ -378,7 +371,7 @@ const CGFloat kMinTableHeight = 144;
 - (void) getPurchasesFor:(PartModel*)m {
     
     [_purchases removeAllObjects];
-    [_purchasesCollectionView reloadData];
+    [_purchasesTableView reloadData];
     [LoadingView showLoading:@"Loading..."];
     
     [[ProdAPI sharedInstance] getPurchasesForPart:m.part withCompletion:^(BOOL success, id response) {
@@ -390,7 +383,7 @@ const CGFloat kMinTableHeight = 144;
                 for (NSDictionary *d in response) {
                     [_purchases addObject:[PurchaseModel objFrom:d]];
                 }
-                [_purchasesCollectionView reloadData];
+                [_purchasesTableView reloadData];
             } else {
                 _noPurchasesLabel.alpha = 1;
             }
@@ -419,7 +412,7 @@ const CGFloat kMinTableHeight = 144;
         
         if (_runs.count > 0) {
             _noRunsLabel.alpha = 0;
-            float c = MIN((int)_runs.count-1, 3.2);
+            float c = MIN((int)_runs.count-1, 5);
             _runsHolderHeightConstraint.constant = kMinTableHeight + c*[RunPartCell height];
         } else {
             _noRunsLabel.alpha = 1;
