@@ -37,10 +37,12 @@
                 <outlet property="_partsButton" destination="vTq-No-RFn" id="It3-0X-Utd"/>
                 <outlet property="_partsHolderView" destination="oIQ-LA-ETr" id="cJd-Sx-4px"/>
                 <outlet property="_priceLabel" destination="a3I-20-Iik" id="pxV-FR-nyV"/>
+                <outlet property="_prioritiesButton" destination="4SQ-1Y-4iP" id="B3R-Jd-B2Z"/>
                 <outlet property="_puneDateLabel" destination="OeE-f3-snl" id="Zvn-vK-kql"/>
                 <outlet property="_puneStockLabel" destination="ncv-Kf-QZf" id="y1f-lm-BRu"/>
                 <outlet property="_puneStockView" destination="N1R-rO-sgL" id="0fd-SU-oRB"/>
                 <outlet property="_purchasesTableView" destination="QgI-61-IlF" id="2gk-SM-IoM"/>
+                <outlet property="_runsButton" destination="Uwi-dU-kHe" id="Do8-bG-xtx"/>
                 <outlet property="_runsHolderHeightConstraint" destination="Jge-az-M7e" id="Fr4-lj-C0V"/>
                 <outlet property="_runsTableView" destination="H63-mx-95X" id="Uw8-WL-E6L"/>
                 <outlet property="_searchTextField" destination="Ymd-pp-BYK" id="M7t-HH-UkN"/>
@@ -287,7 +289,7 @@
                         <constraint firstItem="Pk1-2k-SfJ" firstAttribute="leading" secondItem="vTq-No-RFn" secondAttribute="trailing" id="qWU-BR-AqN"/>
                     </constraints>
                 </view>
-                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FLx-ck-1RW">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FLx-ck-1RW">
                     <rect key="frame" x="376" y="132" width="648" height="607"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qqk-aD-Uf9">
@@ -458,16 +460,6 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JMp-Fi-AvD">
                             <rect key="frame" x="0.0" y="128" width="648" height="144"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Runs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQm-hQ-ejd">
-                                    <rect key="frame" x="20" y="40" width="79" height="23"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="79" id="e5n-8o-9ra"/>
-                                        <constraint firstAttribute="height" constant="23" id="o04-2h-C7X"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="19"/>
-                                    <color key="textColor" red="0.22352941179999999" green="0.21960784310000001" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vcl-mQ-VDM">
                                     <rect key="frame" x="0.0" y="78" width="648" height="32"/>
                                     <subviews>
@@ -523,21 +515,56 @@
                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uwi-dU-kHe">
+                                    <rect key="frame" x="20" y="40" width="79" height="23"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="23" id="bZw-22-f5u"/>
+                                        <constraint firstAttribute="width" constant="79" id="f51-eW-JBu"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="19"/>
+                                    <state key="normal" title="Runs">
+                                        <color key="titleColor" red="0.22352941179999999" green="0.21960784310000001" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="runsButtonTapped" destination="-1" eventType="touchUpInside" id="IjX-AO-jbg"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4SQ-1Y-4iP">
+                                    <rect key="frame" x="120" y="40" width="79" height="23"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="23" id="puS-yG-deq"/>
+                                        <constraint firstAttribute="width" constant="79" id="rfa-jy-0aw"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="19"/>
+                                    <state key="normal" title="Priorities">
+                                        <color key="titleColor" red="0.22352941179999999" green="0.21960784310000001" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="prioritiesButtonTapped" destination="-1" eventType="touchUpInside" id="YAP-8u-XNI"/>
+                                    </connections>
+                                </button>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Vz-Gf-IoT">
+                                    <rect key="frame" x="89" y="40" width="1" height="23"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.22352941179999999" green="0.21960784310000001" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="H63-mx-95X" secondAttribute="trailing" constant="25" id="0rU-FQ-29x"/>
+                                <constraint firstItem="4SQ-1Y-4iP" firstAttribute="top" secondItem="JMp-Fi-AvD" secondAttribute="top" constant="40" id="1Te-WM-4kc"/>
+                                <constraint firstItem="4SQ-1Y-4iP" firstAttribute="leading" secondItem="Uwi-dU-kHe" secondAttribute="trailing" constant="21" id="2if-Vw-B0Y"/>
                                 <constraint firstItem="vcl-mQ-VDM" firstAttribute="leading" secondItem="JMp-Fi-AvD" secondAttribute="leading" id="6az-oK-nPB"/>
-                                <constraint firstItem="vcl-mQ-VDM" firstAttribute="top" secondItem="rQm-hQ-ejd" secondAttribute="bottom" constant="15" id="E9J-4z-D0Y"/>
                                 <constraint firstAttribute="trailing" secondItem="vcl-mQ-VDM" secondAttribute="trailing" id="Hht-67-1Ok"/>
                                 <constraint firstItem="H63-mx-95X" firstAttribute="leading" secondItem="JMp-Fi-AvD" secondAttribute="leading" constant="18" id="Hi8-7K-aJ9"/>
                                 <constraint firstAttribute="height" constant="144" id="Jge-az-M7e"/>
-                                <constraint firstItem="rQm-hQ-ejd" firstAttribute="leading" secondItem="JMp-Fi-AvD" secondAttribute="leading" constant="20" id="Rzk-gj-yOu"/>
+                                <constraint firstItem="Uwi-dU-kHe" firstAttribute="top" secondItem="JMp-Fi-AvD" secondAttribute="top" constant="40" id="P7x-rW-0Nm"/>
                                 <constraint firstItem="45J-qv-gPq" firstAttribute="centerX" secondItem="JMp-Fi-AvD" secondAttribute="centerX" id="a9V-3p-pS3"/>
                                 <constraint firstItem="45J-qv-gPq" firstAttribute="top" secondItem="vcl-mQ-VDM" secondAttribute="bottom" constant="12" id="bkF-Bc-jSu"/>
+                                <constraint firstItem="vcl-mQ-VDM" firstAttribute="top" secondItem="Uwi-dU-kHe" secondAttribute="bottom" constant="15" id="elj-Nd-K0W"/>
+                                <constraint firstItem="Uwi-dU-kHe" firstAttribute="leading" secondItem="JMp-Fi-AvD" secondAttribute="leading" constant="20" id="f2u-uG-RgJ"/>
                                 <constraint firstAttribute="bottom" secondItem="H63-mx-95X" secondAttribute="bottom" id="rHM-4X-4k9"/>
                                 <constraint firstItem="H63-mx-95X" firstAttribute="top" secondItem="vcl-mQ-VDM" secondAttribute="bottom" id="slF-Sj-cun"/>
-                                <constraint firstItem="rQm-hQ-ejd" firstAttribute="top" secondItem="JMp-Fi-AvD" secondAttribute="top" constant="40" id="ydx-pU-OoT"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMh-6a-OiG">

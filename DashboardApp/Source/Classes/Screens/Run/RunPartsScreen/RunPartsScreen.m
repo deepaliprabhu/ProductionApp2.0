@@ -63,6 +63,8 @@ const CGFloat kMinTableHeight = 144;
     __unsafe_unretained IBOutlet UILabel *_vendorLabel;
     __unsafe_unretained IBOutlet UILabel *_priceLabel;
     
+    __unsafe_unretained IBOutlet UIButton *_runsButton;
+    __unsafe_unretained IBOutlet UIButton *_prioritiesButton;
     
     NSMutableArray *_visibleObjs;
     NSMutableArray *_shorts;
@@ -71,6 +73,7 @@ const CGFloat kMinTableHeight = 144;
     NSMutableArray *_runs;
     
     BOOL _partsAreSelected;
+    BOOL _prioritiesAreSelected;
     
     CGFloat _cost;
     
@@ -133,6 +136,20 @@ const CGFloat kMinTableHeight = 144;
 
 - (IBAction) bomButtonTapped {
     
+}
+
+- (IBAction) runsButtonTapped {
+ 
+    _prioritiesAreSelected = false;
+    _runsButton.titleLabel.font = ccFont(@"Roboto-Regular", 19);
+    _prioritiesButton.titleLabel.font = ccFont(@"Roboto-Light", 19);
+}
+
+- (IBAction) prioritiesButtonTapped {
+    
+    _prioritiesAreSelected = true;
+    _runsButton.titleLabel.font = ccFont(@"Roboto-Light", 19);
+    _prioritiesButton.titleLabel.font = ccFont(@"Roboto-Regular", 19);
 }
 
 #pragma mark - UITextFieldDelegate
