@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "HomeViewController.h"
 #import <Parse/Parse.h>
+#import "Defines.h"
 
 @interface AppDelegate ()
 
@@ -30,6 +31,7 @@
     
     [self.window setRootViewController:navigationController];
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

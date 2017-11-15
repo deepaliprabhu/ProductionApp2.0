@@ -55,8 +55,14 @@ const CGFloat kMinTableHeight = 144;
     __unsafe_unretained IBOutlet UILabel *_stockLabel;
     
     __unsafe_unretained IBOutlet UILabel *_titleLabel;
+    __unsafe_unretained IBOutlet NSLayoutConstraint *_titleTopConstraint;
+    __unsafe_unretained IBOutlet UIView *_bomView;
+    __unsafe_unretained IBOutlet NSLayoutConstraint *_bomWidthConstraint;
+    __unsafe_unretained IBOutlet UILabel *_bomLabel;
+    
     __unsafe_unretained IBOutlet UILabel *_vendorLabel;
     __unsafe_unretained IBOutlet UILabel *_priceLabel;
+    
     
     NSMutableArray *_visibleObjs;
     NSMutableArray *_shorts;
@@ -122,6 +128,10 @@ const CGFloat kMinTableHeight = 144;
 
 - (IBAction) historyButtonTapped {
     
+    
+}
+
+- (IBAction) bomButtonTapped {
     
 }
 
@@ -267,10 +277,29 @@ const CGFloat kMinTableHeight = 144;
 
 - (void) layoutTitle {
     
+    float alpha = 0;
+    _titleLabel.text = [NSString stringWithFormat:@"Product %@, Run %ld", _run.productName, (long)_run.runId];
     if (_cost < 0)
-        _titleLabel.text = [NSString stringWithFormat:@"Product %@, Run %ld", _run.productName, (long)_run.runId];
+    {
+        _titleTopConstraint.constant = 20;
+        alpha = 0;
+        _bomLabel.text = @"-$";
+    }
     else
-        _titleLabel.text = [NSString stringWithFormat:@"Product %@, Run %ld, BOM %.2f$", _run.productName, (long)_run.runId, _cost];
+    {
+        _titleTopConstraint.constant = 10;
+        alpha = 1;
+        NSString *bom = [NSString stringWithFormat:@"BOM %.5f$", _cost];
+        _bomLabel.text = bom;
+        
+        CGFloat w = [self widthForText:bom withFont:ccFont(@"Roboto-Bold", 19)];
+        _bomWidthConstraint.constant = w;
+    }
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        _bomView.alpha = alpha;
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (void) addShadowTo:(UIView*)v {
@@ -299,7 +328,11 @@ const CGFloat kMinTableHeight = 144;
         _transitStockLabel.text = part.transit;
         _puneDateLabel.text = [d stringFromDate:part.recoPuneDate];
         _puneStockLabel.text = part.pune;
-        _priceLabel.text = [NSString stringWithFormat:@"$%@", part.pricePerUnit];
+        
+        if (part.pricePerUnit == nil)
+            _priceLabel.text = @"$-";
+        else
+            _priceLabel.text = [NSString stringWithFormat:@"$%@", part.pricePerUnit];
         
         [self getPurchasesFor:part];
         [self getRunsFor:part];
@@ -460,6 +493,16 @@ const CGFloat kMinTableHeight = 144;
             [self.view layoutIfNeeded];
         }];
     }];
+}
+
+- (CGFloat) widthForText:(NSString*)text withFont:(UIFont*)font
+{
+    NSDictionary *attributes = @{NSFontAttributeName:font};
+    CGRect rect = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 100)
+                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                  attributes:attributes
+                                     context:nil];
+    return ceil(rect.size.width);
 }
 
 @end
