@@ -17,6 +17,8 @@
 #import "RunPartCell.h"
 #import "PurchasePartCell.h"
 #import "PartHistoryScreen.h"
+#import "DataManager.h"
+#import "PriorityRunCell.h"
 
 const CGFloat kMinTableHeight = 144;
 
@@ -65,15 +67,20 @@ const CGFloat kMinTableHeight = 144;
     
     __unsafe_unretained IBOutlet UIButton *_runsButton;
     __unsafe_unretained IBOutlet UIButton *_prioritiesButton;
+    __unsafe_unretained IBOutlet UIButton *_editButton;
+    __unsafe_unretained IBOutlet UIView *_runsHeaderView;
+    __unsafe_unretained IBOutlet UIView *_prioritiesHeaderView;
     
     NSMutableArray *_visibleObjs;
     NSMutableArray *_shorts;
     NSMutableArray *_parts;
     NSMutableArray *_purchases;
     NSMutableArray *_runs;
+    NSMutableArray *_priorityRuns;
     
     BOOL _partsAreSelected;
     BOOL _prioritiesAreSelected;
+    BOOL _priorityIsEditing;
     
     CGFloat _cost;
     
@@ -90,6 +97,8 @@ const CGFloat kMinTableHeight = 144;
     _runs = [NSMutableArray array];
     _purchases = [NSMutableArray array];
     _visibleObjs = [NSMutableArray array];
+    _priorityRuns = [NSMutableArray array];
+    [self filterPriorityRuns];
     _partsAreSelected = true;
     [self layoutButtons];
     [self getParts];
@@ -143,6 +152,13 @@ const CGFloat kMinTableHeight = 144;
     _prioritiesAreSelected = false;
     _runsButton.titleLabel.font = ccFont(@"Roboto-Regular", 19);
     _prioritiesButton.titleLabel.font = ccFont(@"Roboto-Light", 19);
+    
+    _runsHeaderView.alpha = 1;
+    _prioritiesHeaderView.alpha = 0;
+    _editButton.alpha = 0;
+    
+    [self layoutTableFor:_runs];
+    [_runsTableView reloadData];
 }
 
 - (IBAction) prioritiesButtonTapped {
@@ -150,6 +166,19 @@ const CGFloat kMinTableHeight = 144;
     _prioritiesAreSelected = true;
     _runsButton.titleLabel.font = ccFont(@"Roboto-Light", 19);
     _prioritiesButton.titleLabel.font = ccFont(@"Roboto-Regular", 19);
+    
+    _runsHeaderView.alpha = 0;
+    _prioritiesHeaderView.alpha = 1;
+    _editButton.alpha = 1;
+    
+    [self layoutTableFor:_priorityRuns];
+    [_runsTableView reloadData];
+}
+
+- (IBAction) editButtonTapped {
+    
+    _priorityIsEditing = !_priorityIsEditing;
+    [self layoutEditing];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -200,7 +229,12 @@ const CGFloat kMinTableHeight = 144;
     if (tableView == _purchasesTableView)
         return _purchases.count;
     else if (tableView == _runsTableView)
-        return _runs.count;
+    {
+        if (_prioritiesAreSelected)
+            return _priorityRuns.count;
+        else
+            return _runs.count;
+    }
     else
         return _visibleObjs.count;
 }
@@ -229,15 +263,39 @@ const CGFloat kMinTableHeight = 144;
     }
     else if (tableView == _runsTableView) {
         
-        static NSString *identifier1 = @"RunPartCell";
-        RunPartCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier1];
-        if (cell == nil) {
-            cell = [[NSBundle mainBundle] loadNibNamed:identifier1 owner:nil options:nil][0];
+        if (_prioritiesAreSelected)
+        {
+            static NSString *identifier4 = @"PriorityRunCell";
+            PriorityRunCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier4];
+            if (cell == nil) {
+                cell = [[NSBundle mainBundle] loadNibNamed:identifier4 owner:nil options:nil][0];
+            }
+            
+            Run *run = _priorityRuns[indexPath.row];
+            BOOL c = false;
+            for (RunModel *r in _runs) {
+                if ([r.runID intValue] == run.runId)
+                {
+                    c = true;
+                    break;
+                }
+            }
+            [cell layoutWith:run at:(int)indexPath.row containsPart:c];
+            
+            return cell;
         }
-        
-        [cell layoutWith:_runs[indexPath.row] at:(int)indexPath.row];
-        
-        return cell;
+        else
+        {
+            static NSString *identifier1 = @"RunPartCell";
+            RunPartCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier1];
+            if (cell == nil) {
+                cell = [[NSBundle mainBundle] loadNibNamed:identifier1 owner:nil options:nil][0];
+            }
+            
+            [cell layoutWith:_runs[indexPath.row] at:(int)indexPath.row];
+            
+            return cell;
+        }
     } else {
         
         static NSString *identifier2 = @"PartsCell";
@@ -253,6 +311,30 @@ const CGFloat kMinTableHeight = 144;
         
         return cell;
     }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return true;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleNone;
+}
+
+- (BOOL)tableView:(UITableView *)tableview shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return (tableView == _runsTableView && _prioritiesAreSelected == true && _priorityIsEditing == true);
+}
+
+- (void) tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    [_priorityRuns exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [_runsTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    });
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -331,6 +413,8 @@ const CGFloat kMinTableHeight = 144;
     
     if (part != nil) {
         
+        [self runsButtonTapped];
+        
         _detailsHolderView.alpha = 1;
         _seeDetailsLabel.alpha = 0;
         
@@ -347,9 +431,9 @@ const CGFloat kMinTableHeight = 144;
         _puneStockLabel.text = part.pune;
         
         if (part.pricePerUnit == nil)
-            _priceLabel.text = @"$-";
+            _priceLabel.text = @"-$";
         else
-            _priceLabel.text = [NSString stringWithFormat:@"$%@", part.pricePerUnit];
+            _priceLabel.text = [NSString stringWithFormat:@"%@$", part.pricePerUnit];
         
         [self getPurchasesFor:part];
         [self getRunsFor:part];
@@ -379,6 +463,32 @@ const CGFloat kMinTableHeight = 144;
     }
     
     _vendorLabel.text = [NSString stringWithFormat:@"OPEN PO(%d)", c];
+}
+
+- (void) layoutTableFor:(NSArray*)content
+{
+    if (content.count > 0) {
+        _noRunsLabel.alpha = 0;
+        float c = MIN((int)content.count-1, 5);
+        _runsHolderHeightConstraint.constant = kMinTableHeight + c*[RunPartCell height];
+    } else {
+        _noRunsLabel.alpha = 1;
+        _runsHolderHeightConstraint.constant = kMinTableHeight;
+    }
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (void) layoutEditing {
+    
+    if (_priorityIsEditing) {
+        _runsTableView.editing = true;
+        [_editButton setTitle:@"Done" forState:UIControlStateNormal];
+    } else {
+        _runsTableView.editing = false;
+        [_editButton setTitle:@"Edit" forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - Utils
@@ -498,14 +608,7 @@ const CGFloat kMinTableHeight = 144;
             }
         }
         
-        if (_runs.count > 0) {
-            _noRunsLabel.alpha = 0;
-            float c = MIN((int)_runs.count-1, 5);
-            _runsHolderHeightConstraint.constant = kMinTableHeight + c*[RunPartCell height];
-        } else {
-            _noRunsLabel.alpha = 1;
-            _runsHolderHeightConstraint.constant = kMinTableHeight;
-        }
+        [self layoutTableFor:_runs];
         [UIView animateWithDuration:0.3 animations:^{
             [self.view layoutIfNeeded];
         }];
@@ -520,6 +623,16 @@ const CGFloat kMinTableHeight = 144;
                                   attributes:attributes
                                      context:nil];
     return ceil(rect.size.width);
+}
+
+- (void) filterPriorityRuns
+{
+    NSArray *runs = [__DataManager getRuns];
+//    for (Run *r in runs) {
+//        if (([r getCategory] == [_run getCategory]) || ([[r getRunType] isEqualToString:@"Development"] && [[_run getRunType] isEqualToString:@"Development"]))
+//            [_priorityRuns addObject:r];
+//    }
+    [_priorityRuns addObjectsFromArray:runs];
 }
 
 @end

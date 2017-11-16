@@ -47,6 +47,8 @@
 		894F9BDA1FBCA0BC00DC2C6B /* PartHistoryScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894F9BD81FBCA0BC00DC2C6B /* PartHistoryScreen.xib */; };
 		894F9BDE1FBCA90C00DC2C6B /* HistoryPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894F9BDC1FBCA90C00DC2C6B /* HistoryPriceCell.m */; };
 		894F9BDF1FBCA90C00DC2C6B /* HistoryPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894F9BDD1FBCA90C00DC2C6B /* HistoryPriceCell.xib */; };
+		89619E191FBDB4E8005A5BE7 /* PriorityRunCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89619E171FBDB4E8005A5BE7 /* PriorityRunCell.m */; };
+		89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */; };
 		89854AE71FB97B3A00C6E38D /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADB1FB97B3A00C6E38D /* GMGridView.m */; };
 		89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADF1FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m */; };
 		89854AE91FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854AE01FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m */; };
@@ -281,6 +283,9 @@
 		894F9BDB1FBCA90C00DC2C6B /* HistoryPriceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryPriceCell.h; sourceTree = "<group>"; };
 		894F9BDC1FBCA90C00DC2C6B /* HistoryPriceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryPriceCell.m; sourceTree = "<group>"; };
 		894F9BDD1FBCA90C00DC2C6B /* HistoryPriceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryPriceCell.xib; sourceTree = "<group>"; };
+		89619E161FBDB4E8005A5BE7 /* PriorityRunCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriorityRunCell.h; sourceTree = "<group>"; };
+		89619E171FBDB4E8005A5BE7 /* PriorityRunCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriorityRunCell.m; sourceTree = "<group>"; };
+		89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriorityRunCell.xib; sourceTree = "<group>"; };
 		89854ADB1FB97B3A00C6E38D /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
 		89854ADC1FB97B3A00C6E38D /* GMGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridViewCell.h; sourceTree = "<group>"; };
 		89854ADD1FB97B3A00C6E38D /* GMGridViewCell+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridViewCell+Extended.h"; sourceTree = "<group>"; };
@@ -633,6 +638,9 @@
 				894F9BDB1FBCA90C00DC2C6B /* HistoryPriceCell.h */,
 				894F9BDC1FBCA90C00DC2C6B /* HistoryPriceCell.m */,
 				894F9BDD1FBCA90C00DC2C6B /* HistoryPriceCell.xib */,
+				89619E161FBDB4E8005A5BE7 /* PriorityRunCell.h */,
+				89619E171FBDB4E8005A5BE7 /* PriorityRunCell.m */,
+				89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -1430,6 +1438,7 @@
 				9F471D091F541F7700B294B7 /* ToDoView.xib in Resources */,
 				9FD12DA11F4473B900F0E0A8 /* RunViewController.xib in Resources */,
 				9FE99C291FBD4E65006B58DE /* FeedbackListViewCell.xib in Resources */,
+				89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */,
 				9FE99C271FBD4E65006B58DE /* FeedbackListView.xib in Resources */,
 				9F056B281F433469002F3B61 /* Icon.png in Resources */,
 				D283865C1FB23CA800BB304C /* Roboto-Regular.ttf in Resources */,
@@ -1513,6 +1522,7 @@
 				9FD12D8F1F443CEF00F0E0A8 /* DataManager.m in Sources */,
 				8919BE961FB4DD5100EE6839 /* SDImageCache.m in Sources */,
 				9F85678E1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.m in Sources */,
+				89619E191FBDB4E8005A5BE7 /* PriorityRunCell.m in Sources */,
 				9F977EED1F6272AE009C2B6D /* RunProcessStepsViewCell.m in Sources */,
 				9F471D131F542B9300B294B7 /* RoadBlocksView.m in Sources */,
 				8919BE901FB4DD5100EE6839 /* UIImageView+HighlightedWebCache.m in Sources */,
