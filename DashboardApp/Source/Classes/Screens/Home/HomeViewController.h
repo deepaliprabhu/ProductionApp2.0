@@ -16,6 +16,7 @@
 #import "InProcessView.h"
 #import "ToDoView.h"
 #import "RoadBlocksView.h"
+#import "FeedbackListView.h"
 
 @interface HomeViewController : UIViewController<OverviewViewDelegate, RunListViewDelegate, DemandListViewDelegate> {
     
@@ -41,6 +42,7 @@
     
     TopBarView *topBarView;
     RunListView *runListView;
+    FeedbackListView *feedbackListView;
     OverviewView *overviewView;
     DemandListView *demandListView;
     TasklistView *tasklistView;

@@ -98,6 +98,10 @@ __CREATEVIEW(OverviewView, @"OverviewView", 0);
     _demandsCountLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)[demandList count]];
 }
 
+- (void)setFeedbacksList:(NSMutableArray*)feedbacksList {
+    _feedbacksCountLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)[feedbacksList count]];
+}
+
 
 - (IBAction)runsPressed:(id)sender {
     [_delegate runsSelected];
@@ -109,6 +113,10 @@ __CREATEVIEW(OverviewView, @"OverviewView", 0);
 
 - (IBAction)processControlPressed:(id)sender {
     [_delegate processControlSelected];
+}
+
+- (IBAction)feedbacksPressed:(id)sender {
+    [_delegate feedbacksSelected];
 }
 
 @end

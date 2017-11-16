@@ -15,6 +15,7 @@
 @interface OverviewView : UIView {
     IBOutlet UILabel *_runCountLabel;
     IBOutlet UILabel *_demandsCountLabel;
+    IBOutlet UILabel *_feedbacksCountLabel;
     //IBOutlet UIButton *_partsButton;
     IBOutlet UIButton *_demandListButton;
     IBOutlet UIButton *_openRunsButton;
@@ -51,11 +52,13 @@ __CREATEVIEWH(OverviewView);
 - (void)initView;
 - (void)setRunList:(NSMutableArray*)runList;
 - (void)setDemandList:(NSMutableArray*)demandList;
+- (void)setFeedbacksList:(NSMutableArray*)feedbacksList;
 
 @end
 
 @protocol OverviewViewDelegate <NSObject>
 - (void) runsSelected;
 - (void) demandsSelected;
+- (void) feedbacksSelected;
 - (void) processControlSelected;
 @end

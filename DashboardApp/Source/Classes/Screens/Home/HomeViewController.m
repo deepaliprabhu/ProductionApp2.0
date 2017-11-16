@@ -29,6 +29,7 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(initRuns) name:kNotificationRunsReceived object:nil];
     [center addObserver:self selector:@selector(initDemands) name:kNotificationDemandsReceived object:nil];
+    [center addObserver:self selector:@selector(initFeedbacks) name:kNotificationFeedbacksReceived object:nil];
     self.navigationController.navigationBar.hidden = true;
 
     UIImage *iconDone = [UIImage imageWithIcon:@"fa-calendar-check-o" backgroundColor:[UIColor clearColor] iconColor:[UIColor blackColor] fontSize:25];
@@ -66,6 +67,13 @@
     demandListView.delegate = self;
     [_overviewView addSubview:demandListView];
     demandListView.hidden = true;
+    
+    feedbackListView = [FeedbackListView createView];
+    feedbackListView.frame = CGRectMake(0, 0, _overviewView.frame.size.width, _overviewView.frame.size.height);
+    [feedbackListView initView];
+     feedbackListView.delegate = self;
+    [_overviewView addSubview:feedbackListView];
+     feedbackListView.hidden = true;
     
     overviewView = [OverviewView createView];
     overviewView.frame = CGRectMake(0, 0, _overviewView.frame.size.width, _overviewView.frame.size.height);
@@ -115,6 +123,8 @@
     [self.navigationController.view hideActivityViewWithAfterDelay:60];
     [__ServerManager getRunsList];
     [__ServerManager getDemands];
+    [__ServerManager getFeedbacks];
+
     selectedRunType = 1;
 }
 
@@ -135,6 +145,11 @@
     demandListView.hidden = false;
 }
 
+- (void)feedbacksSelected {
+    feedbackListView.hidden = false;
+    overviewView.hidden = true;
+}
+
 - (void) processControlSelected {
     ProductListViewController *productListVC = [ProductListViewController new];
     productListVC.image = [self.view screenshot];
@@ -146,6 +161,7 @@
     demandListView.hidden = true;
     runListView.hidden = true;
     ganttView.hidden = true;
+    feedbackListView.hidden = true;
 }
 
 - (void) initRuns {
@@ -164,6 +180,11 @@
     NSLog(@"demandListArray = %@",demandListArray);
     [demandListView setDemandList:demandListArray];
     [overviewView setDemandList:demandListArray];
+}
+
+- (void) initFeedbacks {
+    [feedbackListView setFeedbacksList:[__DataManager getFeedbackList]];
+    [overviewView setFeedbacksList:[__DataManager getFeedbackList]];
 }
 
 - (void) runSelectedAtIndex:(int)runId {

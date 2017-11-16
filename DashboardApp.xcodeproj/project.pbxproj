@@ -162,6 +162,10 @@
 		9FD12DA11F4473B900F0E0A8 /* RunViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FD12D9F1F4473B900F0E0A8 /* RunViewController.xib */; };
 		9FD12DA61F449FB400F0E0A8 /* RunPartsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FD12DA41F449FB300F0E0A8 /* RunPartsViewCell.m */; };
 		9FD12DA71F449FB400F0E0A8 /* RunPartsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FD12DA51F449FB300F0E0A8 /* RunPartsViewCell.xib */; };
+		9FE99C261FBD4E65006B58DE /* FeedbackListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE99C211FBD4E65006B58DE /* FeedbackListView.m */; };
+		9FE99C271FBD4E65006B58DE /* FeedbackListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FE99C221FBD4E65006B58DE /* FeedbackListView.xib */; };
+		9FE99C281FBD4E65006B58DE /* FeedbackListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE99C241FBD4E65006B58DE /* FeedbackListViewCell.m */; };
+		9FE99C291FBD4E65006B58DE /* FeedbackListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FE99C251FBD4E65006B58DE /* FeedbackListViewCell.xib */; };
 		9FEEE5801EEFEFA2005B5ECA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEEE57F1EEFEFA2005B5ECA /* main.m */; };
 		9FEEE5831EEFEFA2005B5ECA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEEE5821EEFEFA2005B5ECA /* AppDelegate.m */; };
 		9FEEE58B1EEFEFA2005B5ECA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FEEE58A1EEFEFA2005B5ECA /* Assets.xcassets */; };
@@ -452,6 +456,12 @@
 		9FD12DA31F449FB300F0E0A8 /* RunPartsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunPartsViewCell.h; sourceTree = "<group>"; };
 		9FD12DA41F449FB300F0E0A8 /* RunPartsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunPartsViewCell.m; sourceTree = "<group>"; };
 		9FD12DA51F449FB300F0E0A8 /* RunPartsViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunPartsViewCell.xib; sourceTree = "<group>"; };
+		9FE99C201FBD4E65006B58DE /* FeedbackListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackListView.h; sourceTree = "<group>"; };
+		9FE99C211FBD4E65006B58DE /* FeedbackListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackListView.m; sourceTree = "<group>"; };
+		9FE99C221FBD4E65006B58DE /* FeedbackListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedbackListView.xib; sourceTree = "<group>"; };
+		9FE99C231FBD4E65006B58DE /* FeedbackListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackListViewCell.h; sourceTree = "<group>"; };
+		9FE99C241FBD4E65006B58DE /* FeedbackListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackListViewCell.m; sourceTree = "<group>"; };
+		9FE99C251FBD4E65006B58DE /* FeedbackListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedbackListViewCell.xib; sourceTree = "<group>"; };
 		9FEEE57B1EEFEFA2005B5ECA /* DashboardApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashboardApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FEEE57F1EEFEFA2005B5ECA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9FEEE5811EEFEFA2005B5ECA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1108,6 +1118,19 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		9FE99C1F1FBD4E65006B58DE /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				9FE99C201FBD4E65006B58DE /* FeedbackListView.h */,
+				9FE99C211FBD4E65006B58DE /* FeedbackListView.m */,
+				9FE99C221FBD4E65006B58DE /* FeedbackListView.xib */,
+				9FE99C231FBD4E65006B58DE /* FeedbackListViewCell.h */,
+				9FE99C241FBD4E65006B58DE /* FeedbackListViewCell.m */,
+				9FE99C251FBD4E65006B58DE /* FeedbackListViewCell.xib */,
+			);
+			path = Feedback;
+			sourceTree = "<group>";
+		};
 		9FEEE5721EEFEFA2005B5ECA = {
 			isa = PBXGroup;
 			children = (
@@ -1233,6 +1256,7 @@
 		9FEEE59C1EEFF881005B5ECA /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				9FE99C1F1FBD4E65006B58DE /* Feedback */,
 				9F7FE5651F7B789E005CB4DF /* ProcessControl */,
 				9FD12D9C1F4473A600F0E0A8 /* Run */,
 				9F40AD7B1F2F4669002C64BA /* Home */,
@@ -1405,6 +1429,8 @@
 				9F7FE5761F7B9CAA005CB4DF /* ProductCollectionViewCell.xib in Resources */,
 				9F471D091F541F7700B294B7 /* ToDoView.xib in Resources */,
 				9FD12DA11F4473B900F0E0A8 /* RunViewController.xib in Resources */,
+				9FE99C291FBD4E65006B58DE /* FeedbackListViewCell.xib in Resources */,
+				9FE99C271FBD4E65006B58DE /* FeedbackListView.xib in Resources */,
 				9F056B281F433469002F3B61 /* Icon.png in Resources */,
 				D283865C1FB23CA800BB304C /* Roboto-Regular.ttf in Resources */,
 				D227678B1FAE4B5400215D87 /* LICENSE in Resources */,
@@ -1527,6 +1553,7 @@
 				8919BE9E1FB4E47D00EE6839 /* LayoutUtils.m in Sources */,
 				8919BEA11FB4EEF200EE6839 /* UIView+Screenshot.m in Sources */,
 				894018791FB5A0E4002B8AFD /* BRRequestDelete.m in Sources */,
+				9FE99C281FBD4E65006B58DE /* FeedbackListViewCell.m in Sources */,
 				9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */,
 				9F7FE5691F7B78C2005CB4DF /* ProductListViewController.m in Sources */,
 				9F471CFF1F54003300B294B7 /* InProcessViewCell.m in Sources */,
@@ -1585,6 +1612,7 @@
 				9F3144AF1F7A307600B9D32C /* NIDropDown.m in Sources */,
 				9F40AD7F1F2F469A002C64BA /* HomeViewController.m in Sources */,
 				9F471D0A1F541F7700B294B7 /* ToDoViewCell.m in Sources */,
+				9FE99C261FBD4E65006B58DE /* FeedbackListView.m in Sources */,
 				9FB1BEAE1F514343008D179E /* CollectionViewCell.m in Sources */,
 				9FD12DA01F4473B900F0E0A8 /* RunViewController.m in Sources */,
 			);
