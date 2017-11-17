@@ -291,7 +291,7 @@
                         <constraint firstItem="Pk1-2k-SfJ" firstAttribute="leading" secondItem="vTq-No-RFn" secondAttribute="trailing" id="qWU-BR-AqN"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FLx-ck-1RW">
+                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FLx-ck-1RW">
                     <rect key="frame" x="376" y="132" width="648" height="607"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qqk-aD-Uf9">

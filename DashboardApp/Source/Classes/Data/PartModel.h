@@ -33,6 +33,8 @@
 @property (nonatomic, strong) NSDate *transitDate;
 @property (nonatomic, strong) NSString *vendor;
 @property (nonatomic, unsafe_unretained) int shortQty;
+@property (nonatomic, strong) NSString *poQty;
+@property (nonatomic, unsafe_unretained) BOOL hasPO;
 
 + (PartModel*) partFrom:(NSDictionary*)data;
 - (int) totalStock;

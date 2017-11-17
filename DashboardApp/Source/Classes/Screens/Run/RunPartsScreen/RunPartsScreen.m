@@ -482,7 +482,7 @@ const CGFloat kMinTableHeight = 144;
 {
     if (content.count > 0) {
         _noRunsLabel.alpha = 0;
-        float c = MIN((int)content.count-1, 5);
+        float c = MIN((int)content.count-1, 4);
         _runsHolderHeightConstraint.constant = kMinTableHeight + c*[RunPartCell height];
     } else {
         _noRunsLabel.alpha = 1;
