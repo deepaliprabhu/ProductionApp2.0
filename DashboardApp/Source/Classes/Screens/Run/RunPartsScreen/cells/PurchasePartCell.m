@@ -19,6 +19,7 @@ static NSDateFormatter *_dateFormatter = nil;
     __unsafe_unretained IBOutlet UILabel *_priceLabel;
     __unsafe_unretained IBOutlet UILabel *_expectedDateLabel;
     __unsafe_unretained IBOutlet UILabel *_createdDateLabel;
+    __unsafe_unretained IBOutlet UILabel *_idLabel;
 }
 
 - (void)awakeFromNib {
@@ -49,19 +50,12 @@ static NSDateFormatter *_dateFormatter = nil;
         if (m.expectedDate == nil)
             _expectedDateLabel.text = @"-";
         else {
-            
             int days = (int)[self daysBetweenDate:[NSDate date] andDate:m.expectedDate];
-            if (days > 0)
-                _expectedDateLabel.text = [NSString stringWithFormat:@"%d %@ left", days, days==1?@"day":@"days"];
-            else {
-                
-                NSTimeInterval time = [m.expectedDate timeIntervalSinceDate:[NSDate date]];
-                int hours = time/3600;
-                _expectedDateLabel.text = [NSString stringWithFormat:@"%d %@ left", hours, hours==1?@"hour":@"hours"];
-            }
+            _expectedDateLabel.text = [NSString stringWithFormat:@"%dd to arrival", days];
         }
     }
     
+    _idLabel.text = m.poID;
     _statusLabel.text = m.status;
     _vendorLabel.text = m.vendor;
     _qtyLabel.text = m.qty;

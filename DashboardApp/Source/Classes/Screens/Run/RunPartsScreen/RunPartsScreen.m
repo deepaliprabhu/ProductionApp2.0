@@ -19,6 +19,7 @@
 #import "PartHistoryScreen.h"
 #import "DataManager.h"
 #import "PriorityRunCell.h"
+#import "UIAlertView+Blocks.h"
 
 const CGFloat kMinTableHeight = 144;
 
@@ -67,7 +68,6 @@ const CGFloat kMinTableHeight = 144;
     
     __unsafe_unretained IBOutlet UIButton *_runsButton;
     __unsafe_unretained IBOutlet UIButton *_prioritiesButton;
-    __unsafe_unretained IBOutlet UIButton *_editButton;
     __unsafe_unretained IBOutlet UIView *_runsHeaderView;
     __unsafe_unretained IBOutlet UIView *_prioritiesHeaderView;
     
@@ -80,7 +80,6 @@ const CGFloat kMinTableHeight = 144;
     
     BOOL _partsAreSelected;
     BOOL _prioritiesAreSelected;
-    BOOL _priorityIsEditing;
     
     CGFloat _cost;
     
@@ -155,7 +154,7 @@ const CGFloat kMinTableHeight = 144;
     
     _runsHeaderView.alpha = 1;
     _prioritiesHeaderView.alpha = 0;
-    _editButton.alpha = 0;
+    _runsTableView.editing = false;
     
     [self layoutTableFor:_runs];
     [_runsTableView reloadData];
@@ -169,16 +168,10 @@ const CGFloat kMinTableHeight = 144;
     
     _runsHeaderView.alpha = 0;
     _prioritiesHeaderView.alpha = 1;
-    _editButton.alpha = 1;
+    _runsTableView.editing = true;
     
     [self layoutTableFor:_priorityRuns];
     [_runsTableView reloadData];
-}
-
-- (IBAction) editButtonTapped {
-    
-    _priorityIsEditing = !_priorityIsEditing;
-    [self layoutEditing];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -327,14 +320,33 @@ const CGFloat kMinTableHeight = 144;
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return (tableView == _runsTableView && _prioritiesAreSelected == true && _priorityIsEditing == true);
+    return (tableView == _runsTableView && _prioritiesAreSelected == true);
 }
 
 - (void) tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    [_priorityRuns exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [_runsTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-    });
+    
+    [UIAlertView showWithTitle:nil message:@"Are you sure you want to change the order of these runs?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        
+        if (buttonIndex == 1) {
+            
+            Run *r = _priorityRuns[sourceIndexPath.row];
+            NSString *rID = [NSString stringWithFormat:@"%ld", (long)r.runId];
+            [LoadingView showLoading:@"Loading..."];
+            [[ProdAPI sharedInstance] setOrder:(int)destinationIndexPath.row+1 forRun:rID withCompletion:^(BOOL success, id response) {
+                
+                if (success) {
+                    [LoadingView removeLoading];
+                    [_priorityRuns exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
+                    [_runsTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+                } else {
+                    [LoadingView showShortMessage:@"Error, please try again later!"];
+                }
+            }];
+            
+        } else {
+            [_runsTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+        }
+    }];
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -411,6 +423,7 @@ const CGFloat kMinTableHeight = 144;
 
 - (void) layoutWith:(PartModel*)part {
     
+    _runsTableView.editing = false;
     if (part != nil) {
         
         [self runsButtonTapped];
@@ -428,7 +441,7 @@ const CGFloat kMinTableHeight = 144;
         _transitDateLabel.text = [d stringFromDate:part.transitDate];
         _transitStockLabel.text = part.transit;
         _puneDateLabel.text = [d stringFromDate:part.recoPuneDate];
-        _puneStockLabel.text = part.pune;
+        _puneStockLabel.text = [NSString stringWithFormat:@"%d", [part totalPune]];
         
         if (part.pricePerUnit == nil)
             _priceLabel.text = @"-$";
@@ -478,17 +491,6 @@ const CGFloat kMinTableHeight = 144;
     [UIView animateWithDuration:0.3 animations:^{
         [self.view layoutIfNeeded];
     }];
-}
-
-- (void) layoutEditing {
-    
-    if (_priorityIsEditing) {
-        _runsTableView.editing = true;
-        [_editButton setTitle:@"Done" forState:UIControlStateNormal];
-    } else {
-        _runsTableView.editing = false;
-        [_editButton setTitle:@"Edit" forState:UIControlStateNormal];
-    }
 }
 
 #pragma mark - Utils
@@ -548,8 +550,10 @@ const CGFloat kMinTableHeight = 144;
         if (success) {
             [LoadingView removeLoading];
             for (NSDictionary *d in response) {
-                PartModel *p = [PartModel partFrom:d];
-                [_shorts addObject:p];
+                PartModel *s = [PartModel partFrom:d];
+                PartModel *p = [self partWithID:s.part];
+                s.shortQty = [p.qty intValue]*[_run getQuantity];
+                [_shorts addObject:s];
             }
             
             [self layoutNumberOfPOs];
@@ -633,6 +637,17 @@ const CGFloat kMinTableHeight = 144;
 //            [_priorityRuns addObject:r];
 //    }
     [_priorityRuns addObjectsFromArray:runs];
+    [_priorityRuns sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"order" ascending:true], [NSSortDescriptor sortDescriptorWithKey:@"runId" ascending:true]]];
+}
+
+- (PartModel*) partWithID:(NSString*)s {
+    
+    for (PartModel *p in _parts) {
+        if ([p.part isEqualToString:s])
+            return p;
+    }
+    
+    return nil;
 }
 
 @end

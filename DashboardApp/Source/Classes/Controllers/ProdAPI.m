@@ -83,6 +83,12 @@ static ProdAPI *_sharedInstance = nil;
     [self callGETURL:url completion:block];
 }
 
+- (void) setOrder:(int)o forRun:(NSString*)runID withCompletion:(void (^)(BOOL success, id response))block
+{
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_run_order&runid=%@&order=%d", runID, o];
+    [self callGETURL:url completion:block];
+}
+
 - (void) getRunsFor:(NSString*)partID withCompletion:(void (^)(BOOL success, id response))block
 {
     NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/parts_for_runs.php?partno=%@", partID];

@@ -32,8 +32,10 @@
 @property (nonatomic, strong) NSString *transit;
 @property (nonatomic, strong) NSDate *transitDate;
 @property (nonatomic, strong) NSString *vendor;
+@property (nonatomic, unsafe_unretained) int shortQty;
 
 + (PartModel*) partFrom:(NSDictionary*)data;
 - (int) totalStock;
+- (int) totalPune;
 
 @end

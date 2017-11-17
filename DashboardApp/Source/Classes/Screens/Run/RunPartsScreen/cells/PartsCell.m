@@ -25,7 +25,7 @@
     if (m.po.length == 0)
     {
         _vendorLabel.text = @"NO PO";
-        c = ccolor(67, 194, 81);
+        c = ccolor(233, 46, 40);
     }
     else
     {
@@ -33,11 +33,7 @@
         c = ccolor(119, 119, 119);
     }
     
-    if (m.qty.length == 0)
-        _quantityLabel.text = @"-";
-    else
-        _quantityLabel.text = m.qty;
-    
+    _quantityLabel.text = [NSString stringWithFormat:@"%d", m.shortQty];
     _stockLabel.text = [NSString stringWithFormat:@"%d", [m totalStock]];
     if (m.pricePerUnit != nil)
         _priceLabel.text = [NSString stringWithFormat:@"%@$", m.pricePerUnit];
