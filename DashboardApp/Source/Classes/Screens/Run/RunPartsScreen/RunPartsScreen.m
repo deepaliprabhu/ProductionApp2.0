@@ -20,6 +20,7 @@
 #import "DataManager.h"
 #import "PriorityRunCell.h"
 #import "UIAlertView+Blocks.h"
+#import "PartAuditModel.h"
 
 const CGFloat kMinTableHeight = 144;
 
@@ -84,6 +85,7 @@ const CGFloat kMinTableHeight = 144;
     CGFloat _cost;
     
     __unsafe_unretained PartModel *_visiblePart;
+    PartAuditModel *_auditModel;
 }
 
 - (void) viewDidLoad {
@@ -424,6 +426,7 @@ const CGFloat kMinTableHeight = 144;
 - (void) layoutWith:(PartModel*)part {
     
     _runsTableView.editing = false;
+    _auditModel = nil;
     if (part != nil) {
         
         [self runsButtonTapped];
@@ -450,6 +453,7 @@ const CGFloat kMinTableHeight = 144;
         
         [self getPurchasesFor:part];
         [self getRunsFor:part];
+        [self getAuditFor:part];
     } else {
         
         _detailsHolderView.alpha = 0;
@@ -491,6 +495,11 @@ const CGFloat kMinTableHeight = 144;
     [UIView animateWithDuration:0.3 animations:^{
         [self.view layoutIfNeeded];
     }];
+}
+
+- (void) layoutAudit
+{
+    
 }
 
 #pragma mark - Utils
@@ -616,6 +625,17 @@ const CGFloat kMinTableHeight = 144;
         [UIView animateWithDuration:0.3 animations:^{
             [self.view layoutIfNeeded];
         }];
+    }];
+}
+
+- (void) getAuditFor:(PartModel*)m {
+    
+    [[ProdAPI sharedInstance] getAuditHistoryFor:m.part withCompletion:^(BOOL success, id response) {
+      
+        if (success) {
+            _auditModel = [PartAuditModel objFrom:response];
+            [self layoutAudit];
+        }
     }];
 }
 

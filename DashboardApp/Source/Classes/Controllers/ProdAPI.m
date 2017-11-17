@@ -58,6 +58,13 @@ static ProdAPI *_sharedInstance = nil;
     _manager.securityPolicy = securityPolicy;
 }
 
+- (void) getAuditHistoryFor:(NSString*)part withCompletion:(void (^)(BOOL success, id response))block {
+    
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/parts_audit_history?partno=%@", part];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
 - (void) getHistoryFor:(NSString*)part withCompletion:(void (^)(BOOL success, id response))block
 {
     NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/parts_audit_history?PO=true&partno=%@", part];
