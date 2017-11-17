@@ -48,7 +48,9 @@ static NSDateFormatter *_formatter = nil;
     p.shortValue = data[@"short"];
     p.transit = data[@"transit"];
     p.transitDate = [_formatter dateFromString:data[@"transit_date"]];
+    p.transferID = data[@"transfer_id"];
     p.vendor = data[@"vendor"];
+    p.poQty = [p computePoQty];
     
     return p;
 }
@@ -80,6 +82,18 @@ static NSDateFormatter *_formatter = nil;
     
     int total = m + [self totalPune] + [_transit intValue] + [_lausanne intValue];
     return total;
+}
+
+- (int) computePoQty {
+    
+    NSArray *arr = [_po componentsSeparatedByString:@"qty:"];
+    if (arr.count > 1) {
+        NSString *q = arr[1];
+        q = [q stringByReplacingOccurrencesOfString:@")" withString:@""];
+        return [q intValue];
+    }
+    
+    return 0;
 }
 
 @end

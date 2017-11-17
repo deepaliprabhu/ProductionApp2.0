@@ -52,6 +52,7 @@ const CGFloat kMinTableHeight = 144;
     __unsafe_unretained IBOutlet UIView *_transitStockView;
     __unsafe_unretained IBOutlet UILabel *_transitStockLabel;
     __unsafe_unretained IBOutlet UILabel *_transitDateLabel;
+    __unsafe_unretained IBOutlet UILabel *_transitIDLabel;
     __unsafe_unretained IBOutlet UIView *_puneStockView;
     __unsafe_unretained IBOutlet UILabel *_puneStockLabel;
     __unsafe_unretained IBOutlet UILabel *_puneDateLabel;
@@ -122,6 +123,8 @@ const CGFloat kMinTableHeight = 144;
 
 - (IBAction) partsButtonTapped {
     
+    [self layoutWith:nil];
+    
     _searchTextField.text = @"";
     _partsAreSelected = true;
     _vendorLabel.text = @"VENDOR";
@@ -130,6 +133,8 @@ const CGFloat kMinTableHeight = 144;
 }
 
 - (IBAction) shortButtonTapped {
+    
+    [self layoutWith:nil];
     
     _searchTextField.text = @"";
     _partsAreSelected = false;
@@ -440,11 +445,19 @@ const CGFloat kMinTableHeight = 144;
         _partTitleLabel.text = part.part;
         _stockLabel.text = [NSString stringWithFormat:@"%d", [part totalStock]];
         _masonDateLabel.text = [d stringFromDate:part.recoMasonDate];
-        _masonStockLabel.text = part.mason;
+        if (part.recoMason.length > 0)
+            _masonStockLabel.text = part.recoMason;
+        else
+            _masonStockLabel.text = part.mason;
         _transitDateLabel.text = [d stringFromDate:part.transitDate];
         _transitStockLabel.text = part.transit;
         _puneDateLabel.text = [d stringFromDate:part.recoPuneDate];
         _puneStockLabel.text = [NSString stringWithFormat:@"%d", [part totalPune]];
+        
+        if (part.transit.length > 0)
+            _transitIDLabel.text = [NSString stringWithFormat:@"ID %@", part.transferID];
+        else
+            _transitIDLabel.text = @"";
         
         if (part.pricePerUnit == nil)
             _priceLabel.text = @"-$";
@@ -465,6 +478,7 @@ const CGFloat kMinTableHeight = 144;
         _masonDateLabel.text = @"-";
         _masonStockLabel.text = @"-";
         _transitDateLabel.text = @"-";
+        _transitIDLabel.text = @"ID -";
         _transitStockLabel.text = @"-";
         _puneDateLabel.text = @"-";
         _puneStockLabel.text = @"-";

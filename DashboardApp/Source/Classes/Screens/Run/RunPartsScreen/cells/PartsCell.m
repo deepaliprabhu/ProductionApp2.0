@@ -16,7 +16,6 @@
     __weak IBOutlet UILabel *_stockLabel;
     __weak IBOutlet UILabel *_vendorLabel;
     __weak IBOutlet UILabel *_quantityLabel;
-    __weak IBOutlet UIActivityIndicatorView *_spinner;
 }
 
 - (void) layoutWithShort:(PartModel*)m {
@@ -24,19 +23,21 @@
     UIColor *c = nil;
     _nameLabel.text = m.part;
     
-    if (m.poQty == nil) {
-        [_spinner startAnimating];
-        _vendorLabel.text = @"";
-    } else {
-        [_spinner stopAnimating];
-        if (m.hasPO == true) {
-            _vendorLabel.text = m.poQty;
-            c = ccolor(119, 119, 119);
-        } else {
-            _vendorLabel.text = @"NO PO";
-            c = ccolor(233, 46, 40);
-        }
+    if (m.po.length == 0)
+    {
+        _vendorLabel.text = @"NO PO";
+        c = ccolor(233, 46, 40);
     }
+    else
+    {
+        _vendorLabel.text = [NSString stringWithFormat:@"%d", m.poQty];
+        c = ccolor(119, 119, 119);
+    }
+    
+    if (m.shortQty > ([m totalStock] + m.poQty))
+        _quantityLabel.textColor = ccolor(233, 46, 40);
+    else
+        _quantityLabel.textColor = ccolor(67, 194, 81);
     
     _quantityLabel.text = [NSString stringWithFormat:@"%d", m.shortQty];
     _stockLabel.text = [NSString stringWithFormat:@"%d", [m totalStock]];
@@ -50,11 +51,11 @@
 
 - (void) layoutWithColor:(UIColor*)c {
     
-    _nameLabel.textColor = c;
-    _priceLabel.textColor = c;
-    _stockLabel.textColor = c;
+//    _nameLabel.textColor = c;
+//    _priceLabel.textColor = c;
+//    _stockLabel.textColor = c;
     _vendorLabel.textColor = c;
-    _quantityLabel.textColor = c;
+//    _quantityLabel.textColor = c;
 }
 
 - (void) layoutWithPart:(PartModel*)m {
