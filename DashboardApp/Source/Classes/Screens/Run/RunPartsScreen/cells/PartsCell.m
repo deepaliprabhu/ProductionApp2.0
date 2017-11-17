@@ -73,6 +73,7 @@
     else
         _quantityLabel.text = m.qty;
     
+    _quantityLabel.textColor = ccolor(119, 119, 119);
     _stockLabel.text = [NSString stringWithFormat:@"%d", [m totalStock]];
     if (m.pricePerUnit != nil)
         _priceLabel.text = [NSString stringWithFormat:@"%@$", m.pricePerUnit];
