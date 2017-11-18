@@ -166,6 +166,10 @@
 		9FE99C271FBD4E65006B58DE /* FeedbackListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FE99C221FBD4E65006B58DE /* FeedbackListView.xib */; };
 		9FE99C281FBD4E65006B58DE /* FeedbackListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE99C241FBD4E65006B58DE /* FeedbackListViewCell.m */; };
 		9FE99C291FBD4E65006B58DE /* FeedbackListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FE99C251FBD4E65006B58DE /* FeedbackListViewCell.xib */; };
+		9FE99C311FBD70F8006B58DE /* FeedbackDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE99C301FBD70F8006B58DE /* FeedbackDetailView.m */; };
+		9FE99C331FBD7112006B58DE /* FeedbackDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FE99C321FBD7112006B58DE /* FeedbackDetailView.xib */; };
+		9FE99C371FBF242D006B58DE /* FeedbackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE99C351FBF242D006B58DE /* FeedbackListViewController.m */; };
+		9FE99C381FBF242D006B58DE /* FeedbackListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FE99C361FBF242D006B58DE /* FeedbackListViewController.xib */; };
 		9FEEE5801EEFEFA2005B5ECA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEEE57F1EEFEFA2005B5ECA /* main.m */; };
 		9FEEE5831EEFEFA2005B5ECA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEEE5821EEFEFA2005B5ECA /* AppDelegate.m */; };
 		9FEEE58B1EEFEFA2005B5ECA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FEEE58A1EEFEFA2005B5ECA /* Assets.xcassets */; };
@@ -462,6 +466,12 @@
 		9FE99C231FBD4E65006B58DE /* FeedbackListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackListViewCell.h; sourceTree = "<group>"; };
 		9FE99C241FBD4E65006B58DE /* FeedbackListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackListViewCell.m; sourceTree = "<group>"; };
 		9FE99C251FBD4E65006B58DE /* FeedbackListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedbackListViewCell.xib; sourceTree = "<group>"; };
+		9FE99C2F1FBD70F8006B58DE /* FeedbackDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackDetailView.h; sourceTree = "<group>"; };
+		9FE99C301FBD70F8006B58DE /* FeedbackDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackDetailView.m; sourceTree = "<group>"; };
+		9FE99C321FBD7112006B58DE /* FeedbackDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedbackDetailView.xib; sourceTree = "<group>"; };
+		9FE99C341FBF242D006B58DE /* FeedbackListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackListViewController.h; sourceTree = "<group>"; };
+		9FE99C351FBF242D006B58DE /* FeedbackListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackListViewController.m; sourceTree = "<group>"; };
+		9FE99C361FBF242D006B58DE /* FeedbackListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedbackListViewController.xib; sourceTree = "<group>"; };
 		9FEEE57B1EEFEFA2005B5ECA /* DashboardApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashboardApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FEEE57F1EEFEFA2005B5ECA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9FEEE5811EEFEFA2005B5ECA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1127,6 +1137,12 @@
 				9FE99C231FBD4E65006B58DE /* FeedbackListViewCell.h */,
 				9FE99C241FBD4E65006B58DE /* FeedbackListViewCell.m */,
 				9FE99C251FBD4E65006B58DE /* FeedbackListViewCell.xib */,
+				9FE99C2F1FBD70F8006B58DE /* FeedbackDetailView.h */,
+				9FE99C301FBD70F8006B58DE /* FeedbackDetailView.m */,
+				9FE99C321FBD7112006B58DE /* FeedbackDetailView.xib */,
+				9FE99C341FBF242D006B58DE /* FeedbackListViewController.h */,
+				9FE99C351FBF242D006B58DE /* FeedbackListViewController.m */,
+				9FE99C361FBF242D006B58DE /* FeedbackListViewController.xib */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
@@ -1434,6 +1450,7 @@
 				9F056B281F433469002F3B61 /* Icon.png in Resources */,
 				D283865C1FB23CA800BB304C /* Roboto-Regular.ttf in Resources */,
 				D227678B1FAE4B5400215D87 /* LICENSE in Resources */,
+				9FE99C331FBD7112006B58DE /* FeedbackDetailView.xib in Resources */,
 				894F9BD41FBC7B6B00DC2C6B /* PurchasePartCell.xib in Resources */,
 				9FD12D871F443A3700F0E0A8 /* RunListViewCell.xib in Resources */,
 				894F9BDA1FBCA0BC00DC2C6B /* PartHistoryScreen.xib in Resources */,
@@ -1470,6 +1487,7 @@
 				9F471D161F542B9300B294B7 /* RoadBlocksViewCell.xib in Resources */,
 				9FD12D7B1F43F77200F0E0A8 /* Icon_alpha.png in Resources */,
 				9FD12D811F43FD5600F0E0A8 /* OverviewView.xib in Resources */,
+				9FE99C381FBF242D006B58DE /* FeedbackListViewController.xib in Resources */,
 				9FD12DA71F449FB400F0E0A8 /* RunPartsViewCell.xib in Resources */,
 				D283865A1FB23CA800BB304C /* Roboto-Light.ttf in Resources */,
 				9F03A91C1F4563DD00A7A316 /* DemandListView.xib in Resources */,
@@ -1563,6 +1581,7 @@
 				D22767911FAE4B5400215D87 /* UIButton+AFNetworking.m in Sources */,
 				9FA2645F1F48A179004C882E /* TasklistView.m in Sources */,
 				8940187F1FB5A0E4002B8AFD /* BRRequest.m in Sources */,
+				9FE99C311FBD70F8006B58DE /* FeedbackDetailView.m in Sources */,
 				D22767881FAE4B5400215D87 /* AFURLRequestSerialization.m in Sources */,
 				8919BE8F1FB4DD5100EE6839 /* SDWebImageDecoder.m in Sources */,
 				894F9BD91FBCA0BC00DC2C6B /* PartHistoryScreen.m in Sources */,
@@ -1607,6 +1626,7 @@
 				8940187D1FB5A0E4002B8AFD /* BRRequestUpload.m in Sources */,
 				8919BE971FB4DD5100EE6839 /* SDWebImageDownloaderOperation.m in Sources */,
 				9F471D081F541F7700B294B7 /* ToDoView.m in Sources */,
+				9FE99C371FBF242D006B58DE /* FeedbackListViewController.m in Sources */,
 				3BCDA4181FB346560021BC03 /* ProductAdminPopover.m in Sources */,
 				9F056B2E1F433F32002F3B61 /* TopBarView.m in Sources */,
 				9F3144AF1F7A307600B9D32C /* NIDropDown.m in Sources */,

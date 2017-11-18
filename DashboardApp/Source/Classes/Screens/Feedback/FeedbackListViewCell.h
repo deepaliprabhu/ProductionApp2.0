@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface FeedbackListViewCell : UITableViewCell {
+    IBOutlet UILabel *_idLabel;
     IBOutlet UILabel *_productLabel;
     IBOutlet UILabel *_receivedLabel;
     IBOutlet UILabel *_categoryLabel;
@@ -16,6 +17,7 @@
     IBOutlet UILabel *_statusLabel;
     IBOutlet UILabel *_subjectLabel;
     IBOutlet UITextView *_notesTextView;
+    IBOutlet UIWebView *_webView;
 }
 - (void)setCellData:(NSMutableDictionary*)cellData;
 

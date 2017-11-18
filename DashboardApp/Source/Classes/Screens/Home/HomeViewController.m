@@ -146,8 +146,11 @@
 }
 
 - (void)feedbacksSelected {
-    feedbackListView.hidden = false;
-    overviewView.hidden = true;
+    //feedbackListView.hidden = false;
+    //overviewView.hidden = true;
+    FeedbackListViewController *feedbackListVC = [FeedbackListViewController new];
+    [feedbackListVC setFeedbacksList:[__DataManager getFeedbackList]];
+    [self.navigationController pushViewController:feedbackListVC animated:true];
 }
 
 - (void) processControlSelected {
