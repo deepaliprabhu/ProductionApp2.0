@@ -58,6 +58,13 @@ static ProdAPI *_sharedInstance = nil;
     _manager.securityPolicy = securityPolicy;
 }
 
+- (void) getAuditHistoryFor:(NSString*)part withCompletion:(void (^)(BOOL success, id response))block {
+    
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/parts_audit_history?partno=%@", part];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
 - (void) getHistoryFor:(NSString*)part withCompletion:(void (^)(BOOL success, id response))block
 {
     NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/parts_audit_history?PO=true&partno=%@", part];
@@ -80,6 +87,12 @@ static ProdAPI *_sharedInstance = nil;
 - (void) setOrder:(int)o forProduct:(NSString*)productID withCompletion:(void (^)(BOOL success, id response))block
 {
     NSString *url = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=update_product_image_order&productid=%@&order=%@", productID, [NSString stringWithFormat:@"%d", o]];
+    [self callGETURL:url completion:block];
+}
+
+- (void) setOrder:(int)o forRun:(NSString*)runID withCompletion:(void (^)(BOOL success, id response))block
+{
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_run_order&runid=%@&order=%d", runID, o];
     [self callGETURL:url completion:block];
 }
 

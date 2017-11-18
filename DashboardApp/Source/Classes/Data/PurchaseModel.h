@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString *price;
 @property (nonatomic, strong) NSDate *createdDate;
 @property (nonatomic, strong) NSDate *expectedDate;
+@property (nonatomic, strong) NSDate *arrivedDate;
 
 + (PurchaseModel*) objFrom:(NSDictionary*)data;
 

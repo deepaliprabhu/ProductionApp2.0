@@ -28,6 +28,14 @@ static NSDateFormatter *_formatter = nil;
     m.status = data[@"status"];
     m.qty = data[@"qty"];
     m.price = data[@"price"];
+    if ([data[@"arriveddate"] isKindOfClass:[NSDate class]])
+        m.arrivedDate = [_formatter dateFromString:data[@"arriveddate"]];
+    
+    if (m.arrivedDate != nil)
+        m.expectedDate = m.arrivedDate;
+    
+    if ([m.expectedDate compare:[NSDate date]] == NSOrderedAscending)
+        m.status = @"Closed";
     
     return m;
 }

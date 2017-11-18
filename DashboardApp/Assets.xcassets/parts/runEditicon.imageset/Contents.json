@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "dropdownBomIcon.png",
+      "filename" : "runEditicon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "dropdownBomIcon@2x.png",
+      "filename" : "runEditicon@2x.png",
       "scale" : "2x"
     },
     {

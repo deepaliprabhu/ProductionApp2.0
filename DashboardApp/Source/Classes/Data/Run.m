@@ -14,7 +14,11 @@
 }
 
 - (void)setRunData:(NSDictionary*)runData_ {
+    
     runData = [runData_ mutableCopy];
+    _order = [[runData objectForKey:@"Order"] intValue];
+    if (_order == 0)
+        _order = INT_MAX;
     _runId = [[runData objectForKey:@"Run"] intValue];
     _sequence = [[runData objectForKey:@"Sequence"] intValue];
     _quantity = [[runData objectForKey:@"Qty"] intValue];

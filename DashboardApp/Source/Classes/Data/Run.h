@@ -36,6 +36,7 @@
 @property NSInteger priority;
 @property NSInteger sequence;
 @property NSInteger category;
+@property NSInteger order;
 @property NSString *runType;
 @property NSString *productName;
 @property NSString *productNumber;

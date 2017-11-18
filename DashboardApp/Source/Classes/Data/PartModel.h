@@ -29,11 +29,15 @@
 @property (nonatomic, strong) NSString *pricePerUnit;
 @property (nonatomic, strong) NSString *qty;
 @property (nonatomic, strong) NSString *shortValue;
+@property (nonatomic, strong) NSString *transferID;
 @property (nonatomic, strong) NSString *transit;
 @property (nonatomic, strong) NSDate *transitDate;
 @property (nonatomic, strong) NSString *vendor;
+@property (nonatomic, unsafe_unretained) int shortQty;
+@property (nonatomic, unsafe_unretained) int poQty;
 
 + (PartModel*) partFrom:(NSDictionary*)data;
 - (int) totalStock;
+- (int) totalPune;
 
 @end

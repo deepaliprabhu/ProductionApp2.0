@@ -48,14 +48,52 @@ static NSDateFormatter *_formatter = nil;
     p.shortValue = data[@"short"];
     p.transit = data[@"transit"];
     p.transitDate = [_formatter dateFromString:data[@"transit_date"]];
+    p.transferID = data[@"transfer_id"];
     p.vendor = data[@"vendor"];
+    p.poQty = [p computePoQty];
     
     return p;
 }
 
+- (int) totalPune {
+
+    int p = [_pune intValue];
+    if (_recoPune.length > 0) {
+        p = [_recoPune intValue];
+    }
+    int p2 = [_p2 intValue];
+    if (_recoP2.length > 0) {
+        p2 = [_recoP2 intValue];
+    }
+    int s2 = [_s2 intValue];
+    if (_recoS2.length > 0) {
+        s2 = [_recoS2 intValue];
+    }
+    
+    return p+s2+p2;
+}
+
 - (int) totalStock {
-    int total = [_mason intValue] + [_pune intValue] + [_transit intValue] + [_lausanne intValue];
+    
+    int m = [_mason intValue];
+    if (_recoMason.length > 0) {
+        m = [_recoMason intValue];
+    }
+    
+    int total = m + [self totalPune] + [_transit intValue] + [_lausanne intValue];
     return total;
+}
+
+- (int) computePoQty {
+    
+    NSArray *arr = [_po componentsSeparatedByString:@"qty:"];
+    if (arr.count > 1) {
+        NSString *q = arr[1];
+        q = [q stringByReplacingOccurrencesOfString:@")" withString:@""];
+        return [q intValue];
+    }
+    
+    return 0;
 }
 
 @end

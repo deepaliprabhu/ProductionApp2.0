@@ -19,12 +19,14 @@
 - (void) updateProduct:(NSString*)productID status:(NSString*)status withCompletion:(void (^)(BOOL success, id response))block;
 - (void) updateProduct:(NSString*)productID image:(NSString*)image withCompletion:(void (^)(BOOL success, id response))block;
 - (void) setOrder:(int)o forProduct:(NSString*)productID withCompletion:(void (^)(BOOL success, id response))block;
+- (void) setOrder:(int)o forRun:(NSString*)runID withCompletion:(void (^)(BOOL success, id response))block;
 - (void) getPartsForRun:(NSInteger)runID withCompletion:(void (^)(BOOL success, id response))block;
 - (void) getShortsForRun:(NSInteger)runID withCompletion:(void (^)(BOOL success, id response))block;
 - (void) getPurchasesForPart:(NSString*)partID withCompletion:(void (^)(BOOL, id))block;
 - (void) uploadPhoto:(NSData*)img name:(NSString*)name forProductID:(NSString*)productID delegate:(id <FTPProtocol>)d;
 - (void) getRunsFor:(NSString*)partID withCompletion:(void (^)(BOOL success, id response))block;
 - (void) getHistoryFor:(NSString*)part withCompletion:(void (^)(BOOL success, id response))block;
+- (void) getAuditHistoryFor:(NSString*)part withCompletion:(void (^)(BOOL success, id response))block;
 
 @end
 

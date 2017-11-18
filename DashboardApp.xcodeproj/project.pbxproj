@@ -47,11 +47,17 @@
 		894F9BDA1FBCA0BC00DC2C6B /* PartHistoryScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894F9BD81FBCA0BC00DC2C6B /* PartHistoryScreen.xib */; };
 		894F9BDE1FBCA90C00DC2C6B /* HistoryPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894F9BDC1FBCA90C00DC2C6B /* HistoryPriceCell.m */; };
 		894F9BDF1FBCA90C00DC2C6B /* HistoryPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894F9BDD1FBCA90C00DC2C6B /* HistoryPriceCell.xib */; };
+		89619E191FBDB4E8005A5BE7 /* PriorityRunCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89619E171FBDB4E8005A5BE7 /* PriorityRunCell.m */; };
+		89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */; };
 		89854AE71FB97B3A00C6E38D /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADB1FB97B3A00C6E38D /* GMGridView.m */; };
 		89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADF1FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m */; };
 		89854AE91FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854AE01FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m */; };
 		89854AEA1FB97B3A00C6E38D /* UIView+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854AE31FB97B3A00C6E38D /* UIView+GMGridViewAdditions.m */; };
 		89854AEB1FB97B3A00C6E38D /* GMGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854AE41FB97B3A00C6E38D /* GMGridViewCell.m */; };
+		89897E2D1FBF0AFA000B39EA /* ActionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89897E2C1FBF0AFA000B39EA /* ActionModel.m */; };
+		89897E301FBF0BAC000B39EA /* PartAuditModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89897E2F1FBF0BAC000B39EA /* PartAuditModel.m */; };
+		89897E391FBF140C000B39EA /* StockGraphScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 89897E371FBF140C000B39EA /* StockGraphScreen.m */; };
+		89897E3A1FBF140C000B39EA /* StockGraphScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89897E381FBF140C000B39EA /* StockGraphScreen.xib */; };
 		9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F022F671F618DED000E138B /* RunProcessStepsView.m */; };
 		9F022F6A1F618E03000E138B /* RunProcessStepsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F022F691F618E03000E138B /* RunProcessStepsView.xib */; };
 		9F03A91A1F4563C900A7A316 /* DemandListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F03A9191F4563C900A7A316 /* DemandListView.m */; };
@@ -285,6 +291,9 @@
 		894F9BDB1FBCA90C00DC2C6B /* HistoryPriceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryPriceCell.h; sourceTree = "<group>"; };
 		894F9BDC1FBCA90C00DC2C6B /* HistoryPriceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryPriceCell.m; sourceTree = "<group>"; };
 		894F9BDD1FBCA90C00DC2C6B /* HistoryPriceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryPriceCell.xib; sourceTree = "<group>"; };
+		89619E161FBDB4E8005A5BE7 /* PriorityRunCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriorityRunCell.h; sourceTree = "<group>"; };
+		89619E171FBDB4E8005A5BE7 /* PriorityRunCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriorityRunCell.m; sourceTree = "<group>"; };
+		89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriorityRunCell.xib; sourceTree = "<group>"; };
 		89854ADB1FB97B3A00C6E38D /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
 		89854ADC1FB97B3A00C6E38D /* GMGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridViewCell.h; sourceTree = "<group>"; };
 		89854ADD1FB97B3A00C6E38D /* GMGridViewCell+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridViewCell+Extended.h"; sourceTree = "<group>"; };
@@ -297,6 +306,13 @@
 		89854AE41FB97B3A00C6E38D /* GMGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridViewCell.m; sourceTree = "<group>"; };
 		89854AE51FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+GMGridViewAdditions.h"; sourceTree = "<group>"; };
 		89854AE61FB97B3A00C6E38D /* GMGridViewLayoutStrategies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridViewLayoutStrategies.h; sourceTree = "<group>"; };
+		89897E2B1FBF0AFA000B39EA /* ActionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionModel.h; sourceTree = "<group>"; };
+		89897E2C1FBF0AFA000B39EA /* ActionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionModel.m; sourceTree = "<group>"; };
+		89897E2E1FBF0BAC000B39EA /* PartAuditModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartAuditModel.h; sourceTree = "<group>"; };
+		89897E2F1FBF0BAC000B39EA /* PartAuditModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartAuditModel.m; sourceTree = "<group>"; };
+		89897E361FBF140C000B39EA /* StockGraphScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockGraphScreen.h; sourceTree = "<group>"; };
+		89897E371FBF140C000B39EA /* StockGraphScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StockGraphScreen.m; sourceTree = "<group>"; };
+		89897E381FBF140C000B39EA /* StockGraphScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StockGraphScreen.xib; sourceTree = "<group>"; };
 		9F022F661F618DED000E138B /* RunProcessStepsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunProcessStepsView.h; sourceTree = "<group>"; };
 		9F022F671F618DED000E138B /* RunProcessStepsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunProcessStepsView.m; sourceTree = "<group>"; };
 		9F022F691F618E03000E138B /* RunProcessStepsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunProcessStepsView.xib; sourceTree = "<group>"; };
@@ -643,6 +659,9 @@
 				894F9BDB1FBCA90C00DC2C6B /* HistoryPriceCell.h */,
 				894F9BDC1FBCA90C00DC2C6B /* HistoryPriceCell.m */,
 				894F9BDD1FBCA90C00DC2C6B /* HistoryPriceCell.xib */,
+				89619E161FBDB4E8005A5BE7 /* PriorityRunCell.h */,
+				89619E171FBDB4E8005A5BE7 /* PriorityRunCell.m */,
+				89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -1265,6 +1284,10 @@
 				894018891FB5EFAC002B8AFD /* PurchaseModel.m */,
 				894C5F581FBB0ED300FA4E5D /* RunModel.h */,
 				894C5F591FBB0ED300FA4E5D /* RunModel.m */,
+				89897E2B1FBF0AFA000B39EA /* ActionModel.h */,
+				89897E2C1FBF0AFA000B39EA /* ActionModel.m */,
+				89897E2E1FBF0BAC000B39EA /* PartAuditModel.h */,
+				89897E2F1FBF0BAC000B39EA /* PartAuditModel.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1377,6 +1400,9 @@
 				894F9BD61FBCA0BC00DC2C6B /* PartHistoryScreen.h */,
 				894F9BD71FBCA0BC00DC2C6B /* PartHistoryScreen.m */,
 				894F9BD81FBCA0BC00DC2C6B /* PartHistoryScreen.xib */,
+				89897E361FBF140C000B39EA /* StockGraphScreen.h */,
+				89897E371FBF140C000B39EA /* StockGraphScreen.m */,
+				89897E381FBF140C000B39EA /* StockGraphScreen.xib */,
 			);
 			path = RunPartsScreen;
 			sourceTree = "<group>";
@@ -1443,9 +1469,11 @@
 				9FF0A61C1F7E447C006486AA /* ProductProcessStepsView.xib in Resources */,
 				9F056B2F1F433F32002F3B61 /* TopBarView.xib in Resources */,
 				9F7FE5761F7B9CAA005CB4DF /* ProductCollectionViewCell.xib in Resources */,
+				89897E3A1FBF140C000B39EA /* StockGraphScreen.xib in Resources */,
 				9F471D091F541F7700B294B7 /* ToDoView.xib in Resources */,
 				9FD12DA11F4473B900F0E0A8 /* RunViewController.xib in Resources */,
 				9FE99C291FBD4E65006B58DE /* FeedbackListViewCell.xib in Resources */,
+				89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */,
 				9FE99C271FBD4E65006B58DE /* FeedbackListView.xib in Resources */,
 				9F056B281F433469002F3B61 /* Icon.png in Resources */,
 				D283865C1FB23CA800BB304C /* Roboto-Regular.ttf in Resources */,
@@ -1531,6 +1559,7 @@
 				9FD12D8F1F443CEF00F0E0A8 /* DataManager.m in Sources */,
 				8919BE961FB4DD5100EE6839 /* SDImageCache.m in Sources */,
 				9F85678E1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.m in Sources */,
+				89619E191FBDB4E8005A5BE7 /* PriorityRunCell.m in Sources */,
 				9F977EED1F6272AE009C2B6D /* RunProcessStepsViewCell.m in Sources */,
 				9F471D131F542B9300B294B7 /* RoadBlocksView.m in Sources */,
 				8919BE901FB4DD5100EE6839 /* UIImageView+HighlightedWebCache.m in Sources */,
@@ -1584,12 +1613,14 @@
 				9FE99C311FBD70F8006B58DE /* FeedbackDetailView.m in Sources */,
 				D22767881FAE4B5400215D87 /* AFURLRequestSerialization.m in Sources */,
 				8919BE8F1FB4DD5100EE6839 /* SDWebImageDecoder.m in Sources */,
+				89897E391FBF140C000B39EA /* StockGraphScreen.m in Sources */,
 				894F9BD91FBCA0BC00DC2C6B /* PartHistoryScreen.m in Sources */,
 				9F471D151F542B9300B294B7 /* RoadBlocksViewCell.m in Sources */,
 				9F977EF21F62FFD8009C2B6D /* CommoProcessesViewCell.m in Sources */,
 				9FA264661F48A32C004C882E /* TasklistViewCell.m in Sources */,
 				9FEEE5831EEFEFA2005B5ECA /* AppDelegate.m in Sources */,
 				9F7767401F56D6E90092F603 /* LeftCollectionViewCell.m in Sources */,
+				89897E301FBF0BAC000B39EA /* PartAuditModel.m in Sources */,
 				894F9BD31FBC7B6B00DC2C6B /* PurchasePartCell.m in Sources */,
 				D227678D1FAE4B5400215D87 /* AFAutoPurgingImageCache.m in Sources */,
 				D22767851FAE4B5400215D87 /* AFHTTPSessionManager.m in Sources */,
@@ -1633,6 +1664,7 @@
 				9F40AD7F1F2F469A002C64BA /* HomeViewController.m in Sources */,
 				9F471D0A1F541F7700B294B7 /* ToDoViewCell.m in Sources */,
 				9FE99C261FBD4E65006B58DE /* FeedbackListView.m in Sources */,
+				89897E2D1FBF0AFA000B39EA /* ActionModel.m in Sources */,
 				9FB1BEAE1F514343008D179E /* CollectionViewCell.m in Sources */,
 				9FD12DA01F4473B900F0E0A8 /* RunViewController.m in Sources */,
 			);
