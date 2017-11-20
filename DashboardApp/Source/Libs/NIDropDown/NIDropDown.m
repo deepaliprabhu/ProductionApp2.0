@@ -38,7 +38,7 @@
             self.frame = CGRectMake(btn.origin.x, btn.origin.y, btn.size.width, 0);
             self.layer.shadowOffset = CGSizeMake(-5, -5);
         }else if ([direction isEqualToString:@"down"]) {
-            self.frame = CGRectMake(btn.origin.x+100, btn.origin.y+btn.size.height, btn.size.width, 0);
+            self.frame = CGRectMake(btn.origin.x, btn.origin.y+btn.size.height, btn.size.width, 0);
             self.layer.shadowOffset = CGSizeMake(-5, 5);
         }
         
@@ -60,7 +60,7 @@
         if ([direction isEqualToString:@"up"]) {
             self.frame = CGRectMake(btn.origin.x, btn.origin.y-*height, btn.size.width, *height);
         } else if([direction isEqualToString:@"down"]) {
-            self.frame = CGRectMake(btn.origin.x+100, btn.origin.y+btn.size.height+30, btn.size.width, *height);
+            self.frame = CGRectMake(btn.origin.x, btn.origin.y+btn.size.height, btn.size.width, *height);
         }
         table.frame = CGRectMake(0, 0, btn.size.width, *height);
         [UIView commitAnimations];
@@ -122,7 +122,7 @@
     }
     cell.textLabel.text =[list objectAtIndex:indexPath.row];
     cell.textLabel.textColor = [UIColor whiteColor];
-    cell.backgroundColor = [UIColor colorWithRed:249.0f/255 green:99.0f/255 blue:50.0f/255 alpha:1];
+    cell.backgroundColor = [UIColor grayColor];
     UIView * v = [[UIView alloc] init];
     v.backgroundColor = [UIColor grayColor];
     cell.selectedBackgroundView = v;

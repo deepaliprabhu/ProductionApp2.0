@@ -261,7 +261,7 @@
         CGFloat f = 235;
         dropDown = [[NIDropDown alloc]showDropDown:sender :&f :statusArray :nil :@"down"];
         dropDown.tag = 1;
-        dropDown.backgroundColor = [UIColor orangeColor];
+        dropDown.backgroundColor = [UIColor grayColor];
         dropDown.delegate = self;
     }
     else {
@@ -275,7 +275,7 @@
         CGFloat f = 235;
         dropDown = [[NIDropDown alloc]showDropDown:sender :&f :dispatchArray :nil :@"down"];
         dropDown.tag = 2;
-        dropDown.backgroundColor = [UIColor orangeColor];
+        dropDown.backgroundColor = [UIColor grayColor];
         dropDown.delegate = self;
     }
     else {

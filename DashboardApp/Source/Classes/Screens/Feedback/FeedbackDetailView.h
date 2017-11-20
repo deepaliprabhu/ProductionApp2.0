@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Defines.h"
 
+@protocol FeedbackDetailViewDelegate;
 @interface FeedbackDetailView : UIView {
     IBOutlet UILabel *_productNameLabel;
     IBOutlet UILabel *_categoryLabel;
@@ -26,7 +27,12 @@
     IBOutlet UITextView *_issuesTextView;
     IBOutlet UIWebView *_webView;
 }
+__pd(FeedbackDetailViewDelegate);
 __CREATEVIEWH(FeedbackDetailView);
 - (void)initView;
 - (void)setFeedbackData:(NSMutableDictionary*)feedbackData;
+@end
+
+@protocol FeedbackDetailViewDelegate <NSObject>
+- (void) closeFeedbackDetail;
 @end

@@ -51,6 +51,7 @@ __CREATEVIEW(FeedbackDetailView, @"FeedbackDetailView", 0);
 
 - (IBAction)closePressed:(id)sender {
     [self removeFromSuperview];
+    [_delegate closeFeedbackDetail];
 }
 
 @end

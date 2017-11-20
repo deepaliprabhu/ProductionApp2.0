@@ -117,6 +117,7 @@
 		9F471D161F542B9300B294B7 /* RoadBlocksViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F471D121F542B9300B294B7 /* RoadBlocksViewCell.xib */; };
 		9F4DE4191F558EBC0016DB03 /* MBCircularProgressBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4DE4161F558EBC0016DB03 /* MBCircularProgressBarLayer.m */; };
 		9F4DE41A1F558EBC0016DB03 /* MBCircularProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4DE4181F558EBC0016DB03 /* MBCircularProgressBarView.m */; };
+		9F71C43E1FC1582900550F86 /* downArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F71C43D1FC1582900550F86 /* downArrow.png */; };
 		9F7767401F56D6E90092F603 /* LeftCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F77673E1F56D6E90092F603 /* LeftCollectionViewCell.m */; };
 		9F7767411F56D6E90092F603 /* LeftCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F77673F1F56D6E90092F603 /* LeftCollectionViewCell.xib */; };
 		9F7767441F572A640092F603 /* RunListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7767431F572A640092F603 /* RunListTableView.m */; };
@@ -396,6 +397,7 @@
 		9F4DE4161F558EBC0016DB03 /* MBCircularProgressBarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCircularProgressBarLayer.m; sourceTree = "<group>"; };
 		9F4DE4171F558EBC0016DB03 /* MBCircularProgressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBCircularProgressBarView.h; sourceTree = "<group>"; };
 		9F4DE4181F558EBC0016DB03 /* MBCircularProgressBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCircularProgressBarView.m; sourceTree = "<group>"; };
+		9F71C43D1FC1582900550F86 /* downArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downArrow.png; sourceTree = "<group>"; };
 		9F77673D1F56D6E90092F603 /* LeftCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftCollectionViewCell.h; sourceTree = "<group>"; };
 		9F77673E1F56D6E90092F603 /* LeftCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftCollectionViewCell.m; sourceTree = "<group>"; };
 		9F77673F1F56D6E90092F603 /* LeftCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1231,6 +1233,7 @@
 				9F252A551F4D46C00056DA8F /* Dashboard */,
 				9FD12D7A1F43F77200F0E0A8 /* Icon_alpha.png */,
 				9F8AF75D1F559441008027B1 /* placeholder.png */,
+				9F71C43D1FC1582900550F86 /* downArrow.png */,
 				9F056B271F433469002F3B61 /* Icon.png */,
 			);
 			path = Images;
@@ -1475,6 +1478,7 @@
 				9FE99C291FBD4E65006B58DE /* FeedbackListViewCell.xib in Resources */,
 				89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */,
 				9FE99C271FBD4E65006B58DE /* FeedbackListView.xib in Resources */,
+				9F71C43E1FC1582900550F86 /* downArrow.png in Resources */,
 				9F056B281F433469002F3B61 /* Icon.png in Resources */,
 				D283865C1FB23CA800BB304C /* Roboto-Regular.ttf in Resources */,
 				D227678B1FAE4B5400215D87 /* LICENSE in Resources */,
