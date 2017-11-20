@@ -22,12 +22,27 @@
 }
 
 - (void)setCellData:(NSMutableDictionary*)cellData {
-    _productLabel.text = [NSString stringWithFormat:@"%@: %@",cellData[@"Feedback Id"],cellData[@"Product Name"]];
+    _idLabel.text = cellData[@"Feedback Id"];
+    _productLabel.text = cellData[@"Product Name"];
     _receivedLabel.text = cellData[@"Received"];
     _categoryLabel.text = cellData[@"Category"];
-    _defectQtyLabel.text = cellData[@"Defect Qty"];
+    if ([cellData[@"Defect Qty"] isEqualToString:@""]) {
+    }
+    else if ([cellData[@"Total Qty"] isEqualToString:@""]) {
+        _defectQtyLabel.text = [NSString stringWithFormat:@"%@",cellData[@"Defect Qty"]];
+    }
+    else {
+    _defectQtyLabel.text = [NSString stringWithFormat:@"%@/%@",cellData[@"Defect Qty"],cellData[@"Total Qty"]];
+    }
     _statusLabel.text = cellData[@"Status"];
     _notesTextView.text = cellData[@"Subject"];
+    
+    NSString *urlString = cellData[@"Image Refer"];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    _webView.scrollView.bounces = NO;
+    _webView.scrollView.contentInset = UIEdgeInsetsMake(-50, -80, -50, -80);
+    [_webView loadRequest:urlRequest];
 }
 
 @end

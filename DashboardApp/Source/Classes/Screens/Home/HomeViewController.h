@@ -17,6 +17,8 @@
 #import "ToDoView.h"
 #import "RoadBlocksView.h"
 #import "FeedbackListView.h"
+#import "FeedbackDetailView.h"
+#import "FeedbackListViewController.h"
 
 @interface HomeViewController : UIViewController<OverviewViewDelegate, RunListViewDelegate, DemandListViewDelegate> {
     
