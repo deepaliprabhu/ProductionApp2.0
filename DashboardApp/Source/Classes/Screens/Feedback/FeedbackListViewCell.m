@@ -26,7 +26,14 @@
     _productLabel.text = cellData[@"Product Name"];
     _receivedLabel.text = cellData[@"Received"];
     _categoryLabel.text = cellData[@"Category"];
+    if ([cellData[@"Defect Qty"] isEqualToString:@""]) {
+    }
+    else if ([cellData[@"Total Qty"] isEqualToString:@""]) {
+        _defectQtyLabel.text = [NSString stringWithFormat:@"%@",cellData[@"Defect Qty"]];
+    }
+    else {
     _defectQtyLabel.text = [NSString stringWithFormat:@"%@/%@",cellData[@"Defect Qty"],cellData[@"Total Qty"]];
+    }
     _statusLabel.text = cellData[@"Status"];
     _notesTextView.text = cellData[@"Subject"];
     
