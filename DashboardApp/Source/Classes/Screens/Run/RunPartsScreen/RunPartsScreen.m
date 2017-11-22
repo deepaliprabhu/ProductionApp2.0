@@ -23,8 +23,9 @@
 #import "PartAuditModel.h"
 #import "AlternatePartCell.h"
 #import "ActionModel.h"
+#import "CommentsPartCell.h"
 
-const CGFloat kMinTableHeight = 144;
+const CGFloat kMinTableHeight = 134;
 
 @interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
@@ -35,11 +36,14 @@ const CGFloat kMinTableHeight = 144;
     __unsafe_unretained IBOutlet UIView *_detailsHolderView;
     __unsafe_unretained IBOutlet UILabel *_seeDetailsLabel;
     
+    __unsafe_unretained IBOutlet UITableView *_commentsTableView;
     __unsafe_unretained IBOutlet UITableView *_purchasesTableView;
     __unsafe_unretained IBOutlet UITableView *_runsTableView;
     __unsafe_unretained IBOutlet NSLayoutConstraint *_runsHolderHeightConstraint;
+    __unsafe_unretained IBOutlet NSLayoutConstraint *_purchasesHolderHeightConstraint;
     __unsafe_unretained IBOutlet UILabel *_noRunsLabel;
     __unsafe_unretained IBOutlet UILabel *_noPurchasesLabel;
+    __unsafe_unretained IBOutlet UILabel *_noCommentsLabel;
     
     __unsafe_unretained IBOutlet UIView *_partsHolderView;
     __unsafe_unretained IBOutlet UIButton *_partsButton;
@@ -82,6 +86,7 @@ const CGFloat kMinTableHeight = 144;
     NSMutableArray *_shorts;
     NSMutableArray *_parts;
     NSMutableArray *_purchases;
+    NSMutableArray *_comments;
     NSMutableArray *_runs;
     NSMutableArray *_priorityRuns;
     
@@ -105,6 +110,7 @@ const CGFloat kMinTableHeight = 144;
     _purchases = [NSMutableArray array];
     _visibleObjs = [NSMutableArray array];
     _priorityRuns = [NSMutableArray array];
+    _comments = [NSMutableArray array];
     [self filterPriorityRuns];
     _partsAreSelected = true;
     [self layoutButtons];
@@ -235,7 +241,9 @@ const CGFloat kMinTableHeight = 144;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (tableView == _purchasesTableView)
+    if (tableView == _commentsTableView)
+        return _comments.count;
+    else if (tableView == _purchasesTableView)
         return _purchases.count;
     else if (tableView == _runsTableView)
     {
@@ -253,7 +261,7 @@ const CGFloat kMinTableHeight = 144;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (tableView == _runsTableView || tableView == _purchasesTableView)
+    if (tableView == _runsTableView || tableView == _purchasesTableView || tableView == _commentsTableView)
         return 34;
     else
         return 32;
@@ -261,7 +269,17 @@ const CGFloat kMinTableHeight = 144;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (tableView == _purchasesTableView) {
+    if (tableView == _commentsTableView) {
+     
+        static NSString *identifier20 = @"CommentsPartCell";
+        CommentsPartCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier20];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:identifier20 owner:nil options:nil][0];
+        }
+        
+        return cell;
+    }
+    else if (tableView == _purchasesTableView) {
         
         static NSString *identifier3 = @"PurchasePartCell";
         PurchasePartCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier3];
@@ -386,7 +404,7 @@ const CGFloat kMinTableHeight = 144;
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == _runsTableView || tableView == _purchasesTableView) {
+    if (tableView == _runsTableView || tableView == _purchasesTableView || tableView == _commentsTableView) {
         
     }
     else
@@ -558,7 +576,7 @@ const CGFloat kMinTableHeight = 144;
 {
     if (content.count > 0) {
         _noRunsLabel.alpha = 0;
-        float c = MIN((int)content.count-1, 4);
+        float c = MIN((int)content.count-1, 2);
         _runsHolderHeightConstraint.constant = kMinTableHeight + c*[RunPartCell height];
     } else {
         _noRunsLabel.alpha = 1;
@@ -567,6 +585,27 @@ const CGFloat kMinTableHeight = 144;
     [UIView animateWithDuration:0.3 animations:^{
         [self.view layoutIfNeeded];
     }];
+}
+
+- (void) layoutPurchasesTable
+{
+    if (_purchases.count == 0)
+    {
+        _noPurchasesLabel.alpha = 1;
+        _purchasesHolderHeightConstraint.constant = kMinTableHeight;
+    }
+    else
+    {
+        float c = MIN((int)_purchases.count-1, 2);
+        _purchasesHolderHeightConstraint.constant = kMinTableHeight + c*[RunPartCell height];
+        _noPurchasesLabel.alpha = 0;
+    }
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+    
+    [_purchasesTableView reloadData];
 }
 
 - (void) layoutAudit
@@ -681,17 +720,30 @@ const CGFloat kMinTableHeight = 144;
         if (success) {
             [LoadingView removeLoading];
             if ([response isKindOfClass:[NSArray class]]) {
-                _noPurchasesLabel.alpha = 0;
                 for (NSDictionary *d in response) {
                     [_purchases addObject:[PurchaseModel objFrom:d]];
                 }
                 [_purchases sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"createdDate" ascending:false]]];
-                [_purchasesTableView reloadData];
-            } else {
-                _noPurchasesLabel.alpha = 1;
             }
         } else {
             [LoadingView showShortMessage:@"Error, try again later!"];
+        }
+        
+        [self layoutPurchasesTable];
+    }];
+}
+
+- (void) getCommentsFor:(PartModel*)m {
+    
+    [_comments removeAllObjects];
+    [_commentsTableView reloadData];
+    
+    [[ProdAPI sharedInstance] getCommentsForPart:m.part withCompletion:^(BOOL success, id response) {
+        
+        if (success) {
+            
+        } else {
+            
         }
     }];
 }

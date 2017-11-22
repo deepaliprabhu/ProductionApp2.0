@@ -60,6 +60,9 @@
 		89897E3A1FBF140C000B39EA /* StockGraphScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89897E381FBF140C000B39EA /* StockGraphScreen.xib */; };
 		89AC0AAE1FC5A84D008CA56B /* AlternatePartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC0AAC1FC5A84D008CA56B /* AlternatePartCell.m */; };
 		89AC0AAF1FC5A84D008CA56B /* AlternatePartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89AC0AAD1FC5A84D008CA56B /* AlternatePartCell.xib */; };
+		89AC0AB31FC60E07008CA56B /* CommentsPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC0AB11FC60E07008CA56B /* CommentsPartCell.m */; };
+		89AC0AB41FC60E07008CA56B /* CommentsPartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89AC0AB21FC60E07008CA56B /* CommentsPartCell.xib */; };
+		89AC0AB71FC60E4D008CA56B /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC0AB61FC60E4D008CA56B /* CommentModel.m */; };
 		9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F022F671F618DED000E138B /* RunProcessStepsView.m */; };
 		9F022F6A1F618E03000E138B /* RunProcessStepsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F022F691F618E03000E138B /* RunProcessStepsView.xib */; };
 		9F03A91A1F4563C900A7A316 /* DemandListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F03A9191F4563C900A7A316 /* DemandListView.m */; };
@@ -319,6 +322,11 @@
 		89AC0AAB1FC5A84D008CA56B /* AlternatePartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlternatePartCell.h; sourceTree = "<group>"; };
 		89AC0AAC1FC5A84D008CA56B /* AlternatePartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlternatePartCell.m; sourceTree = "<group>"; };
 		89AC0AAD1FC5A84D008CA56B /* AlternatePartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlternatePartCell.xib; sourceTree = "<group>"; };
+		89AC0AB01FC60E07008CA56B /* CommentsPartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentsPartCell.h; sourceTree = "<group>"; };
+		89AC0AB11FC60E07008CA56B /* CommentsPartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentsPartCell.m; sourceTree = "<group>"; };
+		89AC0AB21FC60E07008CA56B /* CommentsPartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentsPartCell.xib; sourceTree = "<group>"; };
+		89AC0AB51FC60E4D008CA56B /* CommentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
+		89AC0AB61FC60E4D008CA56B /* CommentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
 		9F022F661F618DED000E138B /* RunProcessStepsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunProcessStepsView.h; sourceTree = "<group>"; };
 		9F022F671F618DED000E138B /* RunProcessStepsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunProcessStepsView.m; sourceTree = "<group>"; };
 		9F022F691F618E03000E138B /* RunProcessStepsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunProcessStepsView.xib; sourceTree = "<group>"; };
@@ -663,6 +671,9 @@
 				894C5F5B1FBB147600FA4E5D /* RunPartCell.h */,
 				894C5F5C1FBB147600FA4E5D /* RunPartCell.m */,
 				894C5F5D1FBB147600FA4E5D /* RunPartCell.xib */,
+				89AC0AB01FC60E07008CA56B /* CommentsPartCell.h */,
+				89AC0AB11FC60E07008CA56B /* CommentsPartCell.m */,
+				89AC0AB21FC60E07008CA56B /* CommentsPartCell.xib */,
 				894F9BD01FBC7B6B00DC2C6B /* PurchasePartCell.h */,
 				894F9BD11FBC7B6B00DC2C6B /* PurchasePartCell.m */,
 				894F9BD21FBC7B6B00DC2C6B /* PurchasePartCell.xib */,
@@ -1299,6 +1310,8 @@
 				89897E2C1FBF0AFA000B39EA /* ActionModel.m */,
 				89897E2E1FBF0BAC000B39EA /* PartAuditModel.h */,
 				89897E2F1FBF0BAC000B39EA /* PartAuditModel.m */,
+				89AC0AB51FC60E4D008CA56B /* CommentModel.h */,
+				89AC0AB61FC60E4D008CA56B /* CommentModel.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1525,6 +1538,7 @@
 				9F7AB1A51F7D233C0013CBE1 /* done@2x.png in Resources */,
 				9F056B341F433F8E002F3B61 /* RunListView.xib in Resources */,
 				9F471D161F542B9300B294B7 /* RoadBlocksViewCell.xib in Resources */,
+				89AC0AB41FC60E07008CA56B /* CommentsPartCell.xib in Resources */,
 				9FD12D7B1F43F77200F0E0A8 /* Icon_alpha.png in Resources */,
 				9FD12D811F43FD5600F0E0A8 /* OverviewView.xib in Resources */,
 				9FE99C381FBF242D006B58DE /* FeedbackListViewController.xib in Resources */,
@@ -1668,6 +1682,8 @@
 				9F471CF21F53DD3700B294B7 /* SSBorderedView.m in Sources */,
 				8940187E1FB5A0E4002B8AFD /* BRRequestQueue.m in Sources */,
 				9F3FF6D01F4BDF7500F52F64 /* UIImage+FontAwesome.m in Sources */,
+				89AC0AB71FC60E4D008CA56B /* CommentModel.m in Sources */,
+				89AC0AB31FC60E07008CA56B /* CommentsPartCell.m in Sources */,
 				8940187D1FB5A0E4002B8AFD /* BRRequestUpload.m in Sources */,
 				8919BE971FB4DD5100EE6839 /* SDWebImageDownloaderOperation.m in Sources */,
 				9F471D081F541F7700B294B7 /* ToDoView.m in Sources */,
