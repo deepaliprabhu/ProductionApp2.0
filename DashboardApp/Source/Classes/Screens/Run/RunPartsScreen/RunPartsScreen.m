@@ -45,6 +45,7 @@ const CGFloat kMinTableHeight = 144;
     __unsafe_unretained IBOutlet UITableView *_componentsTable;
     __unsafe_unretained IBOutlet UITextField *_searchTextField;
     
+    __unsafe_unretained IBOutlet NSLayoutConstraint *_transitWidthConstraint;
     __unsafe_unretained IBOutlet UIView *_historyView;
     __unsafe_unretained IBOutlet UIView *_masonStockView;
     __unsafe_unretained IBOutlet UILabel *_masonStockLabel;
@@ -272,15 +273,15 @@ const CGFloat kMinTableHeight = 144;
             }
             
             Run *run = _priorityRuns[indexPath.row];
-            BOOL c = false;
+            NSString *q = @"-";
             for (RunModel *r in _runs) {
                 if ([r.runID intValue] == run.runId)
                 {
-                    c = true;
+                    q = r.qty;
                     break;
                 }
             }
-            [cell layoutWith:run at:(int)indexPath.row containsPart:c];
+            [cell layoutWith:run at:(int)indexPath.row quantity:q];
             
             return cell;
         }
@@ -445,12 +446,17 @@ const CGFloat kMinTableHeight = 144;
         _partTitleLabel.text = part.part;
         _stockLabel.text = [NSString stringWithFormat:@"%d", [part totalStock]];
         _masonDateLabel.text = [d stringFromDate:part.recoMasonDate];
-        if (part.recoMason.length > 0)
-            _masonStockLabel.text = part.recoMason;
-        else
-            _masonStockLabel.text = part.mason;
+        _masonStockLabel.text = part.mason;
         _transitDateLabel.text = [d stringFromDate:part.transitDate];
-        _transitStockLabel.text = part.transit;
+        
+        if (part.transit.length > 0)
+        {
+            _transitStockLabel.text = part.transit;
+            _transitWidthConstraint.constant = 145;
+        }
+        else
+            _transitWidthConstraint.constant = 0;
+    
         _puneDateLabel.text = [d stringFromDate:part.recoPuneDate];
         _puneStockLabel.text = [NSString stringWithFormat:@"%d", [part totalPune]];
         
@@ -482,7 +488,12 @@ const CGFloat kMinTableHeight = 144;
         _transitStockLabel.text = @"-";
         _puneDateLabel.text = @"-";
         _puneStockLabel.text = @"-";
+        _transitWidthConstraint.constant = 145;
     }
+    
+    [UIView animateWithDuration:0.3 animations:^{ 
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (void) layoutNumberOfPOs {

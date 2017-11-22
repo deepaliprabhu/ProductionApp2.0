@@ -7,6 +7,7 @@
 //
 
 #import "PurchasePartCell.h"
+#import "Defines.h"
 
 static NSDateFormatter *_dateFormatter = nil;
 
@@ -42,16 +43,33 @@ static NSDateFormatter *_dateFormatter = nil;
     }
     
     _createdDateLabel.text = [_dateFormatter stringFromDate:m.createdDate];
-
-    if ([m.expectedDate compare:[NSDate date]] == NSOrderedAscending)
+    
+    if ([m.status isEqualToString:@"Closed"])
+    {
         _expectedDateLabel.text = [_dateFormatter stringFromDate:m.expectedDate];
+        _expectedDateLabel.textColor = ccolor(65, 65, 65);
+    }
     else {
         
         if (m.expectedDate == nil)
+        {
             _expectedDateLabel.text = @"-";
-        else {
+            _expectedDateLabel.textColor = ccolor(233, 46, 40);
+        }
+        else
+        {
             int days = (int)[self daysBetweenDate:[NSDate date] andDate:m.expectedDate];
-            _expectedDateLabel.text = [NSString stringWithFormat:@"%dd to arrival", days];
+            
+            if (days > 0)
+            {
+                _expectedDateLabel.text = [NSString stringWithFormat:@"%dd to arrival", days];
+                _expectedDateLabel.textColor = ccolor(67, 194, 81);
+            }
+            else
+            {
+                _expectedDateLabel.text = [NSString stringWithFormat:@"%dd pass arrival", (-1)*days];
+                _expectedDateLabel.textColor = ccolor(233, 46, 40);
+            }
         }
     }
     

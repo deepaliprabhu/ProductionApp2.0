@@ -11,6 +11,6 @@
 
 @interface PriorityRunCell : UITableViewCell
 
-- (void) layoutWith:(Run*)run at:(int)index containsPart:(BOOL)c;
+- (void) layoutWith:(Run*)run at:(int)index quantity:(NSString*)q;
 
 @end

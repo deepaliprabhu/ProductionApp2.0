@@ -18,7 +18,7 @@
     __unsafe_unretained IBOutlet UILabel *_containsLabel;
 }
 
-- (void) layoutWith:(Run*)run at:(int)index containsPart:(BOOL)c {
+- (void) layoutWith:(Run*)run at:(int)index quantity:(NSString*)q {
 
     if (index%2 == 0) {
         _bgView.backgroundColor = [UIColor whiteColor];
@@ -29,12 +29,11 @@
     _orderLabel.text = [NSString stringWithFormat:@"%d.", index+1];
     _statusLabel.text = [run getStatus];
     
-    if (c == true) {
-        _containsLabel.text = @"YES";
-        _containsLabel.textColor = ccolor(67, 194, 81);
-    } else {
-        _containsLabel.text = @"NO";
+    _containsLabel.text = q;
+    if ([q isEqualToString:@"-"]) {
         _containsLabel.textColor = ccolor(65, 65, 65);
+    } else {
+        _containsLabel.textColor = ccolor(67, 194, 81);
     }
     
     if ([run getCategory] == 0) {

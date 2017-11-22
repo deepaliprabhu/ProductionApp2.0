@@ -28,14 +28,22 @@ static NSDateFormatter *_formatter = nil;
     m.status = data[@"status"];
     m.qty = data[@"qty"];
     m.price = data[@"price"];
-    if ([data[@"arriveddate"] isKindOfClass:[NSDate class]])
+    if ([data[@"arriveddate"] isKindOfClass:[NSString class]])
         m.arrivedDate = [_formatter dateFromString:data[@"arriveddate"]];
     
     if (m.arrivedDate != nil)
         m.expectedDate = m.arrivedDate;
     
-    if ([m.expectedDate compare:[NSDate date]] == NSOrderedAscending)
-        m.status = @"Closed";
+    if ([[m.status lowercaseString] rangeOfString:@"arrived"].location != NSNotFound)
+    {
+        if ([m.status isEqualToString:@"Partially arrived"])
+        {
+            if (m.arrivedDate != nil)
+                m.status = @"Closed";
+        }
+        else
+            m.status = @"Closed";
+    }
     
     return m;
 }
