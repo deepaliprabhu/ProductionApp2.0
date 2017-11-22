@@ -16,6 +16,7 @@
     __weak IBOutlet UILabel *_stockLabel;
     __weak IBOutlet UILabel *_vendorLabel;
     __weak IBOutlet UILabel *_quantityLabel;
+    __weak IBOutlet UIView *_separatorView;
     __weak IBOutlet UIActivityIndicatorView *_spinner;
 }
 
@@ -23,6 +24,8 @@
     
     UIColor *c = nil;
     _nameLabel.text = m.part;
+    
+    _separatorView.alpha = (m.alternateParts.count > 0);
     
     if (m.po.length == 0)
     {
@@ -74,6 +77,7 @@
     
     UIColor *c = ccolor(119, 119, 119);
     
+    _separatorView.alpha = (m.alternateParts.count > 0);
     _nameLabel.text = m.part;
     if (m.vendor.length == 0)
         _vendorLabel.text = @"-";

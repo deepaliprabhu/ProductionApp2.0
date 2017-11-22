@@ -62,12 +62,18 @@
                         <rect key="frame" x="167" y="5" width="20" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </activityIndicatorView>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l0I-WD-byE">
+                        <rect key="frame" x="9" y="8" width="1" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="0.25671812890000001" green="0.25671043989999998" blue="0.25671476129999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="_nameLabel" destination="YLi-dS-Zte" id="Y6S-oQ-Rba"/>
                 <outlet property="_priceLabel" destination="GQw-qX-FEg" id="zuR-oc-65O"/>
                 <outlet property="_quantityLabel" destination="W43-q7-yDK" id="5CU-zv-BEA"/>
+                <outlet property="_separatorView" destination="l0I-WD-byE" id="6Zf-XW-tvT"/>
                 <outlet property="_spinner" destination="1cW-Au-nmx" id="W0r-It-kTp"/>
                 <outlet property="_stockLabel" destination="IFz-tO-Fqc" id="Dtc-Qt-bsX"/>
                 <outlet property="_vendorLabel" destination="4kb-bx-hob" id="Yrm-gw-jwR"/>
