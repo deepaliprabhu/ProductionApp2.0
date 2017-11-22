@@ -33,6 +33,7 @@
 @property (nonatomic, strong) NSString *transit;
 @property (nonatomic, strong) NSDate *transitDate;
 @property (nonatomic, strong) NSString *vendor;
+@property (nonatomic, strong) NSArray *_alternateParts;
 @property (nonatomic, unsafe_unretained) int shortQty;
 @property (nonatomic, unsafe_unretained) int poQty;
 

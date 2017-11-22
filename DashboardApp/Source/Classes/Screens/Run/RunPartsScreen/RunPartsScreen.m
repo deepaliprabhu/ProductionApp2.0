@@ -21,6 +21,7 @@
 #import "PriorityRunCell.h"
 #import "UIAlertView+Blocks.h"
 #import "PartAuditModel.h"
+#import "AlternatePartCell.h"
 
 const CGFloat kMinTableHeight = 144;
 
@@ -222,7 +223,11 @@ const CGFloat kMinTableHeight = 144;
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    
+    if (tableView == _componentsTable)
+        return _visibleObjs.count;
+    else
+        return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -237,7 +242,10 @@ const CGFloat kMinTableHeight = 144;
             return _runs.count;
     }
     else
-        return _visibleObjs.count;
+    {
+        PartModel *p = _visibleObjs[section];
+        return 1 + p._alternateParts.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -299,18 +307,34 @@ const CGFloat kMinTableHeight = 144;
         }
     } else {
         
-        static NSString *identifier2 = @"PartsCell";
-        PartsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier2];
-        if (cell == nil) {
-            cell = [[NSBundle mainBundle] loadNibNamed:identifier2 owner:nil options:nil][0];
+        if (indexPath.row == 0)
+        {
+            static NSString *identifier2 = @"PartsCell";
+            PartsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier2];
+            if (cell == nil) {
+                cell = [[NSBundle mainBundle] loadNibNamed:identifier2 owner:nil options:nil][0];
+            }
+            
+            if (_partsAreSelected)
+                [cell layoutWithPart:_visibleObjs[indexPath.section]];
+            else
+                [cell layoutWithShort:_visibleObjs[indexPath.section]];
+            
+            return cell;
         }
-        
-        if (_partsAreSelected)
-            [cell layoutWithPart:_visibleObjs[indexPath.row]];
         else
-            [cell layoutWithShort:_visibleObjs[indexPath.row]];
-        
-        return cell;
+        {
+            static NSString *identifier10 = @"AlternatePartCell";
+            AlternatePartCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier10];
+            if (cell == nil) {
+                cell = [[NSBundle mainBundle] loadNibNamed:identifier10 owner:nil options:nil][0];
+            }
+            
+            PartModel *m = _visibleObjs[indexPath.section];
+            [cell layoutWithPart:m._alternateParts[indexPath.row-1]];
+            
+            return cell;
+        }
     }
 }
 
@@ -361,9 +385,13 @@ const CGFloat kMinTableHeight = 144;
     
     if (tableView == _runsTableView || tableView == _purchasesTableView) {
         
-    } else
-        _visiblePart = _visibleObjs[indexPath.row];
+    }
+    else
+    {
+        [tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section] animated:false scrollPosition:UITableViewScrollPositionNone];
+        _visiblePart = _visibleObjs[indexPath.section];
         [self layoutWith:_visiblePart];
+    }
 }
 
 #pragma mark - Layout

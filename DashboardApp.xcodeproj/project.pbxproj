@@ -58,6 +58,8 @@
 		89897E301FBF0BAC000B39EA /* PartAuditModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89897E2F1FBF0BAC000B39EA /* PartAuditModel.m */; };
 		89897E391FBF140C000B39EA /* StockGraphScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 89897E371FBF140C000B39EA /* StockGraphScreen.m */; };
 		89897E3A1FBF140C000B39EA /* StockGraphScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89897E381FBF140C000B39EA /* StockGraphScreen.xib */; };
+		89AC0AAE1FC5A84D008CA56B /* AlternatePartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC0AAC1FC5A84D008CA56B /* AlternatePartCell.m */; };
+		89AC0AAF1FC5A84D008CA56B /* AlternatePartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89AC0AAD1FC5A84D008CA56B /* AlternatePartCell.xib */; };
 		9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F022F671F618DED000E138B /* RunProcessStepsView.m */; };
 		9F022F6A1F618E03000E138B /* RunProcessStepsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F022F691F618E03000E138B /* RunProcessStepsView.xib */; };
 		9F03A91A1F4563C900A7A316 /* DemandListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F03A9191F4563C900A7A316 /* DemandListView.m */; };
@@ -314,6 +316,9 @@
 		89897E361FBF140C000B39EA /* StockGraphScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockGraphScreen.h; sourceTree = "<group>"; };
 		89897E371FBF140C000B39EA /* StockGraphScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StockGraphScreen.m; sourceTree = "<group>"; };
 		89897E381FBF140C000B39EA /* StockGraphScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StockGraphScreen.xib; sourceTree = "<group>"; };
+		89AC0AAB1FC5A84D008CA56B /* AlternatePartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlternatePartCell.h; sourceTree = "<group>"; };
+		89AC0AAC1FC5A84D008CA56B /* AlternatePartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlternatePartCell.m; sourceTree = "<group>"; };
+		89AC0AAD1FC5A84D008CA56B /* AlternatePartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlternatePartCell.xib; sourceTree = "<group>"; };
 		9F022F661F618DED000E138B /* RunProcessStepsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunProcessStepsView.h; sourceTree = "<group>"; };
 		9F022F671F618DED000E138B /* RunProcessStepsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunProcessStepsView.m; sourceTree = "<group>"; };
 		9F022F691F618E03000E138B /* RunProcessStepsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunProcessStepsView.xib; sourceTree = "<group>"; };
@@ -652,6 +657,9 @@
 				3B649A841FB3236400B8DC78 /* PartsCell.h */,
 				3B649A851FB3236400B8DC78 /* PartsCell.m */,
 				3B649A861FB3236400B8DC78 /* PartsCell.xib */,
+				89AC0AAB1FC5A84D008CA56B /* AlternatePartCell.h */,
+				89AC0AAC1FC5A84D008CA56B /* AlternatePartCell.m */,
+				89AC0AAD1FC5A84D008CA56B /* AlternatePartCell.xib */,
 				894C5F5B1FBB147600FA4E5D /* RunPartCell.h */,
 				894C5F5C1FBB147600FA4E5D /* RunPartCell.m */,
 				894C5F5D1FBB147600FA4E5D /* RunPartCell.xib */,
@@ -1528,6 +1536,7 @@
 				9F7767461F572A780092F603 /* RunListTableView.xib in Resources */,
 				9F8567911F73DDB10067ABE1 /* OperatorEntryView.xib in Resources */,
 				9F252A5B1F4D4F400056DA8F /* demandsBgImage.png in Resources */,
+				89AC0AAF1FC5A84D008CA56B /* AlternatePartCell.xib in Resources */,
 				9FA264671F48A32C004C882E /* TasklistViewCell.xib in Resources */,
 				9F022F6A1F618E03000E138B /* RunProcessStepsView.xib in Resources */,
 				9F3144BC1F7ABFD200B9D32C /* right_arrow@2x.png in Resources */,
@@ -1597,6 +1606,7 @@
 				D227678F1FAE4B5400215D87 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				894F9BDE1FBCA90C00DC2C6B /* HistoryPriceCell.m in Sources */,
 				8940187B1FB5A0E4002B8AFD /* BRStreamInfo.m in Sources */,
+				89AC0AAE1FC5A84D008CA56B /* AlternatePartCell.m in Sources */,
 				D22767921FAE4B5400215D87 /* UIImageView+AFNetworking.m in Sources */,
 				9FD12D7F1F43FD4400F0E0A8 /* OverviewView.m in Sources */,
 				894018811FB5A0E4002B8AFD /* BRRequestListDirectory.m in Sources */,

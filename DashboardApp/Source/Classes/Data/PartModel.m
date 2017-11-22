@@ -51,8 +51,20 @@ static NSDateFormatter *_formatter = nil;
     p.transferID = data[@"transfer_id"];
     p.vendor = data[@"vendor"];
     p.poQty = [p computePoQty];
+    p._alternateParts = [self alternatePartsFrom:data[@"alternate_part"]];
     
     return p;
+}
+
++ (NSArray*) alternatePartsFrom:(NSString*)data
+{
+    if (data.length == 0)
+        return nil;
+    else
+    {
+        NSArray *comps = [data componentsSeparatedByString:@" , "];
+        return comps;
+    }
 }
 
 - (int) totalPune {
