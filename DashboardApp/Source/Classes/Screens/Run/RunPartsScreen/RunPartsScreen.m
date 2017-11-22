@@ -22,6 +22,7 @@
 #import "UIAlertView+Blocks.h"
 #import "PartAuditModel.h"
 #import "AlternatePartCell.h"
+#import "ActionModel.h"
 
 const CGFloat kMinTableHeight = 144;
 
@@ -51,6 +52,8 @@ const CGFloat kMinTableHeight = 144;
     __unsafe_unretained IBOutlet UIView *_masonStockView;
     __unsafe_unretained IBOutlet UILabel *_masonStockLabel;
     __unsafe_unretained IBOutlet UILabel *_masonDateLabel;
+    __unsafe_unretained IBOutlet UILabel *_masonModeLabel;
+    __unsafe_unretained IBOutlet UILabel *_puneModeLabel;
     __unsafe_unretained IBOutlet UIView *_transitStockView;
     __unsafe_unretained IBOutlet UILabel *_transitStockLabel;
     __unsafe_unretained IBOutlet UILabel *_transitDateLabel;
@@ -244,7 +247,7 @@ const CGFloat kMinTableHeight = 144;
     else
     {
         PartModel *p = _visibleObjs[section];
-        return 1 + p._alternateParts.count;
+        return 1 + p.alternateParts.count;
     }
 }
 
@@ -331,7 +334,7 @@ const CGFloat kMinTableHeight = 144;
             }
             
             PartModel *m = _visibleObjs[indexPath.section];
-            [cell layoutWithPart:m._alternateParts[indexPath.row-1]];
+            [cell layoutWithPart:m.alternateParts[indexPath.row-1]];
             
             return cell;
         }
@@ -381,16 +384,30 @@ const CGFloat kMinTableHeight = 144;
     }];
 }
 
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (tableView == _runsTableView || tableView == _purchasesTableView) {
         
     }
     else
     {
-        [tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section] animated:false scrollPosition:UITableViewScrollPositionNone];
-        _visiblePart = _visibleObjs[indexPath.section];
-        [self layoutWith:_visiblePart];
+//        [tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section] animated:false scrollPosition:UITableViewScrollPositionNone];
+        PartModel *p = _visibleObjs[indexPath.section];
+        if (indexPath.row == 0)
+        {
+            _visiblePart = p;
+            [self layoutWith:_visiblePart];
+        }
+        else
+        {
+            PartModel *model = [PartModel new];
+            model.part = p.part;
+            _visiblePart = model;
+            [self layoutWith:_visiblePart];
+        }
+//        if ([_visiblePart.part isEqualToString:p.part] == false)
+//        {
+//        }
     }
 }
 
@@ -473,7 +490,8 @@ const CGFloat kMinTableHeight = 144;
         
         _partTitleLabel.text = part.part;
         _stockLabel.text = [NSString stringWithFormat:@"%d", [part totalStock]];
-        _masonDateLabel.text = [d stringFromDate:part.recoMasonDate];
+        _masonDateLabel.text = @"";
+        _masonModeLabel.text = @"";
         _masonStockLabel.text = part.mason;
         _transitDateLabel.text = [d stringFromDate:part.transitDate];
         
@@ -485,7 +503,8 @@ const CGFloat kMinTableHeight = 144;
         else
             _transitWidthConstraint.constant = 0;
     
-        _puneDateLabel.text = [d stringFromDate:part.recoPuneDate];
+        _puneDateLabel.text = @"";
+        _puneModeLabel.text = @"";
         _puneStockLabel.text = [NSString stringWithFormat:@"%d", [part totalPune]];
         
         if (part.transit.length > 0)
@@ -552,7 +571,26 @@ const CGFloat kMinTableHeight = 144;
 
 - (void) layoutAudit
 {
+    NSDateFormatter *d = [NSDateFormatter new];
+    d.dateFormat = @"MM.dd.yyyy";
     
+    ActionModel *a1 = [_auditModel.masonActions firstObject];
+    if (a1 == nil)
+        _masonDateLabel.text = @"";
+    else
+    {
+        _masonDateLabel.text = [d stringFromDate:a1.date];
+        _masonModeLabel.text = a1.mode;
+    }
+    
+    ActionModel *a2 = [_auditModel.puneActions firstObject];
+    if (a2 == nil)
+        _puneDateLabel.text = @"";
+    else
+    {
+        _puneDateLabel.text = [d stringFromDate:a2.date];
+        _puneModeLabel.text = a2.mode;
+    }
 }
 
 #pragma mark - Utils
@@ -574,7 +612,7 @@ const CGFloat kMinTableHeight = 144;
         if (success) {
             [LoadingView removeLoading];
             for (NSDictionary *d in response) {
-                [_parts addObject:[PartModel partFrom:d]];
+                [_parts addObject:[PartModel partFrom:d isShort:false]];
             }
             
             _cost = 0;
@@ -612,12 +650,13 @@ const CGFloat kMinTableHeight = 144;
         if (success) {
             [LoadingView removeLoading];
             for (NSDictionary *d in response) {
-                PartModel *s = [PartModel partFrom:d];
+                PartModel *s = [PartModel partFrom:d isShort:true];
                 PartModel *p = [self partWithID:s.part];
                 s.shortQty = [p.qty intValue]*[_run getQuantity];
                 [_shorts addObject:s];
             }
             
+            [self getHistoryForShorts];
             [self layoutNumberOfPOs];
             
             NSString *title = [NSString stringWithFormat:@"Shorts (%lu)", (unsigned long)_shorts.count];
@@ -721,6 +760,29 @@ const CGFloat kMinTableHeight = 144;
     }
     
     return nil;
+}
+
+- (void) getHistoryForShorts
+{
+    for (PartModel *s in _shorts)
+    {
+        [[ProdAPI sharedInstance] getHistoryFor:s.part withCompletion:^(BOOL success, id response) {
+            
+            if (success) {
+                
+                if ([response isKindOfClass:[NSArray class]]) {
+                    s.priceHistory = [NSArray arrayWithArray:response];
+                } else {
+                    s.priceHistory = @[];
+                }
+            } else {
+                s.priceHistory = @[];
+            }
+            
+            if (_partsAreSelected == false)
+                [_componentsTable reloadData];
+        }];
+    }
 }
 
 @end

@@ -19,15 +19,17 @@
 {
     __weak IBOutlet UITableView *_tableView;
     __weak IBOutlet UILabel *_noHistoryLabel;
-    
-    NSArray *_historyData;
 }
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     self.preferredContentSize = CGSizeMake(330, 138);
-    [self getPriceHistory:_part];
+    
+    if (_part.priceHistory == nil)
+        [self getPriceHistory:_part];
+    else
+        [_tableView reloadData];
 }
 
 #pragma mark - UITableViewDelegate
@@ -37,7 +39,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _historyData.count;
+    return _part.priceHistory.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -51,8 +53,8 @@
     if (cell == nil) {
         cell = [[NSBundle mainBundle] loadNibNamed:identifier3 owner:nil options:nil][0];
     }
-    
-    [cell layoutWith:_historyData[indexPath.row] currentPrice:[_part.pricePerUnit floatValue] atIndex:(int)indexPath.row];
+
+    [cell layoutWith:_part.priceHistory[indexPath.row] currentPrice:[_part.pricePerUnit floatValue] atIndex:(int)indexPath.row];
     
     return cell;
 }
@@ -73,7 +75,7 @@
                 if (c == 0)
                     _noHistoryLabel.alpha = 1;
                 else {
-                    _historyData = [NSArray arrayWithArray:response];
+                    model.priceHistory = [NSArray arrayWithArray:response];
                     _noHistoryLabel.alpha = 0;
                     c = MIN(c, 15);
                     self.preferredContentSize = CGSizeMake(330, 32+c*34);

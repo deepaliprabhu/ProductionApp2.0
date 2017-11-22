@@ -16,6 +16,7 @@
     __weak IBOutlet UILabel *_stockLabel;
     __weak IBOutlet UILabel *_vendorLabel;
     __weak IBOutlet UILabel *_quantityLabel;
+    __weak IBOutlet UIActivityIndicatorView *_spinner;
 }
 
 - (void) layoutWithShort:(PartModel*)m {
@@ -41,10 +42,21 @@
     
     _quantityLabel.text = [NSString stringWithFormat:@"%d", m.shortQty];
     _stockLabel.text = [NSString stringWithFormat:@"%d", [m totalStock]];
-    if (m.pricePerUnit != nil)
-        _priceLabel.text = [NSString stringWithFormat:@"%@$", m.pricePerUnit];
+    
+    if (m.priceHistory == nil)
+    {
+        _priceLabel.text = @"";
+        [_spinner startAnimating];
+    }
     else
-        _priceLabel.text = @"-$";
+    {
+        if (m.priceHistory.count == 0)
+            _priceLabel.text = @"-$";
+        else
+            _priceLabel.text = [NSString stringWithFormat:@"%@$", m.priceHistory[0][@"PRICE"]];
+        
+        [_spinner stopAnimating];
+    }
     
     [self layoutWithColor:c];
 }

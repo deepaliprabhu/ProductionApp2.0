@@ -58,12 +58,17 @@
                         <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="1cW-Au-nmx">
+                        <rect key="frame" x="167" y="5" width="20" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </activityIndicatorView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="_nameLabel" destination="YLi-dS-Zte" id="Y6S-oQ-Rba"/>
                 <outlet property="_priceLabel" destination="GQw-qX-FEg" id="zuR-oc-65O"/>
                 <outlet property="_quantityLabel" destination="W43-q7-yDK" id="5CU-zv-BEA"/>
+                <outlet property="_spinner" destination="1cW-Au-nmx" id="W0r-It-kTp"/>
                 <outlet property="_stockLabel" destination="IFz-tO-Fqc" id="Dtc-Qt-bsX"/>
                 <outlet property="_vendorLabel" destination="4kb-bx-hob" id="Yrm-gw-jwR"/>
             </connections>

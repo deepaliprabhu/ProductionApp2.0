@@ -12,7 +12,7 @@ static NSDateFormatter *_formatter = nil;
 
 @implementation PartModel
 
-+ (PartModel*) partFrom:(NSDictionary*)data
++ (PartModel*) partFrom:(NSDictionary*)data isShort:(BOOL)s
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -43,7 +43,9 @@ static NSDateFormatter *_formatter = nil;
         po = [po stringByReplacingOccurrencesOfString:@")</span>" withString:@""];
         p.po = po;
     }
-    p.pricePerUnit = data[@"price_per_unit"];
+    
+    if (s == false)
+        p.pricePerUnit = data[@"price_per_unit"];
     p.qty = data[@"qty_per_pcb"];
     p.shortValue = data[@"short"];
     p.transit = data[@"transit"];
@@ -51,7 +53,7 @@ static NSDateFormatter *_formatter = nil;
     p.transferID = data[@"transfer_id"];
     p.vendor = data[@"vendor"];
     p.poQty = [p computePoQty];
-    p._alternateParts = [self alternatePartsFrom:data[@"alternate_part"]];
+    p.alternateParts = [self alternatePartsFrom:data[@"alternate_part"]];
     
     return p;
 }
