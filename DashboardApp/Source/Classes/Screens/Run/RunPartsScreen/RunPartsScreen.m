@@ -25,10 +25,11 @@
 #import "ActionModel.h"
 #import "CommentsPartCell.h"
 #import "CommentModel.h"
+#import "AddCommentScreen.h"
 
 const CGFloat kMinTableHeight = 119;
 
-@interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, AddCommentProtocol>
 
 @end
 
@@ -191,6 +192,16 @@ const CGFloat kMinTableHeight = 119;
     
     [self layoutTableFor:_priorityRuns];
     [_runsTableView reloadData];
+}
+
+- (IBAction) addCommentButtonTapped
+{
+    AddCommentScreen *screen = [[AddCommentScreen alloc] initWithNibName:@"AddCommentScreen" bundle:nil];
+    screen.part = _visiblePart;
+    screen.delegate = self;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
+    nav.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:nav animated:true completion:nil];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -437,6 +448,14 @@ const CGFloat kMinTableHeight = 119;
     }
 }
 
+#pragma mark - AddNewCommentProtocol
+
+- (void) newCommentAdded:(CommentModel *)comment
+{
+    [_comments insertObject:comment atIndex:0];
+    [self layoutComments];
+}
+
 #pragma mark - Layout
 
 - (void) layoutButtons {
@@ -641,6 +660,15 @@ const CGFloat kMinTableHeight = 119;
     }
 }
 
+- (void) layoutComments
+{
+    if (_comments.count == 0)
+        _noCommentsLabel.alpha = 1;
+    else
+        _noCommentsLabel.alpha = 0;
+    [_commentsTableView reloadData];
+}
+
 #pragma mark - Utils
 
 - (void) getParts {
@@ -761,11 +789,7 @@ const CGFloat kMinTableHeight = 119;
             
         }
         
-        if (_comments.count == 0)
-            _noCommentsLabel.alpha = 1;
-        else
-            _noCommentsLabel.alpha = 0;
-        [_commentsTableView reloadData];
+        [self layoutComments];
     }];
 }
 

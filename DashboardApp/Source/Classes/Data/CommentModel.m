@@ -15,15 +15,6 @@ static NSDateFormatter *_formatter2 = nil;
 
 + (CommentModel*) objectFrom:(NSDictionary*)d
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _formatter1 = [[NSDateFormatter alloc] init];
-        _formatter1.dateFormat = @"dd-MMM-yyyy - HH:mm";
-        
-        _formatter2 = [[NSDateFormatter alloc] init];
-        _formatter2.dateFormat = @"dd MMM - HH:mm";
-    });
-    
     CommentModel *m = [CommentModel new];
     m.author = d[@"COMMENTS_BY"];
     m.message = d[@"DESCRIPTION"];
@@ -34,6 +25,20 @@ static NSDateFormatter *_formatter2 = nil;
 - (NSString*) dateString
 {
     return [_formatter2 stringFromDate:_date];
+}
+
++ (void) initialize
+{
+    [super initialize];
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _formatter1 = [[NSDateFormatter alloc] init];
+        _formatter1.dateFormat = @"dd-MMM-yyyy - HH:mm";
+        
+        _formatter2 = [[NSDateFormatter alloc] init];
+        _formatter2.dateFormat = @"dd MMM - HH:mm";
+    });
 }
 
 @end

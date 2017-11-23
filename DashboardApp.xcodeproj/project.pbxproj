@@ -47,6 +47,8 @@
 		894F9BDA1FBCA0BC00DC2C6B /* PartHistoryScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894F9BD81FBCA0BC00DC2C6B /* PartHistoryScreen.xib */; };
 		894F9BDE1FBCA90C00DC2C6B /* HistoryPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894F9BDC1FBCA90C00DC2C6B /* HistoryPriceCell.m */; };
 		894F9BDF1FBCA90C00DC2C6B /* HistoryPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894F9BDD1FBCA90C00DC2C6B /* HistoryPriceCell.xib */; };
+		8950A7271FC6C14E006C66CB /* AddCommentScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8950A7251FC6C14E006C66CB /* AddCommentScreen.m */; };
+		8950A7281FC6C14E006C66CB /* AddCommentScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8950A7261FC6C14E006C66CB /* AddCommentScreen.xib */; };
 		89619E191FBDB4E8005A5BE7 /* PriorityRunCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89619E171FBDB4E8005A5BE7 /* PriorityRunCell.m */; };
 		89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */; };
 		89854AE71FB97B3A00C6E38D /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADB1FB97B3A00C6E38D /* GMGridView.m */; };
@@ -297,6 +299,9 @@
 		894F9BDB1FBCA90C00DC2C6B /* HistoryPriceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryPriceCell.h; sourceTree = "<group>"; };
 		894F9BDC1FBCA90C00DC2C6B /* HistoryPriceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryPriceCell.m; sourceTree = "<group>"; };
 		894F9BDD1FBCA90C00DC2C6B /* HistoryPriceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryPriceCell.xib; sourceTree = "<group>"; };
+		8950A7241FC6C14E006C66CB /* AddCommentScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddCommentScreen.h; sourceTree = "<group>"; };
+		8950A7251FC6C14E006C66CB /* AddCommentScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddCommentScreen.m; sourceTree = "<group>"; };
+		8950A7261FC6C14E006C66CB /* AddCommentScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCommentScreen.xib; sourceTree = "<group>"; };
 		89619E161FBDB4E8005A5BE7 /* PriorityRunCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriorityRunCell.h; sourceTree = "<group>"; };
 		89619E171FBDB4E8005A5BE7 /* PriorityRunCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriorityRunCell.m; sourceTree = "<group>"; };
 		89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriorityRunCell.xib; sourceTree = "<group>"; };
@@ -1427,6 +1432,9 @@
 				89897E361FBF140C000B39EA /* StockGraphScreen.h */,
 				89897E371FBF140C000B39EA /* StockGraphScreen.m */,
 				89897E381FBF140C000B39EA /* StockGraphScreen.xib */,
+				8950A7241FC6C14E006C66CB /* AddCommentScreen.h */,
+				8950A7251FC6C14E006C66CB /* AddCommentScreen.m */,
+				8950A7261FC6C14E006C66CB /* AddCommentScreen.xib */,
 			);
 			path = RunPartsScreen;
 			sourceTree = "<group>";
@@ -1531,6 +1539,7 @@
 				9F3144BB1F7ABFD200B9D32C /* right_arrow.png in Resources */,
 				3BCDA4191FB346560021BC03 /* ProductAdminPopover.xib in Resources */,
 				894C5F5F1FBB147600FA4E5D /* RunPartCell.xib in Resources */,
+				8950A7281FC6C14E006C66CB /* AddCommentScreen.xib in Resources */,
 				9F03A9221F45667700A7A316 /* DemandListViewCell.xib in Resources */,
 				9F471CFA1F53FF4600B294B7 /* InProcessView.xib in Resources */,
 				9F7AB1A41F7D233C0013CBE1 /* check_mark@2x.png in Resources */,
@@ -1600,6 +1609,7 @@
 				D22767931FAE4B5400215D87 /* UIProgressView+AFNetworking.m in Sources */,
 				D22767891FAE4B5400215D87 /* AFURLResponseSerialization.m in Sources */,
 				9FD12D901F443CEF00F0E0A8 /* ServerManager.m in Sources */,
+				8950A7271FC6C14E006C66CB /* AddCommentScreen.m in Sources */,
 				9F4DE41A1F558EBC0016DB03 /* MBCircularProgressBarView.m in Sources */,
 				8940187C1FB5A0E4002B8AFD /* BRRequestDownload.m in Sources */,
 				D22767901FAE4B5400215D87 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
