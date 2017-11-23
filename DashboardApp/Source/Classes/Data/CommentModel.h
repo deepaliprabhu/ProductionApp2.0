@@ -15,5 +15,6 @@
 @property (nonatomic, strong) NSString *message;
 
 + (CommentModel*) objectFrom:(NSDictionary*)d;
+- (NSString*) dateString;
 
 @end

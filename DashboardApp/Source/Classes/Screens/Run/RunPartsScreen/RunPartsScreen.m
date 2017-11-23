@@ -24,8 +24,9 @@
 #import "AlternatePartCell.h"
 #import "ActionModel.h"
 #import "CommentsPartCell.h"
+#import "CommentModel.h"
 
-const CGFloat kMinTableHeight = 134;
+const CGFloat kMinTableHeight = 119;
 
 @interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
@@ -261,7 +262,12 @@ const CGFloat kMinTableHeight = 134;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (tableView == _runsTableView || tableView == _purchasesTableView || tableView == _commentsTableView)
+    if (tableView == _commentsTableView)
+    {
+        CommentModel *c = _comments[indexPath.row];
+        return [CommentsPartCell heightFor:c.message];
+    }
+    else if (tableView == _runsTableView || tableView == _purchasesTableView)
         return 34;
     else
         return 32;
@@ -276,6 +282,8 @@ const CGFloat kMinTableHeight = 134;
         if (cell == nil) {
             cell = [[NSBundle mainBundle] loadNibNamed:identifier20 owner:nil options:nil][0];
         }
+        
+        [cell layoutWith:_comments[indexPath.row] atIndex:(int)indexPath.row];
         
         return cell;
     }
@@ -537,6 +545,7 @@ const CGFloat kMinTableHeight = 134;
         
         [self getPurchasesFor:part];
         [self getRunsFor:part];
+        [self getCommentsFor:part];
         [self getAuditFor:part];
     } else {
         
@@ -742,9 +751,21 @@ const CGFloat kMinTableHeight = 134;
         
         if (success) {
             
+            if ([response isKindOfClass:[NSArray class]]) {
+                for (NSDictionary *d in response) {
+                    [_comments addObject:[CommentModel objectFrom:d]];
+                }
+                [_comments sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:false]]];
+            }
         } else {
             
         }
+        
+        if (_comments.count == 0)
+            _noCommentsLabel.alpha = 1;
+        else
+            _noCommentsLabel.alpha = 0;
+        [_commentsTableView reloadData];
     }];
 }
 

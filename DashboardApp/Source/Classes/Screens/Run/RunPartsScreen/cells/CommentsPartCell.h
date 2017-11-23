@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommentModel.h"
 
 @interface CommentsPartCell : UITableViewCell
+
++ (CGFloat) heightFor:(NSString*)text;
+- (void) layoutWith:(CommentModel*)comment atIndex:(int)index;
 
 @end
