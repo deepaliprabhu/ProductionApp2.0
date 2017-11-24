@@ -53,3 +53,15 @@
 - (void) addTextFieldStyle;
 
 @end
+
+@interface UINavigationController (ProductionLayout)
+
++ (void) setProductionStyle;
+
+@end
+
+@interface UIBarButtonItem (ProductionLayout)
+
++ (void) setProductionStyle;
+
+@end

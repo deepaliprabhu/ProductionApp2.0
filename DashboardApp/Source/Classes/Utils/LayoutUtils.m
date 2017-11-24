@@ -330,3 +330,28 @@
 }
 
 @end
+
+@implementation UINavigationController (ProductionLayout)
+
++ (void) setProductionStyle
+{
+
+    [[UINavigationBar appearance] setTintColor:ccwhite];
+    [[UINavigationBar appearance] setBarTintColor:ccolor(52, 52, 52)];
+    [[UINavigationBar appearance] setTitleTextAttributes:
+    [NSDictionary dictionaryWithObjectsAndKeys: ccolor(255, 255, 255), NSForegroundColorAttributeName, ccFont(@"Roboto-Light", 21), NSFontAttributeName, nil]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[UINavigationBar appearance] setTranslucent:NO];
+}
+
+@end
+
+@implementation UIBarButtonItem (ProductionLayout)
+
++ (void) setProductionStyle
+{
+    NSDictionary* barButtonItemAttributes = @{NSFontAttributeName:ccFont(@"Roboto-Light", 18), NSForegroundColorAttributeName: ccwhite};
+    [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonItemAttributes forState:UIControlStateNormal];
+}
+
+@end

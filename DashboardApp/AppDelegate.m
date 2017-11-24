@@ -10,6 +10,7 @@
 #import "HomeViewController.h"
 #import <Parse/Parse.h>
 #import "Defines.h"
+#import "LayoutUtils.h"
 
 @interface AppDelegate ()
 
@@ -20,6 +21,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [UINavigationController setProductionStyle];
+    [UIBarButtonItem setProductionStyle];
+    
     [self setupParse];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
