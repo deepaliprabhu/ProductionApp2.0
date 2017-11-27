@@ -27,6 +27,7 @@
     _nameLabel.text = [NSString stringWithFormat:@"%@", part.part];
     _vendorLabel.text = @"-";
     _quantityLabel.text = @"-";
+    _stockLabel.text = @"-";
     [self layoutPriceForPart:part];
     
     _bottomConstraintSeparatorView.constant = last?8:0;
@@ -37,6 +38,7 @@
 {
     _nameLabel.text = [NSString stringWithFormat:@"%@", part.part];
     _quantityLabel.text = @"-";
+    _stockLabel.text = @"-";
     [self layoutPriceForPart:part];
     [self layoutPOForPart:part];
     

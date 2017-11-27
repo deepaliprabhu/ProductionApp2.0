@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PartModel.h"
 
 @interface StockGraphScreen : UIViewController
+
+@property (nonatomic, unsafe_unretained) PartModel *part;
 
 @end

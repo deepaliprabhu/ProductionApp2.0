@@ -837,13 +837,19 @@ const CGFloat kMinTableHeight = 119;
 
 - (void) getAuditFor:(PartModel*)m {
     
-    [[ProdAPI sharedInstance] getAuditHistoryFor:m.part withCompletion:^(BOOL success, id response) {
+    if (m.audit == nil) {
         
-        if (success) {
-            _auditModel = [PartAuditModel objFrom:response];
-            [self layoutAudit];
-        }
-    }];
+        [[ProdAPI sharedInstance] getAuditHistoryFor:m.part withCompletion:^(BOOL success, id response) {
+            
+            if (success) {
+                m.audit = [PartAuditModel objFrom:response];
+                [self layoutAudit];
+            }
+        }];
+    } else {
+
+        [self layoutAudit];
+    }
 }
 
 - (void) getPurchaseForShorts

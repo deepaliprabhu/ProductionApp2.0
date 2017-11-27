@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PartAuditModel.h"
 
 @interface PartModel : NSObject
 
@@ -37,6 +38,7 @@
 @property (nonatomic, strong) NSArray *priceHistory;
 @property (nonatomic, strong) NSArray *purchases;
 @property (nonatomic, unsafe_unretained) int shortQty;
+@property (nonatomic, strong) PartAuditModel *audit;
 
 + (PartModel*) partFrom:(NSDictionary*)data isShort:(BOOL)s;
 - (int) totalStock;
