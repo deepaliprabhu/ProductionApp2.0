@@ -23,22 +23,73 @@
                 <rect key="frame" x="0.0" y="0.0" width="360" height="31.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r6P-D6-xYm">
-                        <rect key="frame" x="9" y="0.0" width="1" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r6P-D6-xYm">
+                        <rect key="frame" x="9" y="0.0" width="1" height="31.5"/>
                         <color key="backgroundColor" red="0.25671812890000001" green="0.25671043989999998" blue="0.25671476129999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="nUV-Yr-iVF"/>
+                        </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HvU-i1-bko">
-                        <rect key="frame" x="20" y="5" width="334" height="21"/>
+                        <rect key="frame" x="16" y="5" width="80" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
-                        <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                        <color key="textColor" red="0.13333341479301453" green="0.47058826684951782" blue="0.81176477670669556" alpha="1" colorSpace="deviceRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVd-gN-Odb">
+                        <rect key="frame" x="273" y="5" width="81" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                        <color key="textColor" red="0.13333341479999999" green="0.47058826679999999" blue="0.81176477670000002" alpha="1" colorSpace="deviceRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="SKi-oy-jSw">
+                        <rect key="frame" x="100" y="5" width="42" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                        <color key="textColor" red="0.13333341479999999" green="0.47058826679999999" blue="0.81176477670000002" alpha="1" colorSpace="deviceRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1qx-KY-cEV">
+                        <rect key="frame" x="151" y="5" width="52" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                        <color key="textColor" red="0.13333341479999999" green="0.47058826679999999" blue="0.81176477670000002" alpha="1" colorSpace="deviceRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bMb-0p-9k1">
+                        <rect key="frame" x="217" y="5" width="42" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                        <color key="textColor" red="0.13333341479999999" green="0.47058826679999999" blue="0.81176477670000002" alpha="1" colorSpace="deviceRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="JF2-fE-iV7">
+                        <rect key="frame" x="170" y="6" width="20" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </activityIndicatorView>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="t3T-dw-y1l">
+                        <rect key="frame" x="303" y="6" width="20" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </activityIndicatorView>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="r6P-D6-xYm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="3et-o8-eXp"/>
+                    <constraint firstAttribute="bottom" secondItem="r6P-D6-xYm" secondAttribute="bottom" id="5hX-yz-DYA"/>
+                    <constraint firstItem="r6P-D6-xYm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="9" id="aVW-bC-lYR"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="_partNameLabel" destination="HvU-i1-bko" id="Sy9-ao-MjG"/>
+                <outlet property="_bottomConstraintSeparatorView" destination="5hX-yz-DYA" id="TRC-9m-cLX"/>
+                <outlet property="_nameLabel" destination="HvU-i1-bko" id="PIw-kq-FCi"/>
+                <outlet property="_poSpinner" destination="t3T-dw-y1l" id="55L-N1-Tyv"/>
+                <outlet property="_priceLabel" destination="1qx-KY-cEV" id="bgi-JE-DbA"/>
+                <outlet property="_priceSpinner" destination="JF2-fE-iV7" id="Vkx-Nh-dWc"/>
+                <outlet property="_quantityLabel" destination="SKi-oy-jSw" id="mS8-aF-4Q7"/>
+                <outlet property="_separatorView" destination="r6P-D6-xYm" id="I0L-G7-5lU"/>
+                <outlet property="_stockLabel" destination="bMb-0p-9k1" id="U3j-zm-7XA"/>
+                <outlet property="_vendorLabel" destination="hVd-gN-Odb" id="raW-1I-i4d"/>
             </connections>
         </tableViewCell>
     </objects>

@@ -67,7 +67,10 @@ static NSDateFormatter *_dateFormatter = nil;
             }
             else
             {
-                _expectedDateLabel.text = [NSString stringWithFormat:@"%dd pass arrival", (-1)*days];
+                if (days == 0)
+                    _expectedDateLabel.text = @"today";
+                else
+                    _expectedDateLabel.text = [NSString stringWithFormat:@"%dd pass arrival", (-1)*days];
                 _expectedDateLabel.textColor = ccolor(233, 46, 40);
             }
         }

@@ -7,6 +7,8 @@
 //
 
 #import "PartModel.h"
+#import "PurchaseModel.h"
+#import "ProdAPI.h"
 
 static NSDateFormatter *_formatter = nil;
 
@@ -52,7 +54,6 @@ static NSDateFormatter *_formatter = nil;
     p.transitDate = [_formatter dateFromString:data[@"transit_date"]];
     p.transferID = data[@"transfer_id"];
     p.vendor = data[@"vendor"];
-    p.poQty = [p computePoQty];
     p.alternateParts = [self alternatePartsFrom:data[@"alternate_part"]];
     
     return p;
@@ -65,7 +66,14 @@ static NSDateFormatter *_formatter = nil;
     else
     {
         NSArray *comps = [data componentsSeparatedByString:@" , "];
-        return comps;
+        NSMutableArray *parts = [NSMutableArray array];
+        for (NSString *str in comps) {
+            PartModel *p = [PartModel new];
+            p.part = str;
+            [parts addObject:p];
+        }
+        
+        return parts;
     }
 }
 
@@ -98,16 +106,55 @@ static NSDateFormatter *_formatter = nil;
     return total;
 }
 
-- (int) computePoQty {
-    
-    NSArray *arr = [_po componentsSeparatedByString:@"qty:"];
-    if (arr.count > 1) {
-        NSString *q = arr[1];
-        q = [q stringByReplacingOccurrencesOfString:@")" withString:@""];
-        return [q intValue];
+- (int) openPOQty
+{
+    int t = 0;
+    for (PurchaseModel *p in _purchases) {
+        
+        if ([p.status isEqualToString:@"Closed"] == false)
+            t += [p.qty intValue];
     }
     
-    return 0;
+    return t;
+}
+
+- (void) getHistory
+{
+    [[ProdAPI sharedInstance] getHistoryFor:_part withCompletion:^(BOOL success, id response) {
+        
+        if (success) {
+            
+            if ([response isKindOfClass:[NSArray class]]) {
+                _priceHistory = [NSArray arrayWithArray:response];
+            } else {
+                _priceHistory = @[];
+            }
+        } else {
+            _priceHistory = @[];
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UPDATEPARTHISTORY" object:nil];
+    }];
+}
+
+- (void) getPurchases {
+    
+    [[ProdAPI sharedInstance] getPurchasesForPart:_part withCompletion:^(BOOL success, id response) {
+        
+        if (success) {
+            
+            NSMutableArray *arr = [NSMutableArray array];
+            if ([response isKindOfClass:[NSArray class]]) {
+                for (NSDictionary *d in response) {
+                    [arr addObject:[PurchaseModel objFrom:d]];
+                }
+                [arr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"createdDate" ascending:false]]];
+            }
+            _purchases = [NSArray arrayWithArray:arr];
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UPDATEPARTHISTORY" object:nil];
+    }];
 }
 
 @end

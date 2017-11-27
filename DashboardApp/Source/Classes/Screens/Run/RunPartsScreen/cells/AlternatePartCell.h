@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PartModel.h"
 
 @interface AlternatePartCell : UITableViewCell
 
-- (void) layoutWithPart:(NSString*)part;
+- (void) layoutWithPart:(PartModel*)part isLast:(BOOL)last;
+- (void) layoutWithShort:(PartModel*)part isLast:(BOOL)last;
 
 @end

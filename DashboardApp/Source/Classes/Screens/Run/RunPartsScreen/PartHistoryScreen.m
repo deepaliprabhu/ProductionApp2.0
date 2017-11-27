@@ -26,10 +26,8 @@
     [super viewDidLoad];
     self.preferredContentSize = CGSizeMake(330, 138);
     
-    if (_part.priceHistory == nil)
-        [self getPriceHistory:_part];
-    else
-        [_tableView reloadData];
+    [self layoutPrices];
+    [_tableView reloadData];
 }
 
 #pragma mark - UITableViewDelegate
@@ -59,39 +57,18 @@
     return cell;
 }
 
-#pragma mark - Utils
+#pragma mark - Layout
 
-- (void) getPriceHistory:(PartModel*)model {
+- (void) layoutPrices {
     
-    [LoadingView showLoading:@"Loading..."];
-    [[ProdAPI sharedInstance] getHistoryFor:model.part withCompletion:^(BOOL success, id response) {
-        
-        if (success) {
-            [LoadingView removeLoading];
-            
-            if ([response isKindOfClass:[NSArray class]]) {
-                
-                int c = (int)[response count];
-                if (c == 0)
-                    _noHistoryLabel.alpha = 1;
-                else {
-                    model.priceHistory = [NSArray arrayWithArray:response];
-                    _noHistoryLabel.alpha = 0;
-                    c = MIN(c, 15);
-                    self.preferredContentSize = CGSizeMake(330, 32+c*34);
-                }
-                
-            } else {
-                _noHistoryLabel.alpha = 1;
-            }
-            
-        } else {
-            [LoadingView showShortMessage:@"Error, please try again later!"];
-            _noHistoryLabel.alpha = 1;
-        }
-        
-        [_tableView reloadData];
-    }];
+    int c = (int)_part.priceHistory.count;
+    if (c == 0)
+        _noHistoryLabel.alpha = 1;
+    else {
+        _noHistoryLabel.alpha = 0;
+        c = MIN(c, 15);
+        self.preferredContentSize = CGSizeMake(330, 32+c*34);
+    }
 }
 
 @end

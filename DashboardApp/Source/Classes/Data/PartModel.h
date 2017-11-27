@@ -35,11 +35,15 @@
 @property (nonatomic, strong) NSString *vendor;
 @property (nonatomic, strong) NSArray *alternateParts;
 @property (nonatomic, strong) NSArray *priceHistory;
+@property (nonatomic, strong) NSArray *purchases;
 @property (nonatomic, unsafe_unretained) int shortQty;
-@property (nonatomic, unsafe_unretained) int poQty;
 
 + (PartModel*) partFrom:(NSDictionary*)data isShort:(BOOL)s;
 - (int) totalStock;
 - (int) totalPune;
+- (int) openPOQty;
+
+- (void) getHistory;
+- (void) getPurchases;
 
 @end

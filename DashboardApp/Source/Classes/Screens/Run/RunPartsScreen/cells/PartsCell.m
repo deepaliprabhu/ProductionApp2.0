@@ -17,28 +17,53 @@
     __weak IBOutlet UILabel *_vendorLabel;
     __weak IBOutlet UILabel *_quantityLabel;
     __weak IBOutlet UIView *_separatorView;
-    __weak IBOutlet UIActivityIndicatorView *_spinner;
+    __weak IBOutlet UIActivityIndicatorView *_priceSpinner;
+    __weak IBOutlet UIActivityIndicatorView *_poSpinner;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    
+    UIColor *color = _separatorView.backgroundColor;
+    [super setSelected:selected animated:animated];
+    if (selected) {
+        _separatorView.backgroundColor = color;
+    }
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    
+    UIColor *color = _separatorView.backgroundColor;
+    [super setHighlighted:highlighted animated:animated];
+    if (highlighted){
+        _separatorView.backgroundColor = color;
+    }
 }
 
 - (void) layoutWithShort:(PartModel*)m {
     
-    UIColor *c = nil;
+    UIColor *c = ccolor(100, 100, 100);
     _nameLabel.text = m.part;
     
     _separatorView.alpha = (m.alternateParts.count > 0);
     
-    if (m.po.length == 0)
+    if (m.purchases == nil)
     {
-        _vendorLabel.text = @"NO PO";
-        c = ccolor(233, 46, 40);
+        _vendorLabel.text = @"";
+        [_poSpinner startAnimating];
     }
     else
     {
-        _vendorLabel.text = [NSString stringWithFormat:@"%d", m.poQty];
-        c = ccolor(119, 119, 119);
+        [_poSpinner stopAnimating];
+        if (m.purchases.count == 0) {
+            _vendorLabel.text = @"NO PO";
+            c = ccolor(233, 46, 40);
+        } else {
+            _vendorLabel.text = [NSString stringWithFormat:@"%d", [m openPOQty]];
+            c = ccolor(119, 119, 119);
+        }
     }
     
-    if (m.shortQty > ([m totalStock] + m.poQty))
+    if (m.shortQty > ([m totalStock] + [m openPOQty]))
         _quantityLabel.textColor = ccolor(233, 46, 40);
     else
         _quantityLabel.textColor = ccolor(67, 194, 81);
@@ -49,7 +74,7 @@
     if (m.priceHistory == nil)
     {
         _priceLabel.text = @"";
-        [_spinner startAnimating];
+        [_priceSpinner startAnimating];
     }
     else
     {
@@ -58,7 +83,7 @@
         else
             _priceLabel.text = [NSString stringWithFormat:@"%@$", m.priceHistory[0][@"PRICE"]];
         
-        [_spinner stopAnimating];
+        [_priceSpinner stopAnimating];
     }
     
     [self layoutWithColor:c];
