@@ -567,7 +567,12 @@ const CGFloat kMinTableHeight = 119;
             _transitIDLabel.text = @"";
         
         if (part.pricePerUnit == nil)
-            _priceLabel.text = @"-$";
+        {
+            if (_visiblePart.priceHistory.count > 0)
+                _priceLabel.text = [NSString stringWithFormat:@"%@$", _visiblePart.priceHistory[0][@"PRICE"]];
+            else
+                _priceLabel.text = @"-$";
+        }
         else
             _priceLabel.text = [NSString stringWithFormat:@"%@$", part.pricePerUnit];
         
