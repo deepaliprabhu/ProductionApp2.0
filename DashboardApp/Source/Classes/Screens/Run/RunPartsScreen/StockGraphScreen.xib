@@ -18,7 +18,28 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g3J-oy-tfa">
+                    <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qq7-tz-aeC">
+                    <rect key="frame" x="166" y="121" width="692" height="525"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="525" id="CQO-Iw-ARi"/>
+                        <constraint firstAttribute="width" constant="692" id="ToV-Bg-cMa"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Qq7-tz-aeC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="20O-lU-Urn"/>
+                <constraint firstItem="g3J-oy-tfa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Abz-GU-Lfu"/>
+                <constraint firstItem="Qq7-tz-aeC" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="D88-md-ctO"/>
+                <constraint firstAttribute="bottom" secondItem="g3J-oy-tfa" secondAttribute="bottom" id="Ddg-GN-jyQ"/>
+                <constraint firstAttribute="trailing" secondItem="g3J-oy-tfa" secondAttribute="trailing" id="Zpq-cJ-Mnh"/>
+                <constraint firstItem="g3J-oy-tfa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="pZa-pT-4xZ"/>
+            </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
         </view>

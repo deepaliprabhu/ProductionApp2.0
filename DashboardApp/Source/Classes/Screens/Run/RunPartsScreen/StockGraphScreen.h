@@ -11,6 +11,7 @@
 
 @interface StockGraphScreen : UIViewController
 
+@property (nonatomic, strong) UIImage *image;
 @property (nonatomic, unsafe_unretained) PartModel *part;
 
 @end
