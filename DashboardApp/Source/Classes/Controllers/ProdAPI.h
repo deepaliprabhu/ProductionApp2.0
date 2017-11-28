@@ -28,6 +28,7 @@
 - (void) uploadPhoto:(NSData*)img name:(NSString*)name forProductID:(NSString*)productID delegate:(id <FTPProtocol>)d;
 - (void) getRunsFor:(NSString*)partID withCompletion:(void (^)(BOOL success, id response))block;
 - (void) getHistoryFor:(NSString*)part withCompletion:(void (^)(BOOL success, id response))block;
+- (void) setPurchase:(NSString*)poID date:(NSString*)date completion:(void (^)(BOOL success, id response))block;
 - (void) getAuditHistoryFor:(NSString*)part withCompletion:(void (^)(BOOL success, id response))block;
 
 @end

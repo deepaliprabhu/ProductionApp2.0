@@ -136,6 +136,13 @@ static ProdAPI *_sharedInstance = nil;
     [self callGETURL:url completion:block];
 }
 
+- (void) setPurchase:(NSString*)poID date:(NSString*)date completion:(void (^)(BOOL success, id response))block {
+    
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_po_date&poid=%@&expectdate=%@", poID, date];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
 - (void) callPOST:(NSString*)url parameters:(NSDictionary*)params completion:(void (^)(BOOL success, id response))block
 {
     [_manager POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

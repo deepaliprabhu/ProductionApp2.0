@@ -40,6 +40,8 @@
 		8940188A1FB5EFAC002B8AFD /* PurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018891FB5EFAC002B8AFD /* PurchaseModel.m */; };
 		894B6F051FCD994100E271B1 /* PartDescriptionScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */; };
 		894B6F061FCD994100E271B1 /* PartDescriptionScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */; };
+		894B6F0C1FCDAD7600E271B1 /* PODateScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F0A1FCDAD7600E271B1 /* PODateScreen.m */; };
+		894B6F0D1FCDAD7600E271B1 /* PODateScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894B6F0B1FCDAD7600E271B1 /* PODateScreen.xib */; };
 		894C5F5A1FBB0ED300FA4E5D /* RunModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 894C5F591FBB0ED300FA4E5D /* RunModel.m */; };
 		894C5F5E1FBB147600FA4E5D /* RunPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894C5F5C1FBB147600FA4E5D /* RunPartCell.m */; };
 		894C5F5F1FBB147600FA4E5D /* RunPartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894C5F5D1FBB147600FA4E5D /* RunPartCell.xib */; };
@@ -290,6 +292,9 @@
 		894B6F021FCD994100E271B1 /* PartDescriptionScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartDescriptionScreen.h; sourceTree = "<group>"; };
 		894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartDescriptionScreen.m; sourceTree = "<group>"; };
 		894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartDescriptionScreen.xib; sourceTree = "<group>"; };
+		894B6F091FCDAD7600E271B1 /* PODateScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PODateScreen.h; sourceTree = "<group>"; };
+		894B6F0A1FCDAD7600E271B1 /* PODateScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PODateScreen.m; sourceTree = "<group>"; };
+		894B6F0B1FCDAD7600E271B1 /* PODateScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PODateScreen.xib; sourceTree = "<group>"; };
 		894C5F581FBB0ED300FA4E5D /* RunModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunModel.h; sourceTree = "<group>"; };
 		894C5F591FBB0ED300FA4E5D /* RunModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunModel.m; sourceTree = "<group>"; };
 		894C5F5B1FBB147600FA4E5D /* RunPartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunPartCell.h; sourceTree = "<group>"; };
@@ -667,6 +672,35 @@
 				894018781FB5A0E4002B8AFD /* BRRequestCreateDirectory.m */,
 			);
 			path = BlackRaccoon;
+			sourceTree = "<group>";
+		};
+		894B6F071FCDAD3100E271B1 /* popovers */ = {
+			isa = PBXGroup;
+			children = (
+				894F9BD61FBCA0BC00DC2C6B /* PartHistoryScreen.h */,
+				894F9BD71FBCA0BC00DC2C6B /* PartHistoryScreen.m */,
+				894F9BD81FBCA0BC00DC2C6B /* PartHistoryScreen.xib */,
+				8950A7241FC6C14E006C66CB /* AddCommentScreen.h */,
+				8950A7251FC6C14E006C66CB /* AddCommentScreen.m */,
+				8950A7261FC6C14E006C66CB /* AddCommentScreen.xib */,
+				894B6F021FCD994100E271B1 /* PartDescriptionScreen.h */,
+				894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */,
+				894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */,
+				894B6F091FCDAD7600E271B1 /* PODateScreen.h */,
+				894B6F0A1FCDAD7600E271B1 /* PODateScreen.m */,
+				894B6F0B1FCDAD7600E271B1 /* PODateScreen.xib */,
+			);
+			path = popovers;
+			sourceTree = "<group>";
+		};
+		894B6F081FCDAD4800E271B1 /* modals */ = {
+			isa = PBXGroup;
+			children = (
+				89897E361FBF140C000B39EA /* StockGraphScreen.h */,
+				89897E371FBF140C000B39EA /* StockGraphScreen.m */,
+				89897E381FBF140C000B39EA /* StockGraphScreen.xib */,
+			);
+			path = modals;
 			sourceTree = "<group>";
 		};
 		894F9BD51FBCA09D00DC2C6B /* cells */ = {
@@ -1428,21 +1462,11 @@
 			isa = PBXGroup;
 			children = (
 				894F9BD51FBCA09D00DC2C6B /* cells */,
+				894B6F081FCDAD4800E271B1 /* modals */,
+				894B6F071FCDAD3100E271B1 /* popovers */,
 				D28386501FB2285600BB304C /* RunPartsScreen.h */,
 				D28386511FB2285600BB304C /* RunPartsScreen.m */,
 				D28386521FB2285600BB304C /* RunPartsScreen.xib */,
-				894F9BD61FBCA0BC00DC2C6B /* PartHistoryScreen.h */,
-				894F9BD71FBCA0BC00DC2C6B /* PartHistoryScreen.m */,
-				894F9BD81FBCA0BC00DC2C6B /* PartHistoryScreen.xib */,
-				89897E361FBF140C000B39EA /* StockGraphScreen.h */,
-				89897E371FBF140C000B39EA /* StockGraphScreen.m */,
-				89897E381FBF140C000B39EA /* StockGraphScreen.xib */,
-				8950A7241FC6C14E006C66CB /* AddCommentScreen.h */,
-				8950A7251FC6C14E006C66CB /* AddCommentScreen.m */,
-				8950A7261FC6C14E006C66CB /* AddCommentScreen.xib */,
-				894B6F021FCD994100E271B1 /* PartDescriptionScreen.h */,
-				894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */,
-				894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */,
 			);
 			path = RunPartsScreen;
 			sourceTree = "<group>";
@@ -1532,6 +1556,7 @@
 				9FEEE58B1EEFEFA2005B5ECA /* Assets.xcassets in Resources */,
 				9F7AB1A61F7D233C0013CBE1 /* drop_down@2x.png in Resources */,
 				D283865B1FB23CA800BB304C /* Roboto-Medium.ttf in Resources */,
+				894B6F0D1FCDAD7600E271B1 /* PODateScreen.xib in Resources */,
 				D2A44F321FAF2BBA00DF37B8 /* LoadingView.xib in Resources */,
 				3B649A881FB3236400B8DC78 /* PartsCell.xib in Resources */,
 				D28386561FB23B5E00BB304C /* Roboto-Bold.ttf in Resources */,
@@ -1651,6 +1676,7 @@
 				9FE99C281FBD4E65006B58DE /* FeedbackListViewCell.m in Sources */,
 				9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */,
 				9F7FE5691F7B78C2005CB4DF /* ProductListViewController.m in Sources */,
+				894B6F0C1FCDAD7600E271B1 /* PODateScreen.m in Sources */,
 				9F471CFF1F54003300B294B7 /* InProcessViewCell.m in Sources */,
 				D2A44F2D1FAF1FD400DF37B8 /* ProductModel.m in Sources */,
 				894C5F5A1FBB0ED300FA4E5D /* RunModel.m in Sources */,

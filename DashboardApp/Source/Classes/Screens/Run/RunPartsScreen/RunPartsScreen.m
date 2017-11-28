@@ -27,10 +27,11 @@
 #import "AddCommentScreen.h"
 #import "PartDescriptionScreen.h"
 #import "LayoutUtils.h"
+#import "PODateScreen.h"
 
 const CGFloat kMinTableHeight = 119;
 
-@interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, AddCommentProtocol>
+@interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, AddCommentProtocol, PurchaseCellProtocol, PODateScreenDelegate>
 
 @end
 
@@ -332,6 +333,7 @@ const CGFloat kMinTableHeight = 119;
         PurchasePartCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier3];
         if (cell == nil) {
             cell = [[NSBundle mainBundle] loadNibNamed:identifier3 owner:nil options:nil][0];
+            cell.delegate = self;
         }
 
         [cell layoutWith:_visiblePart.purchases[indexPath.row] atIndex:(int)indexPath.row];
@@ -473,12 +475,29 @@ const CGFloat kMinTableHeight = 119;
     }
 }
 
+#pragma mark - PurchaseCellProtocol
+
+- (void) expectedDateButtonTappedAtIndex:(int)index position:(CGRect)rect {
+    
+    PODateScreen *screen = [[PODateScreen alloc] initWithNibName:@"PODateScreen" bundle:nil];
+    screen.purchase = _visiblePart.purchases[index];
+    screen.delegate = self;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:true];
+}
+
 #pragma mark - AddNewCommentProtocol
 
 - (void) newCommentAdded:(CommentModel *)comment
 {
     [_comments insertObject:comment atIndex:0];
     [self layoutComments];
+}
+
+#pragma mark - PoDateScreenProtocol
+
+- (void) expectedDateChanged {
+    [_purchasesTableView reloadData];
 }
 
 #pragma mark - Layout

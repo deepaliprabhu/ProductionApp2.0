@@ -8,6 +8,7 @@
 
 #import "PurchasePartCell.h"
 #import "Defines.h"
+#import "LayoutUtils.h"
 
 static NSDateFormatter *_dateFormatter = nil;
 
@@ -18,9 +19,13 @@ static NSDateFormatter *_dateFormatter = nil;
     __unsafe_unretained IBOutlet UILabel *_vendorLabel;
     __unsafe_unretained IBOutlet UILabel *_qtyLabel;
     __unsafe_unretained IBOutlet UILabel *_priceLabel;
-    __unsafe_unretained IBOutlet UILabel *_expectedDateLabel;
+    __unsafe_unretained IBOutlet UIButton *_expectedDateButton;
     __unsafe_unretained IBOutlet UILabel *_createdDateLabel;
     __unsafe_unretained IBOutlet UILabel *_idLabel;
+    __unsafe_unretained IBOutlet UIView *_lineView;
+    __unsafe_unretained IBOutlet NSLayoutConstraint *_lineViewWidthConstraint;
+    
+    int _index;
 }
 
 - (void)awakeFromNib {
@@ -34,8 +39,15 @@ static NSDateFormatter *_dateFormatter = nil;
     });
 }
 
+- (IBAction) expectedDateTapped {
+    
+    CGRect r = [_expectedDateButton convertRect:_expectedDateButton.bounds toView:self.superview.superview.superview.superview];
+    [_delegate expectedDateButtonTappedAtIndex:_index position:r];
+}
+
 - (void) layoutWith:(PurchaseModel*)m atIndex:(int)index {
     
+    _index = index;
     if (index%2 == 0) {
         _bgView.backgroundColor = [UIColor whiteColor];
     } else {
@@ -46,35 +58,39 @@ static NSDateFormatter *_dateFormatter = nil;
     
     if ([m.status isEqualToString:@"Closed"])
     {
-        _expectedDateLabel.text = [_dateFormatter stringFromDate:m.expectedDate];
-        _expectedDateLabel.textColor = ccolor(65, 65, 65);
+        _lineViewWidthConstraint.constant = 0;
+        _expectedDateButton.enabled = false;
+        [_expectedDateButton setTitle:[_dateFormatter stringFromDate:m.expectedDate] forState:UIControlStateNormal];
+        [_expectedDateButton setTitleColor:ccolor(65, 65, 65) forState:UIControlStateNormal];
     }
     else {
         
-        if (m.expectedDate == nil)
-        {
-            _expectedDateLabel.text = @"-";
-            _expectedDateLabel.textColor = ccolor(233, 46, 40);
-        }
-        else
-        {
+        _expectedDateButton.enabled = true;
+        NSString *text = @"-";
+        UIColor *c = ccolor(233, 46, 40);
+        if (m.expectedDate != nil) {
             int days = (int)[self daysBetweenDate:[NSDate date] andDate:m.expectedDate];
-            
             if (days > 0)
             {
-                _expectedDateLabel.text = [NSString stringWithFormat:@"%dd to arrival", days];
-                _expectedDateLabel.textColor = ccolor(67, 194, 81);
+                text = [NSString stringWithFormat:@"%dd to arrival", days];
+                c = ccolor(67, 194, 81);
             }
             else
             {
                 if (days == 0)
-                    _expectedDateLabel.text = @"today";
+                    text = @"today";
                 else
-                    _expectedDateLabel.text = [NSString stringWithFormat:@"%dd pass arrival", (-1)*days];
-                _expectedDateLabel.textColor = ccolor(233, 46, 40);
+                    text = [NSString stringWithFormat:@"%dd pass arrival", (-1)*days];
             }
         }
+    
+        _lineView.backgroundColor = c;
+        [_expectedDateButton setTitle:text forState:UIControlStateNormal];
+        [_expectedDateButton setTitleColor:c forState:UIControlStateNormal];
+        CGFloat w = [LayoutUtils widthForText:text withFont:ccFont(@"Roboto-Regular", 15)];
+        _lineViewWidthConstraint.constant = w;
     }
+    [self layoutIfNeeded];
     
     _idLabel.text = m.poID;
     _statusLabel.text = m.status;
