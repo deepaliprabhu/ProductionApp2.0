@@ -7,7 +7,6 @@
 //
 
 #import "RunListView.h"
-#import "RunListViewCell.h"
 #import "UIImage+FontAwesome.h"
 
 @implementation RunListView
@@ -96,6 +95,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
     RunListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     if (cell == nil) {
         cell = [[NSBundle mainBundle] loadNibNamed:simpleTableIdentifier owner:nil options:nil][0];
+        cell.delegate = self;
     }
     //cell.delegate = self;
     [cell setCellData:[filteredRunsArray objectAtIndex:indexPath.row]];
@@ -104,6 +104,10 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [_delegate runSelectedAtIndex:[filteredRunsArray[indexPath.row] getRunId]];
+}
+
+- (void) showCommentsForRun:(Run *)r {
+    [_delegate showCommentsForRun:r];
 }
 
 - (IBAction)closePressed:(id)sender {

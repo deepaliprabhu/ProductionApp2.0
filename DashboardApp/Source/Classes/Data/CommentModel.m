@@ -10,15 +10,23 @@
 
 static NSDateFormatter *_formatter1 = nil;
 static NSDateFormatter *_formatter2 = nil;
+static NSDateFormatter *_formatter3 = nil;
 
 @implementation CommentModel
 
 + (CommentModel*) objectFrom:(NSDictionary*)d
 {
     CommentModel *m = [CommentModel new];
-    m.author = d[@"COMMENTS_BY"];
-    m.message = d[@"DESCRIPTION"];
-    m.date = [_formatter1 dateFromString:d[@"DATETIME"]];
+    
+    if (d[@"COMMENTS"] != nil) {
+        m.author = d[@"CREATEDBY"];
+        m.date = [_formatter3 dateFromString:d[@"DATETIME"]];
+        m.message = d[@"COMMENTS"];
+    } else {
+        m.author = d[@"COMMENTS_BY"];
+        m.message = d[@"DESCRIPTION"];
+        m.date = [_formatter1 dateFromString:d[@"DATETIME"]];
+    }
     return m;
 }
 
@@ -38,6 +46,9 @@ static NSDateFormatter *_formatter2 = nil;
         
         _formatter2 = [[NSDateFormatter alloc] init];
         _formatter2.dateFormat = @"dd MMM - HH:mm";
+        
+        _formatter3 = [[NSDateFormatter alloc] init];
+        _formatter3.dateFormat = @"yyyy-MM-dd HH:mm:ss";
     });
 }
 

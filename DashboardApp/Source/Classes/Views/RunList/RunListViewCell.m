@@ -81,4 +81,8 @@
     return run;
 }
 
+- (IBAction) commentsButtonTapped {
+    [_delegate showCommentsForRun:run];
+}
+
 @end

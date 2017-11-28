@@ -20,9 +20,9 @@ static NSDateFormatter *_formatter = nil;
     __weak IBOutlet UIView *_bgView;
 }
 
-+ (CGFloat) heightFor:(NSString*)text
++ (CGFloat) heightFor:(NSString*)text offset:(CGFloat)offset
 {
-    CGFloat h = [LayoutUtils heightForText:text withFont:ccFont(@"Roboto-Regular", 15) andMaxWidth:304 centerAligned:false] + 12;
+    CGFloat h = [LayoutUtils heightForText:text withFont:ccFont(@"Roboto-Regular", 15) andMaxWidth:304-offset centerAligned:false] + 12;
     if (h < 34)
         h = 34;
     return h;

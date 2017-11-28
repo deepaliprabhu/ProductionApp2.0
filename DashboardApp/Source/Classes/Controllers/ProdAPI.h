@@ -23,6 +23,7 @@
 - (void) getPartsForRun:(NSInteger)runID withCompletion:(void (^)(BOOL success, id response))block;
 - (void) getShortsForRun:(NSInteger)runID withCompletion:(void (^)(BOOL success, id response))block;
 - (void) getPurchasesForPart:(NSString*)partID withCompletion:(void (^)(BOOL, id))block;
+- (void) getCommentsForRun:(NSString*)runID withCompletion:(void (^)(BOOL, id))block;
 - (void) getCommentsForPart:(NSString*)partID withCompletion:(void (^)(BOOL, id))block;
 - (void) addComment:(NSString*)message forPart:(NSString*)partID from:(NSString*)user withCompletion:(void (^)(BOOL, id))block;
 - (void) uploadPhoto:(NSData*)img name:(NSString*)name forProductID:(NSString*)productID delegate:(id <FTPProtocol>)d;

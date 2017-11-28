@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Defines.h"
 #import "RunListTableView.h"
+#import "RunListViewCell.h"
 #import "Run.h"
 
 @protocol RunListViewDelegate;
-@interface RunListView : UIView<UITableViewDelegate, UITableViewDataSource> {
+@interface RunListView : UIView<UITableViewDelegate, UITableViewDataSource, RunListViewCellProtocol> {
     IBOutlet UIButton *_pcbButton;
     IBOutlet UIButton *_assmButton;
     IBOutlet UIButton *_devButton;
@@ -35,6 +36,8 @@ __CREATEVIEWH(RunListView);
 @end
 
 @protocol RunListViewDelegate <NSObject>
+
+- (void) showCommentsForRun:(Run*)run;
 - (void) runSelectedAtIndex:(int)runId;
 - (void) selectedRunType:(int)runType;
 - (void) closeSelected;

@@ -11,7 +11,7 @@
 
 @interface CommentsPartCell : UITableViewCell
 
-+ (CGFloat) heightFor:(NSString*)text;
++ (CGFloat) heightFor:(NSString*)text offset:(CGFloat)offset;
 - (void) layoutWith:(CommentModel*)comment atIndex:(int)index;
 
 @end

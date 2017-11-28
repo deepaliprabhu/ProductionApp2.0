@@ -305,7 +305,7 @@ const CGFloat kMinTableHeight = 119;
     if (tableView == _commentsTableView)
     {
         CommentModel *c = _comments[indexPath.row];
-        return [CommentsPartCell heightFor:c.message];
+        return [CommentsPartCell heightFor:c.message offset:0];
     }
     else if (tableView == _runsTableView || tableView == _purchasesTableView)
         return 34;
