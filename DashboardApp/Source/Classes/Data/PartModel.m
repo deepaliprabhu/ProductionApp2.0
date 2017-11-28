@@ -27,6 +27,7 @@ static NSDateFormatter *_formatter = nil;
     p.mason = data[@"Mason"];
     p.p2 = data[@"P2"];
     p.pune = data[@"Pune"];
+    p.partDescription = data[@"description"];
     p.recoMason = data[@"RECO_MASON"];
     p.recoMasonDate = [_formatter dateFromString:data[@"RECO_MASON_DATE"]];
     p.recoP2 = data[@"RECO_P2"];

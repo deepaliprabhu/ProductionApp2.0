@@ -20,12 +20,13 @@
 #import "DataManager.h"
 #import "PriorityRunCell.h"
 #import "UIAlertView+Blocks.h"
-#import "PartAuditModel.h"
 #import "AlternatePartCell.h"
 #import "ActionModel.h"
 #import "CommentsPartCell.h"
 #import "CommentModel.h"
 #import "AddCommentScreen.h"
+#import "PartDescriptionScreen.h"
+#import "LayoutUtils.h"
 
 const CGFloat kMinTableHeight = 119;
 
@@ -52,7 +53,7 @@ const CGFloat kMinTableHeight = 119;
     __unsafe_unretained IBOutlet UIButton *_shortButton;
     __unsafe_unretained IBOutlet UITableView *_componentsTable;
     __unsafe_unretained IBOutlet UITextField *_searchTextField;
-    
+
     __unsafe_unretained IBOutlet NSLayoutConstraint *_transitWidthConstraint;
     __unsafe_unretained IBOutlet UIView *_historyView;
     __unsafe_unretained IBOutlet UIView *_masonStockView;
@@ -67,8 +68,10 @@ const CGFloat kMinTableHeight = 119;
     __unsafe_unretained IBOutlet UIView *_puneStockView;
     __unsafe_unretained IBOutlet UILabel *_puneStockLabel;
     __unsafe_unretained IBOutlet UILabel *_puneDateLabel;
-    __unsafe_unretained IBOutlet UILabel *_partTitleLabel;
     __unsafe_unretained IBOutlet UILabel *_stockLabel;
+    
+    __unsafe_unretained IBOutlet UIButton *_partTitleButton;
+    __unsafe_unretained IBOutlet NSLayoutConstraint *_partTitleLineWidthConstraint;
     
     __unsafe_unretained IBOutlet UILabel *_titleLabel;
     __unsafe_unretained IBOutlet NSLayoutConstraint *_titleTopConstraint;
@@ -99,7 +102,6 @@ const CGFloat kMinTableHeight = 119;
     CGFloat _cost;
     
     __unsafe_unretained PartModel *_visiblePart;
-    PartAuditModel *_auditModel;
 }
 
 - (void) viewDidLoad {
@@ -217,6 +219,17 @@ const CGFloat kMinTableHeight = 119;
 {
 //    if (_partsAreSelected == false)
         [_componentsTable reloadData];
+}
+
+- (IBAction) partTitleButtonTapped
+{
+    PartDescriptionScreen *screen = [[PartDescriptionScreen alloc] initWithNibName:@"PartDescriptionScreen" bundle:nil];
+    screen.partDescription = _visiblePart.partDescription;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    CGRect r = _partTitleButton.bounds;
+    r.size.width = 2;
+    CGRect rect = [_partTitleButton convertRect:r toView:self.view];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:true];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -513,7 +526,7 @@ const CGFloat kMinTableHeight = 119;
         NSString *bom = [NSString stringWithFormat:@"BOM %.5f$", _cost];
         _bomLabel.text = bom;
         
-        CGFloat w = [self widthForText:bom withFont:ccFont(@"Roboto-Bold", 19)];
+        CGFloat w = [LayoutUtils widthForText:bom withFont:ccFont(@"Roboto-Bold", 19)];
         _bomWidthConstraint.constant = w;
     }
     
@@ -534,7 +547,6 @@ const CGFloat kMinTableHeight = 119;
 - (void) layoutWith:(PartModel*)part {
     
     _runsTableView.editing = false;
-    _auditModel = nil;
     if (part != nil) {
         
         [self runsButtonTapped];
@@ -542,7 +554,10 @@ const CGFloat kMinTableHeight = 119;
         _detailsHolderView.alpha = 1;
         _seeDetailsLabel.alpha = 0;
         
-        _partTitleLabel.text = part.part;
+        [_partTitleButton setTitle:part.part forState:UIControlStateNormal];
+        CGFloat w = [LayoutUtils widthForText:part.part withFont:ccFont(@"Roboto-Regular", 20)];
+        _partTitleLineWidthConstraint.constant = w;
+        
         _stockLabel.text = [NSString stringWithFormat:@"%d", [part totalStock]];
         _masonDateLabel.text = @"";
         _masonModeLabel.text = @"";
@@ -587,7 +602,8 @@ const CGFloat kMinTableHeight = 119;
         
         _priceLabel.text = @"$-";
         _stockLabel.text = @"-";
-        _partTitleLabel.text = @"-";
+        [_partTitleButton setTitle:@"-" forState:UIControlStateNormal];
+        _partTitleLineWidthConstraint.constant = 0;
         _masonDateLabel.text = @"-";
         _masonStockLabel.text = @"-";
         _transitDateLabel.text = @"-";
@@ -652,7 +668,7 @@ const CGFloat kMinTableHeight = 119;
 
 - (void) layoutAudit
 {
-    ActionModel *a1 = [_auditModel.masonActions firstObject];
+    ActionModel *a1 = [_visiblePart.audit.masonActions firstObject];
     if (a1 == nil)
         _masonDateLabel.text = @"";
     else
@@ -661,7 +677,7 @@ const CGFloat kMinTableHeight = 119;
         _masonModeLabel.text = a1.mode;
     }
     
-    ActionModel *a2 = [_auditModel.puneActions firstObject];
+    ActionModel *a2 = [_visiblePart.audit.puneActions firstObject];
     if (a2 == nil)
         _puneDateLabel.text = @"";
     else
@@ -885,16 +901,6 @@ const CGFloat kMinTableHeight = 119;
 }
 
 #pragma mark - Utils
-
-- (CGFloat) widthForText:(NSString*)text withFont:(UIFont*)font
-{
-    NSDictionary *attributes = @{NSFontAttributeName:font};
-    CGRect rect = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 100)
-                                     options:NSStringDrawingUsesLineFragmentOrigin
-                                  attributes:attributes
-                                     context:nil];
-    return ceil(rect.size.width);
-}
 
 - (void) filterPriorityRuns {
     

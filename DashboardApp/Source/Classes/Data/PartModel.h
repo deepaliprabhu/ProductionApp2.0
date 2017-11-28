@@ -37,6 +37,7 @@
 @property (nonatomic, strong) NSArray *alternateParts;
 @property (nonatomic, strong) NSArray *priceHistory;
 @property (nonatomic, strong) NSArray *purchases;
+@property (nonatomic, strong) NSString *partDescription;
 @property (nonatomic, unsafe_unretained) int shortQty;
 @property (nonatomic, strong) PartAuditModel *audit;
 

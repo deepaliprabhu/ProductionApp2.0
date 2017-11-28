@@ -242,6 +242,35 @@
     return newImage;
 }
 
++ (CGFloat)heightForText:(NSString*)text withFont:(UIFont*)font andMaxWidth:(CGFloat)width centerAligned:(BOOL)isCentered
+{
+    NSDictionary *attributes;
+    
+    if (isCentered == YES)
+    {
+        NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
+        style.alignment = NSTextAlignmentCenter;
+        attributes = @{NSFontAttributeName:font, NSParagraphStyleAttributeName: style};
+    }
+    else
+        attributes = @{NSFontAttributeName:font};
+    CGRect rect = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                  attributes:attributes
+                                     context:nil];
+    return ceil(rect.size.height);
+}
+
++ (CGFloat) widthForText:(NSString*)text withFont:(UIFont*)font
+{
+    NSDictionary *attributes = @{NSFontAttributeName:font};
+    CGRect rect = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 100)
+                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                  attributes:attributes
+                                     context:nil];
+    return ceil(rect.size.width);
+}
+
 @end
 
 @implementation UIView (Layout)

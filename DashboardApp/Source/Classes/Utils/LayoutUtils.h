@@ -28,6 +28,8 @@
 + (UIView*) createInputAccessoryViewForTarget:(id)target;
 + (UILabel*) redLabel;
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
++ (CGFloat)heightForText:(NSString*)text withFont:(UIFont*)font andMaxWidth:(CGFloat)width centerAligned:(BOOL)isCentered;
++ (CGFloat) widthForText:(NSString*)text withFont:(UIFont*)font;
 
 + (void) addGradientLayoutForView:(UIView*)view;
 
