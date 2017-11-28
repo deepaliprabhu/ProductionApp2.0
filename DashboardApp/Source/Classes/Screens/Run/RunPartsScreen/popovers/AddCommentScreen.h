@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PartModel.h"
 #import "CommentModel.h"
+#import "Run.h"
 
 @protocol AddCommentProtocol;
 
@@ -16,6 +17,7 @@
 
 @property (nonatomic, unsafe_unretained) id <AddCommentProtocol> delegate;
 @property (nonatomic, unsafe_unretained) PartModel *part;
+@property (nonatomic, unsafe_unretained) Run *run;
 
 @end
 

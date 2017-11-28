@@ -136,6 +136,13 @@ static ProdAPI *_sharedInstance = nil;
     [self callGETURL:url completion:block];
 }
 
+- (void) addComment:(NSString*)message forRun:(NSString*)runID from:(NSString*)user withCompletion:(void (^)(BOOL, id))block
+{
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_run_comments&runid=%@&comments=%@&by=%@", runID, message, user];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
 - (void) addComment:(NSString*)message forPart:(NSString*)partID from:(NSString*)user withCompletion:(void (^)(BOOL, id))block
 {
     NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=add_part_comments&partno=%@&description=%@&by=%@", partID, message, user];

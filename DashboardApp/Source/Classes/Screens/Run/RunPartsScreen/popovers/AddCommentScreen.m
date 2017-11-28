@@ -41,21 +41,18 @@
     if (_messageTextView.text.length > 0)
     {
         [LoadingView showLoading:@"Loading..."];
-        [[ProdAPI sharedInstance] addComment:_messageTextView.text forPart:_part.part from:@"test@aginova.com" withCompletion:^(BOOL success, id response) {
+        if (_part != nil) {
             
-            if (success)
-            {
-                [LoadingView removeLoading];
-                CommentModel *c = [CommentModel new];
-                c.date = [NSDate date];
-                c.author = @"test@aginova.com";
-                c.message = _messageTextView.text;
-                [_delegate newCommentAdded:c];
-                [self dismissViewControllerAnimated:true completion:false];
-            }
-            else
-                [LoadingView showShortMessage:@"Error, please try again later!"];
-        }];
+            [[ProdAPI sharedInstance] addComment:_messageTextView.text forPart:_part.part from:@"test@aginova.com" withCompletion:^(BOOL success, id response) {
+                [self commentAddingFinishedWith:success];
+            }];
+        } else {
+            
+            NSString *runID = [NSString stringWithFormat:@"%d", (int)_run.runId];
+            [[ProdAPI sharedInstance] addComment:_messageTextView.text forRun:runID from:@"" withCompletion:^(BOOL success, id response) {
+                [self commentAddingFinishedWith:success];
+            }];
+        }
     }
     else
         [LoadingView showShortMessage:@"Please insert a comment"];
@@ -65,7 +62,10 @@
 
 - (void) initLayout
 {
-    self.title = _part.part;
+    if (_part != nil)
+        self.title = _part.part;
+    else
+        self.title = [_run getFullTitle];
     
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
     self.navigationItem.leftBarButtonItem = left;
@@ -87,6 +87,24 @@
     v.layer.shadowColor = [UIColor blackColor].CGColor;
     v.layer.shadowRadius = 2;
     v.layer.shadowOpacity = 0.2;
+}
+
+#pragma mark - Utils
+
+- (void) commentAddingFinishedWith:(BOOL)success {
+    
+    if (success)
+    {
+        [LoadingView removeLoading];
+        CommentModel *c = [CommentModel new];
+        c.date = [NSDate date];
+        c.author = @"test@aginova.com";
+        c.message = _messageTextView.text;
+        [_delegate newCommentAdded:c];
+        [self dismissViewControllerAnimated:true completion:false];
+    }
+    else
+        [LoadingView showShortMessage:@"Error, please try again later!"];
 }
 
 @end

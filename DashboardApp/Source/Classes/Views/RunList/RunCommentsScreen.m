@@ -11,8 +11,9 @@
 #import "CommentModel.h"
 #import "LoadingView.h"
 #import "ProdAPI.h"
+#import "AddCommentScreen.h"
 
-@interface RunCommentsScreen ()
+@interface RunCommentsScreen () <AddCommentProtocol>
 
 @end
 
@@ -34,11 +35,25 @@
 #pragma mark - Actions
 
 - (IBAction) addCommentsButtonTapped {
-    
+ 
+    AddCommentScreen *screen = [[AddCommentScreen alloc] initWithNibName:@"AddCommentScreen" bundle:nil];
+    screen.run = _run;
+    screen.delegate = self;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
+    nav.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:nav animated:true completion:nil];
 }
 
 - (IBAction) cancelButtonTapped {
     [self dismissViewControllerAnimated:true completion:nil];
+}
+
+#pragma mark - AddCommentProtocol
+
+- (void) newCommentAdded:(CommentModel *)comment {
+    
+    [_comments insertObject:comment atIndex:0];
+    [self layoutComments];
 }
 
 #pragma mark - UITableViewDelegate
@@ -74,13 +89,16 @@
 
 - (void) initLayout
 {
-    if ([_run getCategory] == 0)
-        self.title = [NSString stringWithFormat:@"[PCB] %d: %@",[_run getRunId], [_run getProductName]];
-    else
-        self.title = [NSString stringWithFormat:@"[ASSM] %d: %@",[_run getRunId], [_run getProductName]];
+    self.title = [_run getFullTitle];
     
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
     self.navigationItem.leftBarButtonItem = left;
+}
+
+- (void) layoutComments {
+    
+    _noCommentsLabel.alpha = _comments.count == 0;
+    [_tableView reloadData];
 }
 
 #pragma mark - Utils
@@ -101,9 +119,7 @@
                 [_comments sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:false]]];
             }
             
-            [_tableView reloadData];
-            _noCommentsLabel.alpha = _comments.count == 0;
-            
+            [self layoutComments];
         } else {
             _noCommentsLabel.alpha = 1;
             [LoadingView showShortMessage:@"Error, please try again later!"];

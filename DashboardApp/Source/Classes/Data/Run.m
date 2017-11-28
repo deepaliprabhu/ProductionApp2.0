@@ -172,6 +172,13 @@
     return _category;
 }
 
+- (NSString*) getFullTitle {
+    if ([self getCategory] == 0)
+        return [NSString stringWithFormat:@"[PCB] %d: %@",[self getRunId], [self getProductName]];
+    else
+        return [NSString stringWithFormat:@"[ASSM] %d: %@",[self getRunId], [self getProductName]];
+}
+
 - (BOOL)isActivated {
     return self.activated;
 }

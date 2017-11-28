@@ -63,6 +63,7 @@
 - (NSMutableArray*)getRunJobsForType:(int)type;
 - (NSMutableArray*)getRunProcesses;
 - (int)getRunId;
+- (NSString*) getFullTitle;
 - (int)getProductId;
 - (NSString*)getProductNumber;
 - (int)getQuantity;
