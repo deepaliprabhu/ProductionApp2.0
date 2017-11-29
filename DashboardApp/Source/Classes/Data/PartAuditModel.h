@@ -7,14 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ActionModel.h"
 
 @interface PartAuditModel : NSObject
 
-@property (nonatomic, strong) NSArray *s2Actions;
-@property (nonatomic, strong) NSArray *p2Actions;
-@property (nonatomic, strong) NSArray *puneActions;
-@property (nonatomic, strong) NSArray *masonActions;
+@property (nonatomic, strong) NSArray *actions;
 
 + (PartAuditModel*) objFrom:(NSArray*)a;
+
+- (ActionModel*) lastMasonAction;
+- (ActionModel*) lastPuneAction;
 
 @end

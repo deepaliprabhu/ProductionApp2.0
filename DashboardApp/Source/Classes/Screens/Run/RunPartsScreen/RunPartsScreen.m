@@ -28,6 +28,8 @@
 #import "PartDescriptionScreen.h"
 #import "LayoutUtils.h"
 #import "PODateScreen.h"
+#import "StockGraphScreen.h"
+#import "UIView+Screenshot.h"
 
 const CGFloat kMinTableHeight = 119;
 
@@ -171,7 +173,11 @@ const CGFloat kMinTableHeight = 119;
 
 - (IBAction) historyButtonTapped {
     
-    
+    StockGraphScreen *screen = [[StockGraphScreen alloc] init];
+    screen.part = _visiblePart;
+    screen.image = [self.view screenshot];
+    screen.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:screen animated:true completion:nil];
 }
 
 - (IBAction) bomButtonTapped {
@@ -687,7 +693,7 @@ const CGFloat kMinTableHeight = 119;
 
 - (void) layoutAudit
 {
-    ActionModel *a1 = [_visiblePart.audit.masonActions firstObject];
+    ActionModel *a1 = [_visiblePart.audit lastMasonAction];
     if (a1 == nil)
         _masonDateLabel.text = @"";
     else
@@ -696,7 +702,7 @@ const CGFloat kMinTableHeight = 119;
         _masonModeLabel.text = a1.mode;
     }
     
-    ActionModel *a2 = [_visiblePart.audit.puneActions firstObject];
+    ActionModel *a2 = [_visiblePart.audit lastPuneAction];;
     if (a2 == nil)
         _puneDateLabel.text = @"";
     else

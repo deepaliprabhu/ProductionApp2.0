@@ -76,6 +76,6 @@
         </view>
     </objects>
     <resources>
-        <image name="backButtonIcon" width="36" height="10"/>
+        <image name="backButtonIcon" width="21" height="15"/>
     </resources>
 </document>

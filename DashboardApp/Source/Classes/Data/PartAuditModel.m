@@ -7,42 +7,50 @@
 //
 
 #import "PartAuditModel.h"
-#import "ActionModel.h"
 
 @implementation PartAuditModel
 
 + (PartAuditModel*) objFrom:(NSArray*)a
 {
     PartAuditModel *p = [PartAuditModel new];
-    NSMutableArray *s2 = [NSMutableArray array];
-    NSMutableArray *p2 = [NSMutableArray array];
-    NSMutableArray *pune = [NSMutableArray array];
-    NSMutableArray *mason = [NSMutableArray array];
+    NSMutableArray *actions = [NSMutableArray array];
     
     for (NSDictionary *d in a) {
         ActionModel *m = [ActionModel objFrom:d];
-        if ([m.location isEqualToString:@"S2"])
-            [s2 addObject:m];
-        else if ([m.location isEqualToString:@"PUNE"])
-            [pune addObject:m];
-        else if ([m.location isEqualToString:@"MASON"])
-            [mason addObject:m];
-        else if ([m.location isEqualToString:@"P2"])
-            [p2 addObject:m];
+        [actions addObject:m];
     }
     
     NSArray *descriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:false]];
-    [s2 sortUsingDescriptors:descriptors];
-    [p2 sortUsingDescriptors:descriptors];
-    [pune sortUsingDescriptors:descriptors];
-    [mason sortUsingDescriptors:descriptors];
-    
-    p.s2Actions = [NSArray arrayWithArray:s2];
-    p.p2Actions = [NSArray arrayWithArray:s2];
-    p.puneActions = [NSArray arrayWithArray:s2];
-    p.masonActions = [NSArray arrayWithArray:s2];
+    [actions sortUsingDescriptors:descriptors];
+    p.actions = [NSArray arrayWithArray:actions];
     
     return p;
+}
+
+- (ActionModel*) lastMasonAction {
+ 
+    for (int i=0; i<_actions.count; i++) {
+        
+        ActionModel *m = _actions[i];
+        if ([m.location isEqualToString:@"MASON"]) {
+            return m;
+        }
+    }
+    
+    return nil;
+}
+
+- (ActionModel*) lastPuneAction {
+ 
+    for (int i=0; i<_actions.count; i++) {
+        
+        ActionModel *m = _actions[i];
+        if ([m.location isEqualToString:@"PUNE"]) {
+            return m;
+        }
+    }
+    
+    return nil;
 }
 
 @end
