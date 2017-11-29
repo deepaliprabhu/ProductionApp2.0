@@ -14,6 +14,7 @@
     __weak IBOutlet UILabel *_modeLabel;
     __weak IBOutlet UILabel *_newQTYLabel;
     __weak IBOutlet UILabel *_prevQTYLabel;
+    __weak IBOutlet UILabel *_processLabel;
 }
 
 - (void) layoutWith:(ActionModel*)m {
@@ -22,6 +23,7 @@
     _modeLabel.text = m.mode;
     _prevQTYLabel.text = m.prevQTY;
     _newQTYLabel.text = m.qty;
+    _processLabel.text = m.process;
 }
 
 @end

@@ -49,7 +49,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 130;
+    return 160;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -173,16 +173,16 @@
     
     CGFloat h = 0;
     if (_masonArray.count > 0) {
-        h += (20 + _masonArray.count*130);
+        h += (20 + _masonArray.count*160);
     }
     if (_p2Array.count > 0) {
-        h += (20 + _p2Array.count*130);
+        h += (20 + _p2Array.count*160);
     }
     if (_s2Array.count > 0) {
-        h += (20 + _s2Array.count*130);
+        h += (20 + _s2Array.count*160);
     }
     if (_puneArray.count > 0) {
-        h += (20 + _puneArray.count*130);
+        h += (20 + _puneArray.count*160);
     }
     h = MIN(h, 700);
     self.preferredContentSize = CGSizeMake(300, h);

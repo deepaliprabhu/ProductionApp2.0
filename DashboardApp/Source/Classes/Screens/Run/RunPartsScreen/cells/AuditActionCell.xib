@@ -19,11 +19,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AuditActionCell" rowHeight="130" id="KGk-i7-Jjw" customClass="AuditActionCell">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="130"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AuditActionCell" rowHeight="160" id="KGk-i7-Jjw" customClass="AuditActionCell">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="160"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="129.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="159.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ACTION:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CyW-Jr-pna">
@@ -82,8 +82,22 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PROCESS:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kCZ-aj-rOG">
+                        <rect key="frame" x="20" y="127" width="72" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4G-NA-29a">
+                        <rect key="frame" x="96" y="127" width="198" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c0u-on-Ugq">
-                        <rect key="frame" x="0.0" y="129" width="300" height="1"/>
+                        <rect key="frame" x="0.0" y="159" width="300" height="1"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.68708598613739014" green="0.68706536293029785" blue="0.68707704544067383" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -96,6 +110,7 @@
                 <outlet property="_modeLabel" destination="jUn-1p-twy" id="GHJ-wT-o5c"/>
                 <outlet property="_newQTYLabel" destination="urx-UO-ECy" id="J4z-Vt-cw9"/>
                 <outlet property="_prevQTYLabel" destination="aSg-s8-ts3" id="eID-IN-fL8"/>
+                <outlet property="_processLabel" destination="L4G-NA-29a" id="e5B-qU-Gw3"/>
             </connections>
         </tableViewCell>
     </objects>
