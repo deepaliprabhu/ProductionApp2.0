@@ -26,6 +26,7 @@ static NSDateFormatter *_formatter = nil;
     a.location = d[@"LOCATION"];
     a.mode = d[@"MODE"];
     a.qty = d[@"NEWQTY"];
+    a.prevQTY = d[@"PREVQTY"];
     a.process = d[@"PROCESS_REF"];
     
     return a;

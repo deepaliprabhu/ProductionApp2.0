@@ -7,17 +7,26 @@
 //
 
 #import "StockGraphScreen.h"
+#import "GridView.h"
+#import "StockCell.h"
+#import "StockLogScreen.h"
 
-@interface StockGraphScreen ()
+@interface StockGraphScreen () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end
 
 @implementation StockGraphScreen
 {
+    __weak IBOutlet UICollectionView *_collectionView;
     __weak IBOutlet UIImageView *_backgroundImageView;
     __weak IBOutlet UIView *_holderView;
+    __weak IBOutlet UILabel *_totalLabel;
+    __weak IBOutlet UILabel *_totalDateLabel;
+    __weak IBOutlet UILabel *_noHistoryLabel;
     
     NSMutableArray <NSDictionary*> *_days;
+    
+    GridView *_gridView;
 }
 
 - (void) viewDidLoad {
@@ -33,6 +42,35 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+#pragma mark - UICollectionViewDelegate
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return _days.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+ 
+    StockCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"StockCell" forIndexPath:indexPath];
+    [cell layoutWith:_days[indexPath.row]];
+    return cell;
+}
+
+- (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    StockLogScreen *screen = [[StockLogScreen alloc] initWithNibName:@"StockLogScreen" bundle:nil];
+    screen.actions = [[_days[indexPath.row] allValues] firstObject];
+    
+    UICollectionViewLayoutAttributes * theAttributes = [collectionView layoutAttributesForItemAtIndexPath:indexPath];
+    CGRect rect = [collectionView convertRect:theAttributes.frame toView:collectionView.superview.superview];
+    
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:true];
+}
+
 #pragma mark - Layout
 
 - (void) initLayout {
@@ -42,6 +80,11 @@
     _holderView.layer.shadowRadius = 10;
     _holderView.layer.shadowOpacity = 0.3;
     [self addBlur];
+    [self addGrid];
+    
+    [_collectionView registerClass:[StockCell class] forCellWithReuseIdentifier:@"StockCell"];
+    UINib *cellNib = [UINib nibWithNibName:@"StockCell" bundle:nil];
+    [_collectionView registerNib:cellNib forCellWithReuseIdentifier:@"StockCell"];
 }
 
 - (void) addBlur {
@@ -55,6 +98,13 @@
     _backgroundImageView.alpha = 0.9;
     
     [_backgroundImageView addSubview:v];
+}
+
+- (void) addGrid {
+ 
+    _gridView = [GridView createView];
+    _gridView.frame = CGRectMake(0, 141, 644, 330);
+    [_holderView insertSubview:_gridView belowSubview:_collectionView];
 }
 
 #pragma mark - Utils
@@ -84,6 +134,20 @@
     [_days sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [[[obj1 allKeys] firstObject] compare:[[obj2 allKeys] firstObject]];
     }];
+    
+    _noHistoryLabel.alpha = _days.count == 0;
+    [_collectionView reloadData];
+    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_days.count-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionRight animated:false];
+    
+    [self fillContent];
+}
+
+- (void) fillContent {
+    
+    NSDateFormatter *f = [NSDateFormatter new];
+    f.dateFormat = @"dd MMM yyyy";
+    NSDate *d = [[_days.lastObject allKeys] firstObject];
+    _totalDateLabel.text = [f stringFromDate:d];
 }
 
 @end

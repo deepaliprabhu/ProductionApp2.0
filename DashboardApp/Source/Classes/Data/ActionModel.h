@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *location;
 @property (nonatomic, strong) NSString *mode;
 @property (nonatomic, strong) NSString *qty;
+@property (nonatomic, strong) NSString *prevQTY;
 @property (nonatomic, strong) NSString *process;
 
 + (ActionModel*) objFrom:(NSDictionary*)d;
