@@ -69,7 +69,7 @@
         _quantityLabel.textColor = ccolor(67, 194, 81);
     
     _quantityLabel.text = [NSString stringWithFormat:@"%d", m.shortQty];
-    _stockLabel.text = [NSString stringWithFormat:@"%d", [m totalStock]];
+    [self layoutStockForPart:m];
     
     if (m.priceHistory == nil)
     {
@@ -86,21 +86,10 @@
         [_priceSpinner stopAnimating];
     }
     
-    [self layoutWithColor:c];
-}
-
-- (void) layoutWithColor:(UIColor*)c {
-    
-//    _nameLabel.textColor = c;
-//    _priceLabel.textColor = c;
-//    _stockLabel.textColor = c;
     _vendorLabel.textColor = c;
-//    _quantityLabel.textColor = c;
 }
 
 - (void) layoutWithPart:(PartModel*)m {
-    
-    UIColor *c = ccolor(119, 119, 119);
     
     _separatorView.alpha = (m.alternateParts.count > 0);
     _nameLabel.text = m.part;
@@ -115,13 +104,17 @@
         _quantityLabel.text = m.qty;
     
     _quantityLabel.textColor = ccolor(119, 119, 119);
-    _stockLabel.text = [NSString stringWithFormat:@"%d", [m totalStock]];
     if (m.pricePerUnit != nil)
         _priceLabel.text = [NSString stringWithFormat:@"%@$", m.pricePerUnit];
     else
         _priceLabel.text = @"-$";
     
-    [self layoutWithColor:c];
+    _vendorLabel.textColor = ccolor(119, 119, 119);
+    [self layoutStockForPart:m];
+}
+
+- (void) layoutStockForPart:(PartModel*)m {
+    _stockLabel.text = [NSString stringWithFormat:@"%d", [m totalStock]];
 }
 
 @end

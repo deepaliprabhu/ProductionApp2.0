@@ -224,8 +224,9 @@ const CGFloat kMinTableHeight = 119;
 
 - (void) updatePartHistory
 {
-//    if (_partsAreSelected == false)
-        [_componentsTable reloadData];
+    [_componentsTable reloadData];
+    if (_partsAreSelected == false)
+        [self layoutNumberOfPOs];
 }
 
 - (IBAction) partTitleButtonTapped
@@ -584,9 +585,9 @@ const CGFloat kMinTableHeight = 119;
         _partTitleLineWidthConstraint.constant = w;
         
         _stockLabel.text = [NSString stringWithFormat:@"%d", [part totalStock]];
+        
         _masonDateLabel.text = @"";
         _masonModeLabel.text = @"";
-        _masonStockLabel.text = part.mason;
         _transitDateLabel.text = [_formatter stringFromDate:part.transitDate];
         
         if (part.transit.length > 0)
@@ -599,7 +600,14 @@ const CGFloat kMinTableHeight = 119;
     
         _puneDateLabel.text = @"";
         _puneModeLabel.text = @"";
-        _puneStockLabel.text = [NSString stringWithFormat:@"%d", [part totalPune]];
+        
+        if (part.isAlternate) {
+            if (part.audit != nil)
+                [self layoutAudit];
+        } else {
+            _masonStockLabel.text = part.mason;
+            _puneStockLabel.text = [NSString stringWithFormat:@"%d", [part totalPune]];
+        }
         
         if (part.transit.length > 0)
             _transitIDLabel.text = [NSString stringWithFormat:@"ID %@", part.transferID];
@@ -650,6 +658,11 @@ const CGFloat kMinTableHeight = 119;
     for (PartModel *p in _shorts) {
         if (p.po != nil)
             c++;
+        
+        for (PartModel *a in p.alternateParts) {
+            if (a.po != nil)
+                c++;
+        }
     }
     
     _vendorLabel.text = [NSString stringWithFormat:@"OPEN PO(%d)", c];
@@ -700,6 +713,9 @@ const CGFloat kMinTableHeight = 119;
     {
         _masonDateLabel.text = [_formatter stringFromDate:a1.date];
         _masonModeLabel.text = a1.mode;
+        
+        if (_visiblePart.isAlternate)
+            _masonStockLabel.text = a1.qty;
     }
     
     ActionModel *a2 = [_visiblePart.audit lastPuneAction];;
@@ -709,6 +725,9 @@ const CGFloat kMinTableHeight = 119;
     {
         _puneDateLabel.text = [_formatter stringFromDate:a2.date];
         _puneModeLabel.text = a2.mode;
+        
+        if (_visiblePart.isAlternate)
+            _puneStockLabel.text = a2.qty;
     }
 }
 
@@ -749,6 +768,7 @@ const CGFloat kMinTableHeight = 119;
             }
             [self layoutTitle];
             [self getHistoryForAlternateParts];
+            [self getAuditForAlternateParts];
             
             NSString *title = [NSString stringWithFormat:@"Parts (%lu)", (unsigned long)_parts.count];
             [_partsButton setTitle:title forState:UIControlStateNormal];
@@ -921,6 +941,25 @@ const CGFloat kMinTableHeight = 119;
         for (PartModel *a in s.alternateParts) {
             if (a.priceHistory == nil)
                 [a getHistory];
+        }
+    }
+}
+
+- (void) getAuditForAlternateParts {
+    
+    for (PartModel *s in _parts) {
+        for (PartModel *a in s.alternateParts) {
+            if (a.audit == nil)
+            {
+                [[ProdAPI sharedInstance] getAuditHistoryFor:a.part withCompletion:^(BOOL success, id response) {
+                    
+                    if (success) {
+                        a.audit = [PartAuditModel objFrom:response];
+                        [a.audit computeData];
+                        [_componentsTable reloadData];
+                    }
+                }];
+            }
         }
     }
 }

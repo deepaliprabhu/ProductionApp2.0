@@ -70,6 +70,7 @@ static NSDateFormatter *_formatter = nil;
         NSMutableArray *parts = [NSMutableArray array];
         for (NSString *str in comps) {
             PartModel *p = [PartModel new];
+            p.isAlternate = true;
             p.part = str;
             [parts addObject:p];
         }
@@ -99,10 +100,6 @@ static NSDateFormatter *_formatter = nil;
 - (int) totalStock {
     
     int m = [_mason intValue];
-//    if (_recoMason.length > 0) {
-//        m = [_recoMason intValue];
-//    }
-    
     int total = m + [self totalPune] + [_transit intValue] + [_lausanne intValue];
     return total;
 }
@@ -150,6 +147,7 @@ static NSDateFormatter *_formatter = nil;
                     [arr addObject:[PurchaseModel objFrom:d]];
                 }
                 [arr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"createdDate" ascending:false]]];
+                _po = @"";
             }
             _purchases = [NSArray arrayWithArray:arr];
         }

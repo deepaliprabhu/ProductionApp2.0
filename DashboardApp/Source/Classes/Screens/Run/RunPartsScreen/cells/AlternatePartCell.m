@@ -27,7 +27,7 @@
     _nameLabel.text = [NSString stringWithFormat:@"%@", part.part];
     _vendorLabel.text = @"-";
     _quantityLabel.text = @"-";
-    _stockLabel.text = @"-";
+    [self layoutStockForPart:part];
     [self layoutPriceForPart:part];
     
     _bottomConstraintSeparatorView.constant = last?8:0;
@@ -38,7 +38,7 @@
 {
     _nameLabel.text = [NSString stringWithFormat:@"%@", part.part];
     _quantityLabel.text = @"-";
-    _stockLabel.text = @"-";
+    [self layoutStockForPart:part];
     [self layoutPriceForPart:part];
     [self layoutPOForPart:part];
     
@@ -85,6 +85,17 @@
     }
     _vendorLabel.textColor = c;
 }
+
+- (void) layoutStockForPart:(PartModel*)m {
+    
+    if (m.audit != nil) {
+        NSDictionary *lastDay = [m.audit.days lastObject];
+        _stockLabel.text = [NSString stringWithFormat: @"%d", [lastDay[@"mason"] intValue] + [lastDay[@"pune"] intValue]];
+    } else {
+        _stockLabel.text = @"-";
+    }
+}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     

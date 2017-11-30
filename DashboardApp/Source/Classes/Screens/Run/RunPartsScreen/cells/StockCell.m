@@ -62,26 +62,43 @@ static NSDateFormatter *_formatter = nil;
         edge = 1;
     else if (edge == 10)
         edge = 9;
-    float posOffset = curPos/current * h;
+    float posOffset = 0;
+    if (current != 0)
+        posOffset = curPos/current * h;
     float top = 330-edge*33.0 - posOffset;
     _barTopConstraint.constant = top;
     
-    _masonheightConstraint.constant = (float)mason/current * h;
+    if (current != 0)
+        _masonheightConstraint.constant = (float)mason/current * h;
+    else
+        _masonheightConstraint.constant = 0;
     if (_masonheightConstraint.constant < 30)
         _masonLabel.text = @"";
     else
         _masonLabel.text = [NSString stringWithFormat:@"%d", mason];
-    _puneHeightConstraint.constant = (float)pune/current * h;
+    
+    if (current != 0)
+        _puneHeightConstraint.constant = (float)pune/current * h;
+    else
+        _puneHeightConstraint.constant = 0;
     if (_puneHeightConstraint.constant < 30)
         _puneLabel.text = @"";
     else
         _puneLabel.text = [NSString stringWithFormat:@"%d", pune];
-    _recoHeightConstraint.constant = (float)reco/current * h;
+    
+    if (current != 0)
+        _recoHeightConstraint.constant = (float)reco/current * h;
+    else
+        _recoHeightConstraint.constant = 0;
     if (_recoHeightConstraint.constant < 30)
         _recoLabel.text = @"";
     else
         _recoLabel.text = [NSString stringWithFormat:@"%d", reco];
-    _runHeightConstraint.constant = (float)run/current * h;
+    
+    if (current != 0)
+        _runHeightConstraint.constant = (float)run/current * h;
+    else
+        _runHeightConstraint.constant = 0;
     if (_runHeightConstraint.constant < 30)
         _runLabel.text = @"";
     else
