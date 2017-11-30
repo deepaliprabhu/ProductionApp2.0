@@ -768,7 +768,7 @@ const CGFloat kMinTableHeight = 119;
             }
             [self layoutTitle];
             [self getHistoryForAlternateParts];
-            [self getAuditForAlternateParts];
+            [self getAuditForAlternate:_parts];
             
             NSString *title = [NSString stringWithFormat:@"Parts (%lu)", (unsigned long)_parts.count];
             [_partsButton setTitle:title forState:UIControlStateNormal];
@@ -805,6 +805,7 @@ const CGFloat kMinTableHeight = 119;
                 [_shorts addObject:s];
             }
             
+            [self getAuditForAlternate:_shorts];
             [self getHistoryForShorts];
             [self getPurchaseForShorts];
             [self layoutNumberOfPOs];
@@ -945,9 +946,9 @@ const CGFloat kMinTableHeight = 119;
     }
 }
 
-- (void) getAuditForAlternateParts {
+- (void) getAuditForAlternate:(NSArray*)parts {
     
-    for (PartModel *s in _parts) {
+    for (PartModel *s in parts) {
         for (PartModel *a in s.alternateParts) {
             if (a.audit == nil)
             {
