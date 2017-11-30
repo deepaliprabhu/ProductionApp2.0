@@ -22,9 +22,12 @@
     __weak IBOutlet UIView *_holderView;
     __weak IBOutlet UILabel *_totalLabel;
     __weak IBOutlet UILabel *_totalDateLabel;
+    __weak IBOutlet UILabel *_puneLabel;
+    __weak IBOutlet UILabel *_masonLabel;
+    __weak IBOutlet UILabel *_reconcileLabel;
+    __weak IBOutlet UILabel *_runLabel;
+    __weak IBOutlet UILabel *_transitLabel;
     __weak IBOutlet UILabel *_noHistoryLabel;
-    
-    NSMutableArray <NSDictionary*> *_days;
     
     GridView *_gridView;
 }
@@ -49,20 +52,20 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _days.count;
+    return _part.audit.days.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
  
     StockCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"StockCell" forIndexPath:indexPath];
-    [cell layoutWith:_days[indexPath.row]];
+    [cell layoutWith:_part.audit.days[indexPath.row] maxPos:_part.audit.maxPositive maxNeg:_part.audit.maxNegative];
     return cell;
 }
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     StockLogScreen *screen = [[StockLogScreen alloc] initWithNibName:@"StockLogScreen" bundle:nil];
-    screen.actions = [[_days[indexPath.row] allValues] firstObject];
+    screen.actions = _part.audit.days[indexPath.row][@"actions"];
     
     UICollectionViewLayoutAttributes * theAttributes = [collectionView layoutAttributesForItemAtIndexPath:indexPath];
     CGRect rect = [collectionView convertRect:theAttributes.frame toView:collectionView.superview.superview];
@@ -111,33 +114,11 @@
 
 - (void) computeData {
     
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    for (ActionModel *a in _part.audit.actions) {
-        
-        if (dict[a.date] == nil) {
-            [dict setObject:@[a] forKey:a.date];
-        } else {
-            
-            NSMutableArray *arr = [NSMutableArray arrayWithArray:dict[a.date]];
-            [arr addObject:a];
-            [dict setObject:arr forKey:a.date];
-        }
-    }
+    [_part.audit computeData];
     
-    _days = [NSMutableArray array];
-    [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-       
-        NSDictionary *dict = [NSDictionary dictionaryWithObject:obj forKey:key];
-        [_days addObject:dict];
-    }];
-    
-    [_days sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [[[obj1 allKeys] firstObject] compare:[[obj2 allKeys] firstObject]];
-    }];
-    
-    _noHistoryLabel.alpha = _days.count == 0;
+    _noHistoryLabel.alpha = _part.audit.days.count == 0;
     [_collectionView reloadData];
-    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_days.count-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionRight animated:false];
+    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_part.audit.days.count-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionRight animated:false];
     
     [self fillContent];
 }
@@ -146,8 +127,18 @@
     
     NSDateFormatter *f = [NSDateFormatter new];
     f.dateFormat = @"dd MMM yyyy";
-    NSDate *d = [[_days.lastObject allKeys] firstObject];
+    
+    NSDictionary *lastDay = [_part.audit.days lastObject];
+    NSDate *d = lastDay[@"date"];
     _totalDateLabel.text = [f stringFromDate:d];
+    
+    _totalLabel.text = [NSString stringWithFormat: @"%d", [lastDay[@"mason"] intValue] + [lastDay[@"pune"] intValue]];
+    _puneLabel.text = [NSString stringWithFormat: @"%d", [lastDay[@"pune"] intValue]];
+    _masonLabel.text = [NSString stringWithFormat: @"%d", [lastDay[@"mason"] intValue]];
+    _runLabel.text = [NSString stringWithFormat: @"%d", [lastDay[@"run"] intValue]];
+    _reconcileLabel.text = [NSString stringWithFormat: @"%d", [lastDay[@"reco"] intValue]];
+    
+    [_gridView layoutWithMax:_part.audit.maxPositive min:_part.audit.maxNegative];
 }
 
 @end

@@ -17,4 +17,32 @@
     return view;
 }
 
+- (void) layoutWithMax:(int)max min:(int)min {
+    
+    float total = (float)(max+min)*1.1;
+    int edge = (int)(ceilf(((float)min/total)*10));
+    if (edge == 0)
+        edge = 1;
+    else if (edge == 10)
+        edge = 9;
+    
+    UIView *view = [self viewWithTag:edge + 100];
+    view.backgroundColor = [UIColor blackColor];
+    
+    UILabel *label = (UILabel*)[self viewWithTag:edge + 200];
+    label.text = @"0";
+    
+    int offset = (int)(0.1*total);
+    offset = offset - offset%10;
+    for (int i=0; i<=10; i++) {
+    
+        UILabel *label = (UILabel*)[self viewWithTag:i + 200];
+        if (i < edge) {
+            label.text = [NSString stringWithFormat:@"-%d", (edge-i)*offset];
+        } else if (i > edge) {
+            label.text = [NSString stringWithFormat:@"%d", (i-edge)*offset];
+        }
+    }
+}
+
 @end

@@ -13,6 +13,19 @@ static NSDateFormatter *_formatter = nil;
 @implementation StockCell
 {
     __weak IBOutlet UILabel *_dateLabel;
+    __weak IBOutlet UILabel *_totalLabel;
+    __weak IBOutlet NSLayoutConstraint *_barHeightConstraint;
+    __weak IBOutlet NSLayoutConstraint *_barTopConstraint;
+    
+    __weak IBOutlet UILabel *_masonLabel;
+    __weak IBOutlet UILabel *_puneLabel;
+    __weak IBOutlet UILabel *_recoLabel;
+    __weak IBOutlet UILabel *_runLabel;
+    
+    __weak IBOutlet NSLayoutConstraint *_masonheightConstraint;
+    __weak IBOutlet NSLayoutConstraint *_puneHeightConstraint;
+    __weak IBOutlet NSLayoutConstraint *_recoHeightConstraint;
+    __weak IBOutlet NSLayoutConstraint *_runHeightConstraint;
 }
 
 - (void)awakeFromNib {
@@ -25,10 +38,56 @@ static NSDateFormatter *_formatter = nil;
     });
 }
 
-- (void) layoutWith:(NSDictionary*)data {
+- (void) layoutWith:(NSDictionary*)data maxPos:(int)pos maxNeg:(int)neg {
  
-    NSDate *d = [[data allKeys] firstObject];;
+    NSDate *d = data[@"date"];
     _dateLabel.text = [_formatter stringFromDate:d];
+    
+    float total = (float)(pos+neg)*1.1;
+    int pune = [data[@"pune"] intValue];
+    int mason = [data[@"mason"] intValue];
+    int reco = [data[@"reco"] intValue];
+    int run = [data[@"run"] intValue];
+    
+    float curPos = pune + mason;
+    _totalLabel.text = [NSString stringWithFormat:@"%d", (int)curPos];
+    float curNeg = run + reco;
+    float current = curPos + curNeg;
+    
+    float h = (current*330)/total;
+    _barHeightConstraint.constant = h;
+    
+    int edge = (int)(ceilf(((float)neg/total)*10));
+    if (edge == 0)
+        edge = 1;
+    else if (edge == 10)
+        edge = 9;
+    float posOffset = curPos/current * h;
+    float top = 330-edge*33.0 - posOffset;
+    _barTopConstraint.constant = top;
+    
+    _masonheightConstraint.constant = (float)mason/current * h;
+    if (_masonheightConstraint.constant < 30)
+        _masonLabel.text = @"";
+    else
+        _masonLabel.text = [NSString stringWithFormat:@"%d", mason];
+    _puneHeightConstraint.constant = (float)pune/current * h;
+    if (_puneHeightConstraint.constant < 30)
+        _puneLabel.text = @"";
+    else
+        _puneLabel.text = [NSString stringWithFormat:@"%d", pune];
+    _recoHeightConstraint.constant = (float)reco/current * h;
+    if (_recoHeightConstraint.constant < 30)
+        _recoLabel.text = @"";
+    else
+        _recoLabel.text = [NSString stringWithFormat:@"%d", reco];
+    _runHeightConstraint.constant = (float)run/current * h;
+    if (_runHeightConstraint.constant < 30)
+        _runLabel.text = @"";
+    else
+        _runLabel.text = [NSString stringWithFormat:@"%d", run];
+    
+    [self layoutIfNeeded];
 }
 
 @end

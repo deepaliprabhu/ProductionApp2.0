@@ -22,9 +22,14 @@
                 <outlet property="_backgroundImageView" destination="g3J-oy-tfa" id="uOy-ms-vy8"/>
                 <outlet property="_collectionView" destination="pXB-bz-sJY" id="Ptf-nk-UqT"/>
                 <outlet property="_holderView" destination="Qq7-tz-aeC" id="7GJ-vd-ZJm"/>
+                <outlet property="_masonLabel" destination="qBq-wm-GVo" id="WMD-XV-jZl"/>
                 <outlet property="_noHistoryLabel" destination="FU4-T9-aLF" id="FTB-zW-EaB"/>
+                <outlet property="_puneLabel" destination="J7e-b4-Pqx" id="c5P-nl-ca6"/>
+                <outlet property="_reconcileLabel" destination="NR5-h0-KFW" id="BSR-99-Hqy"/>
+                <outlet property="_runLabel" destination="bJs-A6-rO3" id="PMA-rh-bMW"/>
                 <outlet property="_totalDateLabel" destination="J3Y-xa-iOC" id="zqZ-88-YbW"/>
                 <outlet property="_totalLabel" destination="jrL-e5-QQ5" id="ZKF-kF-rWo"/>
+                <outlet property="_transitLabel" destination="3b6-zh-dJB" id="fIf-aV-UqL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

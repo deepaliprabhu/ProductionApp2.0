@@ -12,10 +12,15 @@
 @interface PartAuditModel : NSObject
 
 @property (nonatomic, strong) NSArray *actions;
+@property (nonatomic, strong) NSArray *days;
+@property (nonatomic, unsafe_unretained) int maxNegative;
+@property (nonatomic, unsafe_unretained) int maxPositive;
 
 + (PartAuditModel*) objFrom:(NSArray*)a;
 
 - (ActionModel*) lastMasonAction;
 - (ActionModel*) lastPuneAction;
+
+- (void) computeData;
 
 @end

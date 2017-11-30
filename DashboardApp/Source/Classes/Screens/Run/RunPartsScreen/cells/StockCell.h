@@ -10,6 +10,6 @@
 
 @interface StockCell : UICollectionViewCell
 
-- (void) layoutWith:(NSDictionary*)data;
+- (void) layoutWith:(NSDictionary*)data maxPos:(int)pos maxNeg:(int)neg;
 
 @end

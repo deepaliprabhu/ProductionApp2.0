@@ -11,5 +11,6 @@
 @interface GridView : UIView
 
 + (GridView*) createView;
+- (void) layoutWithMax:(int)max min:(int)min;
 
 @end
