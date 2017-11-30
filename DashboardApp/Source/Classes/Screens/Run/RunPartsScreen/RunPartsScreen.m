@@ -503,8 +503,22 @@ const CGFloat kMinTableHeight = 119;
 
 #pragma mark - PoDateScreenProtocol
 
-- (void) expectedDateChanged {
+- (void) expectedDateChangedForPO:(NSString*)po {
+    
     [_purchasesTableView reloadData];
+
+    NSString *message = [NSString stringWithFormat:@"changed expected date for PO %@", po];
+    [[ProdAPI sharedInstance] addComment:message forPart:_visiblePart.part from:@"test@aginova.com" withCompletion:^(BOOL success, id response) {
+        
+        if (success)
+        {
+            CommentModel *c = [CommentModel new];
+            c.date = [NSDate date];
+            c.author = @"test@aginova.com";
+            c.message = message;
+            [self newCommentAdded:c];
+        }
+    }];
 }
 
 #pragma mark - Layout

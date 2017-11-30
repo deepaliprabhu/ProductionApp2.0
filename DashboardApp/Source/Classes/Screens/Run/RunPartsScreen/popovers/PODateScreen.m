@@ -53,7 +53,7 @@
                 if (success) {
                     [LoadingView removeLoading];
                     _purchase.expectedDate = date;
-                    [_delegate expectedDateChanged];
+                    [_delegate expectedDateChangedForPO:_purchase.poID];
                     [self dismissViewControllerAnimated:true completion:nil];
                 } else {
                     [LoadingView showShortMessage:@"Error, please try again later!"];

@@ -20,6 +20,6 @@
 
 @protocol PODateScreenDelegate <NSObject>
 
-- (void) expectedDateChanged;
+- (void) expectedDateChangedForPO:(NSString*)po;
 
 @end
