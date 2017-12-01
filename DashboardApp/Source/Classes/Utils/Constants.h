@@ -8,6 +8,7 @@
 /////////////////////////////// user defaults ///////////////////////////////
 
 #define kNotificationRunsReceived          @"RUNSRECEIVED"
+#define kNotificationNewRunOrder           @"NEWRUNORDER"
 #define kNotificationRmasReceived          @"RMASRECEIVED"
 #define kNotificationDemandsReceived       @"DEMANDSSRECEIVED"
 #define kNotificationFeedbacksReceived     @"FEEDBACKSRECEIVED"

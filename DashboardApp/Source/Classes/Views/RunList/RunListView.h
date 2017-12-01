@@ -14,6 +14,7 @@
 
 @protocol RunListViewDelegate;
 @interface RunListView : UIView<UITableViewDelegate, UITableViewDataSource, RunListViewCellProtocol> {
+    
     IBOutlet UIButton *_pcbButton;
     IBOutlet UIButton *_assmButton;
     IBOutlet UIButton *_devButton;
@@ -21,18 +22,16 @@
     IBOutlet RunListTableView *_tableView;
     IBOutlet UIImageView *_downImageView;
     IBOutlet UIView *_dragView;
-    
-    NSMutableArray *runsArray;
-    NSMutableArray *filteredRunsArray;
-    NSMutableArray *colorsArray;
 }
+
 __pd(RunListViewDelegate);
 __CREATEVIEWH(RunListView);
-- (void)initView;
+
 - (void)setRunList:(NSMutableArray*)runList;
 - (Run*)getRunAtLocation:(CGPoint)location;
 - (UITableView*)getTableView;
 - (UIView*)getDragView;
+
 @end
 
 @protocol RunListViewDelegate <NSObject>
@@ -41,4 +40,5 @@ __CREATEVIEWH(RunListView);
 - (void) runSelectedAtIndex:(int)runId;
 - (void) selectedRunType:(int)runType;
 - (void) closeSelected;
+
 @end

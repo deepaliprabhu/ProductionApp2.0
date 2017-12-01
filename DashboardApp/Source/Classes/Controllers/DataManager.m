@@ -61,8 +61,14 @@ static DataManager *_sharedInstance = nil;
 }
 
 - (void)setRunsList:(NSMutableArray*)runsArray_ {
+    
     runsArray = runsArray_;
+    [self reorderRuns];
     __notifyObj(kNotificationRunsReceived, nil);
+}
+
+- (void) reorderRuns {
+    [runsArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"order" ascending:true]]];
 }
 
 - (void)setJobsList:(NSMutableArray*)jobsArray forRunId:(int)runId {

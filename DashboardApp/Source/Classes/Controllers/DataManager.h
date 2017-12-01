@@ -34,9 +34,13 @@
     NSMutableArray *productsArray;
 }
 
-+ (id) sharedInstance;
 __pds(DataManagerProtocol);
-- (void)setRunsList:(NSMutableArray*)runsArray;
+
++ (id) sharedInstance;
+
+- (void) reorderRuns;
+- (void) setRunsList:(NSMutableArray*)runsArray;
+
 - (void)setProcessList:(NSMutableArray*)processesArray forRunId:(int)runId;
 - (void)setWorkInstructions:(NSMutableArray*)instructions forProcessId:(NSString*)processId;
 - (void)setRMAList:(NSMutableArray*)rmaArray_;

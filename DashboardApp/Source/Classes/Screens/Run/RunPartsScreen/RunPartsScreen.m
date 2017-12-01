@@ -30,6 +30,7 @@
 #import "PODateScreen.h"
 #import "StockGraphScreen.h"
 #import "UIView+Screenshot.h"
+#import "Constants.h"
 
 const CGFloat kMinTableHeight = 119;
 
@@ -977,10 +978,11 @@ const CGFloat kMinTableHeight = 119;
 - (void) changeOrderFrom:(int)from to:(int)to {
     
     Run *r = _priorityRuns[from];
-    [_priorityRuns insertObject:r atIndex:to];
     if (from < to) {
+        [_priorityRuns insertObject:r atIndex:to+1];
         [_priorityRuns removeObjectAtIndex:from];
     } else {
+        [_priorityRuns insertObject:r atIndex:to];
         [_priorityRuns removeObjectAtIndex:from+1];
     }
     
@@ -1003,6 +1005,8 @@ const CGFloat kMinTableHeight = 119;
             if (_currentPriorityRequest == _numberOfPriorityRequests) {
                 [LoadingView removeLoading];
                 [_runsTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+                [[DataManager sharedInstance] reorderRuns];
+                __notifyObj(kNotificationNewRunOrder, nil);
             }
         }];
     }

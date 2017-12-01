@@ -57,7 +57,6 @@
     
     runListView = [RunListView createView];
     runListView.frame = CGRectMake(0, 0, _overviewView.frame.size.width, _overviewView.frame.size.height);
-    [runListView initView];
     runListView.delegate = self;
     [_overviewView addSubview:runListView];
     runListView.hidden = true;
