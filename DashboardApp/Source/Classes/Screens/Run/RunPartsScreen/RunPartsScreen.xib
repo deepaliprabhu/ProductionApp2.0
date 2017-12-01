@@ -22,6 +22,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RunPartsScreen">
             <connections>
+                <outlet property="_alShortButton" destination="vZe-xj-9hw" id="o0L-RJ-yPG"/>
                 <outlet property="_bomLabel" destination="DNb-5M-Ebe" id="GJC-Kf-Vfj"/>
                 <outlet property="_bomView" destination="dHN-1c-w3Q" id="hsN-Iw-aNx"/>
                 <outlet property="_bomWidthConstraint" destination="trZ-cX-HMj" id="bau-rE-HL0"/>
@@ -285,14 +286,34 @@
                                 <action selector="shortButtonTapped" destination="-1" eventType="touchUpInside" id="Ijc-gI-e81"/>
                             </connections>
                         </button>
+                        <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZe-xj-9hw">
+                            <rect key="frame" x="184" y="0.0" width="122" height="35"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="122" id="FKW-jU-fIi"/>
+                                <constraint firstAttribute="height" constant="35" id="pH4-uY-6UK"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
+                            <state key="normal" title="Alc. Shorts">
+                                <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="highlighted">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="alShortButtonTapped" destination="-1" eventType="touchUpInside" id="cSm-Fc-mKQ"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="360" id="2y6-tk-3gR"/>
+                        <constraint firstItem="vZe-xj-9hw" firstAttribute="top" secondItem="WMi-Tj-HQM" secondAttribute="top" id="4eS-SK-iex"/>
                         <constraint firstItem="oIQ-LA-ETr" firstAttribute="top" secondItem="vTq-No-RFn" secondAttribute="bottom" id="8hY-Yr-kHe"/>
                         <constraint firstAttribute="bottom" secondItem="oIQ-LA-ETr" secondAttribute="bottom" id="NRq-nl-BpI"/>
                         <constraint firstItem="Pk1-2k-SfJ" firstAttribute="top" secondItem="WMi-Tj-HQM" secondAttribute="top" id="Plt-4N-oon"/>
                         <constraint firstItem="oIQ-LA-ETr" firstAttribute="leading" secondItem="WMi-Tj-HQM" secondAttribute="leading" id="bzz-78-zJN"/>
+                        <constraint firstItem="vZe-xj-9hw" firstAttribute="leading" secondItem="Pk1-2k-SfJ" secondAttribute="trailing" id="dep-2X-55a"/>
                         <constraint firstItem="vTq-No-RFn" firstAttribute="leading" secondItem="WMi-Tj-HQM" secondAttribute="leading" id="fb1-z3-nlX"/>
                         <constraint firstAttribute="trailing" secondItem="oIQ-LA-ETr" secondAttribute="trailing" id="imr-Ka-yms"/>
                         <constraint firstItem="vTq-No-RFn" firstAttribute="top" secondItem="WMi-Tj-HQM" secondAttribute="top" id="mcd-wu-OtH"/>
@@ -939,7 +960,7 @@
         </view>
     </objects>
     <resources>
-        <image name="backButtonIcon" width="21" height="15"/>
+        <image name="backButtonIcon" width="36" height="10"/>
         <image name="dropdownBomIcon" width="15" height="7"/>
         <image name="dropdownPriceIcon" width="15" height="7"/>
         <image name="searchPartsIcon" width="14" height="15"/>

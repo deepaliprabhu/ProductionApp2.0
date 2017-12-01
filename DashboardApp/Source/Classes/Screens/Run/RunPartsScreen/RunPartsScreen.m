@@ -34,6 +34,13 @@
 
 const CGFloat kMinTableHeight = 119;
 
+typedef enum
+{
+    PartsComps = 0,
+    ShortsComps,
+    AlShortsComps
+} SelectedComps;
+
 @interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, AddCommentProtocol, PurchaseCellProtocol, PODateScreenDelegate>
 
 @end
@@ -55,6 +62,7 @@ const CGFloat kMinTableHeight = 119;
     __unsafe_unretained IBOutlet UIView *_partsHolderView;
     __unsafe_unretained IBOutlet UIButton *_partsButton;
     __unsafe_unretained IBOutlet UIButton *_shortButton;
+    __unsafe_unretained IBOutlet UIButton *_alShortButton;
     __unsafe_unretained IBOutlet UITableView *_componentsTable;
     __unsafe_unretained IBOutlet UITextField *_searchTextField;
 
@@ -93,14 +101,14 @@ const CGFloat kMinTableHeight = 119;
     
     NSMutableArray *_visibleObjs;
     NSMutableArray *_shorts;
+    NSMutableArray *_alShorts;
     NSMutableArray *_parts;
     NSMutableArray *_comments;
-    NSMutableArray *_runs;
     NSMutableArray *_priorityRuns;
     
     NSDateFormatter *_formatter;
     
-    BOOL _partsAreSelected;
+    SelectedComps _selectedComps;
     BOOL _prioritiesAreSelected;
     
     CGFloat _cost;
@@ -115,6 +123,7 @@ const CGFloat kMinTableHeight = 119;
 
     [super viewDidLoad];
     
+    _selectedComps = PartsComps;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePartHistory) name:@"UPDATEPARTHISTORY" object:nil];
     
     _formatter = [NSDateFormatter new];
@@ -123,12 +132,10 @@ const CGFloat kMinTableHeight = 119;
     _cost = -1;
     [self initLayout];
     
-    _runs = [NSMutableArray array];
     _visibleObjs = [NSMutableArray array];
     _priorityRuns = [NSMutableArray array];
     _comments = [NSMutableArray array];
     [self filterPriorityRuns];
-    _partsAreSelected = true;
     [self layoutButtons];
     [self getParts];
 }
@@ -157,7 +164,7 @@ const CGFloat kMinTableHeight = 119;
     [self layoutWith:nil];
     
     _searchTextField.text = @"";
-    _partsAreSelected = true;
+    _selectedComps = PartsComps;
     _vendorLabel.text = @"VENDOR";
     [self layoutButtons];
     [self getParts];
@@ -168,11 +175,21 @@ const CGFloat kMinTableHeight = 119;
     [self layoutWith:nil];
     
     _searchTextField.text = @"";
-    _partsAreSelected = false;
+    _selectedComps = ShortsComps;
     _vendorLabel.text = @"OPEN PO";
-    [self layoutNumberOfPOs];
+    [self layoutNumberOfPOsFor:_shorts];
     [self layoutButtons];
     [self getShorts];
+}
+
+- (IBAction) alShortButtonTapped {
+    
+    _searchTextField.text = @"";
+    _selectedComps = AlShortsComps;
+    _vendorLabel.text = @"OPEN PO";
+    [self layoutNumberOfPOsFor:_alShorts];
+    [self layoutButtons];
+    [self getAlShorts];
 }
 
 - (IBAction) historyButtonTapped {
@@ -198,7 +215,7 @@ const CGFloat kMinTableHeight = 119;
     _prioritiesHeaderView.alpha = 0;
     _runsTableView.editing = false;
     
-    [self layoutTableFor:_runs];
+    [self layoutTableFor:_visiblePart.runs];
     [_runsTableView reloadData];
 }
 
@@ -229,8 +246,10 @@ const CGFloat kMinTableHeight = 119;
 - (void) updatePartHistory
 {
     [_componentsTable reloadData];
-    if (_partsAreSelected == false)
-        [self layoutNumberOfPOs];
+    if (_selectedComps == ShortsComps)
+        [self layoutNumberOfPOsFor:_shorts];
+    else if (_selectedComps == PartsComps)
+        [self layoutNumberOfPOsFor:_alShorts];
 }
 
 - (IBAction) partTitleButtonTapped
@@ -253,7 +272,7 @@ const CGFloat kMinTableHeight = 119;
     
     if (searchStr.length == 0) {
         [_visibleObjs removeAllObjects];
-        if (_partsAreSelected == true)
+        if (_selectedComps == PartsComps)
             [_visibleObjs addObjectsFromArray:_parts];
         else
             [_visibleObjs addObjectsFromArray:_shorts];
@@ -273,7 +292,7 @@ const CGFloat kMinTableHeight = 119;
 -  (BOOL)textFieldShouldClear:(UITextField *)textField {
     
     [_visibleObjs removeAllObjects];
-    if (_partsAreSelected)
+    if (_selectedComps == PartsComps)
         [_visibleObjs addObjectsFromArray:_parts];
     else
         [_visibleObjs addObjectsFromArray:_shorts];
@@ -302,7 +321,7 @@ const CGFloat kMinTableHeight = 119;
         if (_prioritiesAreSelected)
             return _priorityRuns.count;
         else
-            return _runs.count;
+            return _visiblePart.runs.count;
     }
     else
     {
@@ -363,7 +382,7 @@ const CGFloat kMinTableHeight = 119;
             
             Run *run = _priorityRuns[indexPath.row];
             NSString *q = @"-";
-            for (RunModel *r in _runs) {
+            for (RunModel *r in _visiblePart.runs) {
                 if ([r.runID intValue] == run.runId)
                 {
                     q = r.qty;
@@ -382,7 +401,7 @@ const CGFloat kMinTableHeight = 119;
                 cell = [[NSBundle mainBundle] loadNibNamed:identifier1 owner:nil options:nil][0];
             }
             
-            [cell layoutWith:_runs[indexPath.row] at:(int)indexPath.row];
+            [cell layoutWith:_visiblePart.runs[indexPath.row] at:(int)indexPath.row];
             
             return cell;
         }
@@ -396,7 +415,7 @@ const CGFloat kMinTableHeight = 119;
                 cell = [[NSBundle mainBundle] loadNibNamed:identifier2 owner:nil options:nil][0];
             }
             
-            if (_partsAreSelected)
+            if (_selectedComps == PartsComps)
                 [cell layoutWithPart:_visibleObjs[indexPath.section]];
             else
                 [cell layoutWithShort:_visibleObjs[indexPath.section]];
@@ -412,7 +431,7 @@ const CGFloat kMinTableHeight = 119;
             }
             
             PartModel *m = _visibleObjs[indexPath.section];
-            if (_partsAreSelected)
+            if (_selectedComps == PartsComps)
                 [cell layoutWithPart:m.alternateParts[indexPath.row-1] isLast:m.alternateParts.count==indexPath.row];
             else
                 [cell layoutWithShort:m.alternateParts[indexPath.row-1] isLast:m.alternateParts.count==indexPath.row];
@@ -462,6 +481,8 @@ const CGFloat kMinTableHeight = 119;
     }
     else
     {
+        [self layoutWith:nil];
+        
         PartModel *p = _visibleObjs[indexPath.section];
         if (indexPath.row == 0)
         {
@@ -519,17 +540,27 @@ const CGFloat kMinTableHeight = 119;
 
 - (void) layoutButtons {
     
-    if (_partsAreSelected == true) {
-        [_partsButton setTitleColor:ccolor(102, 102, 102) forState:UIControlStateNormal];
-        _partsButton.backgroundColor = [UIColor whiteColor];
-        [_shortButton setTitleColor:ccolor(153, 153, 153) forState:UIControlStateNormal];
-        _shortButton.backgroundColor = [UIColor clearColor];
+    [self layoutDisabled:_partsButton];
+    [self layoutDisabled:_shortButton];
+    [self layoutDisabled:_alShortButton];
+    
+    if (_selectedComps == PartsComps) {
+        [self layoutEnabled:_partsButton];
+    } else if (_selectedComps == ShortsComps) {
+        [self layoutEnabled:_shortButton];
     } else {
-        [_shortButton setTitleColor:ccolor(102, 102, 102) forState:UIControlStateNormal];
-        _shortButton.backgroundColor = [UIColor whiteColor];
-        [_partsButton setTitleColor:ccolor(153, 153, 153) forState:UIControlStateNormal];
-        _partsButton.backgroundColor = [UIColor clearColor];
+        [self layoutEnabled:_alShortButton];
     }
+}
+
+- (void) layoutDisabled:(UIButton*)btn {
+    [btn setTitleColor:ccolor(153, 153, 153) forState:UIControlStateNormal];
+    btn.backgroundColor = [UIColor clearColor];
+}
+
+- (void) layoutEnabled:(UIButton*)btn {
+    [btn setTitleColor:ccolor(102, 102, 102) forState:UIControlStateNormal];
+    btn.backgroundColor = [UIColor whiteColor];
 }
 
 - (void) initLayout {
@@ -660,10 +691,10 @@ const CGFloat kMinTableHeight = 119;
     }];
 }
 
-- (void) layoutNumberOfPOs {
+- (void) layoutNumberOfPOsFor:(NSArray*)shorts {
     
     int c = 0;
-    for (PartModel *p in _shorts) {
+    for (PartModel *p in shorts) {
         if (p.po != nil)
             c++;
         
@@ -801,6 +832,21 @@ const CGFloat kMinTableHeight = 119;
     }
     
     _shorts = [NSMutableArray array];
+    [self fetchShortsWithCompletion:^(BOOL success) {
+        
+        if (success) {
+         
+            [self layoutNumberOfPOsFor:_shorts];
+            _alShortButton.alpha = 1;
+            
+            [_visibleObjs addObjectsFromArray:_shorts];
+            [_componentsTable reloadData];
+        }
+    }];
+}
+
+- (void) fetchShortsWithCompletion:(void (^)(BOOL))block {
+    
     [LoadingView showLoading:@"Loading..."];
     [[ProdAPI sharedInstance] getShortsForRun:_run.runId withCompletion:^(BOOL success, id response) {
         
@@ -816,17 +862,34 @@ const CGFloat kMinTableHeight = 119;
             [self getAuditForAlternate:_shorts];
             [self getHistoryForShorts];
             [self getPurchaseForShorts];
-            [self layoutNumberOfPOs];
+            [self getRunsForShorts];
             
             NSString *title = [NSString stringWithFormat:@"Shorts (%lu)", (unsigned long)_shorts.count];
             [_shortButton setTitle:title forState:UIControlStateNormal];
-            
-            [_visibleObjs addObjectsFromArray:_shorts];
-            [_componentsTable reloadData];
+            block(true);
         } else {
             [LoadingView showShortMessage:@"Error, try again later!"];
+            block(false);
         }
     }];
+}
+
+- (void) getAlShorts {
+    
+    [_visibleObjs removeAllObjects];
+    [_componentsTable reloadData];
+    
+    [self layoutWith:nil];
+    
+    if (_shorts.count > 0) {
+        
+        _alShorts = [NSMutableArray array];
+        [self computeAlShorts];
+        [self layoutNumberOfPOsFor:_alShorts];
+        
+        [_visibleObjs addObjectsFromArray:_alShorts];
+        [_componentsTable reloadData];
+    }
 }
 
 - (void) getPurchasesFor:(PartModel*)m {
@@ -883,26 +946,51 @@ const CGFloat kMinTableHeight = 119;
 
 - (void) getRunsFor:(PartModel*)m {
     
-    [_runs removeAllObjects];
     [_runsTableView reloadData];
-    
-    [[ProdAPI sharedInstance] getRunsFor:m.part withCompletion:^(BOOL success, id response) {
+    if (m.runs != nil) {
+        [self layoutTableFor:m.runs];
+        [_runsTableView reloadData];
+    } else {
         
-        if (success) {
+        [[ProdAPI sharedInstance] getRunsFor:m.part withCompletion:^(BOOL success, id response) {
             
-            if ([response isKindOfClass:[NSArray class]]) {
-                for (NSDictionary *d in response) {
-                    [_runs addObject:[RunModel objectFrom:d]];
+            NSMutableArray *runs = [NSMutableArray array];
+            if (success) {
+                
+                if ([response isKindOfClass:[NSArray class]]) {
+                    for (NSDictionary *d in response) {
+                        [runs addObject:[RunModel objectFrom:d]];
+                    }
                 }
-                [_runsTableView reloadData];
             }
-        }
-        
-        [self layoutTableFor:_runs];
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.view layoutIfNeeded];
+            m.runs = [NSArray arrayWithArray:runs];
+            [_runsTableView reloadData];
+            [self layoutTableFor:m.runs];
+            [UIView animateWithDuration:0.3 animations:^{
+                [self.view layoutIfNeeded];
+            }];
         }];
-    }];
+    }
+}
+
+- (void) getRunsForShorts {
+    
+    for (PartModel *p in _shorts) {
+        
+        [[ProdAPI sharedInstance] getRunsFor:p.part withCompletion:^(BOOL success, id response) {
+            
+            NSMutableArray *runs = [NSMutableArray array];
+            if (success) {
+                
+                if ([response isKindOfClass:[NSArray class]]) {
+                    for (NSDictionary *d in response) {
+                        [runs addObject:[RunModel objectFrom:d]];
+                    }
+                }
+            }
+            p.runs = [NSArray arrayWithArray:runs];
+        }];
+    }
 }
 
 - (void) getAuditFor:(PartModel*)m {
@@ -975,6 +1063,15 @@ const CGFloat kMinTableHeight = 119;
 
 #pragma mark - Utils
 
+- (void) computeAlShorts {
+    
+    [_alShorts removeAllObjects];
+    [_alShorts addObjectsFromArray:_shorts];
+    
+    NSString *title = [NSString stringWithFormat:@"Al. Shorts (%lu)", (unsigned long)_alShorts.count];
+    [_alShortButton setTitle:title forState:UIControlStateNormal];
+}
+
 - (void) changeOrderFrom:(int)from to:(int)to {
     
     Run *r = _priorityRuns[from];
@@ -1007,6 +1104,13 @@ const CGFloat kMinTableHeight = 119;
                 [_runsTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
                 [[DataManager sharedInstance] reorderRuns];
                 __notifyObj(kNotificationNewRunOrder, nil);
+                
+                
+                if (_selectedComps == AlShortsComps) {
+                    [self getAlShorts];
+                } else {
+                    [self computeAlShorts];
+                }
             }
         }];
     }
