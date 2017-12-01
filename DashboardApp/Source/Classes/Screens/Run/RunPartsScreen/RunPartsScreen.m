@@ -156,6 +156,8 @@ typedef enum
 }
 
 - (IBAction) backButtonTapped {
+    
+    [LoadingView removeLoading];
     [self.navigationController popViewControllerAnimated:true];
 }
 
@@ -1066,7 +1068,30 @@ typedef enum
 - (void) computeAlShorts {
     
     [_alShorts removeAllObjects];
-    [_alShorts addObjectsFromArray:_shorts];
+    
+    for (PartModel *p in _shorts) {
+        
+        int stock = [p totalStock] + [p openPOQty];
+        int totalUntilThisRun = 0;
+        for (int i=0;i<_priorityRuns.count;i++) {
+            Run *r = _priorityRuns[i];
+            if (r.runId == _run.runId)
+                break;
+            else {
+                
+                for (RunModel *run in p.runs) {
+                    if (r.runId == [run.runID intValue])
+                    {
+                        totalUntilThisRun += [run.qty intValue];
+                        break;
+                    }
+                }
+            }
+        }
+        
+        if (totalUntilThisRun + p.shortQty > stock)
+            [_alShorts addObject:p];
+    }
     
     NSString *title = [NSString stringWithFormat:@"Al. Shorts (%lu)", (unsigned long)_alShorts.count];
     [_alShortButton setTitle:title forState:UIControlStateNormal];
