@@ -79,8 +79,13 @@
             _vendorLabel.text = @"NO PO";
             c = ccolor(233, 46, 40);
         } else {
-            _vendorLabel.text = [NSString stringWithFormat:@"%d", [m openPOQty]];
-            c = ccolor(119, 119, 119);
+            int q = [m openPOQty];
+            if (q > 0) {
+                _vendorLabel.text = [NSString stringWithFormat:@"%d", q];
+                c = ccolor(119, 119, 119);
+            }
+            else
+                _vendorLabel.text = @"-";
         }
     }
     _vendorLabel.textColor = c;
