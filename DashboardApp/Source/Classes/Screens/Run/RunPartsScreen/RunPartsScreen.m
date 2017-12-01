@@ -105,6 +105,9 @@ const CGFloat kMinTableHeight = 119;
     CGFloat _cost;
     
     __unsafe_unretained PartModel *_visiblePart;
+    
+    int _numberOfPriorityRequests;
+    int _currentPriorityRequest;
 }
 
 - (void) viewDidLoad {
@@ -437,28 +440,18 @@ const CGFloat kMinTableHeight = 119;
 
 - (void) tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     
-    [UIAlertView showWithTitle:nil message:@"Are you sure you want to change the order of these runs?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+    if (sourceIndexPath.row != destinationIndexPath.row) {
         
-        if (buttonIndex == 1) {
+        [UIAlertView showWithTitle:nil message:@"Are you sure you want to change the order of these runs?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             
-            Run *r = _priorityRuns[sourceIndexPath.row];
-            NSString *rID = [NSString stringWithFormat:@"%ld", (long)r.runId];
-            [LoadingView showLoading:@"Loading..."];
-            [[ProdAPI sharedInstance] setOrder:(int)destinationIndexPath.row+1 forRun:rID withCompletion:^(BOOL success, id response) {
+            if (buttonIndex == 1) {
                 
-                if (success) {
-                    [LoadingView removeLoading];
-                    [_priorityRuns exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
-                    [_runsTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-                } else {
-                    [LoadingView showShortMessage:@"Error, please try again later!"];
-                }
-            }];
-            
-        } else {
-            [_runsTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-        }
-    }];
+                [self changeOrderFrom:(int)sourceIndexPath.row to:(int)destinationIndexPath.row];
+            } else {
+                [_runsTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+            }
+        }];
+    }
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -980,6 +973,40 @@ const CGFloat kMinTableHeight = 119;
 }
 
 #pragma mark - Utils
+
+- (void) changeOrderFrom:(int)from to:(int)to {
+    
+    Run *r = _priorityRuns[from];
+    [_priorityRuns insertObject:r atIndex:to];
+    if (from < to) {
+        [_priorityRuns removeObjectAtIndex:from];
+    } else {
+        [_priorityRuns removeObjectAtIndex:from+1];
+    }
+    
+    int start = MIN(from, to);
+    _currentPriorityRequest = 0;
+    _numberOfPriorityRequests = (int)_priorityRuns.count - start;
+    for (int i=start; i<_priorityRuns.count; i++) {
+        
+        Run *r  = _priorityRuns[i];
+        r.order = i+1;
+    }
+    
+    [LoadingView showLoading:@"Loading..."];
+    for (int i=start; i<_priorityRuns.count; i++) {
+        
+        Run *r = _priorityRuns[i];
+        [[ProdAPI sharedInstance] setOrder:(int)r.order forRun:[NSString stringWithFormat:@"%ld", (long)r.runId] withCompletion:^(BOOL success, id response) {
+            
+            _currentPriorityRequest += 1;
+            if (_currentPriorityRequest == _numberOfPriorityRequests) {
+                [LoadingView removeLoading];
+                [_runsTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+            }
+        }];
+    }
+}
 
 - (void) filterPriorityRuns {
     
