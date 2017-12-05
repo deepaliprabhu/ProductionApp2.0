@@ -19,7 +19,7 @@
 
 - (void) layoutWithMax:(int)max min:(int)min {
     
-    float total = (float)(max+min)*1.1;
+    float total = (float)(max+min)*1.2;
     int edge = (int)(ceilf(((float)min/total)*10));
     if (edge == 0)
         edge = 1;

@@ -43,7 +43,7 @@ static NSDateFormatter *_formatter = nil;
     NSDate *d = data[@"date"];
     _dateLabel.text = [_formatter stringFromDate:d];
     
-    float total = (float)(pos+neg)*1.1;
+    float total = (float)(pos+neg)*1.2;
     int pune = [data[@"pune"] intValue];
     int mason = [data[@"mason"] intValue];
     int reco = [data[@"reco"] intValue];

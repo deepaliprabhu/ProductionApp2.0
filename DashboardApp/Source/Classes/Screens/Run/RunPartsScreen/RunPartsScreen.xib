@@ -294,7 +294,7 @@
                                 <constraint firstAttribute="height" constant="35" id="pH4-uY-6UK"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
-                            <state key="normal" title="Alc. Shorts">
+                            <state key="normal" title="Shorts for run">
                                 <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <state key="highlighted">

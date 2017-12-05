@@ -15,6 +15,7 @@
 #import "UIView+RNActivityView.h"
 #import "UIImage+FontAwesome.h"
 #import "RunPartsScreen.h"
+#import "LoadingView.h"
 
 
 @interface RunViewController ()
@@ -464,6 +465,7 @@
                 }
             }
             else if (tag == 3) {
+                [self.navigationController.view hideActivityView];
                 NSMutableDictionary *jsonData = json[0];
                 _thisYearCountLabel.text = jsonData[@"Current Yr Sold"];
                 _lastYearCountLabel.text = jsonData[@"Previous Yr Sold"];
@@ -547,6 +549,12 @@
 
 - (void) parseJsonResponse:(NSData*)jsonData {
     
+}
+
+- (void) displayErrorWithMessage:(NSString*)errorMessage {
+    
+    [self.navigationController.view hideActivityView];
+    [LoadingView showShortMessage:errorMessage];
 }
 
 - (void)closeProcessStepsView {

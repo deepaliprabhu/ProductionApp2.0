@@ -80,14 +80,20 @@
         
         int reconcile = 0;
         int run = 0;
-        int pune = 0;
-        int mason = 0;
+        NSNumber *pune = nil;
+        NSNumber *mason = nil;
+        
+        NSMutableArray *alreadyParsedLocations = [NSMutableArray array];
         for (ActionModel *a in actions) {
             
+            if ([alreadyParsedLocations containsObject:a.location])
+                continue;
+            
+            [alreadyParsedLocations addObject:a.location];
             if ([a.location isEqualToString:@"MASON"])
-                mason = [a.qty intValue];
+                mason = @([a.qty intValue]);
             else
-                pune += [a.qty intValue];
+                pune = @([pune intValue] + [a.qty intValue]);
             
             if ([a.mode isEqualToString:@"PRODUCTION_PARTS"]) {
                 run += ([a.prevQTY intValue] - [a.qty intValue]);
@@ -100,15 +106,13 @@
             dict[@"reco"] = @(reconcile);
         if (run > 0)
             dict[@"run"] = @(run);
-        if (mason > 0)
-            dict[@"mason"] = @(mason);
-        if (pune > 0)
-            dict[@"pune"] = @(pune);
+        dict[@"mason"] = mason;
+        dict[@"pune"] = pune;
         
         if (reconcile + run > _maxNegative)
             _maxNegative = reconcile + run;
-        if (mason + pune > _maxPositive)
-            _maxPositive = mason + pune;
+        if ([mason intValue] + [pune intValue] > _maxPositive)
+            _maxPositive = [mason intValue] + [pune intValue];
         
         [days addObject:dict];
     }];
@@ -116,6 +120,43 @@
     [days sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [obj1[@"date"] compare:obj2[@"date"]];
     }];
+    
+    for (int i=0; i<days.count;i++) {
+
+        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:days[i]];
+        BOOL found = false;
+        if (dict[@"mason"] == nil)
+        {
+            for (int j=i-1;j>=0; j--) {
+                NSDictionary *dictj = days[j];
+                if (dictj[@"mason"] != nil) {
+                    dict[@"mason"] = dictj[@"mason"];
+                    found = true;
+                    break;
+                }
+            }
+            
+        }
+        
+        if (dict[@"pune"] == nil)
+        {
+            for (int j=i-1;j>=0; j--) {
+                NSDictionary *dictj = days[j];
+                if (dictj[@"pune"] != nil) {
+                    dict[@"pune"] = dictj[@"pune"];
+                    found = true;
+                    break;
+                }
+            }
+            
+        }
+        
+        if ([dict[@"mason"] intValue] + [dict[@"pune"] intValue] > _maxPositive)
+            _maxPositive = [dict[@"mason"] intValue] + [dict[@"pune"] intValue];
+        
+        if (found == true)
+            [days replaceObjectAtIndex:i withObject:dict];
+    }
     
     _days = [NSArray arrayWithArray:days];
 }
