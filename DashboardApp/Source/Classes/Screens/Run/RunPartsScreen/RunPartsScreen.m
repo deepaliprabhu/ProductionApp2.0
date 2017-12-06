@@ -146,6 +146,13 @@ typedef enum
 
 #pragma mark - Actions
 
+- (IBAction) lockButtonTapped {
+    
+    if (_alShorts.count > 0) {
+        [LoadingView showShortMessage:@"This run cannot be locked"];
+    }
+}
+
 - (IBAction) priceButtonTapped {
     
     PartHistoryScreen *screen = [[PartHistoryScreen alloc] initWithNibName:@"PartHistoryScreen" bundle:nil];
@@ -329,6 +336,50 @@ typedef enum
     {
         PartModel *p = _visibleObjs[section];
         return 1 + p.alternateParts.count;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
+    if (tableView == _componentsTable) {
+        
+        if (_selectedComps == AlShortsComps && section == _alShorts.count-1) {
+            return 70;
+        } else {
+            return 0;
+        }
+        
+    } else {
+        return 0;
+    }
+}
+
+- (UIView*) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    if (tableView == _componentsTable) {
+        
+        if (_selectedComps == AlShortsComps && section == _alShorts.count-1) {
+            
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 70)];
+            view.backgroundColor = [UIColor whiteColor];
+            
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(15, 13, tableView.bounds.size.width-30, 44)];
+            [btn setTitle:@"Lock" forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+            btn.backgroundColor = (_alShorts.count == 0) ? ccgreen : ccgrey;
+            [btn addTarget:self action:@selector(lockButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+            
+            [view addSubview:btn];
+            
+            return view;
+            
+        } else {
+            return nil;
+        }
+        
+    } else {
+        return nil;
     }
 }
 
