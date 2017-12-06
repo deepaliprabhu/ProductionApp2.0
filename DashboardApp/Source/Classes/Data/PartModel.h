@@ -11,6 +11,7 @@
 
 @interface PartModel : NSObject
 
+@property (nonatomic, strong) NSDictionary *data;
 @property (nonatomic, strong) NSString *lausanne;
 @property (nonatomic, strong) NSString *mason;
 @property (nonatomic, strong) NSString *p2;

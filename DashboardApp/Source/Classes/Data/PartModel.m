@@ -23,6 +23,7 @@ static NSDateFormatter *_formatter = nil;
     });
     
     PartModel *p = [PartModel new];
+    p.data = data;
     p.lausanne = data[@"Lausanne"];
     p.mason = data[@"Mason"];
     p.p2 = data[@"P2"];
@@ -47,8 +48,7 @@ static NSDateFormatter *_formatter = nil;
         p.po = po;
     }
     
-    if (s == false)
-        p.pricePerUnit = data[@"price_per_unit"];
+    p.pricePerUnit = data[@"price_per_unit"];
     p.qty = data[@"qty_per_pcb"];
     p.shortValue = data[@"short"];
     p.transit = data[@"transit"];

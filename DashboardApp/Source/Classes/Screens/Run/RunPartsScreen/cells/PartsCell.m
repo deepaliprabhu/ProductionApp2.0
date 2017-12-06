@@ -75,20 +75,25 @@
     _quantityLabel.text = [NSString stringWithFormat:@"%d", m.shortQty];
     [self layoutStockForPart:m];
     
-    if (m.priceHistory == nil)
-    {
-        _priceLabel.text = @"";
-        [_priceSpinner startAnimating];
-    }
+    if (m.pricePerUnit != nil)
+        _priceLabel.text = [NSString stringWithFormat:@"%@$", m.pricePerUnit];
     else
-    {
-        if (m.priceHistory.count == 0)
-            _priceLabel.text = @"-$";
-        else
-            _priceLabel.text = [NSString stringWithFormat:@"%@$", m.priceHistory[0][@"PRICE"]];
-        
-        [_priceSpinner stopAnimating];
-    }
+        _priceLabel.text = @"-$";
+    
+//    if (m.priceHistory == nil)
+//    {
+//        _priceLabel.text = @"";
+//        [_priceSpinner startAnimating];
+//    }
+//    else
+//    {
+//        if (m.priceHistory.count == 0)
+//            _priceLabel.text = @"-$";
+//        else
+//            _priceLabel.text = [NSString stringWithFormat:@"%@$", m.priceHistory[0][@"PRICE"]];
+//
+//        [_priceSpinner stopAnimating];
+//    }
     
     _vendorLabel.textColor = c;
 }

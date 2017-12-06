@@ -794,6 +794,8 @@ typedef enum
     }
     
     _parts = [NSMutableArray array];
+    _shorts = [NSMutableArray array];
+    _alShorts = [NSMutableArray array];
     [LoadingView showLoading:@"Loading..."];
     [[ProdAPI sharedInstance] getPartsForRun:_run.runId withCompletion:^(BOOL success, id response) {
         
@@ -810,6 +812,7 @@ typedef enum
             [self layoutTitle];
             [self getHistoryForAlternateParts];
             [self getAuditForAlternate:_parts];
+            [self getRunsForParts];
             
             NSString *title = [NSString stringWithFormat:@"Parts (%lu)", (unsigned long)_parts.count];
             [_partsButton setTitle:title forState:UIControlStateNormal];
@@ -834,64 +837,93 @@ typedef enum
     }
     
     _shorts = [NSMutableArray array];
-    [self fetchShortsWithCompletion:^(BOOL success) {
+    for (PartModel *p in _parts) {
         
-        if (success) {
-         
-            [self layoutNumberOfPOsFor:_shorts];
-            _alShortButton.alpha = 1;
-            
-            [_visibleObjs addObjectsFromArray:_shorts];
-            [_componentsTable reloadData];
+        int needed = 0;
+        for (RunModel *r in p.runs) {
+            needed += [r.qty intValue];
         }
-    }];
-}
-
-- (void) fetchShortsWithCompletion:(void (^)(BOOL))block {
-    
-    [LoadingView showLoading:@"Loading..."];
-    [[ProdAPI sharedInstance] getShortsForRun:_run.runId withCompletion:^(BOOL success, id response) {
         
-        if (success) {
-            [LoadingView removeLoading];
-            for (NSDictionary *d in response) {
-                PartModel *s = [PartModel partFrom:d isShort:true];
-                PartModel *p = [self partWithID:s.part];
-                s.shortQty = [p.qty intValue]*[_run getQuantity];
-                [_shorts addObject:s];
+        NSMutableArray *alternates = [NSMutableArray array];
+        int totalStock = [p totalStock];
+        if (totalStock < needed) {
+            
+            for (int i=0; i<p.alternateParts.count; i++) {
+                
+                PartModel *alt = p.alternateParts[i];
+                NSDictionary *lastDay = [alt.audit.days lastObject];
+                int altStock = [lastDay[@"mason"] intValue] + [lastDay[@"pune"] intValue];
+                totalStock = totalStock + altStock;
+                if (totalStock < needed)
+                    [alternates addObject:alt];
             }
-            
-            [self getAuditForAlternate:_shorts];
-            [self getHistoryForShorts];
-            [self getPurchaseForShorts];
-            [self getRunsForShorts];
-            
-            NSString *title = [NSString stringWithFormat:@"Shorts (%lu)", (unsigned long)_shorts.count];
-            [_shortButton setTitle:title forState:UIControlStateNormal];
-            block(true);
-        } else {
-            [LoadingView showShortMessage:@"Error, try again later!"];
-            block(false);
         }
-    }];
+        
+        if (totalStock < needed) {
+            
+            PartModel *s = [PartModel partFrom:p.data isShort:true];
+            s.alternateParts = alternates;
+            s.shortQty = [p.qty intValue]*[_run getQuantity];
+            [_shorts addObject:s];
+        }
+    }
+    
+    [self getPurchaseForShorts];
+    NSString *title = [NSString stringWithFormat:@"Shorts (%lu)", (unsigned long)_shorts.count];
+    [_shortButton setTitle:title forState:UIControlStateNormal];
+    
+    [self layoutNumberOfPOsFor:_shorts];
+    _alShortButton.alpha = 1;
+    
+    [_visibleObjs addObjectsFromArray:_shorts];
+    [_componentsTable reloadData];
 }
 
 - (void) getAlShorts {
     
     [_visibleObjs removeAllObjects];
     [_componentsTable reloadData];
-    
     [self layoutWith:nil];
     
-    if (_shorts.count > 0) {
-        
+    if (_alShorts.count == 0)
+    {
         _alShorts = [NSMutableArray array];
-        [self computeAlShorts];
-        [self layoutNumberOfPOsFor:_alShorts];
-        
-        [_visibleObjs addObjectsFromArray:_alShorts];
-        [_componentsTable reloadData];
+        for (PartModel *p in _shorts) {
+            
+            int needed = (int)_run.quantity;
+            
+            NSMutableArray *alternates = [NSMutableArray array];
+            int totalStock = [p totalStock];
+            if (totalStock < needed) {
+                
+                for (int i=0; i<p.alternateParts.count; i++) {
+                    
+                    PartModel *alt = p.alternateParts[i];
+                    NSDictionary *lastDay = [alt.audit.days lastObject];
+                    int altStock = [lastDay[@"mason"] intValue] + [lastDay[@"pune"] intValue];
+                    totalStock = totalStock + altStock;
+                    if (totalStock < needed)
+                        [alternates addObject:alt];
+                }
+            }
+            
+            if (totalStock < needed) {
+                
+                PartModel *s = [PartModel partFrom:p.data isShort:true];
+                s.purchases = p.purchases;
+                s.alternateParts = alternates;
+                s.shortQty = p.shortQty;
+                [_alShorts addObject:s];
+            }
+        }
     }
+    
+    [self layoutNumberOfPOsFor:_alShorts];
+    [_visibleObjs addObjectsFromArray:_alShorts];
+    [_componentsTable reloadData];
+    
+    NSString *title = [NSString stringWithFormat:@"Al. Shorts (%lu)", (unsigned long)_alShorts.count];
+    [_alShortButton setTitle:title forState:UIControlStateNormal];
 }
 
 - (void) getPurchasesFor:(PartModel*)m {
@@ -975,9 +1007,9 @@ typedef enum
     }
 }
 
-- (void) getRunsForShorts {
+- (void) getRunsForParts {
     
-    for (PartModel *p in _shorts) {
+    for (PartModel *p in _parts) {
         
         [[ProdAPI sharedInstance] getRunsFor:p.part withCompletion:^(BOOL success, id response) {
             
@@ -1022,18 +1054,6 @@ typedef enum
     }
 }
 
-- (void) getHistoryForShorts {
-    
-    for (PartModel *s in _shorts) {
-        
-        [s getHistory];
-        for (PartModel *a in s.alternateParts) {
-            if (a.priceHistory == nil)
-                [a getHistory];
-        }
-    }
-}
-
 - (void) getHistoryForAlternateParts {
     
     for (PartModel *s in _parts) {
@@ -1064,38 +1084,6 @@ typedef enum
 }
 
 #pragma mark - Utils
-
-- (void) computeAlShorts {
-    
-    [_alShorts removeAllObjects];
-    
-    for (PartModel *p in _shorts) {
-        
-        int stock = [p totalStock] + [p openPOQty];
-        int totalUntilThisRun = 0;
-        for (int i=0;i<_priorityRuns.count;i++) {
-            Run *r = _priorityRuns[i];
-            if (r.runId == _run.runId)
-                break;
-            else {
-                
-                for (RunModel *run in p.runs) {
-                    if (r.runId == [run.runID intValue])
-                    {
-                        totalUntilThisRun += [run.qty intValue];
-                        break;
-                    }
-                }
-            }
-        }
-        
-        if (totalUntilThisRun + p.shortQty > stock)
-            [_alShorts addObject:p];
-    }
-    
-    NSString *title = [NSString stringWithFormat:@"Al. Shorts (%lu)", (unsigned long)_alShorts.count];
-    [_alShortButton setTitle:title forState:UIControlStateNormal];
-}
 
 - (void) changeOrderFrom:(int)from to:(int)to {
     
@@ -1129,13 +1117,11 @@ typedef enum
                 [_runsTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
                 [[DataManager sharedInstance] reorderRuns];
                 __notifyObj(kNotificationNewRunOrder, nil);
-                
-                
-                if (_selectedComps == AlShortsComps) {
-                    [self getAlShorts];
-                } else {
-                    [self computeAlShorts];
-                }
+//                if (_selectedComps == AlShortsComps) {
+//                    [self getAlShorts];
+//                } else {
+//                    [self computeAlShorts];
+//                }
             }
         }];
     }
