@@ -57,6 +57,7 @@
                 <outlet property="_searchTextField" destination="Ymd-pp-BYK" id="M7t-HH-UkN"/>
                 <outlet property="_seeDetailsLabel" destination="oWr-Wr-SBW" id="6j9-ji-fke"/>
                 <outlet property="_shortButton" destination="Pk1-2k-SfJ" id="GUO-v5-GtY"/>
+                <outlet property="_shortsSpinner" destination="bY7-f0-RwH" id="f0n-RJ-j7t"/>
                 <outlet property="_stockLabel" destination="4On-1N-xOk" id="Q6D-cC-3zf"/>
                 <outlet property="_titleLabel" destination="yZe-Is-jEv" id="O1s-w2-wOU"/>
                 <outlet property="_titleTopConstraint" destination="6xj-Ps-1vE" id="wDw-h4-gTJ"/>
@@ -268,7 +269,7 @@
                                 <action selector="partsButtonTapped" destination="-1" eventType="touchUpInside" id="I3N-Ws-UOr"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pk1-2k-SfJ">
+                        <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pk1-2k-SfJ">
                             <rect key="frame" x="92" y="0.0" width="92" height="35"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -304,6 +305,9 @@
                                 <action selector="alShortButtonTapped" destination="-1" eventType="touchUpInside" id="cSm-Fc-mKQ"/>
                             </connections>
                         </button>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bY7-f0-RwH">
+                            <rect key="frame" x="128" y="8" width="20" height="20"/>
+                        </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -312,7 +316,9 @@
                         <constraint firstItem="oIQ-LA-ETr" firstAttribute="top" secondItem="vTq-No-RFn" secondAttribute="bottom" id="8hY-Yr-kHe"/>
                         <constraint firstAttribute="bottom" secondItem="oIQ-LA-ETr" secondAttribute="bottom" id="NRq-nl-BpI"/>
                         <constraint firstItem="Pk1-2k-SfJ" firstAttribute="top" secondItem="WMi-Tj-HQM" secondAttribute="top" id="Plt-4N-oon"/>
+                        <constraint firstItem="bY7-f0-RwH" firstAttribute="centerX" secondItem="Pk1-2k-SfJ" secondAttribute="centerX" id="aWi-h0-aG6"/>
                         <constraint firstItem="oIQ-LA-ETr" firstAttribute="leading" secondItem="WMi-Tj-HQM" secondAttribute="leading" id="bzz-78-zJN"/>
+                        <constraint firstItem="bY7-f0-RwH" firstAttribute="top" secondItem="WMi-Tj-HQM" secondAttribute="top" constant="8" id="d78-CT-0EJ"/>
                         <constraint firstItem="vZe-xj-9hw" firstAttribute="leading" secondItem="Pk1-2k-SfJ" secondAttribute="trailing" id="dep-2X-55a"/>
                         <constraint firstItem="vTq-No-RFn" firstAttribute="leading" secondItem="WMi-Tj-HQM" secondAttribute="leading" id="fb1-z3-nlX"/>
                         <constraint firstAttribute="trailing" secondItem="oIQ-LA-ETr" secondAttribute="trailing" id="imr-Ka-yms"/>

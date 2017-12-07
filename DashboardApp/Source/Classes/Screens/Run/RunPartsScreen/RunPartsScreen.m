@@ -47,6 +47,7 @@ typedef enum
 
 @implementation RunPartsScreen
 {
+    __unsafe_unretained IBOutlet UIActivityIndicatorView *_shortsSpinner;
     __unsafe_unretained IBOutlet UIView *_detailsHolderView;
     __unsafe_unretained IBOutlet UILabel *_seeDetailsLabel;
     
@@ -117,6 +118,10 @@ typedef enum
     
     int _numberOfPriorityRequests;
     int _currentPriorityRequest;
+    
+    int _currentPartRunRequests;
+    int _currentHistoryRequests;
+    int _currentAuditRequests;
 }
 
 - (void) viewDidLoad {
@@ -254,6 +259,9 @@ typedef enum
 
 - (void) updatePartHistory
 {
+    _currentHistoryRequests = _currentHistoryRequests + 1;
+    [self layoutShortButton];
+    
     [_componentsTable reloadData];
     if (_selectedComps == ShortsComps)
         [self layoutNumberOfPOsFor:_shorts];
@@ -836,6 +844,7 @@ typedef enum
 
 - (void) getParts {
     
+    [_shortsSpinner startAnimating];
     [_visibleObjs removeAllObjects];
     [_componentsTable reloadData];
     if (_parts.count > 0) {
@@ -862,7 +871,7 @@ typedef enum
             }
             [self layoutTitle];
             [self getHistoryForAlternateParts];
-            [self getAuditForAlternate:_parts];
+            [self getAuditForAlternate];
             [self getRunsForParts];
             
             NSString *title = [NSString stringWithFormat:@"Parts (%lu)", (unsigned long)_parts.count];
@@ -1074,7 +1083,20 @@ typedef enum
                 }
             }
             p.runs = [NSArray arrayWithArray:runs];
+            
+            _currentPartRunRequests = _currentPartRunRequests + 1;
+            [self layoutShortButton];
         }];
+    }
+}
+
+- (void) layoutShortButton {
+    
+    int c = [self numberOfAlternateParts];
+    
+    if (_currentPartRunRequests == _parts.count && _currentHistoryRequests == c && _currentAuditRequests == c) {
+        [_shortsSpinner stopAnimating];
+        _shortButton.alpha = 1;
     }
 }
 
@@ -1115,9 +1137,9 @@ typedef enum
     }
 }
 
-- (void) getAuditForAlternate:(NSArray*)parts {
+- (void) getAuditForAlternate {
     
-    for (PartModel *s in parts) {
+    for (PartModel *s in _parts) {
         for (PartModel *a in s.alternateParts) {
             if (a.audit == nil)
             {
@@ -1128,6 +1150,9 @@ typedef enum
                         [a.audit computeData];
                         [_componentsTable reloadData];
                     }
+                    
+                    _currentAuditRequests = _currentAuditRequests + 1;
+                    [self layoutShortButton];
                 }];
             }
         }
@@ -1193,6 +1218,18 @@ typedef enum
     }
     
     return nil;
+}
+
+- (int) numberOfAlternateParts {
+    
+    int c = 0;
+    for (PartModel *s in _parts) {
+        for (PartModel *a in s.alternateParts) {
+            c++;
+        }
+    }
+    
+    return c;
 }
 
 @end
