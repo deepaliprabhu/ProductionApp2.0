@@ -26,8 +26,13 @@
     [super viewDidLoad];
     self.preferredContentSize = CGSizeMake(330, 138);
     
-    [self layoutPrices];
-    [_tableView reloadData];
+    if (_part.priceHistory == nil)
+        [self getPriceHistory:_part];
+    else
+    {
+        [self layoutPrices];
+        [_tableView reloadData];
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -69,6 +74,28 @@
         c = MIN(c, 15);
         self.preferredContentSize = CGSizeMake(330, 32+c*34);
     }
+}
+
+#pragma mark - Utils
+
+- (void) getPriceHistory:(PartModel*)model {
+    
+    [LoadingView showLoading:@"Loading..."];
+    [[ProdAPI sharedInstance] getHistoryFor:model.part withCompletion:^(BOOL success, id response) {
+        
+        if (success) {
+            [LoadingView removeLoading];
+            if ([response isKindOfClass:[NSArray class]]) {
+                model.priceHistory = [NSArray arrayWithArray:response];
+            }
+            [self layoutPrices];
+        } else {
+            [LoadingView showShortMessage:@"Error, please try again later!"];
+            _noHistoryLabel.alpha = 1;
+        }
+        
+        [_tableView reloadData];
+    }];
 }
 
 @end

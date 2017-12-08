@@ -844,7 +844,6 @@ typedef enum
 
 - (void) getParts {
     
-    [_shortsSpinner startAnimating];
     [_visibleObjs removeAllObjects];
     [_componentsTable reloadData];
     if (_parts.count > 0) {
@@ -853,6 +852,7 @@ typedef enum
         return;
     }
     
+    [_shortsSpinner startAnimating];
     _parts = [NSMutableArray array];
     _shorts = [NSMutableArray array];
     _alShorts = [NSMutableArray array];
