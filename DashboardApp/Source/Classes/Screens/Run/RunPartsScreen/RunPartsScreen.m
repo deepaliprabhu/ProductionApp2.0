@@ -672,7 +672,18 @@ typedef enum
 
 - (void) layoutWith:(PartModel*)part {
     
+    _priceLabel.text = @"$-";
+    _stockLabel.text = @"-";
+    _masonDateLabel.text = @"-";
+    _masonStockLabel.text = @"-";
+    _transitDateLabel.text = @"-";
+    _transitIDLabel.text = @"ID -";
+    _transitStockLabel.text = @"-";
+    _puneDateLabel.text = @"-";
+    _puneStockLabel.text = @"-";
+    _transitWidthConstraint.constant = 145;
     _runsTableView.editing = false;
+    
     if (part != nil) {
         
         [self runsButtonTapped];
@@ -684,35 +695,7 @@ typedef enum
         CGFloat w = [LayoutUtils widthForText:part.part withFont:ccFont(@"Roboto-Regular", 20)];
         _partTitleLineWidthConstraint.constant = w;
         
-        _stockLabel.text = [NSString stringWithFormat:@"%d", [part totalStock]];
-        
-        _masonDateLabel.text = @"";
-        _masonModeLabel.text = @"";
-        _transitDateLabel.text = [_formatter stringFromDate:part.transitDate];
-        
-        if (part.transit.length > 0)
-        {
-            _transitStockLabel.text = part.transit;
-            _transitWidthConstraint.constant = 145;
-        }
-        else
-            _transitWidthConstraint.constant = 0;
-    
-        _puneDateLabel.text = @"";
-        _puneModeLabel.text = @"";
-        
-        if (part.isAlternate) {
-            if (part.audit != nil)
-                [self layoutAudit];
-        } else {
-            _masonStockLabel.text = part.mason;
-            _puneStockLabel.text = [NSString stringWithFormat:@"%d", [part totalPune]];
-        }
-        
-        if (part.transit.length > 0)
-            _transitIDLabel.text = [NSString stringWithFormat:@"ID %@", part.transferID];
-        else
-            _transitIDLabel.text = @"";
+        [self layoutAudit];
         
         if (part.pricePerUnit == nil)
         {
@@ -727,24 +710,13 @@ typedef enum
         [self getPurchasesFor:part];
         [self getRunsFor:part];
         [self getCommentsFor:part];
-        [self getAuditFor:part];
     } else {
         
         _detailsHolderView.alpha = 0;
         _seeDetailsLabel.alpha = 1;
         
-        _priceLabel.text = @"$-";
-        _stockLabel.text = @"-";
         [_partTitleButton setTitle:@"-" forState:UIControlStateNormal];
         _partTitleLineWidthConstraint.constant = 0;
-        _masonDateLabel.text = @"-";
-        _masonStockLabel.text = @"-";
-        _transitDateLabel.text = @"-";
-        _transitIDLabel.text = @"ID -";
-        _transitStockLabel.text = @"-";
-        _puneDateLabel.text = @"-";
-        _puneStockLabel.text = @"-";
-        _transitWidthConstraint.constant = 145;
     }
     
     [UIView animateWithDuration:0.3 animations:^{ 
@@ -813,9 +785,7 @@ typedef enum
     {
         _masonDateLabel.text = [_formatter stringFromDate:a1.date];
         _masonModeLabel.text = a1.mode;
-        
-        if (_visiblePart.isAlternate)
-            _masonStockLabel.text = a1.qty;
+        _masonStockLabel.text = a1.qty;
     }
     
     ActionModel *a2 = [_visiblePart.audit lastPuneAction];;
@@ -825,9 +795,23 @@ typedef enum
     {
         _puneDateLabel.text = [_formatter stringFromDate:a2.date];
         _puneModeLabel.text = a2.mode;
-        
-        if (_visiblePart.isAlternate)
-            _puneStockLabel.text = a2.qty;
+        _puneStockLabel.text = a2.qty;
+    }
+    
+    _stockLabel.text = [NSString stringWithFormat:@"%d", [_visiblePart totalStock]];
+
+    ActionModel *transit = [_visiblePart transitAction];
+    if (transit != nil)
+    {
+        _transitDateLabel.text = [_formatter stringFromDate:transit.date];
+        _transitIDLabel.text = [NSString stringWithFormat:@"ID %@", transit.process];
+        _transitStockLabel.text = [NSString stringWithFormat:@"%d", [transit.prevQTY intValue] - [transit.qty intValue]];
+        _transitWidthConstraint.constant = 145;
+    }
+    else
+    {
+        _transitWidthConstraint.constant = 0;
+        _transitIDLabel.text = @"";
     }
 }
 
@@ -860,9 +844,10 @@ typedef enum
     [[ProdAPI sharedInstance] getPartsForRun:_run.runId withCompletion:^(BOOL success, id response) {
         
         if (success) {
+            
             [LoadingView removeLoading];
             for (NSDictionary *d in response) {
-                [_parts addObject:[PartModel partFrom:d isShort:false]];
+                [_parts addObject:[PartModel partFrom:d]];
             }
             
             _cost = 0;
@@ -871,7 +856,7 @@ typedef enum
             }
             [self layoutTitle];
             [self getHistoryForAlternateParts];
-            [self getAuditForAlternate];
+            [self getAuditForParts];
             [self getRunsForParts];
             
             NSString *title = [NSString stringWithFormat:@"Parts (%lu)", (unsigned long)_parts.count];
@@ -921,7 +906,7 @@ typedef enum
         
         if (totalStock < needed) {
             
-            PartModel *s = [PartModel partFrom:p.data isShort:true];
+            PartModel *s = [PartModel partFrom:p.data];
             s.alternateParts = alternates;
             s.shortQty = [p.qty intValue]*[_run getQuantity];
             [_shorts addObject:s];
@@ -969,7 +954,7 @@ typedef enum
             
             if (totalStock < needed) {
                 
-                PartModel *s = [PartModel partFrom:p.data isShort:true];
+                PartModel *s = [PartModel partFrom:p.data];
                 s.purchases = p.purchases;
                 s.alternateParts = alternates;
                 s.shortQty = p.shortQty;
@@ -1092,28 +1077,9 @@ typedef enum
 
 - (void) layoutShortButton {
     
-    int c = [self numberOfAlternateParts];
-    
-    if (_currentPartRunRequests == _parts.count && _currentHistoryRequests == c && _currentAuditRequests == c) {
+    if (_currentPartRunRequests == _parts.count && _currentHistoryRequests == [self numberOfAlternateParts] && _currentAuditRequests == [self numberOfAllParts]) {
         [_shortsSpinner stopAnimating];
         _shortButton.alpha = 1;
-    }
-}
-
-- (void) getAuditFor:(PartModel*)m {
-    
-    if (m.audit == nil) {
-        
-        [[ProdAPI sharedInstance] getAuditHistoryFor:m.part withCompletion:^(BOOL success, id response) {
-            
-            if (success) {
-                m.audit = [PartAuditModel objFrom:response];
-                [self layoutAudit];
-            }
-        }];
-    } else {
-
-        [self layoutAudit];
     }
 }
 
@@ -1137,26 +1103,30 @@ typedef enum
     }
 }
 
-- (void) getAuditForAlternate {
+- (void) getAuditForParts {
     
     for (PartModel *s in _parts) {
+        [self getAuditFor:s];
         for (PartModel *a in s.alternateParts) {
             if (a.audit == nil)
-            {
-                [[ProdAPI sharedInstance] getAuditHistoryFor:a.part withCompletion:^(BOOL success, id response) {
-                    
-                    if (success) {
-                        a.audit = [PartAuditModel objFrom:response];
-                        [a.audit computeData];
-                        [_componentsTable reloadData];
-                    }
-                    
-                    _currentAuditRequests = _currentAuditRequests + 1;
-                    [self layoutShortButton];
-                }];
-            }
+                [self getAuditFor:a];
         }
     }
+}
+
+- (void) getAuditFor:(PartModel*)p {
+    
+    [[ProdAPI sharedInstance] getAuditHistoryFor:p.part withCompletion:^(BOOL success, id response) {
+        
+        if (success) {
+            p.audit = [PartAuditModel objFrom:response];
+            [p.audit computeData];
+            [_componentsTable reloadData];
+        }
+        
+        _currentAuditRequests = _currentAuditRequests + 1;
+        [self layoutShortButton];
+    }];
 }
 
 #pragma mark - Utils
@@ -1224,9 +1194,17 @@ typedef enum
     
     int c = 0;
     for (PartModel *s in _parts) {
-        for (PartModel *a in s.alternateParts) {
-            c++;
-        }
+        c = c+(int)s.alternateParts.count;
+    }
+    
+    return c;
+}
+
+- (int) numberOfAllParts {
+    
+    int c = 0;
+    for (PartModel *s in _parts) {
+        c = (int)c+s.alternateParts.count+1;
     }
     
     return c;

@@ -73,27 +73,12 @@
         _quantityLabel.textColor = ccolor(67, 194, 81);
     
     _quantityLabel.text = [NSString stringWithFormat:@"%d", m.shortQty];
-    [self layoutStockForPart:m];
+    _stockLabel.text = [NSString stringWithFormat:@"%d", [m totalStock]];
     
     if (m.pricePerUnit != nil)
         _priceLabel.text = [NSString stringWithFormat:@"%@$", m.pricePerUnit];
     else
         _priceLabel.text = @"-$";
-    
-//    if (m.priceHistory == nil)
-//    {
-//        _priceLabel.text = @"";
-//        [_priceSpinner startAnimating];
-//    }
-//    else
-//    {
-//        if (m.priceHistory.count == 0)
-//            _priceLabel.text = @"-$";
-//        else
-//            _priceLabel.text = [NSString stringWithFormat:@"%@$", m.priceHistory[0][@"PRICE"]];
-//
-//        [_priceSpinner stopAnimating];
-//    }
     
     _vendorLabel.textColor = c;
 }
@@ -119,10 +104,6 @@
         _priceLabel.text = @"-$";
     
     _vendorLabel.textColor = ccolor(119, 119, 119);
-    [self layoutStockForPart:m];
-}
-
-- (void) layoutStockForPart:(PartModel*)m {
     _stockLabel.text = [NSString stringWithFormat:@"%d", [m totalStock]];
 }
 

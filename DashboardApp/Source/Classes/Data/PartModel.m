@@ -14,7 +14,7 @@ static NSDateFormatter *_formatter = nil;
 
 @implementation PartModel
 
-+ (PartModel*) partFrom:(NSDictionary*)data isShort:(BOOL)s
++ (PartModel*) partFrom:(NSDictionary*)data
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -24,10 +24,6 @@ static NSDateFormatter *_formatter = nil;
     
     PartModel *p = [PartModel new];
     p.data = data;
-    p.lausanne = data[@"Lausanne"];
-    p.mason = data[@"Mason"];
-    p.p2 = data[@"P2"];
-    p.pune = data[@"Pune"];
     p.partDescription = data[@"description"];
     p.recoMason = data[@"RECO_MASON"];
     p.recoMasonDate = [_formatter dateFromString:data[@"RECO_MASON_DATE"]];
@@ -37,7 +33,6 @@ static NSDateFormatter *_formatter = nil;
     p.recoPuneDate = [_formatter dateFromString:data[@"RECO_PUNE_DATE"]];
     p.recoS2 = data[@"RECO_S2"];
     p.recoS2Date = [_formatter dateFromString:data[@"RECO_S2_DATE"]];
-    p.s2 = data[@"S2"];
     p.color = data[@"color"];
     p.part = data[@"part"];
     
@@ -51,9 +46,6 @@ static NSDateFormatter *_formatter = nil;
     p.pricePerUnit = data[@"price_per_unit"];
     p.qty = data[@"qty_per_pcb"];
     p.shortValue = data[@"short"];
-    p.transit = data[@"transit"];
-    p.transitDate = [_formatter dateFromString:data[@"transit_date"]];
-    p.transferID = data[@"transfer_id"];
     p.vendor = data[@"vendor"];
     p.alternateParts = [self alternatePartsFrom:data[@"alternate_part"]];
     
@@ -79,29 +71,41 @@ static NSDateFormatter *_formatter = nil;
     }
 }
 
-- (int) totalPune {
+- (int) totalStock {
 
-    int p = [_pune intValue];
-//    if (_recoPune.length > 0) {
-//        p = [_recoPune intValue];
-//    }
-    int p2 = [_p2 intValue];
-//    if (_recoP2.length > 0) {
-//        p2 = [_recoP2 intValue];
-//    }
-    int s2 = [_s2 intValue];
-//    if (_recoS2.length > 0) {
-//        s2 = [_recoS2 intValue];
-//    }
-    
-    return p+s2+p2;
+    return [self puneStock] + [self masonStock] + [self transitStock];
 }
 
-- (int) totalStock {
+- (int) puneStock {
     
-    int m = [_mason intValue];
-    int total = m + [self totalPune] + [_transit intValue] + [_lausanne intValue];
-    return total;
+    NSDictionary *lastDay = [_audit.days lastObject];
+    int stock = [lastDay[@"pune"] intValue];
+    return stock;
+}
+
+- (int) masonStock {
+    
+    NSDictionary *lastDay = [_audit.days lastObject];
+    int stock = [lastDay[@"mason"] intValue];
+    return stock;
+}
+
+- (int) transitStock {
+    
+    ActionModel *transit = [self transitAction];
+    if (transit == nil)
+        return 0;
+    else
+        return [transit.prevQTY intValue] - [transit.qty intValue];
+}
+
+- (ActionModel*) transitAction {
+    
+    for (int i=(int)_audit.days.count-1; i>=0; i--) {
+        
+        NSDictionary *d = _audit.days[i];
+        
+    }
 }
 
 - (int) openPOQty

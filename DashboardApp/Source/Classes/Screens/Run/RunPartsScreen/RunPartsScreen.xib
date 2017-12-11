@@ -966,7 +966,7 @@
         </view>
     </objects>
     <resources>
-        <image name="backButtonIcon" width="36" height="10"/>
+        <image name="backButtonIcon" width="21" height="15"/>
         <image name="dropdownBomIcon" width="15" height="7"/>
         <image name="dropdownPriceIcon" width="15" height="7"/>
         <image name="searchPartsIcon" width="14" height="15"/>

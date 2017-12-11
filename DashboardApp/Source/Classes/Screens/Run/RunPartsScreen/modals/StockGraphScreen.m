@@ -118,7 +118,8 @@
     
     _noHistoryLabel.alpha = _part.audit.days.count == 0;
     [_collectionView reloadData];
-    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_part.audit.days.count-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionRight animated:false];
+    if (_part.audit.days.count > 0)
+        [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_part.audit.days.count-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionRight animated:false];
     
     [self fillContent];
 }
