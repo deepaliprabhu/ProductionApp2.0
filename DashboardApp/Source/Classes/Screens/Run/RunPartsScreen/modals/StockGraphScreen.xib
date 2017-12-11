@@ -195,10 +195,24 @@
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UsF-Lq-hWI">
+                            <rect key="frame" x="521" y="55" width="123" height="33"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="33" id="XAD-DW-rdn"/>
+                                <constraint firstAttribute="width" constant="123" id="ref-Jg-wOu"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                            <state key="normal" title="Enter Data" backgroundImage="enterDataButton"/>
+                            <connections>
+                                <action selector="enterButtonTapped" destination="-1" eventType="touchUpInside" id="EnT-oV-KtL"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="525" id="CQO-Iw-ARi"/>
+                        <constraint firstAttribute="trailing" secondItem="UsF-Lq-hWI" secondAttribute="trailing" constant="48" id="Q8R-TN-3UZ"/>
+                        <constraint firstItem="UsF-Lq-hWI" firstAttribute="top" secondItem="Qq7-tz-aeC" secondAttribute="top" constant="55" id="RwW-jS-4lo"/>
                         <constraint firstAttribute="width" constant="692" id="ToV-Bg-cMa"/>
                     </constraints>
                 </view>
@@ -217,6 +231,7 @@
         </view>
     </objects>
     <resources>
+        <image name="enterDataButton" width="123" height="33"/>
         <image name="masonStockIcon" width="17" height="18"/>
         <image name="puneStockIcon" width="16" height="18"/>
         <image name="reconcileStockIcon" width="16" height="18"/>

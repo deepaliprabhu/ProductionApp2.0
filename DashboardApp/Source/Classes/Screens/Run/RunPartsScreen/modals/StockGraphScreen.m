@@ -45,6 +45,11 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+- (IBAction) enterButtonTapped {
+    
+    
+}
+
 #pragma mark - UICollectionViewDelegate
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {

@@ -291,8 +291,10 @@ typedef enum
         [_visibleObjs removeAllObjects];
         if (_selectedComps == PartsComps)
             [_visibleObjs addObjectsFromArray:_parts];
-        else
+        else if (_selectedComps == ShortsComps)
             [_visibleObjs addObjectsFromArray:_shorts];
+        else
+            [_visibleObjs addObjectsFromArray:_alShorts];
     } else {
         for (int i=0; i<_visibleObjs.count; i++) {
             PartModel *p = _visibleObjs[i];

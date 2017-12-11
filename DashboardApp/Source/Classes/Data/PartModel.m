@@ -101,11 +101,12 @@ static NSDateFormatter *_formatter = nil;
 
 - (ActionModel*) transitAction {
     
-    for (int i=(int)_audit.days.count-1; i>=0; i--) {
-        
-        NSDictionary *d = _audit.days[i];
-        
-    }
+    return nil;
+//    for (int i=(int)_audit.days.count-1; i>=0; i--) {
+//
+//        NSDictionary *d = _audit.days[i];
+//
+//    }
 }
 
 - (int) openPOQty
