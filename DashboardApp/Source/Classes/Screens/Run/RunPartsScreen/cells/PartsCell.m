@@ -67,7 +67,7 @@
         }
     }
     
-    if (m.shortQty > ([m totalStock] + [m openPOQty]))
+    if (m.shortQty > [m totalStock])
         _quantityLabel.textColor = ccolor(233, 46, 40);
     else
         _quantityLabel.textColor = ccolor(67, 194, 81);

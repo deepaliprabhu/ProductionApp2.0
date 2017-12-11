@@ -910,6 +910,8 @@ typedef enum
             
             PartModel *s = [PartModel partFrom:p.data];
             s.alternateParts = alternates;
+            s.audit = p.audit;
+            s.priceHistory = p.priceHistory;
             s.shortQty = [p.qty intValue]*[_run getQuantity];
             [_shorts addObject:s];
         }
@@ -958,6 +960,8 @@ typedef enum
                 
                 PartModel *s = [PartModel partFrom:p.data];
                 s.purchases = p.purchases;
+                s.audit = p.audit;
+                s.priceHistory = p.priceHistory;
                 s.alternateParts = alternates;
                 s.shortQty = p.shortQty;
                 [_alShorts addObject:s];
