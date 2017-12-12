@@ -81,6 +81,8 @@
         int reconcile = 0;
         int run = 0;
         NSNumber *pune = nil;
+        NSNumber *s2 = nil;
+        NSNumber *p2 = nil;
         NSNumber *mason = nil;
         
         NSMutableArray *alreadyParsedLocations = [NSMutableArray array];
@@ -92,8 +94,12 @@
             [alreadyParsedLocations addObject:a.location];
             if ([a.location isEqualToString:@"MASON"])
                 mason = @([a.qty intValue]);
-            else
+            else if ([a.location isEqualToString:@"PUNE"])
                 pune = @([pune intValue] + [a.qty intValue]);
+            else if ([a.location isEqualToString:@"S2"])
+                s2 = @([s2 intValue] + [a.qty intValue]);
+            else
+                p2 = @([p2 intValue] + [a.qty intValue]);
             
             if ([a.mode isEqualToString:@"PRODUCTION_PARTS"]) {
                 run += ([a.prevQTY intValue] - [a.qty intValue]);
@@ -108,11 +114,13 @@
             dict[@"run"] = @(run);
         dict[@"mason"] = mason;
         dict[@"pune"] = pune;
+        dict[@"s2"] = s2;
+        dict[@"p2"] = p2;
         
         if (reconcile + run > _maxNegative)
             _maxNegative = reconcile + run;
-        if ([mason intValue] + [pune intValue] > _maxPositive)
-            _maxPositive = [mason intValue] + [pune intValue];
+        if ([mason intValue] + [pune intValue] + [s2 intValue] + [p2 intValue] > _maxPositive)
+            _maxPositive = [mason intValue] + [pune intValue] + [s2 intValue] + [p2 intValue];
         
         [days addObject:dict];
     }];
@@ -151,8 +159,35 @@
             
         }
         
-        if ([dict[@"mason"] intValue] + [dict[@"pune"] intValue] > _maxPositive)
-            _maxPositive = [dict[@"mason"] intValue] + [dict[@"pune"] intValue];
+        if (dict[@"s2"] == nil)
+        {
+            for (int j=i-1;j>=0; j--) {
+                NSDictionary *dictj = days[j];
+                if (dictj[@"s2"] != nil) {
+                    dict[@"s2"] = dictj[@"s2"];
+                    found = true;
+                    break;
+                }
+            }
+            
+        }
+        
+        if (dict[@"p2"] == nil)
+        {
+            for (int j=i-1;j>=0; j--) {
+                NSDictionary *dictj = days[j];
+                if (dictj[@"p2"] != nil) {
+                    dict[@"p2"] = dictj[@"p2"];
+                    found = true;
+                    break;
+                }
+            }
+            
+        }
+        
+        int t = [dict[@"mason"] intValue] + [dict[@"pune"] intValue] + [dict[@"s2"] intValue] + [dict[@"p2"] intValue];
+        if (t > _maxPositive)
+            _maxPositive = t;
         
         if (found == true)
             [days replaceObjectAtIndex:i withObject:dict];
