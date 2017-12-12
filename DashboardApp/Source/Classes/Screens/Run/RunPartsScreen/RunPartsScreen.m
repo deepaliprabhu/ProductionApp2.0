@@ -698,6 +698,18 @@ typedef enum
         _partTitleLineWidthConstraint.constant = w;
         
         [self layoutAudit];
+        _transitDateLabel.text = [_formatter stringFromDate:part.transitDate];
+        if (part.transit.length > 0)
+        {
+            _transitStockLabel.text = part.transit;
+            _transitWidthConstraint.constant = 145;
+            _transitIDLabel.text = [NSString stringWithFormat:@"ID %@", part.transferID];
+        }
+        else
+        {
+            _transitWidthConstraint.constant = 0;
+            _transitIDLabel.text = @"";
+        }
         
         if (part.pricePerUnit == nil)
         {
@@ -802,19 +814,19 @@ typedef enum
     
     _stockLabel.text = [NSString stringWithFormat:@"%d", [_visiblePart totalStock]];
 
-    ActionModel *transit = [_visiblePart transitAction];
-    if (transit != nil)
-    {
-        _transitDateLabel.text = [_formatter stringFromDate:transit.date];
-        _transitIDLabel.text = [NSString stringWithFormat:@"ID %@", transit.process];
-        _transitStockLabel.text = [NSString stringWithFormat:@"%d", [transit.prevQTY intValue] - [transit.qty intValue]];
-        _transitWidthConstraint.constant = 145;
-    }
-    else
-    {
-        _transitWidthConstraint.constant = 0;
-        _transitIDLabel.text = @"";
-    }
+//    ActionModel *transit = [_visiblePart transitAction];
+//    if (transit != nil)
+//    {
+//        _transitDateLabel.text = [_formatter stringFromDate:transit.date];
+//        _transitIDLabel.text = [NSString stringWithFormat:@"ID %@", transit.process];
+//        _transitStockLabel.text = [NSString stringWithFormat:@"%d", [transit.prevQTY intValue] - [transit.qty intValue]];
+//        _transitWidthConstraint.constant = 145;
+//    }
+//    else
+//    {
+//        _transitWidthConstraint.constant = 0;
+//        _transitIDLabel.text = @"";
+//    }
 }
 
 - (void) layoutComments

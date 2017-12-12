@@ -46,6 +46,9 @@ static NSDateFormatter *_formatter = nil;
     p.pricePerUnit = data[@"price_per_unit"];
     p.qty = data[@"qty_per_pcb"];
     p.shortValue = data[@"short"];
+    p.transit = data[@"transit"];
+    p.transitDate = [_formatter dateFromString:data[@"transit_date"]];
+    p.transferID = data[@"transfer_id"];
     p.vendor = data[@"vendor"];
     p.alternateParts = [self alternatePartsFrom:data[@"alternate_part"]];
     
