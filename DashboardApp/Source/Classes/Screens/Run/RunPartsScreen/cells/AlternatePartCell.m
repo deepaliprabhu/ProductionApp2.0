@@ -93,12 +93,10 @@
 
 - (void) layoutStockForPart:(PartModel*)m {
     
-    if (m.audit != nil) {
-        NSDictionary *lastDay = [m.audit.days lastObject];
-        _stockLabel.text = [NSString stringWithFormat: @"%d", [lastDay[@"mason"] intValue] + [lastDay[@"pune"] intValue]];
-    } else {
+    if (m.audit != nil)
+        _stockLabel.text = [NSString stringWithFormat: @"%d", [m totalStock]];
+    else
         _stockLabel.text = @"-";
-    }
 }
 
 

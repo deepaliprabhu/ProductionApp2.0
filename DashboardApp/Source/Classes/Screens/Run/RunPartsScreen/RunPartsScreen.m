@@ -82,6 +82,7 @@ typedef enum
     __unsafe_unretained IBOutlet UILabel *_puneStockLabel;
     __unsafe_unretained IBOutlet UILabel *_puneDateLabel;
     __unsafe_unretained IBOutlet UILabel *_stockLabel;
+    __unsafe_unretained IBOutlet UILabel *_runTotalQTY;
     
     __unsafe_unretained IBOutlet UIButton *_partTitleButton;
     __unsafe_unretained IBOutlet NSLayoutConstraint *_partTitleLineWidthConstraint;
@@ -722,6 +723,7 @@ typedef enum
             _priceLabel.text = [NSString stringWithFormat:@"%@$", part.pricePerUnit];
         
         [self getPurchasesFor:part];
+        [self layoutTotalRunQTYFor:part.runs];
         [self getRunsFor:part];
         [self getCommentsFor:part];
     } else {
@@ -767,6 +769,21 @@ typedef enum
     [UIView animateWithDuration:0.3 animations:^{
         [self.view layoutIfNeeded];
     }];
+    
+    [self layoutTotalRunQTYFor:content];
+}
+
+- (void) layoutTotalRunQTYFor:(NSArray*)runs {
+    
+    if (runs == nil)
+        _runTotalQTY.text = @"";
+    else {
+        int t = 0;
+        for (RunModel* m in runs) {
+            t += [m.qty intValue];
+        }
+        _runTotalQTY.text = [NSString stringWithFormat:@"QTY (%d)", t];
+    }
 }
 
 - (void) layoutPurchasesTable
@@ -813,20 +830,6 @@ typedef enum
     }
     
     _stockLabel.text = [NSString stringWithFormat:@"%d", [_visiblePart totalStock]];
-
-//    ActionModel *transit = [_visiblePart transitAction];
-//    if (transit != nil)
-//    {
-//        _transitDateLabel.text = [_formatter stringFromDate:transit.date];
-//        _transitIDLabel.text = [NSString stringWithFormat:@"ID %@", transit.process];
-//        _transitStockLabel.text = [NSString stringWithFormat:@"%d", [transit.prevQTY intValue] - [transit.qty intValue]];
-//        _transitWidthConstraint.constant = 145;
-//    }
-//    else
-//    {
-//        _transitWidthConstraint.constant = 0;
-//        _transitIDLabel.text = @"";
-//    }
 }
 
 - (void) layoutComments
@@ -908,10 +911,8 @@ typedef enum
         if (totalStock < needed) {
             
             for (int i=0; i<p.alternateParts.count; i++) {
-                
                 PartModel *alt = p.alternateParts[i];
-                NSDictionary *lastDay = [alt.audit.days lastObject];
-                int altStock = [lastDay[@"mason"] intValue] + [lastDay[@"pune"] intValue];
+                int altStock = [alt totalStock];
                 totalStock = totalStock + altStock;
                 if (totalStock < needed)
                     [alternates addObject:alt];
@@ -960,8 +961,7 @@ typedef enum
                 for (int i=0; i<p.alternateParts.count; i++) {
                     
                     PartModel *alt = p.alternateParts[i];
-                    NSDictionary *lastDay = [alt.audit.days lastObject];
-                    int altStock = [lastDay[@"mason"] intValue] + [lastDay[@"pune"] intValue];
+                    int altStock = [alt totalStock];
                     totalStock = totalStock + altStock;
                     if (totalStock < needed)
                         [alternates addObject:alt];

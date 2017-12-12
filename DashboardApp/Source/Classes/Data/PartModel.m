@@ -82,7 +82,7 @@ static NSDateFormatter *_formatter = nil;
 - (int) puneStock {
     
     NSDictionary *lastDay = [_audit.days lastObject];
-    int stock = [lastDay[@"pune"] intValue];
+    int stock = [lastDay[@"pune"] intValue] + [lastDay[@"p2"] intValue] + [lastDay[@"s2"] intValue];
     return stock;
 }
 

@@ -41,6 +41,8 @@
 
 + (PartModel*) partFrom:(NSDictionary*)data;
 - (int) totalStock;
+- (int) puneStock;
+- (int) masonStock;
 - (int) openPOQty;
 - (ActionModel*) transitAction;
 

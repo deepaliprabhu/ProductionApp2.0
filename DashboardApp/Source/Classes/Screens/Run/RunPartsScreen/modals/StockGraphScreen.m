@@ -138,9 +138,9 @@
     NSDate *d = lastDay[@"date"];
     _totalDateLabel.text = [f stringFromDate:d];
     
-    _totalLabel.text = [NSString stringWithFormat: @"%d", [lastDay[@"mason"] intValue] + [lastDay[@"pune"] intValue]];
-    _puneLabel.text = [NSString stringWithFormat: @"%d", [lastDay[@"pune"] intValue]];
-    _masonLabel.text = [NSString stringWithFormat: @"%d", [lastDay[@"mason"] intValue]];
+    _totalLabel.text = [NSString stringWithFormat: @"%d", [_part totalStock]];
+    _puneLabel.text = [NSString stringWithFormat: @"%d", [_part puneStock]];
+    _masonLabel.text = [NSString stringWithFormat: @"%d", [_part masonStock]];
     _runLabel.text = [NSString stringWithFormat: @"%d", [lastDay[@"run"] intValue]];
     _reconcileLabel.text = [NSString stringWithFormat: @"%d", [lastDay[@"reco"] intValue]];
     

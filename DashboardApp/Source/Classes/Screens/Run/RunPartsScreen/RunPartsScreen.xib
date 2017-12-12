@@ -50,6 +50,7 @@
                 <outlet property="_puneStockView" destination="N1R-rO-sgL" id="0fd-SU-oRB"/>
                 <outlet property="_purchasesHolderHeightConstraint" destination="adu-EY-PPM" id="1Ea-dA-kJO"/>
                 <outlet property="_purchasesTableView" destination="QgI-61-IlF" id="2gk-SM-IoM"/>
+                <outlet property="_runTotalQTY" destination="lNY-wM-8Fu" id="tlC-D0-4ax"/>
                 <outlet property="_runsButton" destination="Uwi-dU-kHe" id="Do8-bG-xtx"/>
                 <outlet property="_runsHeaderView" destination="vcl-mQ-VDM" id="xIS-yx-sV9"/>
                 <outlet property="_runsHolderHeightConstraint" destination="Jge-az-M7e" id="Fr4-lj-C0V"/>
@@ -601,8 +602,8 @@
                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="QTY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lNY-wM-8Fu">
-                                            <rect key="frame" x="564" y="0.0" width="27" height="32"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="QTY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lNY-wM-8Fu">
+                                            <rect key="frame" x="564" y="0.0" width="80" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -966,7 +967,7 @@
         </view>
     </objects>
     <resources>
-        <image name="backButtonIcon" width="21" height="15"/>
+        <image name="backButtonIcon" width="36" height="10"/>
         <image name="dropdownBomIcon" width="15" height="7"/>
         <image name="dropdownPriceIcon" width="15" height="7"/>
         <image name="searchPartsIcon" width="14" height="15"/>
