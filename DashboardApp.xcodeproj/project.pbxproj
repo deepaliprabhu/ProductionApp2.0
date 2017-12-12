@@ -47,6 +47,12 @@
 		894C5F5A1FBB0ED300FA4E5D /* RunModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 894C5F591FBB0ED300FA4E5D /* RunModel.m */; };
 		894C5F5E1FBB147600FA4E5D /* RunPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894C5F5C1FBB147600FA4E5D /* RunPartCell.m */; };
 		894C5F5F1FBB147600FA4E5D /* RunPartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894C5F5D1FBB147600FA4E5D /* RunPartCell.xib */; };
+		894EE6971FE00EF8009244A7 /* LockConfirmScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894EE6951FE00EF8009244A7 /* LockConfirmScreen.m */; };
+		894EE6981FE00EF8009244A7 /* LockConfirmScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894EE6961FE00EF8009244A7 /* LockConfirmScreen.xib */; };
+		894EE69C1FE02298009244A7 /* LockConfirmationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 894EE69B1FE02298009244A7 /* LockConfirmationHeaderView.m */; };
+		894EE69E1FE0229E009244A7 /* LockConfirmationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894EE69D1FE0229E009244A7 /* LockConfirmationHeaderView.xib */; };
+		894EE6A21FE0262F009244A7 /* LockConfirmationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894EE6A01FE0262F009244A7 /* LockConfirmationCell.m */; };
+		894EE6A31FE0262F009244A7 /* LockConfirmationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894EE6A11FE0262F009244A7 /* LockConfirmationCell.xib */; };
 		894F9BD31FBC7B6B00DC2C6B /* PurchasePartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894F9BD11FBC7B6B00DC2C6B /* PurchasePartCell.m */; };
 		894F9BD41FBC7B6B00DC2C6B /* PurchasePartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894F9BD21FBC7B6B00DC2C6B /* PurchasePartCell.xib */; };
 		894F9BD91FBCA0BC00DC2C6B /* PartHistoryScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894F9BD71FBCA0BC00DC2C6B /* PartHistoryScreen.m */; };
@@ -313,6 +319,15 @@
 		894C5F5B1FBB147600FA4E5D /* RunPartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunPartCell.h; sourceTree = "<group>"; };
 		894C5F5C1FBB147600FA4E5D /* RunPartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunPartCell.m; sourceTree = "<group>"; };
 		894C5F5D1FBB147600FA4E5D /* RunPartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunPartCell.xib; sourceTree = "<group>"; };
+		894EE6941FE00EF8009244A7 /* LockConfirmScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockConfirmScreen.h; sourceTree = "<group>"; };
+		894EE6951FE00EF8009244A7 /* LockConfirmScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockConfirmScreen.m; sourceTree = "<group>"; };
+		894EE6961FE00EF8009244A7 /* LockConfirmScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LockConfirmScreen.xib; sourceTree = "<group>"; };
+		894EE69A1FE02298009244A7 /* LockConfirmationHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockConfirmationHeaderView.h; sourceTree = "<group>"; };
+		894EE69B1FE02298009244A7 /* LockConfirmationHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockConfirmationHeaderView.m; sourceTree = "<group>"; };
+		894EE69D1FE0229E009244A7 /* LockConfirmationHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LockConfirmationHeaderView.xib; sourceTree = "<group>"; };
+		894EE69F1FE0262F009244A7 /* LockConfirmationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockConfirmationCell.h; sourceTree = "<group>"; };
+		894EE6A01FE0262F009244A7 /* LockConfirmationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockConfirmationCell.m; sourceTree = "<group>"; };
+		894EE6A11FE0262F009244A7 /* LockConfirmationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LockConfirmationCell.xib; sourceTree = "<group>"; };
 		894F9BD01FBC7B6B00DC2C6B /* PurchasePartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PurchasePartCell.h; sourceTree = "<group>"; };
 		894F9BD11FBC7B6B00DC2C6B /* PurchasePartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PurchasePartCell.m; sourceTree = "<group>"; };
 		894F9BD21FBC7B6B00DC2C6B /* PurchasePartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PurchasePartCell.xib; sourceTree = "<group>"; };
@@ -714,6 +729,7 @@
 				894B6F091FCDAD7600E271B1 /* PODateScreen.h */,
 				894B6F0A1FCDAD7600E271B1 /* PODateScreen.m */,
 				894B6F0B1FCDAD7600E271B1 /* PODateScreen.xib */,
+				894EE6991FE0226B009244A7 /* ConfirmationScreen */,
 			);
 			path = popovers;
 			sourceTree = "<group>";
@@ -732,6 +748,22 @@
 				895287361FCF2B33005C46EE /* StockLogScreen.xib */,
 			);
 			path = modals;
+			sourceTree = "<group>";
+		};
+		894EE6991FE0226B009244A7 /* ConfirmationScreen */ = {
+			isa = PBXGroup;
+			children = (
+				894EE6941FE00EF8009244A7 /* LockConfirmScreen.h */,
+				894EE6951FE00EF8009244A7 /* LockConfirmScreen.m */,
+				894EE6961FE00EF8009244A7 /* LockConfirmScreen.xib */,
+				894EE69F1FE0262F009244A7 /* LockConfirmationCell.h */,
+				894EE6A01FE0262F009244A7 /* LockConfirmationCell.m */,
+				894EE6A11FE0262F009244A7 /* LockConfirmationCell.xib */,
+				894EE69A1FE02298009244A7 /* LockConfirmationHeaderView.h */,
+				894EE69B1FE02298009244A7 /* LockConfirmationHeaderView.m */,
+				894EE69D1FE0229E009244A7 /* LockConfirmationHeaderView.xib */,
+			);
+			path = ConfirmationScreen;
 			sourceTree = "<group>";
 		};
 		894F9BD51FBCA09D00DC2C6B /* cells */ = {
@@ -1574,6 +1606,7 @@
 				9F056B2F1F433F32002F3B61 /* TopBarView.xib in Resources */,
 				9F7FE5761F7B9CAA005CB4DF /* ProductCollectionViewCell.xib in Resources */,
 				89897E3A1FBF140C000B39EA /* StockGraphScreen.xib in Resources */,
+				894EE69E1FE0229E009244A7 /* LockConfirmationHeaderView.xib in Resources */,
 				9F471D091F541F7700B294B7 /* ToDoView.xib in Resources */,
 				9FD12DA11F4473B900F0E0A8 /* RunViewController.xib in Resources */,
 				9FE99C291FBD4E65006B58DE /* FeedbackListViewCell.xib in Resources */,
@@ -1615,6 +1648,7 @@
 				9F7767411F56D6E90092F603 /* LeftCollectionViewCell.xib in Resources */,
 				9F3144BB1F7ABFD200B9D32C /* right_arrow.png in Resources */,
 				3BCDA4191FB346560021BC03 /* ProductAdminPopover.xib in Resources */,
+				894EE6981FE00EF8009244A7 /* LockConfirmScreen.xib in Resources */,
 				894C5F5F1FBB147600FA4E5D /* RunPartCell.xib in Resources */,
 				8950A7281FC6C14E006C66CB /* AddCommentScreen.xib in Resources */,
 				9F03A9221F45667700A7A316 /* DemandListViewCell.xib in Resources */,
@@ -1623,6 +1657,7 @@
 				9F40AD801F2F469A002C64BA /* HomeViewController.xib in Resources */,
 				9F7AB1A51F7D233C0013CBE1 /* done@2x.png in Resources */,
 				9F056B341F433F8E002F3B61 /* RunListView.xib in Resources */,
+				894EE6A31FE0262F009244A7 /* LockConfirmationCell.xib in Resources */,
 				9F471D161F542B9300B294B7 /* RoadBlocksViewCell.xib in Resources */,
 				89AC0AB41FC60E07008CA56B /* CommentsPartCell.xib in Resources */,
 				9FD12D7B1F43F77200F0E0A8 /* Icon_alpha.png in Resources */,
@@ -1684,6 +1719,7 @@
 				9FD12D861F443A3700F0E0A8 /* RunListViewCell.m in Sources */,
 				D28A35671FB046FC00AE6B51 /* UIAlertView+Blocks.m in Sources */,
 				9F7AB1A71F7D233C0013CBE1 /* DropDownListView.m in Sources */,
+				894EE6971FE00EF8009244A7 /* LockConfirmScreen.m in Sources */,
 				8940187A1FB5A0E4002B8AFD /* BRRequestError.m in Sources */,
 				8940188A1FB5EFAC002B8AFD /* PurchaseModel.m in Sources */,
 				D227675B1FAE49A400215D87 /* ProdAPI.m in Sources */,
@@ -1760,6 +1796,7 @@
 				9F7767441F572A640092F603 /* RunListTableView.m in Sources */,
 				D227678A1FAE4B5400215D87 /* AFURLSessionManager.m in Sources */,
 				9F4DE4191F558EBC0016DB03 /* MBCircularProgressBarLayer.m in Sources */,
+				894EE6A21FE0262F009244A7 /* LockConfirmationCell.m in Sources */,
 				8919BE981FB4DD5100EE6839 /* NSData+ImageContentType.m in Sources */,
 				9F471CF81F53FF3600B294B7 /* InProcessView.m in Sources */,
 				9F3FF6CF1F4BDF7500F52F64 /* NSString+FontAwesome.m in Sources */,
@@ -1791,6 +1828,7 @@
 				9F471D0A1F541F7700B294B7 /* ToDoViewCell.m in Sources */,
 				9FE99C261FBD4E65006B58DE /* FeedbackListView.m in Sources */,
 				89897E2D1FBF0AFA000B39EA /* ActionModel.m in Sources */,
+				894EE69C1FE02298009244A7 /* LockConfirmationHeaderView.m in Sources */,
 				9FB1BEAE1F514343008D179E /* CollectionViewCell.m in Sources */,
 				9FD12DA01F4473B900F0E0A8 /* RunViewController.m in Sources */,
 			);

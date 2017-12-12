@@ -31,6 +31,7 @@
 #import "StockGraphScreen.h"
 #import "UIView+Screenshot.h"
 #import "Constants.h"
+#import "LockConfirmScreen.h"
 
 const CGFloat kMinTableHeight = 119;
 
@@ -156,7 +157,13 @@ typedef enum
     
     if (_alShorts.count > 0) {
         [LoadingView showShortMessage:@"This run cannot be locked"];
+//        return;
     }
+    
+    LockConfirmScreen *screen = [[LockConfirmScreen alloc] initWithNibName:@"LockConfirmScreen" bundle:nil];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
+    nav.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:nav animated:true completion:nil];
 }
 
 - (IBAction) priceButtonTapped {
