@@ -161,6 +161,7 @@ typedef enum
     }
     
     LockConfirmScreen *screen = [[LockConfirmScreen alloc] initWithNibName:@"LockConfirmScreen" bundle:nil];
+    screen.parts = _parts;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
     nav.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:nav animated:true completion:nil];
@@ -871,7 +872,9 @@ typedef enum
             
             [LoadingView removeLoading];
             for (NSDictionary *d in response) {
-                [_parts addObject:[PartModel partFrom:d]];
+                PartModel *p = [PartModel partFrom:d];
+                p.shortQty = [p.qty intValue]*[_run getQuantity];
+                [_parts addObject:p];
             }
             
             _cost = 0;
@@ -932,7 +935,7 @@ typedef enum
             s.alternateParts = alternates;
             s.audit = p.audit;
             s.priceHistory = p.priceHistory;
-            s.shortQty = [p.qty intValue]*[_run getQuantity];
+            s.shortQty = p.shortQty;
             [_shorts addObject:s];
         }
     }

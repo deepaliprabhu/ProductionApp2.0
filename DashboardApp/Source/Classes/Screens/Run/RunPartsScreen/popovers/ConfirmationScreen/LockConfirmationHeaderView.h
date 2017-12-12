@@ -11,7 +11,8 @@
 
 @interface LockConfirmationHeaderView : UIView
 
++ (CGFloat) height;
 + (LockConfirmationHeaderView*) createView;
-- (void) layoutWithPart:(PartModel*)part atIndex:(int)index;
+- (void) layoutWithPart:(PartModel*)part atIndex:(int)index allocated:(int)all price:(float)pr;
 
 @end

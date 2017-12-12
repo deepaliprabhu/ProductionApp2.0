@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PartModel.h"
 
 @interface LockConfirmationCell : UITableViewCell
+
+- (void) layoutWithPart:(PartModel*)p allocated:(int)all;
 
 @end

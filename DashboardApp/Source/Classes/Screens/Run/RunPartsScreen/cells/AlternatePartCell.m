@@ -99,7 +99,6 @@
         _stockLabel.text = @"-";
 }
 
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     
     UIColor *color = _separatorView.backgroundColor;
