@@ -21,6 +21,7 @@
             <connections>
                 <outlet property="_backgroundImageView" destination="g3J-oy-tfa" id="uOy-ms-vy8"/>
                 <outlet property="_collectionView" destination="pXB-bz-sJY" id="Ptf-nk-UqT"/>
+                <outlet property="_enterDataButton" destination="UsF-Lq-hWI" id="sv5-b6-PfE"/>
                 <outlet property="_holderView" destination="Qq7-tz-aeC" id="7GJ-vd-ZJm"/>
                 <outlet property="_masonLabel" destination="qBq-wm-GVo" id="WMD-XV-jZl"/>
                 <outlet property="_noHistoryLabel" destination="FU4-T9-aLF" id="FTB-zW-EaB"/>
@@ -195,7 +196,7 @@
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UsF-Lq-hWI">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UsF-Lq-hWI">
                             <rect key="frame" x="521" y="55" width="123" height="33"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="33" id="XAD-DW-rdn"/>

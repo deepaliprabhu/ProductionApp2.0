@@ -59,6 +59,10 @@
 		894F9BDA1FBCA0BC00DC2C6B /* PartHistoryScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894F9BD81FBCA0BC00DC2C6B /* PartHistoryScreen.xib */; };
 		894F9BDE1FBCA90C00DC2C6B /* HistoryPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894F9BDC1FBCA90C00DC2C6B /* HistoryPriceCell.m */; };
 		894F9BDF1FBCA90C00DC2C6B /* HistoryPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894F9BDD1FBCA90C00DC2C6B /* HistoryPriceCell.xib */; };
+		895023F01FE149EC008A1165 /* ReconcileScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 895023EE1FE149EC008A1165 /* ReconcileScreen.m */; };
+		895023F11FE149EC008A1165 /* ReconcileScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895023EF1FE149EC008A1165 /* ReconcileScreen.xib */; };
+		895023F61FE1616A008A1165 /* LocationReconcileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 895023F41FE1616A008A1165 /* LocationReconcileCell.m */; };
+		895023F71FE1616A008A1165 /* LocationReconcileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895023F51FE1616A008A1165 /* LocationReconcileCell.xib */; };
 		8950A7271FC6C14E006C66CB /* AddCommentScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8950A7251FC6C14E006C66CB /* AddCommentScreen.m */; };
 		8950A7281FC6C14E006C66CB /* AddCommentScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8950A7261FC6C14E006C66CB /* AddCommentScreen.xib */; };
 		895287371FCF2B33005C46EE /* StockLogScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 895287351FCF2B33005C46EE /* StockLogScreen.m */; };
@@ -337,6 +341,12 @@
 		894F9BDB1FBCA90C00DC2C6B /* HistoryPriceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryPriceCell.h; sourceTree = "<group>"; };
 		894F9BDC1FBCA90C00DC2C6B /* HistoryPriceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryPriceCell.m; sourceTree = "<group>"; };
 		894F9BDD1FBCA90C00DC2C6B /* HistoryPriceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryPriceCell.xib; sourceTree = "<group>"; };
+		895023ED1FE149EC008A1165 /* ReconcileScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReconcileScreen.h; sourceTree = "<group>"; };
+		895023EE1FE149EC008A1165 /* ReconcileScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReconcileScreen.m; sourceTree = "<group>"; };
+		895023EF1FE149EC008A1165 /* ReconcileScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReconcileScreen.xib; sourceTree = "<group>"; };
+		895023F31FE1616A008A1165 /* LocationReconcileCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationReconcileCell.h; sourceTree = "<group>"; };
+		895023F41FE1616A008A1165 /* LocationReconcileCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationReconcileCell.m; sourceTree = "<group>"; };
+		895023F51FE1616A008A1165 /* LocationReconcileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationReconcileCell.xib; sourceTree = "<group>"; };
 		8950A7241FC6C14E006C66CB /* AddCommentScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddCommentScreen.h; sourceTree = "<group>"; };
 		8950A7251FC6C14E006C66CB /* AddCommentScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddCommentScreen.m; sourceTree = "<group>"; };
 		8950A7261FC6C14E006C66CB /* AddCommentScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCommentScreen.xib; sourceTree = "<group>"; };
@@ -717,6 +727,7 @@
 		894B6F071FCDAD3100E271B1 /* popovers */ = {
 			isa = PBXGroup;
 			children = (
+				895023F21FE1614A008A1165 /* Reconcile */,
 				894F9BD61FBCA0BC00DC2C6B /* PartHistoryScreen.h */,
 				894F9BD71FBCA0BC00DC2C6B /* PartHistoryScreen.m */,
 				894F9BD81FBCA0BC00DC2C6B /* PartHistoryScreen.xib */,
@@ -798,6 +809,19 @@
 				8952873B1FCF39EE005C46EE /* AuditActionCell.xib */,
 			);
 			path = cells;
+			sourceTree = "<group>";
+		};
+		895023F21FE1614A008A1165 /* Reconcile */ = {
+			isa = PBXGroup;
+			children = (
+				895023ED1FE149EC008A1165 /* ReconcileScreen.h */,
+				895023EE1FE149EC008A1165 /* ReconcileScreen.m */,
+				895023EF1FE149EC008A1165 /* ReconcileScreen.xib */,
+				895023F31FE1616A008A1165 /* LocationReconcileCell.h */,
+				895023F41FE1616A008A1165 /* LocationReconcileCell.m */,
+				895023F51FE1616A008A1165 /* LocationReconcileCell.xib */,
+			);
+			path = Reconcile;
 			sourceTree = "<group>";
 		};
 		89854ADA1FB97B3A00C6E38D /* GridView */ = {
@@ -1625,6 +1649,7 @@
 				894B6F121FCDCBB700E271B1 /* RunCommentsScreen.xib in Resources */,
 				9FEEE58E1EEFEFA2005B5ECA /* LaunchScreen.storyboard in Resources */,
 				9F471D141F542B9300B294B7 /* RoadBlocksView.xib in Resources */,
+				895023F11FE149EC008A1165 /* ReconcileScreen.xib in Resources */,
 				9F252A5D1F4D50000056DA8F /* feedbackBgImage.png in Resources */,
 				9F977EF31F62FFD8009C2B6D /* CommonProcessesViewCell.xib in Resources */,
 				9F471D0B1F541F7700B294B7 /* ToDoViewCell.xib in Resources */,
@@ -1668,6 +1693,7 @@
 				9F03A91C1F4563DD00A7A316 /* DemandListView.xib in Resources */,
 				9F471D001F54003300B294B7 /* InProcessViewCell.xib in Resources */,
 				9F252A571F4D46C00056DA8F /* stockBgImage.png in Resources */,
+				895023F71FE1616A008A1165 /* LocationReconcileCell.xib in Resources */,
 				9F7767461F572A780092F603 /* RunListTableView.xib in Resources */,
 				9F8567911F73DDB10067ABE1 /* OperatorEntryView.xib in Resources */,
 				9F252A5B1F4D4F400056DA8F /* demandsBgImage.png in Resources */,
@@ -1720,6 +1746,7 @@
 				D28A35671FB046FC00AE6B51 /* UIAlertView+Blocks.m in Sources */,
 				9F7AB1A71F7D233C0013CBE1 /* DropDownListView.m in Sources */,
 				894EE6971FE00EF8009244A7 /* LockConfirmScreen.m in Sources */,
+				895023F61FE1616A008A1165 /* LocationReconcileCell.m in Sources */,
 				8940187A1FB5A0E4002B8AFD /* BRRequestError.m in Sources */,
 				8940188A1FB5EFAC002B8AFD /* PurchaseModel.m in Sources */,
 				D227675B1FAE49A400215D87 /* ProdAPI.m in Sources */,
@@ -1768,6 +1795,7 @@
 				D22767911FAE4B5400215D87 /* UIButton+AFNetworking.m in Sources */,
 				9FA2645F1F48A179004C882E /* TasklistView.m in Sources */,
 				8940187F1FB5A0E4002B8AFD /* BRRequest.m in Sources */,
+				895023F01FE149EC008A1165 /* ReconcileScreen.m in Sources */,
 				9FE99C311FBD70F8006B58DE /* FeedbackDetailView.m in Sources */,
 				D22767881FAE4B5400215D87 /* AFURLRequestSerialization.m in Sources */,
 				8919BE8F1FB4DD5100EE6839 /* SDWebImageDecoder.m in Sources */,

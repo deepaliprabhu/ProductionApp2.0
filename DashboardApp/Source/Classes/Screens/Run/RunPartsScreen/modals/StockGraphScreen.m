@@ -10,6 +10,7 @@
 #import "GridView.h"
 #import "StockCell.h"
 #import "StockLogScreen.h"
+#import "ReconcileScreen.h"
 
 @interface StockGraphScreen () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -28,6 +29,7 @@
     __weak IBOutlet UILabel *_runLabel;
     __weak IBOutlet UILabel *_transitLabel;
     __weak IBOutlet UILabel *_noHistoryLabel;
+    __weak IBOutlet UIButton *_enterDataButton;
     
     GridView *_gridView;
 }
@@ -47,7 +49,12 @@
 
 - (IBAction) enterButtonTapped {
     
+    ReconcileScreen *screen = [ReconcileScreen new];
+    screen.part = _part;
     
+    CGRect r = [_holderView convertRect:_enterDataButton.frame toView:self.view];
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:r inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
 #pragma mark - UICollectionViewDelegate

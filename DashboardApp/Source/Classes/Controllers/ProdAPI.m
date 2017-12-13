@@ -157,6 +157,15 @@ static ProdAPI *_sharedInstance = nil;
     [self callGETURL:url completion:block];
 }
 
+- (void) reconcilePart:(NSString*)part atLocation:(NSString*)l withQty:(NSString*)qty completion:(void (^)(BOOL success, id response))block {
+    
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=reconcile_part&partno=%@&location=%@&by=test@aginova.com&mode=RECONCILE_PARTS&qty=%@", part, l, qty];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
+#pragma mark -
+
 - (void) callPOST:(NSString*)url parameters:(NSDictionary*)params completion:(void (^)(BOOL success, id response))block
 {
     [_manager POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

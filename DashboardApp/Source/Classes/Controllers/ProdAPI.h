@@ -32,6 +32,7 @@
 - (void) getHistoryFor:(NSString*)part withCompletion:(void (^)(BOOL success, id response))block;
 - (void) setPurchase:(NSString*)poID date:(NSString*)date completion:(void (^)(BOOL success, id response))block;
 - (void) getAuditHistoryFor:(NSString*)part withCompletion:(void (^)(BOOL success, id response))block;
+- (void) reconcilePart:(NSString*)part atLocation:(NSString*)l withQty:(NSString*)qty completion:(void (^)(BOOL success, id response))block;
 
 @end
 
