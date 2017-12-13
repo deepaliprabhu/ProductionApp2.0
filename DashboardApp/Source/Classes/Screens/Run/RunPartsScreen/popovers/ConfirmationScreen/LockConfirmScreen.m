@@ -43,6 +43,42 @@
 
 - (IBAction) saveButtonTapped {
     
+    NSMutableArray *data = [NSMutableArray array];
+    for (int i=0; i<_parts.count; i++) {
+        
+        NSMutableDictionary *d = [NSMutableDictionary dictionary];
+        
+        PartModel *main = _parts[i];
+        d[@"partName"] = main.part;
+        
+        NSMutableArray *arr = [NSMutableArray array];
+        NSArray *chosenQuantities = _chosenQuantities[i];
+        for (int j=0; j<chosenQuantities.count; j++) {
+            
+            if ([chosenQuantities[j] intValue] > 0) {
+                
+                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+                dict[@"qty"] = chosenQuantities[j];
+                if (j == 0) {
+                    dict[@"name"] = main.part;
+                    dict[@"type"] = @"main";
+                    dict[@"pricePerUnit"] = [NSString stringWithFormat:@"%.4f", [main.pricePerUnit floatValue]];
+                } else {
+                    PartModel *p = main.alternateParts[j-1];
+                    dict[@"name"] = p.part;
+                    dict[@"type"] = @"alternate";
+                    float altPrice = [p.priceHistory[0][@"PRICE"] floatValue];
+                    dict[@"pricePerUnit"] = [NSString stringWithFormat:@"%.4f", altPrice];
+                }
+                [arr addObject:dict];
+            }
+        }
+        d[@"parts"] = arr;
+        [data addObject:d];
+    }
+    
+    NSData *dataJSON = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *json = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
 }
 
 #pragma mark - UITableViewDelegate
