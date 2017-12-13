@@ -11,6 +11,7 @@
 #import "LockConfirmationHeaderView.h"
 #import "LockConfirmationCell.h"
 #import "Defines.h"
+#import "LoadingView.h"
 
 @interface LockConfirmScreen () <UITableViewDelegate, UITableViewDataSource>
 
@@ -85,8 +86,7 @@
         cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
     }
     
-    PartModel *main = _parts[indexPath.section];
-    PartModel *p = indexPath.row == 0 ? main : main.alternateParts[indexPath.row-1];
+    PartModel *p = [self partAtIndex:indexPath];
     int all = [_chosenQuantities[indexPath.section][indexPath.row] intValue];
     [cell layoutWithPart:p allocated:all];
     
@@ -95,6 +95,54 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
+    
+    PartModel *p = [self partAtIndex:indexPath];
+    int stock = [p totalStock];
+    if (stock <= 0) {
+        [LoadingView showShortMessage:@"Empty stock!"];
+    } else {
+        
+        
+        int current = [_chosenQuantities[indexPath.section][indexPath.row] intValue];
+        PartModel *main = _parts[indexPath.section];
+        int maxPossible = main.shortQty - [self allocatedQTYAtIndex:(int)indexPath.section] + current;
+        if (maxPossible > stock)
+            maxPossible = stock;
+        
+        NSString *m = [NSString stringWithFormat:@"Maximum allocation value is %d", maxPossible];
+        NSString *t = [NSString stringWithFormat:@"Insert quantity for\n%@: %@", (p.alternateParts.count == 0)?@"Alt.":@"Main", p.part];
+        UIAlertController *c = [UIAlertController alertControllerWithTitle:t message:m preferredStyle:UIAlertControllerStyleAlert];
+        [c addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+            if (current > 0)
+                textField.text = [NSString stringWithFormat:@"%d", current];
+        }];
+        
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            int v = [[[[c textFields] firstObject] text] intValue];
+            if (v > maxPossible) {
+                [LoadingView showShortMessage:@"Value is too big"];
+            } else if (v < 0) {
+                [LoadingView showShortMessage:@"Invalid value"];
+            } else {
+                
+                NSMutableArray *arr = _chosenQuantities[indexPath.section];
+                [arr replaceObjectAtIndex:indexPath.row withObject:@(v)];
+                [_chosenQuantities replaceObjectAtIndex:indexPath.section withObject:arr];
+                [_tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+                [self layoutBOM];
+                [self layoutCompletedCount];
+            }
+        }];
+        [c addAction:confirm];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        [c addAction:cancel];
+        [self presentViewController:c animated:true completion:nil];
+    }
 }
 
 #pragma mark - Layout
@@ -139,6 +187,13 @@
 }
 
 #pragma mark - Utils
+
+- (PartModel*) partAtIndex:(NSIndexPath*)index {
+    
+    PartModel *main = _parts[index.section];
+    PartModel *p = index.row == 0 ? main : main.alternateParts[index.row-1];
+    return p;
+}
 
 - (void) prepareData {
     
@@ -189,7 +244,7 @@
                 PartModel *alternate = p.alternateParts[j-1];
                 if (alternate.priceHistory.count > 0) {
                     float altPrice = [alternate.priceHistory[0][@"PRICE"] floatValue];
-                    totalPartPrice += totalPartPrice + q*altPrice;
+                    totalPartPrice += q*altPrice;
                 }
             }
         }
