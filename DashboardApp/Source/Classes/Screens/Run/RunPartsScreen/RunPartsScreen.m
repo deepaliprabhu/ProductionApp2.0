@@ -132,6 +132,7 @@ typedef enum
     
     _selectedComps = PartsComps;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePartHistory) name:@"UPDATEPARTHISTORY" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newActionForAudit) name:@"NEWACTIONFORAUDITPART" object:nil];
     
     _formatter = [NSDateFormatter new];
     _formatter.dateFormat = @"dd MMM yyyy";
@@ -184,6 +185,7 @@ typedef enum
 
 - (IBAction) partsButtonTapped {
     
+    [self.view endEditing:true];
     [self layoutWith:nil];
     
     _searchTextField.text = @"";
@@ -197,6 +199,7 @@ typedef enum
 
 - (IBAction) shortButtonTapped {
     
+    [self.view endEditing:true];
     [self layoutWith:nil];
     
     _searchTextField.text = @"";
@@ -211,6 +214,7 @@ typedef enum
 
 - (IBAction) alShortButtonTapped {
     
+    [self.view endEditing:true];
     _searchTextField.text = @"";
     _selectedComps = AlShortsComps;
     _vendorLabel.text = @"OPEN PO";
@@ -270,6 +274,12 @@ typedef enum
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
     nav.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:nav animated:true completion:nil];
+}
+
+- (void) newActionForAudit {
+    
+    [_componentsTable reloadData];
+    [self layoutWith:_visiblePart];
 }
 
 - (void) updatePartHistory

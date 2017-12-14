@@ -32,4 +32,10 @@ static NSDateFormatter *_formatter = nil;
     return a;
 }
 
++ (NSDate*) normalizedDateFor:(NSDate*)date {
+    
+    NSString *str = [_formatter stringFromDate:date];
+    return [_formatter dateFromString:str];
+}
+
 @end

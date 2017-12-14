@@ -112,7 +112,7 @@
         if (success) {
             
             ActionModel *a = [ActionModel new];
-            a.date = [NSDate date];
+            a.date = [ActionModel normalizedDateFor:[NSDate date]];
             a.action = @"NEW STOCK";
             a.mode = @"RECONCILE_PARTS";
             a.location = _locations[_selectedLocation];

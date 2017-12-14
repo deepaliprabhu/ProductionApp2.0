@@ -19,5 +19,6 @@
 @property (nonatomic, strong) NSString *process;
 
 + (ActionModel*) objFrom:(NSDictionary*)d;
++ (NSDate*) normalizedDateFor:(NSDate*)date;
 
 @end

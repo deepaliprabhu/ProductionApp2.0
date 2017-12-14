@@ -59,6 +59,7 @@
     [arr insertObject:a atIndex:0];
     _actions = arr;
     _days = nil;
+    [self computeData];
 }
 
 - (void) computeData {
