@@ -10,6 +10,6 @@
 
 @interface LockConfirmScreen : UIViewController
 
-@property (nonatomic, unsafe_unretained) NSArray *parts;
+@property (nonatomic, strong) NSArray *runParts;
 
 @end

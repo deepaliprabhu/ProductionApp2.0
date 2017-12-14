@@ -157,11 +157,11 @@ typedef enum
     
     if (_alShorts.count > 0) {
         [LoadingView showShortMessage:@"This run cannot be locked"];
-//        return;
+        return;
     }
     
     LockConfirmScreen *screen = [[LockConfirmScreen alloc] initWithNibName:@"LockConfirmScreen" bundle:nil];
-    screen.parts = _parts;
+    screen.runParts = _parts;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
     nav.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:nav animated:true completion:nil];

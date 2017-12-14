@@ -24,6 +24,7 @@
     __weak IBOutlet UILabel *_bomLabel;
     
     NSMutableArray *_chosenQuantities;
+    NSMutableArray *_parts;
 }
 
 #pragma mark - View lifecycle
@@ -234,6 +235,8 @@
 
 - (void) prepareData {
     
+    [self prepareParts];
+    
     _chosenQuantities = [NSMutableArray array];
     for (int i=0; i<_parts.count; i++) {
         
@@ -242,14 +245,14 @@
             
             NSMutableArray *arr = [NSMutableArray array];
             [arr addObject:@(0)];
-            for (PartModel *a in p.alternateParts) {
+            for (int j=0;j<p.alternateParts.count;j++)
                 [arr addObject:@(0)];
-            }
             [_chosenQuantities addObject:arr];
         } else {
             [_chosenQuantities addObject:@[@(p.shortQty)]];
         }
     }
+    
 }
 
 - (int) allocatedQTYAtIndex:(int)i {
@@ -291,6 +294,23 @@
             return finalPrice;
         } else {
             return 0;
+        }
+    }
+}
+
+- (void) prepareParts {
+ 
+    int noOfRedParts = 0;
+    _parts = [NSMutableArray array];
+    
+    for (int i=0; i<_runParts.count; i++) {
+        
+        PartModel *p = _runParts[i];
+        if (p.alternateParts.count == 0) {
+            [_parts addObject:p];
+        } else {
+            [_parts insertObject:p atIndex:noOfRedParts];
+            noOfRedParts++;
         }
     }
 }
