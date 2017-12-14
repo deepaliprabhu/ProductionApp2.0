@@ -727,20 +727,12 @@
 		894B6F071FCDAD3100E271B1 /* popovers */ = {
 			isa = PBXGroup;
 			children = (
-				895023F21FE1614A008A1165 /* Reconcile */,
-				894F9BD61FBCA0BC00DC2C6B /* PartHistoryScreen.h */,
-				894F9BD71FBCA0BC00DC2C6B /* PartHistoryScreen.m */,
-				894F9BD81FBCA0BC00DC2C6B /* PartHistoryScreen.xib */,
-				8950A7241FC6C14E006C66CB /* AddCommentScreen.h */,
-				8950A7251FC6C14E006C66CB /* AddCommentScreen.m */,
-				8950A7261FC6C14E006C66CB /* AddCommentScreen.xib */,
-				894B6F021FCD994100E271B1 /* PartDescriptionScreen.h */,
-				894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */,
-				894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */,
-				894B6F091FCDAD7600E271B1 /* PODateScreen.h */,
-				894B6F0A1FCDAD7600E271B1 /* PODateScreen.m */,
-				894B6F0B1FCDAD7600E271B1 /* PODateScreen.xib */,
+				895023FB1FE16876008A1165 /* AddComment */,
+				895023FC1FE16895008A1165 /* ChangePODate */,
 				894EE6991FE0226B009244A7 /* ConfirmationScreen */,
+				895023FA1FE16868008A1165 /* PartDescription */,
+				895023F91FE16834008A1165 /* PriceHistory */,
+				895023F21FE1614A008A1165 /* Reconcile */,
 			);
 			path = popovers;
 			sourceTree = "<group>";
@@ -748,15 +740,7 @@
 		894B6F081FCDAD4800E271B1 /* modals */ = {
 			isa = PBXGroup;
 			children = (
-				89897E361FBF140C000B39EA /* StockGraphScreen.h */,
-				89897E371FBF140C000B39EA /* StockGraphScreen.m */,
-				89897E381FBF140C000B39EA /* StockGraphScreen.xib */,
-				895F5F781FCEF17500ED3349 /* GridView.h */,
-				895F5F791FCEF17500ED3349 /* GridView.m */,
-				895F5F7B1FCEF17D00ED3349 /* GridView.xib */,
-				895287341FCF2B33005C46EE /* StockLogScreen.h */,
-				895287351FCF2B33005C46EE /* StockLogScreen.m */,
-				895287361FCF2B33005C46EE /* StockLogScreen.xib */,
+				895023F81FE167FB008A1165 /* StockGraph */,
 			);
 			path = modals;
 			sourceTree = "<group>";
@@ -795,15 +779,9 @@
 				894F9BD01FBC7B6B00DC2C6B /* PurchasePartCell.h */,
 				894F9BD11FBC7B6B00DC2C6B /* PurchasePartCell.m */,
 				894F9BD21FBC7B6B00DC2C6B /* PurchasePartCell.xib */,
-				894F9BDB1FBCA90C00DC2C6B /* HistoryPriceCell.h */,
-				894F9BDC1FBCA90C00DC2C6B /* HistoryPriceCell.m */,
-				894F9BDD1FBCA90C00DC2C6B /* HistoryPriceCell.xib */,
 				89619E161FBDB4E8005A5BE7 /* PriorityRunCell.h */,
 				89619E171FBDB4E8005A5BE7 /* PriorityRunCell.m */,
 				89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */,
-				895F5F7D1FCEF75800ED3349 /* StockCell.h */,
-				895F5F7E1FCEF75800ED3349 /* StockCell.m */,
-				895F5F7F1FCEF75800ED3349 /* StockCell.xib */,
 				895287391FCF39EE005C46EE /* AuditActionCell.h */,
 				8952873A1FCF39EE005C46EE /* AuditActionCell.m */,
 				8952873B1FCF39EE005C46EE /* AuditActionCell.xib */,
@@ -822,6 +800,68 @@
 				895023F51FE1616A008A1165 /* LocationReconcileCell.xib */,
 			);
 			path = Reconcile;
+			sourceTree = "<group>";
+		};
+		895023F81FE167FB008A1165 /* StockGraph */ = {
+			isa = PBXGroup;
+			children = (
+				89897E361FBF140C000B39EA /* StockGraphScreen.h */,
+				89897E371FBF140C000B39EA /* StockGraphScreen.m */,
+				89897E381FBF140C000B39EA /* StockGraphScreen.xib */,
+				895F5F781FCEF17500ED3349 /* GridView.h */,
+				895F5F791FCEF17500ED3349 /* GridView.m */,
+				895F5F7B1FCEF17D00ED3349 /* GridView.xib */,
+				895287341FCF2B33005C46EE /* StockLogScreen.h */,
+				895287351FCF2B33005C46EE /* StockLogScreen.m */,
+				895287361FCF2B33005C46EE /* StockLogScreen.xib */,
+				895F5F7D1FCEF75800ED3349 /* StockCell.h */,
+				895F5F7E1FCEF75800ED3349 /* StockCell.m */,
+				895F5F7F1FCEF75800ED3349 /* StockCell.xib */,
+			);
+			path = StockGraph;
+			sourceTree = "<group>";
+		};
+		895023F91FE16834008A1165 /* PriceHistory */ = {
+			isa = PBXGroup;
+			children = (
+				894F9BD61FBCA0BC00DC2C6B /* PartHistoryScreen.h */,
+				894F9BD71FBCA0BC00DC2C6B /* PartHistoryScreen.m */,
+				894F9BD81FBCA0BC00DC2C6B /* PartHistoryScreen.xib */,
+				894F9BDB1FBCA90C00DC2C6B /* HistoryPriceCell.h */,
+				894F9BDC1FBCA90C00DC2C6B /* HistoryPriceCell.m */,
+				894F9BDD1FBCA90C00DC2C6B /* HistoryPriceCell.xib */,
+			);
+			path = PriceHistory;
+			sourceTree = "<group>";
+		};
+		895023FA1FE16868008A1165 /* PartDescription */ = {
+			isa = PBXGroup;
+			children = (
+				894B6F021FCD994100E271B1 /* PartDescriptionScreen.h */,
+				894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */,
+				894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */,
+			);
+			path = PartDescription;
+			sourceTree = "<group>";
+		};
+		895023FB1FE16876008A1165 /* AddComment */ = {
+			isa = PBXGroup;
+			children = (
+				8950A7241FC6C14E006C66CB /* AddCommentScreen.h */,
+				8950A7251FC6C14E006C66CB /* AddCommentScreen.m */,
+				8950A7261FC6C14E006C66CB /* AddCommentScreen.xib */,
+			);
+			path = AddComment;
+			sourceTree = "<group>";
+		};
+		895023FC1FE16895008A1165 /* ChangePODate */ = {
+			isa = PBXGroup;
+			children = (
+				894B6F091FCDAD7600E271B1 /* PODateScreen.h */,
+				894B6F0A1FCDAD7600E271B1 /* PODateScreen.m */,
+				894B6F0B1FCDAD7600E271B1 /* PODateScreen.xib */,
+			);
+			path = ChangePODate;
 			sourceTree = "<group>";
 		};
 		89854ADA1FB97B3A00C6E38D /* GridView */ = {

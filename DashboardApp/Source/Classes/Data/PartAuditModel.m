@@ -17,7 +17,7 @@
     
     for (NSDictionary *d in a) {
         ActionModel *m = [ActionModel objFrom:d];
-        [actions addObject:m];
+        [actions insertObject:m atIndex:0];
     }
     
     NSArray *descriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:false]];
@@ -51,6 +51,14 @@
     }
     
     return nil;
+}
+
+- (void) addAction:(ActionModel*)a {
+    
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:_actions];
+    [arr insertObject:a atIndex:0];
+    _actions = arr;
+    _days = nil;
 }
 
 - (void) computeData {

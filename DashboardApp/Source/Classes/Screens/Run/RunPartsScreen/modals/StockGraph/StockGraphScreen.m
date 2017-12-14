@@ -37,11 +37,22 @@
 - (void) viewDidLoad {
     
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newActionForAuditAdded) name:@"NEWACTIONFORAUDITPART" object:nil];
+    
     [self initLayout];
     [self computeData];
 }
 
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Actions
+
+- (void) newActionForAuditAdded {
+    [self computeData];
+}
 
 - (IBAction) closeButtonTapped {
     [self dismissViewControllerAnimated:true completion:nil];

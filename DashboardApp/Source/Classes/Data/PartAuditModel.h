@@ -20,6 +20,7 @@
 
 - (ActionModel*) lastMasonAction;
 - (ActionModel*) lastPuneAction;
+- (void) addAction:(ActionModel*)a;
 
 - (void) computeData;
 

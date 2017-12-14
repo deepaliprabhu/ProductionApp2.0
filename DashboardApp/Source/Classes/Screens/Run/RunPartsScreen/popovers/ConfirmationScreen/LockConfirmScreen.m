@@ -79,6 +79,7 @@
     
     NSData *dataJSON = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:nil];
     NSString *json = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
+    NSLog(@"json %@", json);
 }
 
 #pragma mark - UITableViewDelegate

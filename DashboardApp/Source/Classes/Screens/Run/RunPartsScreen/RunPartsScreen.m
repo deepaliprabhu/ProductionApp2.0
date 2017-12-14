@@ -191,6 +191,8 @@ typedef enum
     _vendorLabel.text = @"VENDOR";
     [self layoutButtons];
     [self getParts];
+    
+    [self addFooterView];
 }
 
 - (IBAction) shortButtonTapped {
@@ -203,6 +205,8 @@ typedef enum
     [self layoutNumberOfPOsFor:_shorts];
     [self layoutButtons];
     [self getShorts];
+    
+    [self addFooterView];
 }
 
 - (IBAction) alShortButtonTapped {
@@ -213,6 +217,8 @@ typedef enum
     [self layoutNumberOfPOsFor:_alShorts];
     [self layoutButtons];
     [self getAlShorts];
+    
+    [self addFooterView];
 }
 
 - (IBAction) historyButtonTapped {
@@ -355,50 +361,6 @@ typedef enum
     {
         PartModel *p = _visibleObjs[section];
         return 1 + p.alternateParts.count;
-    }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    
-    if (tableView == _componentsTable) {
-        
-        if (_selectedComps == AlShortsComps && section == _alShorts.count-1) {
-            return 70;
-        } else {
-            return 0;
-        }
-        
-    } else {
-        return 0;
-    }
-}
-
-- (UIView*) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    
-    if (tableView == _componentsTable) {
-        
-        if (_selectedComps == AlShortsComps && section == _alShorts.count-1) {
-            
-            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 70)];
-            view.backgroundColor = [UIColor whiteColor];
-            
-            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(15, 13, tableView.bounds.size.width-30, 44)];
-            [btn setTitle:@"Lock" forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-            btn.backgroundColor = (_alShorts.count == 0) ? ccgreen : ccgrey;
-            [btn addTarget:self action:@selector(lockButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-            
-            [view addSubview:btn];
-            
-            return view;
-            
-        } else {
-            return nil;
-        }
-        
-    } else {
-        return nil;
     }
 }
 
@@ -847,6 +809,28 @@ typedef enum
     else
         _noCommentsLabel.alpha = 0;
     [_commentsTableView reloadData];
+}
+
+- (void) addFooterView {
+    
+    if (_selectedComps == AlShortsComps) {
+        
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _componentsTable.bounds.size.width, 70)];
+        view.backgroundColor = [UIColor whiteColor];
+        
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(15, 13, _componentsTable.bounds.size.width-30, 44)];
+        [btn setTitle:@"Lock" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+        btn.backgroundColor = (_alShorts.count == 0) ? ccolor(17, 134, 117) : ccgrey;
+        [btn addTarget:self action:@selector(lockButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        
+        [view addSubview:btn];
+        _componentsTable.tableFooterView = view;
+        
+    } else {
+        _componentsTable.tableFooterView = nil;
+    }
 }
 
 #pragma mark - API Utils

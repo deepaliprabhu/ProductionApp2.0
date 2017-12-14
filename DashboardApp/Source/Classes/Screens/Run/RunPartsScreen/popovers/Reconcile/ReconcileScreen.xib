@@ -81,7 +81,7 @@
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRu-ri-hhO">
                     <rect key="frame" x="16" y="265" width="288" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.067441195250000002" green="0.52458477020000005" blue="0.4586773515" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.067441262304782867" green="0.52458477020263672" blue="0.45867732167243958" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Reconcile">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
