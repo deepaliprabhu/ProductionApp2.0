@@ -42,27 +42,16 @@
         [LoadingView showShortMessage:@"Invalid quantity!"];
     } else {
         
-        [LoadingView showLoading:@"Loading..."];
-        NSString *qty = _textField.text;
-        [[ProdAPI sharedInstance] reconcilePart:_part.part atLocation:_locations[_selectedLocation] withQty:qty completion:^(BOOL success, id response) {
-          
-            if (success) {
-                
-                ActionModel *a = [ActionModel new];
-                a.date = [NSDate date];
-                a.action = @"NEW STOCK";
-                a.mode = @"RECONCILE_PARTS";
-                a.location = _locations[_selectedLocation];
-                a.qty = qty;
-                [_part.audit addAction:a];
-                [LoadingView removeLoading];
-                [self dismissViewControllerAnimated:true completion:nil];
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"NEWACTIONFORAUDITPART" object:nil];
-            } else {
-                [LoadingView showShortMessage:@"Error, please try again later!"];
-            }
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Reconcile" message:@"Are you sure you want to reconcile this part?" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self callReconcileAPI];
         }];
+        
+        UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:yes];
+        [alert addAction:no];
+        
+        [self presentViewController:alert animated:true completion:nil];
     }
 }
 
@@ -110,6 +99,33 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return true;
+}
+
+#pragma mark - Utils
+
+- (void) callReconcileAPI {
+    
+    [LoadingView showLoading:@"Loading..."];
+    NSString *qty = _textField.text;
+    [[ProdAPI sharedInstance] reconcilePart:_part.part atLocation:_locations[_selectedLocation] withQty:qty completion:^(BOOL success, id response) {
+        
+        if (success) {
+            
+            ActionModel *a = [ActionModel new];
+            a.date = [NSDate date];
+            a.action = @"NEW STOCK";
+            a.mode = @"RECONCILE_PARTS";
+            a.location = _locations[_selectedLocation];
+            a.qty = qty;
+            [_part.audit addAction:a];
+            [LoadingView removeLoading];
+            [self dismissViewControllerAnimated:true completion:nil];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"NEWACTIONFORAUDITPART" object:nil];
+        } else {
+            [LoadingView showShortMessage:@"Error, please try again later!"];
+        }
+    }];
 }
 
 @end
