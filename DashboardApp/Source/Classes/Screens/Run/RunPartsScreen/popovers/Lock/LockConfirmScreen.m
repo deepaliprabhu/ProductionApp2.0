@@ -12,6 +12,7 @@
 #import "LockConfirmationCell.h"
 #import "Defines.h"
 #import "LoadingView.h"
+#import "ProdAPI.h"
 
 @interface LockConfirmScreen () <UITableViewDelegate, UITableViewDataSource>
 
@@ -44,43 +45,21 @@
 
 - (IBAction) saveButtonTapped {
     
-    NSMutableArray *data = [NSMutableArray array];
-    for (int i=0; i<_parts.count; i++) {
-        
-        NSMutableDictionary *d = [NSMutableDictionary dictionary];
-        
-        PartModel *main = _parts[i];
-        d[@"partName"] = main.part;
-        
-        NSMutableArray *arr = [NSMutableArray array];
-        NSArray *chosenQuantities = _chosenQuantities[i];
-        for (int j=0; j<chosenQuantities.count; j++) {
-            
-            if ([chosenQuantities[j] intValue] > 0) {
-                
-                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-                dict[@"qty"] = chosenQuantities[j];
-                if (j == 0) {
-                    dict[@"name"] = main.part;
-                    dict[@"type"] = @"main";
-                    dict[@"pricePerUnit"] = [NSString stringWithFormat:@"%.4f", [main.pricePerUnit floatValue]];
-                } else {
-                    PartModel *p = main.alternateParts[j-1];
-                    dict[@"name"] = p.part;
-                    dict[@"type"] = @"alternate";
-                    float altPrice = [p.priceHistory[0][@"PRICE"] floatValue];
-                    dict[@"pricePerUnit"] = [NSString stringWithFormat:@"%.4f", altPrice];
-                }
-                [arr addObject:dict];
-            }
-        }
-        d[@"parts"] = arr;
-        [data addObject:d];
+    if ([self completedCount] < _parts.count) {
+        [LoadingView showShortMessage:@"Please allocate all parts!"];
+        return;
     }
     
-    NSData *dataJSON = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *json = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
-    NSLog(@"json %@", json);
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Are you sure you want to start this run?" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self callLockAPI];
+    }];
+    
+    UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:yes];
+    [alert addAction:no];
+    
+    [self presentViewController:alert animated:true completion:nil];
 }
 
 #pragma mark - UITableViewDelegate
@@ -212,6 +191,13 @@
 
 - (void) layoutCompletedCount {
     
+    int c = [self completedCount];
+    _partsCountLabel.text = [NSString stringWithFormat:@"%d/%lu", c, _parts.count];
+    _partsCountLabel.textColor = (c == _parts.count) ? ccolor(67, 194, 81) : ccolor(233, 46, 40);
+}
+
+- (int) completedCount {
+    
     int c = 0;
     for (int i=0; i<_parts.count; i++) {
         
@@ -219,9 +205,7 @@
         if (p.alternateParts.count == 0 || [self allocatedQTYAtIndex:i] == p.shortQty)
             c++;
     }
-    
-    _partsCountLabel.text = [NSString stringWithFormat:@"%d/%lu", c, _parts.count];
-    _partsCountLabel.textColor = (c == _parts.count) ? ccolor(67, 194, 81) : ccolor(233, 46, 40);
+    return c;
 }
 
 #pragma mark - Utils
@@ -313,6 +297,62 @@
             noOfRedParts++;
         }
     }
+}
+
+- (NSString*) generateJSON {
+    
+    NSMutableArray *data = [NSMutableArray array];
+    for (int i=0; i<_parts.count; i++) {
+        
+        NSMutableDictionary *d = [NSMutableDictionary dictionary];
+        
+        PartModel *main = _parts[i];
+        d[@"partName"] = main.part;
+        
+        NSMutableArray *arr = [NSMutableArray array];
+        NSArray *chosenQuantities = _chosenQuantities[i];
+        for (int j=0; j<chosenQuantities.count; j++) {
+            
+            if ([chosenQuantities[j] intValue] > 0) {
+                
+                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+                dict[@"qty"] = chosenQuantities[j];
+                if (j == 0) {
+                    dict[@"name"] = main.part;
+                    dict[@"type"] = @"main";
+                    dict[@"pricePerUnit"] = [NSString stringWithFormat:@"%.4f", [main.pricePerUnit floatValue]];
+                } else {
+                    PartModel *p = main.alternateParts[j-1];
+                    dict[@"name"] = p.part;
+                    dict[@"type"] = @"alternate";
+                    float altPrice = [p.priceHistory[0][@"PRICE"] floatValue];
+                    dict[@"pricePerUnit"] = [NSString stringWithFormat:@"%.4f", altPrice];
+                }
+                [arr addObject:dict];
+            }
+        }
+        d[@"parts"] = arr;
+        [data addObject:d];
+    }
+    
+    NSData *dataJSON = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *json = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
+    return json;
+}
+
+- (void) callLockAPI {
+ 
+    [LoadingView showLoading:@"Loading..."];
+    [[ProdAPI sharedInstance] lockRun:(int)_run.runId withAllocations:[self generateJSON] completion:^(BOOL success, id response) {
+
+        if (success) {
+            [LoadingView removeLoading];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"RUNWASLOCKED" object:nil];
+            [self dismissViewControllerAnimated:true completion:nil];
+        } else {
+            [LoadingView showShortMessage:@"Error, please try again later!"];
+        }
+    }];
 }
 
 @end

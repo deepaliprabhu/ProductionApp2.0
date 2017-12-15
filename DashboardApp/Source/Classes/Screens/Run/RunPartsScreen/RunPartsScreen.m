@@ -133,6 +133,7 @@ typedef enum
     _selectedComps = PartsComps;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePartHistory) name:@"UPDATEPARTHISTORY" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newActionForAudit) name:@"NEWACTIONFORAUDITPART" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runWasLocked) name:@"RUNWASLOCKED" object:nil];
     
     _formatter = [NSDateFormatter new];
     _formatter.dateFormat = @"dd MMM yyyy";
@@ -163,6 +164,7 @@ typedef enum
     
     LockConfirmScreen *screen = [[LockConfirmScreen alloc] initWithNibName:@"LockConfirmScreen" bundle:nil];
     screen.runParts = _parts;
+    screen.run = _run;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
     nav.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:nav animated:true completion:nil];
@@ -282,8 +284,7 @@ typedef enum
     [self layoutWith:_visiblePart];
 }
 
-- (void) updatePartHistory
-{
+- (void) updatePartHistory {
     _currentHistoryRequests = _currentHistoryRequests + 1;
     [self layoutShortButton];
     
@@ -292,6 +293,26 @@ typedef enum
         [self layoutNumberOfPOsFor:_shorts];
     else if (_selectedComps == PartsComps)
         [self layoutNumberOfPOsFor:_alShorts];
+}
+
+- (void) runWasLocked {
+    
+    _run.isLocked = true;
+    
+    _shortButton.alpha = 0;
+    _alShortButton.alpha = 0;
+    
+    _selectedComps = PartsComps;
+    
+    _cost = -1;
+    
+    [_parts removeAllObjects];
+    [_shorts removeAllObjects];
+    [_alShorts removeAllObjects];
+    [_visibleObjs removeAllObjects];
+    [_comments removeAllObjects];
+    
+    [self partsButtonTapped];
 }
 
 - (IBAction) partTitleButtonTapped
@@ -855,7 +876,8 @@ typedef enum
         return;
     }
     
-    [_shortsSpinner startAnimating];
+    if (_run.isLocked == false)
+        [_shortsSpinner startAnimating];
     _parts = [NSMutableArray array];
     _shorts = [NSMutableArray array];
     _alShorts = [NSMutableArray array];
@@ -1098,6 +1120,9 @@ typedef enum
 }
 
 - (void) layoutShortButton {
+    
+    if (_run.isLocked)
+        return;
     
     if (_currentPartRunRequests == _parts.count && _currentHistoryRequests == [self numberOfAlternateParts] && _currentAuditRequests == [self numberOfAllParts]) {
         [_shortsSpinner stopAnimating];

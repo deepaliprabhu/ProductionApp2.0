@@ -47,6 +47,7 @@
 @property NSString *shipping;
 @property NSString *detail;
 @property BOOL activated;
+@property BOOL isLocked;
 
 
 - (void)updateRunStatus:(NSString*)statusString;

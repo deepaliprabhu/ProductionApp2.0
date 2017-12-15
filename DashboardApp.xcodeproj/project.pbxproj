@@ -729,7 +729,7 @@
 			children = (
 				895023FB1FE16876008A1165 /* AddComment */,
 				895023FC1FE16895008A1165 /* ChangePODate */,
-				894EE6991FE0226B009244A7 /* ConfirmationScreen */,
+				894EE6991FE0226B009244A7 /* Lock */,
 				895023FA1FE16868008A1165 /* PartDescription */,
 				895023F91FE16834008A1165 /* PriceHistory */,
 				895023F21FE1614A008A1165 /* Reconcile */,
@@ -745,7 +745,7 @@
 			path = modals;
 			sourceTree = "<group>";
 		};
-		894EE6991FE0226B009244A7 /* ConfirmationScreen */ = {
+		894EE6991FE0226B009244A7 /* Lock */ = {
 			isa = PBXGroup;
 			children = (
 				894EE6941FE00EF8009244A7 /* LockConfirmScreen.h */,
@@ -758,7 +758,7 @@
 				894EE69B1FE02298009244A7 /* LockConfirmationHeaderView.m */,
 				894EE69D1FE0229E009244A7 /* LockConfirmationHeaderView.xib */,
 			);
-			path = ConfirmationScreen;
+			path = Lock;
 			sourceTree = "<group>";
 		};
 		894F9BD51FBCA09D00DC2C6B /* cells */ = {

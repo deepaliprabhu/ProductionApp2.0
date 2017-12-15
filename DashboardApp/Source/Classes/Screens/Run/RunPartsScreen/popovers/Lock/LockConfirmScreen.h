@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Run.h"
 
 @interface LockConfirmScreen : UIViewController
 
 @property (nonatomic, strong) NSArray *runParts;
+@property (nonatomic, unsafe_unretained) Run *run;
 
 @end
