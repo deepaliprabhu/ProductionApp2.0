@@ -171,6 +171,13 @@ static ProdAPI *_sharedInstance = nil;
     [self callPOST:url parameters:@{@"JSON":json} completion:block];
 }
 
+- (void) getSalesPerYearFor:(NSString*)product completion:(void (^)(BOOL success, id response))block {
+    
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/product_sales.php?pid=%@", product];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
 #pragma mark -
 
 - (void) callPOST:(NSString*)url parameters:(NSDictionary*)params completion:(void (^)(BOOL success, id response))block

@@ -17,6 +17,7 @@
 #import "ProductListViewController.h"
 #import "UIView+Screenshot.h"
 #import "RunCommentsScreen.h"
+#import "RunDetailsScreen.h"
 
 @interface HomeViewController ()
 
@@ -191,15 +192,26 @@
 }
 
 - (void) runSelectedAtIndex:(int)runId {
-    RunViewController *runVC = [RunViewController new];
-    [runVC setRun:[__DataManager getRunWithId:runId]];
-    [self.navigationController pushViewController:runVC animated:false];
+    
+    RunDetailsScreen *screen = [RunDetailsScreen new];
+    screen.run = [__DataManager getRunWithId:runId];
+    [self.navigationController pushViewController:screen animated:true];
+
+    
+//    RunViewController *runVC = [RunViewController new];
+//    [runVC setRun:[__DataManager getRunWithId:runId]];
+//    [self.navigationController pushViewController:runVC animated:false];
 }
 
 - (void) runSelected:(Run*)run {
-    RunViewController *runVC = [RunViewController new];
-    [runVC setRun:run];
-    [self.navigationController pushViewController:runVC animated:false];
+    
+    RunDetailsScreen *screen = [RunDetailsScreen new];
+    screen.run = run;
+    [self.navigationController pushViewController:screen animated:true];
+    
+//    RunViewController *runVC = [RunViewController new];
+//    [runVC setRun:run];
+//    [self.navigationController pushViewController:runVC animated:false];
 }
 
 - (void)selectedRunType:(int)runType {

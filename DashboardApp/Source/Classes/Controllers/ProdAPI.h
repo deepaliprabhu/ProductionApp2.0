@@ -34,6 +34,7 @@
 - (void) getAuditHistoryFor:(NSString*)part withCompletion:(void (^)(BOOL success, id response))block;
 - (void) reconcilePart:(NSString*)part atLocation:(NSString*)l withQty:(NSString*)qty completion:(void (^)(BOOL success, id response))block;
 - (void) lockRun:(int)runID withAllocations:(NSString*)json completion:(void (^)(BOOL success, id response))block;
+- (void) getSalesPerYearFor:(NSString*)product completion:(void (^)(BOOL success, id response))block;
 
 @end
 

@@ -11,6 +11,8 @@
 		3B649A881FB3236400B8DC78 /* PartsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B649A861FB3236400B8DC78 /* PartsCell.xib */; };
 		3BCDA4181FB346560021BC03 /* ProductAdminPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA4161FB346560021BC03 /* ProductAdminPopover.m */; };
 		3BCDA4191FB346560021BC03 /* ProductAdminPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BCDA4171FB346560021BC03 /* ProductAdminPopover.xib */; };
+		89037EA41FE7C4DF00242005 /* RunDetailsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 89037EA21FE7C4DF00242005 /* RunDetailsScreen.m */; };
+		89037EA51FE7C4DF00242005 /* RunDetailsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89037EA31FE7C4DF00242005 /* RunDetailsScreen.xib */; };
 		8919BE8E1FB4DD5100EE6839 /* SDWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8919BE731FB4DD5100EE6839 /* SDWebImageManager.m */; };
 		8919BE8F1FB4DD5100EE6839 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8919BE741FB4DD5100EE6839 /* SDWebImageDecoder.m */; };
 		8919BE901FB4DD5100EE6839 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8919BE761FB4DD5100EE6839 /* UIImageView+HighlightedWebCache.m */; };
@@ -253,6 +255,9 @@
 		3BCDA4151FB346560021BC03 /* ProductAdminPopover.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductAdminPopover.h; sourceTree = "<group>"; };
 		3BCDA4161FB346560021BC03 /* ProductAdminPopover.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductAdminPopover.m; sourceTree = "<group>"; };
 		3BCDA4171FB346560021BC03 /* ProductAdminPopover.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductAdminPopover.xib; sourceTree = "<group>"; };
+		89037EA11FE7C4DF00242005 /* RunDetailsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunDetailsScreen.h; sourceTree = "<group>"; };
+		89037EA21FE7C4DF00242005 /* RunDetailsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunDetailsScreen.m; sourceTree = "<group>"; };
+		89037EA31FE7C4DF00242005 /* RunDetailsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunDetailsScreen.xib; sourceTree = "<group>"; };
 		8919BE711FB4DD5100EE6839 /* UIImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCache.h"; sourceTree = "<group>"; };
 		8919BE721FB4DD5100EE6839 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
 		8919BE731FB4DD5100EE6839 /* SDWebImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageManager.m; sourceTree = "<group>"; };
@@ -1334,6 +1339,9 @@
 				9FD12D9D1F4473B900F0E0A8 /* RunViewController.h */,
 				9FD12D9E1F4473B900F0E0A8 /* RunViewController.m */,
 				9FD12D9F1F4473B900F0E0A8 /* RunViewController.xib */,
+				89037EA11FE7C4DF00242005 /* RunDetailsScreen.h */,
+				89037EA21FE7C4DF00242005 /* RunDetailsScreen.m */,
+				89037EA31FE7C4DF00242005 /* RunDetailsScreen.xib */,
 			);
 			path = Run;
 			sourceTree = "<group>";
@@ -1743,6 +1751,7 @@
 				895287381FCF2B33005C46EE /* StockLogScreen.xib in Resources */,
 				9F3144BC1F7ABFD200B9D32C /* right_arrow@2x.png in Resources */,
 				9F85678F1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.xib in Resources */,
+				89037EA51FE7C4DF00242005 /* RunDetailsScreen.xib in Resources */,
 				D28386541FB2285600BB304C /* RunPartsScreen.xib in Resources */,
 				9F3FF6D61F4BF1F800F52F64 /* FontAwesome.ttf in Resources */,
 				9F7FE5701F7B8DEE005CB4DF /* ProductGroupView.xib in Resources */,
@@ -1780,6 +1789,7 @@
 				89619E191FBDB4E8005A5BE7 /* PriorityRunCell.m in Sources */,
 				9F977EED1F6272AE009C2B6D /* RunProcessStepsViewCell.m in Sources */,
 				9F471D131F542B9300B294B7 /* RoadBlocksView.m in Sources */,
+				89037EA41FE7C4DF00242005 /* RunDetailsScreen.m in Sources */,
 				8919BE901FB4DD5100EE6839 /* UIImageView+HighlightedWebCache.m in Sources */,
 				3B649A871FB3236400B8DC78 /* PartsCell.m in Sources */,
 				9FD12D861F443A3700F0E0A8 /* RunListViewCell.m in Sources */,
