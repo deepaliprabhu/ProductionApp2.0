@@ -60,6 +60,9 @@
     __weak IBOutlet UICollectionView *_dailyLogCollectionView;
     __weak IBOutlet UIActivityIndicatorView *_dailyLogSpinner;
     
+    __weak IBOutlet UILabel *_noProcessesLabel;
+    __weak IBOutlet UILabel *_noDailyLogLabel;
+    
     NSMutableArray *_processes;
     NSMutableArray *_days;
 }
@@ -247,6 +250,8 @@
                 [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:false scrollPosition:UITableViewScrollPositionTop];
             }
             
+            _noProcessesLabel.alpha = _processes.count == 0 ? 1 : 0;
+            
         } else {
             [LoadingView showShortMessage:@"Error, please try again later!"];
         }
@@ -268,6 +273,7 @@
                 [_days addObject:d];
             }
             [_dailyLogCollectionView reloadData];
+            _noDailyLogLabel.alpha = _days.count == 0 ? 1 : 0;
         }
     }];
 }

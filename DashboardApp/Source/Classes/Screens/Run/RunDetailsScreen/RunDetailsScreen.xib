@@ -33,6 +33,8 @@
                 <outlet property="_flowLabel" destination="M9i-4x-8gi" id="YkG-jn-IrZ"/>
                 <outlet property="_lastYearTitleLabel" destination="b0m-Dq-Vou" id="bfE-j4-qBW"/>
                 <outlet property="_lastYearValueLabel" destination="xpH-Bk-ZmP" id="Ze9-la-tP6"/>
+                <outlet property="_noDailyLogLabel" destination="F2a-Eb-Vzq" id="PN3-DM-akd"/>
+                <outlet property="_noProcessesLabel" destination="3ai-gx-DBv" id="Rq8-ny-XUV"/>
                 <outlet property="_personLabel" destination="Sjh-Qe-EJg" id="9uZ-46-gS3"/>
                 <outlet property="_priorityLabel" destination="TN5-F2-Wcj" id="ljF-xV-GbC"/>
                 <outlet property="_processDetailsLabel" destination="OPA-qA-bWj" id="kCk-Xg-9SS"/>
@@ -331,6 +333,13 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
+                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="no content" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F2a-Eb-Vzq">
+                                    <rect key="frame" x="234" y="114" width="71" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
@@ -339,6 +348,13 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="no processes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ai-gx-DBv">
+                            <rect key="frame" x="211" y="141" width="88" height="18"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
