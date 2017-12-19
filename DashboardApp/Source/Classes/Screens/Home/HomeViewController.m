@@ -196,7 +196,6 @@
     RunDetailsScreen *screen = [RunDetailsScreen new];
     screen.run = [__DataManager getRunWithId:runId];
     [self.navigationController pushViewController:screen animated:true];
-
     
 //    RunViewController *runVC = [RunViewController new];
 //    [runVC setRun:[__DataManager getRunWithId:runId]];
