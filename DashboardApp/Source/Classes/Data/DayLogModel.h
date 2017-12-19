@@ -15,6 +15,7 @@
 @property (nonatomic, unsafe_unretained) int rework;
 @property (nonatomic, unsafe_unretained) int reject;
 @property (nonatomic, unsafe_unretained) int good;
+@property (nonatomic, strong) NSString *processId;
 
 + (DayLogModel*) objFromData:(NSDictionary*)data;
 - (int) totalWork;

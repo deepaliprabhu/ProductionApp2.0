@@ -90,6 +90,8 @@
 		8985744B1FE9504300EAB20C /* DailyLogRawScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 898574491FE9504300EAB20C /* DailyLogRawScreen.xib */; };
 		8985744F1FE9535500EAB20C /* DailyLogCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8985744D1FE9535500EAB20C /* DailyLogCollectionCell.m */; };
 		898574501FE9535500EAB20C /* DailyLogCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8985744E1FE9535500EAB20C /* DailyLogCollectionCell.xib */; };
+		898574551FE9645100EAB20C /* DailyLogInputScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 898574531FE9645100EAB20C /* DailyLogInputScreen.m */; };
+		898574561FE9645100EAB20C /* DailyLogInputScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 898574541FE9645100EAB20C /* DailyLogInputScreen.xib */; };
 		89897E2D1FBF0AFA000B39EA /* ActionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89897E2C1FBF0AFA000B39EA /* ActionModel.m */; };
 		89897E301FBF0BAC000B39EA /* PartAuditModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89897E2F1FBF0BAC000B39EA /* PartAuditModel.m */; };
 		89897E391FBF140C000B39EA /* StockGraphScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 89897E371FBF140C000B39EA /* StockGraphScreen.m */; };
@@ -403,6 +405,9 @@
 		8985744C1FE9535500EAB20C /* DailyLogCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyLogCollectionCell.h; sourceTree = "<group>"; };
 		8985744D1FE9535500EAB20C /* DailyLogCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyLogCollectionCell.m; sourceTree = "<group>"; };
 		8985744E1FE9535500EAB20C /* DailyLogCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyLogCollectionCell.xib; sourceTree = "<group>"; };
+		898574521FE9645100EAB20C /* DailyLogInputScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyLogInputScreen.h; sourceTree = "<group>"; };
+		898574531FE9645100EAB20C /* DailyLogInputScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyLogInputScreen.m; sourceTree = "<group>"; };
+		898574541FE9645100EAB20C /* DailyLogInputScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyLogInputScreen.xib; sourceTree = "<group>"; };
 		89897E2B1FBF0AFA000B39EA /* ActionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionModel.h; sourceTree = "<group>"; };
 		89897E2C1FBF0AFA000B39EA /* ActionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionModel.m; sourceTree = "<group>"; };
 		89897E2E1FBF0BAC000B39EA /* PartAuditModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartAuditModel.h; sourceTree = "<group>"; };
@@ -927,6 +932,9 @@
 		898574461FE9502A00EAB20C /* popovers */ = {
 			isa = PBXGroup;
 			children = (
+				898574521FE9645100EAB20C /* DailyLogInputScreen.h */,
+				898574531FE9645100EAB20C /* DailyLogInputScreen.m */,
+				898574541FE9645100EAB20C /* DailyLogInputScreen.xib */,
 				898574471FE9504300EAB20C /* DailyLogRawScreen.h */,
 				898574481FE9504300EAB20C /* DailyLogRawScreen.m */,
 				898574491FE9504300EAB20C /* DailyLogRawScreen.xib */,
@@ -1730,6 +1738,7 @@
 				9F7FE5761F7B9CAA005CB4DF /* ProductCollectionViewCell.xib in Resources */,
 				89897E3A1FBF140C000B39EA /* StockGraphScreen.xib in Resources */,
 				894EE69E1FE0229E009244A7 /* LockConfirmationHeaderView.xib in Resources */,
+				898574561FE9645100EAB20C /* DailyLogInputScreen.xib in Resources */,
 				9F471D091F541F7700B294B7 /* ToDoView.xib in Resources */,
 				9FD12DA11F4473B900F0E0A8 /* RunViewController.xib in Resources */,
 				9FE99C291FBD4E65006B58DE /* FeedbackListViewCell.xib in Resources */,
@@ -1950,6 +1959,7 @@
 				9F7FE5751F7B9CAA005CB4DF /* ProductCollectionViewCell.m in Sources */,
 				9F471CF21F53DD3700B294B7 /* SSBorderedView.m in Sources */,
 				8940187E1FB5A0E4002B8AFD /* BRRequestQueue.m in Sources */,
+				898574551FE9645100EAB20C /* DailyLogInputScreen.m in Sources */,
 				9F3FF6D01F4BDF7500F52F64 /* UIImage+FontAwesome.m in Sources */,
 				89AC0AB71FC60E4D008CA56B /* CommentModel.m in Sources */,
 				89AC0AB31FC60E07008CA56B /* CommentsPartCell.m in Sources */,

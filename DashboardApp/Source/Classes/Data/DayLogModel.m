@@ -25,6 +25,7 @@ static NSDateFormatter *_formatter = nil;
     model.reject = [data[@"qtyReject"] intValue];
     model.rework = [data[@"qtyRework"] intValue];
     model.good = [data[@"qtyGood"] intValue];
+    model.processId = data[@"stepid"];
     
     if ([data[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == false) {
         model.date = [_formatter dateFromString:data[@"datetime"]];

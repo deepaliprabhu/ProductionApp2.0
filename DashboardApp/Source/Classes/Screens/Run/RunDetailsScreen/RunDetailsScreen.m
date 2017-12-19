@@ -19,6 +19,7 @@
 #import "DayLogModel.h"
 #import "DailyLogRawScreen.h"
 #import "DailyLogCollectionCell.h"
+#import "DailyLogInputScreen.h"
 
 @interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -71,6 +72,8 @@
     NSMutableArray *_days;
     NSMutableArray *_filteredDays;
     int _maxDayLogValue;
+    
+    ProcessModel *_selectedProcess;
 }
 
 #pragma mark - View lifecycle
@@ -82,7 +85,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commonProcessesTaken) name:kNotificationCommonProcessesReceived object:nil];;
     
-    [self getDailyLog];
     if ([[[DataManager sharedInstance] getCommonProcesses] count] == 0) {
         [LoadingView showLoading:@"Loading..."];
         [[ServerManager sharedInstance] getProcessList];
@@ -110,6 +112,10 @@
 
 - (IBAction) enterDataButtonTapped {
     
+    DailyLogInputScreen *screen = [[DailyLogInputScreen alloc] initWithNibName:@"DailyLogInputScreen" bundle:nil];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
+    nav.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:nav animated:true completion:nil];
 }
 
 - (IBAction) rawButtonTapped {
@@ -167,7 +173,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    [self layoutWithProcess:_processes[indexPath.row]];
+    _selectedProcess = _processes[indexPath.row];
+    [self layoutWithProcess:_selectedProcess];
+    [self layoutDailyLogForProcess:_selectedProcess];
 }
 
 #pragma mark - Layout
@@ -189,6 +197,7 @@
 - (void) layoutWithProcess:(ProcessModel*)model {
     
     _detailsHolderView.alpha = 1;
+    _dailyLogHolderView.alpha = 1;
     
     _processTitleLabel.text = model.processName;
     _personLabel.text = model.person;
@@ -282,7 +291,8 @@
             }
             [_tableView reloadData];
             if (_processes.count > 0) {
-                [self layoutWithProcess:_processes[0]];
+                _selectedProcess = _processes[0];
+                [self layoutWithProcess:_selectedProcess];
                 [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:false scrollPosition:UITableViewScrollPositionTop];
             }
             
@@ -291,6 +301,8 @@
         } else {
             [LoadingView showShortMessage:@"Error, please try again later!"];
         }
+        
+        [self getDailyLog];
     }];
 }
 
@@ -303,27 +315,37 @@
         if (success) {
             
             _days = [NSMutableArray array];
-            _filteredDays = [NSMutableArray array];
             NSArray *days = [response firstObject][@"processes"];
             for (NSDictionary *dict in days) {
                 DayLogModel *d = [DayLogModel objFromData:dict];
                 [_days addObject:d];
-                if (d.date != nil)
-                    [_filteredDays addObject: d];
-                
-                if ([d totalWork] > _maxDayLogValue) {
-                    _maxDayLogValue = [d totalWork];
-                }
             }
-            [_dailyLogCollectionView reloadData];
-            _noDailyLogLabel.alpha = _days.count == 0 ? 1 : 0;
             _rawDataButton.alpha = _days.count == 0 ? 0 : 1;
-            
-            if (_filteredDays.count > 0) {
-                [_dailyLogCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_filteredDays.count-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionRight animated:false];
-            }
+            [self layoutDailyLogForProcess:_selectedProcess];
         }
     }];
+}
+
+- (void) layoutDailyLogForProcess:(ProcessModel*)p {
+    
+    _filteredDays = [NSMutableArray array];
+    _maxDayLogValue = 0;
+    for (DayLogModel *d in _days) {
+        
+        if (d.date != nil && d.processId == p.stepId)
+            [_filteredDays addObject: d];
+        
+        if ([d totalWork] > _maxDayLogValue) {
+            _maxDayLogValue = [d totalWork];
+        }
+    }
+    
+    [_dailyLogCollectionView reloadData];
+    _noDailyLogLabel.alpha = _filteredDays.count == 0 ? 1 : 0;
+    
+    if (_filteredDays.count > 0) {
+        [_dailyLogCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_filteredDays.count-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionRight animated:false];
+    }
 }
 
 @end
