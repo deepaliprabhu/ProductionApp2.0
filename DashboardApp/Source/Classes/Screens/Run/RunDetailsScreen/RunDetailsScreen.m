@@ -21,7 +21,7 @@
 #import "DailyLogCollectionCell.h"
 #import "DailyLogInputScreen.h"
 
-@interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol>
 
 @end
 
@@ -68,6 +68,8 @@
     __weak IBOutlet UILabel *_noProcessesLabel;
     __weak IBOutlet UILabel *_noDailyLogLabel;
     
+    __weak IBOutlet UILabel *_graphTopLabel;
+    
     NSMutableArray *_processes;
     NSMutableArray *_days;
     NSMutableArray *_filteredDays;
@@ -113,6 +115,8 @@
 - (IBAction) enterDataButtonTapped {
     
     DailyLogInputScreen *screen = [[DailyLogInputScreen alloc] initWithNibName:@"DailyLogInputScreen" bundle:nil];
+    screen.delegate = self;
+    screen.process = _selectedProcess;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
     nav.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:nav animated:true completion:nil];
@@ -178,6 +182,16 @@
     [self layoutDailyLogForProcess:_selectedProcess];
 }
 
+#pragma mark - DailyLogInputProtocol
+
+- (void) newLogAdded:(NSDictionary*)data {
+    
+    DayLogModel *d = [DayLogModel objFromData:data];
+    d.date = [NSDate date];
+    [_days addObject:d];
+    [self layoutDailyLogForProcess:_selectedProcess];
+}
+
 #pragma mark - Layout
 
 - (void) initLayout {
@@ -208,6 +222,8 @@
     _qtyGoodLabel.text = model.qtyGood;
     _qtyReworkLabel.text = model.qtyRework;
     _qtyRejectedLabel.text = model.qtyReject;
+    
+    [_processDetailsLabel scrollRectToVisible:CGRectZero animated:false];
 }
 
 #pragma mark - Utils
@@ -346,6 +362,8 @@
     if (_filteredDays.count > 0) {
         [_dailyLogCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_filteredDays.count-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionRight animated:false];
     }
+    
+    _graphTopLabel.text = [NSString stringWithFormat:@"%.0f", ceilf(_maxDayLogValue*1.2f)];
 }
 
 @end

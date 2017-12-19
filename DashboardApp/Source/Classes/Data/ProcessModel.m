@@ -13,7 +13,7 @@
 + (ProcessModel*) objectFromProcess:(NSDictionary*)pr andCommon:(NSDictionary*)common {
 
     ProcessModel *model = [ProcessModel new];
-    model.processNo = pr[@""];
+    model.processNo = pr[@"processno"];
     model.stepId = pr[@"stepid"];
     model.processId = pr[@"id"];
     model.person = pr[@"operator"];

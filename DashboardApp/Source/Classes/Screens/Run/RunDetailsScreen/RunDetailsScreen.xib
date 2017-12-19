@@ -33,6 +33,7 @@
                 <outlet property="_dateCompletedLabel" destination="dP0-0n-4ST" id="Rr2-mP-pv0"/>
                 <outlet property="_detailsHolderView" destination="8Se-EE-W4m" id="PW0-xh-FJd"/>
                 <outlet property="_flowLabel" destination="M9i-4x-8gi" id="YkG-jn-IrZ"/>
+                <outlet property="_graphTopLabel" destination="8X3-tm-abV" id="gUv-zo-Tfx"/>
                 <outlet property="_lastYearTitleLabel" destination="b0m-Dq-Vou" id="bfE-j4-qBW"/>
                 <outlet property="_lastYearValueLabel" destination="xpH-Bk-ZmP" id="Ze9-la-tP6"/>
                 <outlet property="_noDailyLogLabel" destination="F2a-Eb-Vzq" id="PN3-DM-akd"/>
@@ -45,7 +46,7 @@
                 <outlet property="_qtyGoodLabel" destination="jAv-TF-y7A" id="wDX-Qq-Dd7"/>
                 <outlet property="_qtyRejectedLabel" destination="PaN-77-6fE" id="SUR-Cd-uQY"/>
                 <outlet property="_qtyReworkLabel" destination="R3F-UQ-4Oe" id="pjZ-vM-VB9"/>
-                <outlet property="_rawDataButton" destination="Itc-Vj-Tgs" id="Eq3-9V-eSs"/>
+                <outlet property="_rawDataButton" destination="Itc-Vj-Tgs" id="Yim-KW-Jjr"/>
                 <outlet property="_requestDateLabel" destination="dY0-jM-4ZP" id="acJ-Z8-7ww"/>
                 <outlet property="_runNameLabel" destination="8k1-ai-NVW" id="a7z-CX-or7"/>
                 <outlet property="_shippingDateLabel" destination="n01-va-ZmZ" id="DoK-mW-85s"/>
@@ -343,12 +344,15 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Itc-Vj-Tgs">
-                                    <rect key="frame" x="29" y="17" width="46" height="30"/>
+                                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Itc-Vj-Tgs">
+                                    <rect key="frame" x="29" y="-3" width="87" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="10"/>
-                                    <state key="normal" title="raw data">
-                                        <color key="titleColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.41176470590000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <state key="normal" title="__________________">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <state key="highlighted">
+                                        <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="rawButtonTapped" destination="-1" eventType="touchUpInside" id="Plp-MN-2VX"/>
@@ -369,6 +373,20 @@
                                         <outlet property="delegate" destination="-1" id="cnS-v7-YEg"/>
                                     </connections>
                                 </collectionView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ru-w1-5fb">
+                                    <rect key="frame" x="5" y="218" width="42" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8X3-tm-abV">
+                                    <rect key="frame" x="5" y="35" width="42" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
@@ -570,7 +588,7 @@
         </view>
     </objects>
     <resources>
-        <image name="backButtonIcon" width="36" height="10"/>
+        <image name="backButtonIcon" width="21" height="15"/>
         <image name="enterDataButton" width="123" height="33"/>
     </resources>
 </document>

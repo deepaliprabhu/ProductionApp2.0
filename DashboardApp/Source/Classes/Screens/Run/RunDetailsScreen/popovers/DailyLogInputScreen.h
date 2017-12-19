@@ -7,7 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProcessModel.h"
+
+@protocol DailyLogInputProtocol;
 
 @interface DailyLogInputScreen : UIViewController
+
+@property (nonatomic, unsafe_unretained) ProcessModel *process;
+@property (nonatomic, unsafe_unretained) id <DailyLogInputProtocol> delegate;
+
+@end
+
+@protocol DailyLogInputProtocol <NSObject>
+
+- (void) newLogAdded:(NSDictionary*)data;
 
 @end

@@ -192,6 +192,18 @@ static ProdAPI *_sharedInstance = nil;
     [self callGETURL:url completion:block];
 }
 
+- (void) addDailyLog:(NSString*)log forRunFlow:(NSString*)flow completion:(void (^)(BOOL success, id response))block {
+    
+    NSDateFormatter *f = [NSDateFormatter new];
+    f.dateFormat = @"yyyy-MM-dd HH:mm";
+    NSString *time = [f stringFromDate:[NSDate date]];
+    NSString *updatedBy = @"Arvind";
+    
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=updateRunProcessFlow&do=add&run_flow_id=%@&updatedTimestamp=%@&updatedBy=%@&count=1&json=%@", flow, time, updatedBy, log];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
 #pragma mark -
 
 - (void) callPOST:(NSString*)url parameters:(NSDictionary*)params completion:(void (^)(BOOL success, id response))block

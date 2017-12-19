@@ -59,12 +59,12 @@ static NSDateFormatter *_formatter = nil;
 
 - (void) layoutLabel:(UILabel*)label andConstraint:(NSLayoutConstraint*)c withValue:(int)value andMax:(int)max {
  
-    float h = value/(CGFloat)(max * 1.2);
+    float h = value/(CGFloat)(max * 1.2) * 190.0f;
     c.constant = h;
     if (h > 12) {
         label.text = [NSString stringWithFormat:@"%d", value];
     } else {
-        label.text = 0;
+        label.text = @"";
     }
 }
 
