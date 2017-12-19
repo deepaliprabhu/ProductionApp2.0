@@ -42,7 +42,6 @@ static NSDateFormatter *_formatter = nil;
         _rejectHeightConstraint.constant = 0;
         _reworkHeightConstraint.constant = 0;
         _goodHeightConstraint.constant = 0;
-        _totalLabel.text = @"";
         _reworkLabel.text = @"";
         _rejectLabel.text = @"";
         _goodLabel.text = @"";
@@ -51,8 +50,9 @@ static NSDateFormatter *_formatter = nil;
         [self layoutLabel:_reworkLabel andConstraint:_reworkHeightConstraint withValue:model.rework andMax:max];
         [self layoutLabel:_rejectLabel andConstraint:_rejectHeightConstraint withValue:model.reject andMax:max];
         [self layoutLabel:_goodLabel andConstraint:_goodHeightConstraint withValue:model.good andMax:max];
-        _totalLabel.text = [NSString stringWithFormat:@"%d", [model totalWork]];
     }
+    
+    _totalLabel.text = [NSString stringWithFormat:@"%d", [model totalWork]];
     
     [self layoutIfNeeded];
 }
