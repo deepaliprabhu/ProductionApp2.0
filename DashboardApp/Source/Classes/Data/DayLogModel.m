@@ -33,4 +33,8 @@ static NSDateFormatter *_formatter = nil;
     return model;
 }
 
+- (int) totalWork {    
+    return _reject + _rework + _good;
+}
+
 @end

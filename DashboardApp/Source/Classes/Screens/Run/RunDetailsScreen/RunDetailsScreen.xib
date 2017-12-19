@@ -26,6 +26,8 @@
                 <outlet property="_2YearsAgoValueLabel" destination="3Uc-g6-pOf" id="08W-ZS-sdn"/>
                 <outlet property="_currentYearTitleLabel" destination="ZLT-a0-eRq" id="Pap-6C-8AD"/>
                 <outlet property="_currentYearValueLabel" destination="Mat-Ob-GOK" id="uHK-Cy-b1e"/>
+                <outlet property="_dailyLogCollectionView" destination="mLi-a3-4Zv" id="dWA-PX-Guh"/>
+                <outlet property="_dailyLogHolderView" destination="MEX-gP-8Ln" id="g5X-9A-su5"/>
                 <outlet property="_dailyLogSpinner" destination="Lpi-oU-31o" id="gb6-E2-C5O"/>
                 <outlet property="_dateAssignedLabel" destination="wsP-l7-NYZ" id="hdP-By-2Pd"/>
                 <outlet property="_dateCompletedLabel" destination="dP0-0n-4ST" id="Rr2-mP-pv0"/>
@@ -43,6 +45,7 @@
                 <outlet property="_qtyGoodLabel" destination="jAv-TF-y7A" id="wDX-Qq-Dd7"/>
                 <outlet property="_qtyRejectedLabel" destination="PaN-77-6fE" id="SUR-Cd-uQY"/>
                 <outlet property="_qtyReworkLabel" destination="R3F-UQ-4Oe" id="pjZ-vM-VB9"/>
+                <outlet property="_rawDataButton" destination="Itc-Vj-Tgs" id="Eq3-9V-eSs"/>
                 <outlet property="_requestDateLabel" destination="dY0-jM-4ZP" id="acJ-Z8-7ww"/>
                 <outlet property="_runNameLabel" destination="8k1-ai-NVW" id="a7z-CX-or7"/>
                 <outlet property="_shippingDateLabel" destination="n01-va-ZmZ" id="DoK-mW-85s"/>
@@ -340,6 +343,32 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Itc-Vj-Tgs">
+                                    <rect key="frame" x="29" y="17" width="46" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="10"/>
+                                    <state key="normal" title="raw data">
+                                        <color key="titleColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.41176470590000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="rawButtonTapped" destination="-1" eventType="touchUpInside" id="Plp-MN-2VX"/>
+                                    </connections>
+                                </button>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="mLi-a3-4Zv">
+                                    <rect key="frame" x="55" y="49" width="429" height="209"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="NHg-T1-0Ji">
+                                        <size key="itemSize" width="73" height="209"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="V9H-Cp-lnF"/>
+                                        <outlet property="delegate" destination="-1" id="cnS-v7-YEg"/>
+                                    </connections>
+                                </collectionView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>

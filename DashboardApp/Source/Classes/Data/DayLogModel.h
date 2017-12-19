@@ -17,5 +17,6 @@
 @property (nonatomic, unsafe_unretained) int good;
 
 + (DayLogModel*) objFromData:(NSDictionary*)data;
+- (int) totalWork;
 
 @end

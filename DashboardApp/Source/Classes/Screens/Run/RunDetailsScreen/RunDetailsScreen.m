@@ -17,8 +17,10 @@
 #import "Constants.h"
 #import "ProcessCell.h"
 #import "DayLogModel.h"
+#import "DailyLogRawScreen.h"
+#import "DailyLogCollectionCell.h"
 
-@interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource>
+@interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end
 
@@ -56,15 +58,19 @@
     __weak IBOutlet UILabel *_qtyRejectedLabel;
     __weak IBOutlet UILabel *_qtyGoodLabel;
     __weak IBOutlet UIView *_detailsHolderView;
-    
+
+    __weak IBOutlet UIView *_dailyLogHolderView;
     __weak IBOutlet UICollectionView *_dailyLogCollectionView;
     __weak IBOutlet UIActivityIndicatorView *_dailyLogSpinner;
+    __weak IBOutlet UIButton *_rawDataButton;
     
     __weak IBOutlet UILabel *_noProcessesLabel;
     __weak IBOutlet UILabel *_noDailyLogLabel;
     
     NSMutableArray *_processes;
     NSMutableArray *_days;
+    NSMutableArray *_filteredDays;
+    int _maxDayLogValue;
 }
 
 #pragma mark - View lifecycle
@@ -106,6 +112,32 @@
     
 }
 
+- (IBAction) rawButtonTapped {
+ 
+    DailyLogRawScreen *screen = [[DailyLogRawScreen alloc] initWithNibName:@"DailyLogRawScreen" bundle:nil];
+    screen.days = _days;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    CGRect rect = [_dailyLogHolderView convertRect:_rawDataButton.bounds toView:self.view];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:true];
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return _filteredDays.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+ 
+    DailyLogCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"DailyLogCollectionCell" forIndexPath:indexPath];
+    [cell layoutWithDayLog:_filteredDays[indexPath.row] maxVal:_maxDayLogValue];
+    return cell;
+}
+
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -141,6 +173,10 @@
 #pragma mark - Layout
 
 - (void) initLayout {
+    
+    [_dailyLogCollectionView registerClass:[DailyLogCollectionCell class] forCellWithReuseIdentifier:@"DailyLogCollectionCell"];
+    UINib *cellNib = [UINib nibWithNibName:@"DailyLogCollectionCell" bundle:nil];
+    [_dailyLogCollectionView registerNib:cellNib forCellWithReuseIdentifier:@"DailyLogCollectionCell"];
     
     _titleLabel.text = cstrf(@"RUN %d", [_run getRunId]);
     
@@ -267,13 +303,25 @@
         if (success) {
             
             _days = [NSMutableArray array];
+            _filteredDays = [NSMutableArray array];
             NSArray *days = [response firstObject][@"processes"];
             for (NSDictionary *dict in days) {
                 DayLogModel *d = [DayLogModel objFromData:dict];
                 [_days addObject:d];
+                if (d.date != nil)
+                    [_filteredDays addObject: d];
+                
+                if ([d totalWork] > _maxDayLogValue) {
+                    _maxDayLogValue = [d totalWork];
+                }
             }
             [_dailyLogCollectionView reloadData];
             _noDailyLogLabel.alpha = _days.count == 0 ? 1 : 0;
+            _rawDataButton.alpha = _days.count == 0 ? 0 : 1;
+            
+            if (_filteredDays.count > 0) {
+                [_dailyLogCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_filteredDays.count-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionRight animated:false];
+            }
         }
     }];
 }
