@@ -16,10 +16,11 @@
 
 @implementation DailyLogInputScreen {
     
-    __weak IBOutlet UILabel *_targetLabel;
+    __weak IBOutlet UITextField *_targetTextField;
     __weak IBOutlet UITextField *_goodTextField;
     __weak IBOutlet UITextField *_rejectTextField;
     __weak IBOutlet UITextField *_reworkTextField;
+    __weak IBOutlet UITextField *_dateTextField;
 }
 
 - (void)viewDidLoad {
@@ -40,8 +41,9 @@
     int good = [_goodTextField.text intValue];
     int reject = [_rejectTextField.text intValue];
     int rework = [_reworkTextField.text intValue];
+    int target = [_targetTextField.text intValue];
     
-    if (good == 0 && reject == 0 && rework == 0) {
+    if (good == 0 && reject == 0 && rework == 0 && target == 0) {
         [LoadingView showShortMessage:@"Please insert some values!"];
         return;
     }
@@ -52,7 +54,7 @@
     log[@"operator"] = _process.person;
     log[@"comments"] = @"";
     log[@"status"] = @"tmp";
-    log[@"qtyTarget"] = _process.qtyTarget;
+    log[@"qtyTarget"] = [NSString stringWithFormat:@"%d", target];
     log[@"qtyGood"] = [NSString stringWithFormat:@"%d", good];
     log[@"qtyRework"] = [NSString stringWithFormat:@"%d", rework];
     log[@"qtyReject"] = [NSString stringWithFormat:@"%d", reject];
@@ -84,7 +86,10 @@
 - (void) initLayout {
     
     self.title = _process.processName;
-    _targetLabel.text = _process.qtyTarget;
+    
+    NSDateFormatter *f = [NSDateFormatter new];
+    f.dateFormat = @"dd MMM yyyy";
+    _dateTextField.text = [f stringFromDate:[NSDate date]];
     
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
     self.navigationItem.leftBarButtonItem = left;
