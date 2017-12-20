@@ -691,6 +691,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		891007311FEA818D004CF3A8 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				D22767591FAE49A100215D87 /* ProdAPI.h */,
+				D227675A1FAE49A300215D87 /* ProdAPI.m */,
+				9FD12D881F443CEF00F0E0A8 /* ConnectionManager.h */,
+				9FD12D891F443CEF00F0E0A8 /* ConnectionManager.m */,
+				9FD12D8A1F443CEF00F0E0A8 /* DataManager.h */,
+				9FD12D8B1F443CEF00F0E0A8 /* DataManager.m */,
+				9FD12D8C1F443CEF00F0E0A8 /* ServerManager.h */,
+				9FD12D8D1F443CEF00F0E0A8 /* ServerManager.m */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		891007321FEA81C1004CF3A8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D28A35651FB046FB00AE6B51 /* UIAlertView+Blocks.h */,
+				D28A35661FB046FB00AE6B51 /* UIAlertView+Blocks.m */,
+				D2A44F2F1FAF2BBA00DF37B8 /* LoadingView.h */,
+				D2A44F2E1FAF2BB900DF37B8 /* LoadingView.m */,
+				D2A44F301FAF2BBA00DF37B8 /* LoadingView.xib */,
+				8919BEA01FB4EEF100EE6839 /* UIView+Screenshot.h */,
+				8919BE9F1FB4EEF100EE6839 /* UIView+Screenshot.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		8919BE701FB4DD5100EE6839 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -998,15 +1027,11 @@
 			children = (
 				9F056B361F434BC3002F3B61 /* Defines.h */,
 				9FD12D941F44411A00F0E0A8 /* Constants.h */,
-				D28A35651FB046FB00AE6B51 /* UIAlertView+Blocks.h */,
-				D28A35661FB046FB00AE6B51 /* UIAlertView+Blocks.m */,
-				D2A44F2F1FAF2BBA00DF37B8 /* LoadingView.h */,
-				D2A44F2E1FAF2BB900DF37B8 /* LoadingView.m */,
-				D2A44F301FAF2BBA00DF37B8 /* LoadingView.xib */,
 				8919BE9D1FB4E47D00EE6839 /* LayoutUtils.h */,
 				8919BE9C1FB4E47D00EE6839 /* LayoutUtils.m */,
-				8919BEA01FB4EEF100EE6839 /* UIView+Screenshot.h */,
-				8919BE9F1FB4EEF100EE6839 /* UIView+Screenshot.m */,
+				9FEEE59B1EEFF881005B5ECA /* Models */,
+				891007321FEA81C1004CF3A8 /* Views */,
+				9FEEE59D1EEFF881005B5ECA /* Libs */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1453,13 +1478,7 @@
 				9F252A5E1F4DBE650056DA8F /* Bolts.framework */,
 				9F252A5F1F4DBE650056DA8F /* Parse.framework */,
 				9FEEE5981EEFF881005B5ECA /* Source */,
-				9FEEE5811EEFEFA2005B5ECA /* AppDelegate.h */,
-				9FEEE5821EEFEFA2005B5ECA /* AppDelegate.m */,
 				9FEEE5951EEFF881005B5ECA /* Resources */,
-				9FEEE58A1EEFEFA2005B5ECA /* Assets.xcassets */,
-				9FEEE58C1EEFEFA2005B5ECA /* LaunchScreen.storyboard */,
-				9FEEE58F1EEFEFA2005B5ECA /* Info.plist */,
-				9FEEE57E1EEFEFA2005B5ECA /* Supporting Files */,
 			);
 			path = DashboardApp;
 			sourceTree = "<group>";
@@ -1470,23 +1489,20 @@
 				9FEEE57F1EEFEFA2005B5ECA /* main.m */,
 			);
 			name = "Supporting Files";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		9FEEE5951EEFF881005B5ECA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9FEEE58A1EEFEFA2005B5ECA /* Assets.xcassets */,
+				9FEEE58C1EEFEFA2005B5ECA /* LaunchScreen.storyboard */,
+				9FEEE58F1EEFEFA2005B5ECA /* Info.plist */,
+				9FEEE57E1EEFEFA2005B5ECA /* Supporting Files */,
 				9F3FF6D11F4BDFBE00F52F64 /* Fonts */,
-				9FEEE5961EEFF881005B5ECA /* Docs */,
 				9FEEE5971EEFF881005B5ECA /* Images */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		9FEEE5961EEFF881005B5ECA /* Docs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Docs;
 			sourceTree = "<group>";
 		};
 		9FEEE5971EEFF881005B5ECA /* Images */ = {
@@ -1505,7 +1521,6 @@
 			isa = PBXGroup;
 			children = (
 				9FEEE5991EEFF881005B5ECA /* Classes */,
-				9FEEE59D1EEFF881005B5ECA /* Libs */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1513,30 +1528,14 @@
 		9FEEE5991EEFF881005B5ECA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				891007311FEA818D004CF3A8 /* Networking */,
 				9F056B351F43464F002F3B61 /* Utils */,
-				9FEEE59A1EEFF881005B5ECA /* Controllers */,
-				9FEEE59B1EEFF881005B5ECA /* Data */,
 				9FEEE59C1EEFF881005B5ECA /* Screens */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		9FEEE59A1EEFF881005B5ECA /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				D22767591FAE49A100215D87 /* ProdAPI.h */,
-				D227675A1FAE49A300215D87 /* ProdAPI.m */,
-				9FD12D881F443CEF00F0E0A8 /* ConnectionManager.h */,
-				9FD12D891F443CEF00F0E0A8 /* ConnectionManager.m */,
-				9FD12D8A1F443CEF00F0E0A8 /* DataManager.h */,
-				9FD12D8B1F443CEF00F0E0A8 /* DataManager.m */,
-				9FD12D8C1F443CEF00F0E0A8 /* ServerManager.h */,
-				9FD12D8D1F443CEF00F0E0A8 /* ServerManager.m */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		9FEEE59B1EEFF881005B5ECA /* Data */ = {
+		9FEEE59B1EEFF881005B5ECA /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				9FD12D911F443DBC00F0E0A8 /* Run.h */,
@@ -1560,16 +1559,18 @@
 				898574431FE9482200EAB20C /* DayLogModel.h */,
 				898574441FE9482200EAB20C /* DayLogModel.m */,
 			);
-			path = Data;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		9FEEE59C1EEFF881005B5ECA /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				9FEEE5811EEFEFA2005B5ECA /* AppDelegate.h */,
+				9FEEE5821EEFEFA2005B5ECA /* AppDelegate.m */,
+				9F40AD7B1F2F4669002C64BA /* Home */,
 				9FE99C1F1FBD4E65006B58DE /* Feedback */,
 				9F7FE5651F7B789E005CB4DF /* ProcessControl */,
 				9FD12D9C1F4473A600F0E0A8 /* Run */,
-				9F40AD7B1F2F4669002C64BA /* Home */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -2114,7 +2115,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/DashboardApp",
 				);
-				INFOPLIST_FILE = DashboardApp/Info.plist;
+				INFOPLIST_FILE = DashboardApp/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aginova.productionapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2133,7 +2134,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/DashboardApp",
 				);
-				INFOPLIST_FILE = DashboardApp/Info.plist;
+				INFOPLIST_FILE = DashboardApp/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aginova.productionapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
