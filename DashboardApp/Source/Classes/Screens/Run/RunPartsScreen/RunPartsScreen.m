@@ -147,6 +147,7 @@ typedef enum
     [self filterPriorityRuns];
     [self layoutButtons];
     [self getParts];
+    [self getBOM];
 }
 
 - (void) dealloc {
@@ -313,6 +314,7 @@ typedef enum
     [_comments removeAllObjects];
     
     [self partsButtonTapped];
+    [self getBOM];
 }
 
 - (IBAction) partTitleButtonTapped
@@ -1176,6 +1178,18 @@ typedef enum
     }];
 }
 
+- (void) getBOM {
+    
+    [[ProdAPI sharedInstance] getBOMForRun:(int)_run.runId completion:^(BOOL success, id response) {
+        
+        if (success) {
+            
+        } else {
+            
+        }
+    }];
+}
+
 #pragma mark - Utils
 
 - (void) changeOrderFrom:(int)from to:(int)to {
@@ -1251,7 +1265,7 @@ typedef enum
     
     int c = 0;
     for (PartModel *s in _parts) {
-        c = (int)c+s.alternateParts.count+1;
+        c = (int)c+(int)s.alternateParts.count+1;
     }
     
     return c;

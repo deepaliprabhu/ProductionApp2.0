@@ -39,6 +39,7 @@
 - (void) getProcessFlowForRun:(int)runId product:(NSString*)product completion:(void (^)(BOOL success, id response))block;
 - (void) getDailyLogForRun:(int)runId product:(NSString*)product completion:(void (^)(BOOL success, id response))block;
 - (void) addDailyLog:(NSString*)log forRunFlow:(NSString*)flow completion:(void (^)(BOOL success, id response))block;
+- (void) getBOMForRun:(int)runId completion:(void (^)(BOOL success, id response))block;
 
 @end
 

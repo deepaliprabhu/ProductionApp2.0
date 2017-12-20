@@ -183,7 +183,8 @@
     float price = 0;
     
     for (int i=0; i<_parts.count; i++) {
-        price += [self priceAtIndex:i];
+        PartModel *p = _parts[i];
+        price += [self priceAtIndex:i]*[p.qty floatValue];
     }
     
     _bomLabel.text = [NSString stringWithFormat:@"%.4f$", price];
