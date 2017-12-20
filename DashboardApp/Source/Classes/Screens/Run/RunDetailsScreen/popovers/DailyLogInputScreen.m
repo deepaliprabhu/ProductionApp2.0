@@ -57,7 +57,7 @@
     log[@"qtyRework"] = [NSString stringWithFormat:@"%d", rework];
     log[@"qtyReject"] = [NSString stringWithFormat:@"%d", reject];
     
-    NSString *json = [self jsonString:log];
+    NSString *json = [NSString stringWithFormat:@"[%@]" ,[self jsonString:log]];
     [LoadingView showLoading:@"Loading..."];
     [[ProdAPI sharedInstance] addDailyLog:json forRunFlow:_process.runFlowId completion:^(BOOL success, id response) {
        
