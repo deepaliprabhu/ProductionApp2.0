@@ -12,6 +12,7 @@
 #import "BRRequest.h"
 #import "BRRequestUpload.h"
 #import "LoadingView.h"
+#import <CommonCrypto/CommonDigest.h>
 
 static ProdAPI *_sharedInstance = nil;
 
@@ -49,9 +50,9 @@ static ProdAPI *_sharedInstance = nil;
     serializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     _manager.responseSerializer = serializer;
     
-    AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
-    requestSerializer.cachePolicy = NSURLRequestReloadIgnoringCacheData;
-    _manager.requestSerializer = requestSerializer;
+//    AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
+//    requestSerializer.cachePolicy = NSURLRequestReloadIgnoringCacheData;
+//    _manager.requestSerializer = requestSerializer;
     
     AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
     securityPolicy.allowInvalidCertificates = YES;
@@ -335,6 +336,22 @@ static ProdAPI *_sharedInstance = nil;
             _isReachable = YES;
             break;
     }
+}
+
+#pragma mark - Utils
+
+- (NSString *)MD5From:(NSString*)str {
+    
+    const char * pointer = [str UTF8String];
+    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
+    
+    CC_MD5(pointer, (CC_LONG)strlen(pointer), md5Buffer);
+    
+    NSMutableString *string = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [string appendFormat:@"%02x",md5Buffer[i]];
+    
+    return string;
 }
 
 @end
