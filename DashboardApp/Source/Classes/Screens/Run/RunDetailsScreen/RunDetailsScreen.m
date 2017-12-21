@@ -117,6 +117,7 @@
     DailyLogInputScreen *screen = [[DailyLogInputScreen alloc] initWithNibName:@"DailyLogInputScreen" bundle:nil];
     screen.delegate = self;
     screen.process = _selectedProcess;
+    screen.dayLog = [self todayLog];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
     nav.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:nav animated:true completion:nil];
@@ -190,6 +191,28 @@
     d.date = [NSDate date];
     [_days addObject:d];
     [self layoutDailyLogForProcess:_selectedProcess];
+    [self getTargets];
+}
+
+- (void) updateLog:(NSDictionary *)data {
+    
+    NSCalendar *c = [NSCalendar currentCalendar];
+    int index = -1;
+    for (int i=0; i<_days.count; i++) {
+        DayLogModel *d = _days[i];
+        if ([c isDateInToday:d.date]) {
+            index = i;
+        }
+    }
+    
+    if (index != -1) {
+        
+        DayLogModel *d = [DayLogModel objFromData:data];
+        d.date = [NSDate date];
+        [_days replaceObjectAtIndex:index withObject:d];
+        [self layoutDailyLogForProcess:_selectedProcess];
+        [self getTargets];
+    }
 }
 
 #pragma mark - Layout
@@ -227,6 +250,17 @@
 }
 
 #pragma mark - Utils
+
+- (DayLogModel*) todayLog {
+    
+    NSCalendar *c = [NSCalendar currentCalendar];
+    for (DayLogModel *day in _days) {
+        if ([c isDateInToday:day.date])
+            return day;
+    }
+    
+    return nil;
+}
 
 - (void) fillContent {
     
@@ -310,8 +344,9 @@
                 _selectedProcess = _processes[0];
                 [self layoutWithProcess:_selectedProcess];
                 [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:false scrollPosition:UITableViewScrollPositionTop];
+                [self getTargets];
             }
-            
+        
             _noProcessesLabel.alpha = _processes.count == 0 ? 1 : 0;
             
         } else {
@@ -332,14 +367,27 @@
             
             _days = [NSMutableArray array];
             NSArray *days = [response firstObject][@"processes"];
+            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
             for (NSDictionary *dict in days) {
                 DayLogModel *d = [DayLogModel objFromData:dict];
-                [_days addObject:d];
+                if ([self dayLogAlreadyExists:d] == false)
+                    [_days addObject:d];
             }
             _rawDataButton.alpha = _days.count == 0 ? 0 : 1;
             [self layoutDailyLogForProcess:_selectedProcess];
         }
     }];
+}
+
+- (BOOL) dayLogAlreadyExists:(DayLogModel*)log {
+    
+    NSCalendar *c = [NSCalendar currentCalendar];
+    for (DayLogModel *d in _days) {
+        if ([c isDate:log.date inSameDayAsDate:d.date])
+            return true;
+    }
+    
+    return false;
 }
 
 - (void) layoutDailyLogForProcess:(ProcessModel*)p {
@@ -364,6 +412,30 @@
     }
     
     _graphTopLabel.text = [NSString stringWithFormat:@"%.0f", ceilf(_maxDayLogValue*1.2f)];
+}
+
+- (void) getTargets {
+    
+    for (ProcessModel *p in _processes) {
+        int target = [self getTodayTargetForProcess:p];
+        p.qtyTarget = [NSString stringWithFormat:@"%d", target];
+    }
+    [_tableView reloadData];
+}
+
+- (int) getTodayTargetForProcess:(ProcessModel*)p {
+    
+    NSCalendar *c = [NSCalendar currentCalendar];
+    for (DayLogModel *d in _days) {
+        
+        if (d.date != nil && d.processId == p.stepId) {
+            if ([c isDateInToday:d.date]) {
+                return d.target;
+            }
+        }
+    }
+    
+    return 0;
 }
 
 @end

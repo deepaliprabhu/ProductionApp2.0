@@ -43,11 +43,6 @@
     int rework = [_reworkTextField.text intValue];
     int target = [_targetTextField.text intValue];
     
-    if (good == 0 && reject == 0 && rework == 0 && target == 0) {
-        [LoadingView showShortMessage:@"Please insert some values!"];
-        return;
-    }
-    
     NSMutableDictionary *log = [NSMutableDictionary dictionary];
     log[@"stepid"] = _process.stepId;
     log[@"processno"] = _process.processNo;
@@ -65,7 +60,10 @@
        
         if (success) {
             [LoadingView removeLoading];
-            [_delegate newLogAdded:log];
+            if (_dayLog == nil)
+                [_delegate newLogAdded:log];
+            else
+                [_delegate updateLog:log];
             [self cancelButtonTapped];
         } else {
             [LoadingView showShortMessage:@"Error, please try again later!"];
@@ -96,6 +94,14 @@
     
     UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped)];
     self.navigationItem.rightBarButtonItem = right;
+    
+    if (_dayLog != nil) {
+        
+        _targetTextField.text = [NSString stringWithFormat:@"%d", _dayLog.target];
+        _rejectTextField.text = [NSString stringWithFormat:@"%d", _dayLog.reject];
+        _reworkTextField.text = [NSString stringWithFormat:@"%d", _dayLog.rework];
+        _goodTextField.text = [NSString stringWithFormat:@"%d", _dayLog.good];
+    }
 }
 
 #pragma mark - Utils
