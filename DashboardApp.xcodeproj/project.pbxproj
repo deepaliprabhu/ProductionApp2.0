@@ -40,6 +40,13 @@
 		894018811FB5A0E4002B8AFD /* BRRequestListDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018771FB5A0E4002B8AFD /* BRRequestListDirectory.m */; };
 		894018821FB5A0E4002B8AFD /* BRRequestCreateDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018781FB5A0E4002B8AFD /* BRRequestCreateDirectory.m */; };
 		8940188A1FB5EFAC002B8AFD /* PurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018891FB5EFAC002B8AFD /* PurchaseModel.m */; };
+		8942B8BC1FEC2705003D9B8A /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8BB1FEC2705003D9B8A /* UserModel.m */; };
+		8942B8C01FEC289D003D9B8A /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8BF1FEC289D003D9B8A /* UserManager.m */; };
+		8942B8C51FEC293C003D9B8A /* LoginScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8C31FEC293C003D9B8A /* LoginScreen.m */; };
+		8942B8C61FEC293C003D9B8A /* LoginScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8942B8C41FEC293C003D9B8A /* LoginScreen.xib */; };
+		8942B8CA1FEC373E003D9B8A /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8C81FEC373E003D9B8A /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8942B8CE1FEC3908003D9B8A /* SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8CC1FEC3908003D9B8A /* SplashScreen.m */; };
+		8942B8CF1FEC3908003D9B8A /* SplashScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8942B8CD1FEC3908003D9B8A /* SplashScreen.xib */; };
 		894B6F051FCD994100E271B1 /* PartDescriptionScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */; };
 		894B6F061FCD994100E271B1 /* PartDescriptionScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */; };
 		894B6F0C1FCDAD7600E271B1 /* PODateScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F0A1FCDAD7600E271B1 /* PODateScreen.m */; };
@@ -324,6 +331,18 @@
 		894018781FB5A0E4002B8AFD /* BRRequestCreateDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRequestCreateDirectory.m; sourceTree = "<group>"; };
 		894018881FB5EFAC002B8AFD /* PurchaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PurchaseModel.h; sourceTree = "<group>"; };
 		894018891FB5EFAC002B8AFD /* PurchaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PurchaseModel.m; sourceTree = "<group>"; };
+		8942B8BA1FEC2705003D9B8A /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		8942B8BB1FEC2705003D9B8A /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		8942B8BE1FEC289D003D9B8A /* UserManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
+		8942B8BF1FEC289D003D9B8A /* UserManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
+		8942B8C21FEC293C003D9B8A /* LoginScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginScreen.h; sourceTree = "<group>"; };
+		8942B8C31FEC293C003D9B8A /* LoginScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginScreen.m; sourceTree = "<group>"; };
+		8942B8C41FEC293C003D9B8A /* LoginScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginScreen.xib; sourceTree = "<group>"; };
+		8942B8C81FEC373E003D9B8A /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		8942B8C91FEC373E003D9B8A /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
+		8942B8CB1FEC3908003D9B8A /* SplashScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplashScreen.h; sourceTree = "<group>"; };
+		8942B8CC1FEC3908003D9B8A /* SplashScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SplashScreen.m; sourceTree = "<group>"; };
+		8942B8CD1FEC3908003D9B8A /* SplashScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashScreen.xib; sourceTree = "<group>"; };
 		894B6F021FCD994100E271B1 /* PartDescriptionScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartDescriptionScreen.h; sourceTree = "<group>"; };
 		894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartDescriptionScreen.m; sourceTree = "<group>"; };
 		894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartDescriptionScreen.xib; sourceTree = "<group>"; };
@@ -709,6 +728,8 @@
 		891007321FEA81C1004CF3A8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8919BE9D1FB4E47D00EE6839 /* LayoutUtils.h */,
+				8919BE9C1FB4E47D00EE6839 /* LayoutUtils.m */,
 				D28A35651FB046FB00AE6B51 /* UIAlertView+Blocks.h */,
 				D28A35661FB046FB00AE6B51 /* UIAlertView+Blocks.m */,
 				D2A44F2F1FAF2BBA00DF37B8 /* LoadingView.h */,
@@ -782,6 +803,37 @@
 				894018781FB5A0E4002B8AFD /* BRRequestCreateDirectory.m */,
 			);
 			path = BlackRaccoon;
+			sourceTree = "<group>";
+		};
+		8942B8BD1FEC2877003D9B8A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				8942B8BE1FEC289D003D9B8A /* UserManager.h */,
+				8942B8BF1FEC289D003D9B8A /* UserManager.m */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		8942B8C11FEC292F003D9B8A /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				8942B8CB1FEC3908003D9B8A /* SplashScreen.h */,
+				8942B8CC1FEC3908003D9B8A /* SplashScreen.m */,
+				8942B8CD1FEC3908003D9B8A /* SplashScreen.xib */,
+				8942B8C21FEC293C003D9B8A /* LoginScreen.h */,
+				8942B8C31FEC293C003D9B8A /* LoginScreen.m */,
+				8942B8C41FEC293C003D9B8A /* LoginScreen.xib */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		8942B8C71FEC373E003D9B8A /* SFHFKeychainUtils */ = {
+			isa = PBXGroup;
+			children = (
+				8942B8C81FEC373E003D9B8A /* SFHFKeychainUtils.m */,
+				8942B8C91FEC373E003D9B8A /* SFHFKeychainUtils.h */,
+			);
+			path = SFHFKeychainUtils;
 			sourceTree = "<group>";
 		};
 		894B6F071FCDAD3100E271B1 /* popovers */ = {
@@ -1027,8 +1079,7 @@
 			children = (
 				9F056B361F434BC3002F3B61 /* Defines.h */,
 				9FD12D941F44411A00F0E0A8 /* Constants.h */,
-				8919BE9D1FB4E47D00EE6839 /* LayoutUtils.h */,
-				8919BE9C1FB4E47D00EE6839 /* LayoutUtils.m */,
+				8942B8BD1FEC2877003D9B8A /* Managers */,
 				9FEEE59B1EEFF881005B5ECA /* Models */,
 				891007321FEA81C1004CF3A8 /* Views */,
 				9FEEE59D1EEFF881005B5ECA /* Libs */,
@@ -1558,6 +1609,8 @@
 				89512A191FE926A800BF7456 /* ProcessModel.m */,
 				898574431FE9482200EAB20C /* DayLogModel.h */,
 				898574441FE9482200EAB20C /* DayLogModel.m */,
+				8942B8BA1FEC2705003D9B8A /* UserModel.h */,
+				8942B8BB1FEC2705003D9B8A /* UserModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1567,6 +1620,7 @@
 			children = (
 				9FEEE5811EEFEFA2005B5ECA /* AppDelegate.h */,
 				9FEEE5821EEFEFA2005B5ECA /* AppDelegate.m */,
+				8942B8C11FEC292F003D9B8A /* Auth */,
 				9F40AD7B1F2F4669002C64BA /* Home */,
 				9FE99C1F1FBD4E65006B58DE /* Feedback */,
 				9F7FE5651F7B789E005CB4DF /* ProcessControl */,
@@ -1578,6 +1632,7 @@
 		9FEEE59D1EEFF881005B5ECA /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				8942B8C71FEC373E003D9B8A /* SFHFKeychainUtils */,
 				89854ADA1FB97B3A00C6E38D /* GridView */,
 				894018631FB5A0E4002B8AFD /* BlackRaccoon */,
 				8919BE701FB4DD5100EE6839 /* SDWebImage */,
@@ -1761,6 +1816,8 @@
 				9F471D141F542B9300B294B7 /* RoadBlocksView.xib in Resources */,
 				895023F11FE149EC008A1165 /* ReconcileScreen.xib in Resources */,
 				9F252A5D1F4D50000056DA8F /* feedbackBgImage.png in Resources */,
+				8942B8CF1FEC3908003D9B8A /* SplashScreen.xib in Resources */,
+				8942B8C61FEC293C003D9B8A /* LoginScreen.xib in Resources */,
 				9F977EF31F62FFD8009C2B6D /* CommonProcessesViewCell.xib in Resources */,
 				9F471D0B1F541F7700B294B7 /* ToDoViewCell.xib in Resources */,
 				9FA264611F48A1BD004C882E /* TasklistView.xib in Resources */,
@@ -1841,8 +1898,10 @@
 				D22767861FAE4B5400215D87 /* AFNetworkReachabilityManager.m in Sources */,
 				9F3FF6CD1F4BDF7500F52F64 /* FAImageView.m in Sources */,
 				8919BE8E1FB4DD5100EE6839 /* SDWebImageManager.m in Sources */,
+				8942B8CA1FEC373E003D9B8A /* SFHFKeychainUtils.m in Sources */,
 				898574451FE9482200EAB20C /* DayLogModel.m in Sources */,
 				9F8567921F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.m in Sources */,
+				8942B8C01FEC289D003D9B8A /* UserManager.m in Sources */,
 				89854AEA1FB97B3A00C6E38D /* UIView+GMGridViewAdditions.m in Sources */,
 				D22767991FAE4B8000215D87 /* Reachability.m in Sources */,
 				9FD12D8E1F443CEF00F0E0A8 /* ConnectionManager.m in Sources */,
@@ -1857,6 +1916,7 @@
 				9F471D131F542B9300B294B7 /* RoadBlocksView.m in Sources */,
 				89037EA41FE7C4DF00242005 /* RunDetailsScreen.m in Sources */,
 				8919BE901FB4DD5100EE6839 /* UIImageView+HighlightedWebCache.m in Sources */,
+				8942B8CE1FEC3908003D9B8A /* SplashScreen.m in Sources */,
 				3B649A871FB3236400B8DC78 /* PartsCell.m in Sources */,
 				9FD12D861F443A3700F0E0A8 /* RunListViewCell.m in Sources */,
 				D28A35671FB046FC00AE6B51 /* UIAlertView+Blocks.m in Sources */,
@@ -1961,8 +2021,10 @@
 				9F471CF21F53DD3700B294B7 /* SSBorderedView.m in Sources */,
 				8940187E1FB5A0E4002B8AFD /* BRRequestQueue.m in Sources */,
 				898574551FE9645100EAB20C /* DailyLogInputScreen.m in Sources */,
+				8942B8BC1FEC2705003D9B8A /* UserModel.m in Sources */,
 				9F3FF6D01F4BDF7500F52F64 /* UIImage+FontAwesome.m in Sources */,
 				89AC0AB71FC60E4D008CA56B /* CommentModel.m in Sources */,
+				8942B8C51FEC293C003D9B8A /* LoginScreen.m in Sources */,
 				89AC0AB31FC60E07008CA56B /* CommentsPartCell.m in Sources */,
 				8940187D1FB5A0E4002B8AFD /* BRRequestUpload.m in Sources */,
 				894B6F111FCDCBB700E271B1 /* RunCommentsScreen.m in Sources */,

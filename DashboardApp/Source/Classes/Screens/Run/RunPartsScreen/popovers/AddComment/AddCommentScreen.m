@@ -10,6 +10,7 @@
 #import "LoadingView.h"
 #import "ProdAPI.h"
 #import "Defines.h"
+#import "UserManager.h"
 
 @interface AddCommentScreen () <UITextViewDelegate>
 {
@@ -43,7 +44,8 @@
         [LoadingView showLoading:@"Loading..."];
         if (_part != nil) {
             
-            [[ProdAPI sharedInstance] addComment:_messageTextView.text forPart:_part.part from:@"test@aginova.com" withCompletion:^(BOOL success, id response) {
+            NSString *user = [[UserManager sharedInstance] loggedUser].username;
+            [[ProdAPI sharedInstance] addComment:_messageTextView.text forPart:_part.part from:user withCompletion:^(BOOL success, id response) {
                 [self commentAddingFinishedWith:success];
             }];
         } else {
@@ -98,7 +100,7 @@
         [LoadingView removeLoading];
         CommentModel *c = [CommentModel new];
         c.date = [NSDate date];
-        c.author = @"test@aginova.com";
+        c.author = [[UserManager sharedInstance] loggedUser].username;
         c.message = _messageTextView.text;
         [_delegate newCommentAdded:c];
         [self dismissViewControllerAnimated:true completion:false];

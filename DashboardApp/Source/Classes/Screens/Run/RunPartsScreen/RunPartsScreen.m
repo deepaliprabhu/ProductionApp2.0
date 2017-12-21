@@ -32,6 +32,7 @@
 #import "UIView+Screenshot.h"
 #import "Constants.h"
 #import "LockConfirmScreen.h"
+#import "UserManager.h"
 
 const CGFloat kMinTableHeight = 119;
 
@@ -590,13 +591,14 @@ typedef enum
     [_purchasesTableView reloadData];
 
     NSString *message = [NSString stringWithFormat:@"changed expected date for PO %@", po];
-    [[ProdAPI sharedInstance] addComment:message forPart:_visiblePart.part from:@"test@aginova.com" withCompletion:^(BOOL success, id response) {
+    NSString *user = [[UserManager sharedInstance] loggedUser].username;
+    [[ProdAPI sharedInstance] addComment:message forPart:_visiblePart.part from:user withCompletion:^(BOOL success, id response) {
         
         if (success)
         {
             CommentModel *c = [CommentModel new];
             c.date = [NSDate date];
-            c.author = @"test@aginova.com";
+            c.author = [[UserManager sharedInstance] loggedUser].username;
             c.message = message;
             [self newCommentAdded:c];
         }

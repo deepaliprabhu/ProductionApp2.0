@@ -13,6 +13,7 @@
 #import "BRRequestUpload.h"
 #import "LoadingView.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "UserManager.h"
 
 static ProdAPI *_sharedInstance = nil;
 
@@ -166,7 +167,7 @@ static ProdAPI *_sharedInstance = nil;
 
 - (void) reconcilePart:(NSString*)part atLocation:(NSString*)l withQty:(NSString*)qty completion:(void (^)(BOOL success, id response))block {
     
-    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=reconcile_part&partno=%@&location=%@&by=test@aginova.com&mode=RECONCILE_PARTS&qty=%@", part, l, qty];
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=reconcile_part&partno=%@&location=%@&by=%@&mode=RECONCILE_PARTS&qty=%@", part, l, [[UserManager sharedInstance] loggedUser].username, qty];
     url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [self callGETURL:url completion:block];
 }
