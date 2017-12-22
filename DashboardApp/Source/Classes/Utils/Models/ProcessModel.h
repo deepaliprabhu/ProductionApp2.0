@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSString *processName;
 @property (nonatomic, strong) NSString *instructions;
 @property (nonatomic, strong) NSString *status;
+@property (nonatomic, unsafe_unretained) int processed;
 
 + (ProcessModel*) objectFromProcess:(NSDictionary*)pr andCommon:(NSDictionary*)common;
 

@@ -21,7 +21,7 @@
     
     _titleLabel.text = process.processName;
     _qtyLabel.text = process.qtyTarget;
-    _processedLabel.text = [NSString stringWithFormat:@"%d", [process.qtyReject intValue] + [process.qtyGood intValue] + [process.qtyRework intValue]];
+    _processedLabel.text = [NSString stringWithFormat:@"%d", process.processed];
 }
 
 - (void) setSelected:(BOOL)selected {

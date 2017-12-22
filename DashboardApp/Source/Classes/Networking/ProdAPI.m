@@ -176,7 +176,7 @@ static ProdAPI *_sharedInstance = nil;
 
     NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/lock_run.php?runid=%d", runID];
     url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [self callPOST:url parameters:@{@"JSON":json} completion:block];
+    [self callPOST:url parameters:@{@"JSON":json, @"runid":@(runID)} completion:block];
 }
 
 - (void) getSalesPerYearFor:(NSString*)product completion:(void (^)(BOOL success, id response))block {
@@ -205,7 +205,7 @@ static ProdAPI *_sharedInstance = nil;
     NSDateFormatter *f = [NSDateFormatter new];
     f.dateFormat = @"yyyy-MM-dd HH:mm";
     NSString *time = [f stringFromDate:[NSDate date]];
-    NSString *updatedBy = @"Arvind";
+    NSString *updatedBy = [[[UserManager sharedInstance] loggedUser] name];
     
     NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=updateRunProcessFlow&do=update&run_flow_id=%@&updatedTimestamp=%@&updatedBy=%@&count=1&json=%@", flow, time, updatedBy, log];
     url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

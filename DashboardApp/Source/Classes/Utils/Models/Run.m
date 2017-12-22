@@ -31,6 +31,7 @@
     _rework = [[runData objectForKey:@"Rework"] intValue];
     _reject = [[runData objectForKey:@"Reject"] intValue];
     _status = [runData objectForKey:@"Status"];
+    _isLocked = [_status isEqualToString:@"LOCKED"];
     _productId = [[runData objectForKey:@"PRODUCT_REV_ID"] intValue];
     runJobs = [[NSMutableArray alloc] init];
     _productName = [runData objectForKey:@"Product"];

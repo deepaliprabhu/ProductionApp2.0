@@ -419,8 +419,21 @@
     for (ProcessModel *p in _processes) {
         int target = [self getTodayTargetForProcess:p];
         p.qtyTarget = [NSString stringWithFormat:@"%d", target];
+        p.processed = [self getProcessedForProcess:p];
     }
     [_tableView reloadData];
+}
+
+- (int) getProcessedForProcess:(ProcessModel*)p {
+    
+    int t = 0;
+    for (DayLogModel *d in _days) {
+        if (d.processId == p.stepId) {
+            t += d.reject + d.rework + d.good;
+        }
+    }
+    
+    return t;
 }
 
 - (int) getTodayTargetForProcess:(ProcessModel*)p {
