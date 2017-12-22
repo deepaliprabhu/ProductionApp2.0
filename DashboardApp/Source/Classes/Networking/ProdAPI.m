@@ -44,6 +44,17 @@ static ProdAPI *_sharedInstance = nil;
     return _sharedInstance;
 }
 
++ (NSString*) jsonString:(id)data {
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data options:0 error:nil];
+    if (!jsonData) {
+        return nil;
+    } else {
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        return jsonString;
+    }
+}
+
 - (void) initData
 {
     _manager = [AFHTTPSessionManager manager];

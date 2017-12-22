@@ -16,6 +16,8 @@
 @property (nonatomic, unsafe_unretained) BOOL isReachable;
 
 + (ProdAPI*) sharedInstance;
++ (NSString*) jsonString:(id)data;
+
 - (void) loginWithUser:(NSString*)user password:(NSString*)pass withCompletion:(void (^)(BOOL success, id response))block;
 - (void) updateProduct:(NSString*)productID status:(NSString*)status withCompletion:(void (^)(BOOL success, id response))block;
 - (void) updateProduct:(NSString*)productID image:(NSString*)image withCompletion:(void (^)(BOOL success, id response))block;

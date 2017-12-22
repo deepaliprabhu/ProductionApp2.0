@@ -70,6 +70,8 @@
     
     __weak IBOutlet UILabel *_graphTopLabel;
     
+    __weak IBOutlet UILabel *_lockedLabel;
+    
     NSMutableArray *_processes;
     NSMutableArray *_days;
     NSMutableArray *_filteredDays;
@@ -93,6 +95,12 @@
     } else {
         [self getProcessFlow];
     }
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [self fillContent];
 }
 
 #pragma mark - Actions
@@ -225,10 +233,10 @@
     
     _titleLabel.text = cstrf(@"RUN %d", [_run getRunId]);
     
-    [self fillContent];
-    
     _yearsHolderView.layer.borderColor = ccolor(190, 190, 190).CGColor;
     _yearsHolderView.layer.borderWidth = 1;
+    
+    [self fillYears];
 }
 
 - (void) layoutWithProcess:(ProcessModel*)model {
@@ -264,11 +272,10 @@
 
 - (void) fillContent {
     
+    _lockedLabel.alpha = _run.isLocked;
+    
     _runNameLabel.text = [NSString stringWithFormat:@"%@ - %d Units", [_run getProductName], [_run getQuantity]];
     _productNameLabel.text = [_run getProductNumber];
-    
-    [self fillYears];
-    [self getSales];
     
     _priorityLabel.text = [_run getPriority] == 0 ? @"LOW" : @"HIGH";
     _statusLabel.text = [_run getStatus];
@@ -286,6 +293,8 @@
     _currentYearTitleLabel.text = cstrf(@"%d", y);
     _lastYearTitleLabel.text = cstrf(@"%d", y-1);
     _2YearsAgoTitleLabel.text = cstrf(@"%d", y-2);
+    
+    [self getSales];
 }
 
 - (void) getSales {
@@ -329,15 +338,11 @@
             [LoadingView removeLoading];
             _processes = [NSMutableArray array];
             NSArray *processes = [response firstObject][@"processes"];
-            NSString *rCat = [_run getRunData][@"Category"];
             for (NSDictionary *processData in processes) {
                 
                 NSDictionary *commonProcess = [[DataManager sharedInstance] getProcessForNo:processData[@"processno"]];
-                NSString *c = commonProcess[@"category"];
-                if ([c isEqualToString:rCat] || [c isEqualToString:@"Common"]) {
-                    ProcessModel *model = [ProcessModel objectFromProcess:processData andCommon:commonProcess];
-                    [_processes addObject:model];
-                }
+                ProcessModel *model = [ProcessModel objectFromProcess:processData andCommon:commonProcess];
+                [_processes addObject:model];
             }
             [_tableView reloadData];
             if (_processes.count > 0) {

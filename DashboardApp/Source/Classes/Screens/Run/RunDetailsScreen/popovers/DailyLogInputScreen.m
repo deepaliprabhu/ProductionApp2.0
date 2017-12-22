@@ -54,7 +54,7 @@
     log[@"qtyRework"] = [NSString stringWithFormat:@"%d", rework];
     log[@"qtyReject"] = [NSString stringWithFormat:@"%d", reject];
     
-    NSString *json = [NSString stringWithFormat:@"[%@]" ,[self jsonString:log]];
+    NSString *json = [NSString stringWithFormat:@"[%@]" ,[ProdAPI jsonString:log]];
     [LoadingView showLoading:@"Loading..."];
     [[ProdAPI sharedInstance] addDailyLog:json forRunFlow:_process.runFlowId completion:^(BOOL success, id response) {
        
@@ -101,19 +101,6 @@
         _rejectTextField.text = [NSString stringWithFormat:@"%d", _dayLog.reject];
         _reworkTextField.text = [NSString stringWithFormat:@"%d", _dayLog.rework];
         _goodTextField.text = [NSString stringWithFormat:@"%d", _dayLog.good];
-    }
-}
-
-#pragma mark - Utils
-
-- (NSString*) jsonString:(NSDictionary*)data {
-    
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data options:0 error:nil];
-    if (!jsonData) {
-        return nil;
-    } else {
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        return jsonString;
     }
 }
 

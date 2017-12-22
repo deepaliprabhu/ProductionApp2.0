@@ -51,11 +51,6 @@
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
-    topBarView = [TopBarView createView];
-    topBarView.frame = CGRectMake(0, 0, _topPaneView.frame.size.width, _topPaneView.frame.size.height);
-    [topBarView initView];
-    [_topPaneView addSubview:topBarView];
-    
     runListView = [RunListView createView];
     runListView.frame = CGRectMake(0, 0, _overviewView.frame.size.width, _overviewView.frame.size.height);
     runListView.delegate = self;

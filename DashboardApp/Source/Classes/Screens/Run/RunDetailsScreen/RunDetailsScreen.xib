@@ -36,6 +36,7 @@
                 <outlet property="_graphTopLabel" destination="8X3-tm-abV" id="gUv-zo-Tfx"/>
                 <outlet property="_lastYearTitleLabel" destination="b0m-Dq-Vou" id="bfE-j4-qBW"/>
                 <outlet property="_lastYearValueLabel" destination="xpH-Bk-ZmP" id="Ze9-la-tP6"/>
+                <outlet property="_lockedLabel" destination="ga7-LE-I89" id="Czy-sO-gjG"/>
                 <outlet property="_noDailyLogLabel" destination="F2a-Eb-Vzq" id="PN3-DM-akd"/>
                 <outlet property="_noProcessesLabel" destination="3ai-gx-DBv" id="Rq8-ny-XUV"/>
                 <outlet property="_personLabel" destination="Sjh-Qe-EJg" id="9uZ-46-gS3"/>
@@ -570,6 +571,13 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="11"/>
                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Locked" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ga7-LE-I89">
+                    <rect key="frame" x="32" y="168" width="89" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="25"/>
+                    <color key="textColor" red="0.94117647059999998" green="0.031372549020000001" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
