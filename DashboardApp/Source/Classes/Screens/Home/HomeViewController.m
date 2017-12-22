@@ -18,16 +18,23 @@
 #import "UIView+Screenshot.h"
 #import "RunCommentsScreen.h"
 #import "RunDetailsScreen.h"
+#import "UserManager.h"
 
 @interface HomeViewController ()
 
 @end
 
-@implementation HomeViewController
+@implementation HomeViewController  {
+    
+    __weak IBOutlet UILabel *_versionLabel;
+    __weak IBOutlet UILabel *_userLabel;
+    __weak IBOutlet UILabel *_roleLabel;
+}
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(initRuns) name:kNotificationRunsReceived object:nil];
     [center addObserver:self selector:@selector(initDemands) name:kNotificationDemandsReceived object:nil];
@@ -114,12 +121,15 @@
     
     [_activityLogButton setBackgroundColor:[UIColor colorWithRed:244.0f/255.0f green:248.0f/255.0f blue:251.0f/255.0f alpha:1.0f]];
     
-    [self.view bringSubviewToFront:_titleButton];
     [self.navigationController.view showActivityViewWithLabel:@"fetching data"];
     [self.navigationController.view hideActivityViewWithAfterDelay:60];
     [__ServerManager getRunsList];
     [__ServerManager getDemands];
     [__ServerManager getFeedbacks];
+    
+    _versionLabel.text = cstrf(@"Version %@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
+    _userLabel.text = [[[UserManager sharedInstance] loggedUser] name];
+    _roleLabel.text = [[[UserManager sharedInstance] loggedUser] role];
 
     selectedRunType = 1;
 }

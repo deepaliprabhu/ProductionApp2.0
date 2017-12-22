@@ -26,7 +26,6 @@
     IBOutlet UILabel *_roadblocksCountLabel;
     IBOutlet UIButton *_tasklistButton;
     IBOutlet UIButton *_activityLogButton;
-    IBOutlet UIButton *_titleButton;
     IBOutlet UIImageView *_doneImageView;
     IBOutlet UIImageView *_todoImageView;
     IBOutlet UIImageView *_roadblocksImageView;
