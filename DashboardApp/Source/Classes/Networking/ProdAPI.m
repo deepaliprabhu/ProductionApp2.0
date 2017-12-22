@@ -207,7 +207,7 @@ static ProdAPI *_sharedInstance = nil;
     NSString *time = [f stringFromDate:[NSDate date]];
     NSString *updatedBy = @"Arvind";
     
-    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=updateRunProcessFlow&do=add&run_flow_id=%@&updatedTimestamp=%@&updatedBy=%@&count=1&json=%@", flow, time, updatedBy, log];
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=updateRunProcessFlow&do=update&run_flow_id=%@&updatedTimestamp=%@&updatedBy=%@&count=1&json=%@", flow, time, updatedBy, log];
     url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [self callGETURL:url completion:block];
 }

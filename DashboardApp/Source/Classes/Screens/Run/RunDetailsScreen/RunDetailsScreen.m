@@ -344,7 +344,6 @@
                 _selectedProcess = _processes[0];
                 [self layoutWithProcess:_selectedProcess];
                 [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:false scrollPosition:UITableViewScrollPositionTop];
-                [self getTargets];
             }
         
             _noProcessesLabel.alpha = _processes.count == 0 ? 1 : 0;
@@ -374,6 +373,7 @@
                     [_days addObject:d];
             }
             _rawDataButton.alpha = _days.count == 0 ? 0 : 1;
+            [self getTargets];
             [self layoutDailyLogForProcess:_selectedProcess];
         }
     }];
