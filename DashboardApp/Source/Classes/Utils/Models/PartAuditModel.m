@@ -71,7 +71,8 @@
     for (ActionModel *a in _actions) {
         
         if (dict[a.date] == nil) {
-            [dict setObject:@[a] forKey:a.date];
+            if (a.date != nil)
+                [dict setObject:@[a] forKey:a.date];
         } else {
             
             NSMutableArray *arr = [NSMutableArray arrayWithArray:dict[a.date]];
