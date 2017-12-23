@@ -104,7 +104,7 @@ __CREATEVIEW(ProductProcessStepsView, @"ProductProcessStepsView", 0);
             cell = [[NSBundle mainBundle] loadNibNamed:simpleTableIdentifier owner:nil options:nil][0];
         }
         cell.delegate = self;
-         [cell setCellData:[commonProcessesArray objectAtIndex:indexPath.row] index:indexPath.row];
+         [cell setCellData:[commonProcessesArray objectAtIndex:indexPath.row] index:indexPath.row isAdded:true];
         return cell;
     }
     else if ([tableView isEqual:_runProcessesTableView]){

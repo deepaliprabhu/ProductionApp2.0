@@ -15,11 +15,12 @@
     IBOutlet UIButton *_addButton;
 
     int index;
+    BOOL added;
 }
 __pd(CommonProcessesViewCellDelegate);
-- (void)setCellData:(NSMutableDictionary *)cellData index:(int)index_;
+- (void)setCellData:(NSMutableDictionary *)cellData index:(int)index isAdded:(BOOL)added;
 @end
 
 @protocol CommonProcessesViewCellDelegate <NSObject>
-- (void)addButtonPressedAtIndex:(int)index;
+- (void)addButtonPressedAtIndex:(int)index withValue:(BOOL)isAdded;
 @end

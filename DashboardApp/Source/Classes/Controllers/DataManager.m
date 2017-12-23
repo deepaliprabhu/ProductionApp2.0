@@ -432,6 +432,7 @@ static DataManager *_sharedInstance = nil;
     }
     return nil;
 }
+
 - (NSString*)getTimeForProcessNo:(NSString*)processNo {
     for (int i=0; i < commonProcessesArray.count; ++i) {
         NSMutableDictionary *processData = commonProcessesArray[i];
@@ -441,5 +442,6 @@ static DataManager *_sharedInstance = nil;
     }
     return nil;
 }
+
 
 @end

@@ -10,6 +10,7 @@
 #import "Run.h"
 #import "Defines.h"
 #import "ServerManager.h"
+#import "ProductModel.h"
 
 #define __DataManager [DataManager sharedInstance]
 
@@ -89,6 +90,8 @@ __pds(DataManagerProtocol);
 - (NSMutableArray*)getProductsArray;
 - (NSMutableDictionary*)getProcessForNo:(NSString*)processNo;
 - (NSString*)getTimeForProcessNo:(NSString*)processNo;
+- (NSMutableArray*)getProcessStepsForProduct:(ProductModel*)product;
+- (void)setProcessStepsForProduct:(ProductModel*)product;
 @end
 
 @protocol DataManagerProtocol <NSObject>

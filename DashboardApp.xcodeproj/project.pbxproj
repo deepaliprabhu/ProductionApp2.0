@@ -183,6 +183,12 @@
 		9FA264611F48A1BD004C882E /* TasklistView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA264601F48A1BD004C882E /* TasklistView.xib */; };
 		9FA264661F48A32C004C882E /* TasklistViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA264641F48A32C004C882E /* TasklistViewCell.m */; };
 		9FA264671F48A32C004C882E /* TasklistViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA264651F48A32C004C882E /* TasklistViewCell.xib */; };
+		9FA5EE5F1FE9492F000AAFA3 /* ProcessStepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5EE5D1FE9492F000AAFA3 /* ProcessStepsViewController.m */; };
+		9FA5EE601FE9492F000AAFA3 /* ProcessStepsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA5EE5E1FE9492F000AAFA3 /* ProcessStepsViewController.xib */; };
+		9FA5EE661FE94DCF000AAFA3 /* DZNSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5EE631FE94DCF000AAFA3 /* DZNSegmentedControl.m */; };
+		9FA5EE671FE94DCF000AAFA3 /* UIScrollView+DZNSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5EE651FE94DCF000AAFA3 /* UIScrollView+DZNSegmentedControl.m */; };
+		9FA5EE6B1FE97EDB000AAFA3 /* ProductListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5EE691FE97EDB000AAFA3 /* ProductListViewCell.m */; };
+		9FA5EE6C1FE97EDB000AAFA3 /* ProductListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA5EE6A1FE97EDB000AAFA3 /* ProductListViewCell.xib */; };
 		9FB1BEAE1F514343008D179E /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB1BEAC1F514343008D179E /* CollectionViewCell.m */; };
 		9FB1BEAF1F514343008D179E /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FB1BEAD1F514343008D179E /* CollectionViewCell.xib */; };
 		9FC2B0E31F792502008B7F42 /* RNActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC2B0E01F792502008B7F42 /* RNActivityView.m */; };
@@ -528,6 +534,16 @@
 		9FA264631F48A32C004C882E /* TasklistViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasklistViewCell.h; sourceTree = "<group>"; };
 		9FA264641F48A32C004C882E /* TasklistViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasklistViewCell.m; sourceTree = "<group>"; };
 		9FA264651F48A32C004C882E /* TasklistViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TasklistViewCell.xib; sourceTree = "<group>"; };
+		9FA5EE5C1FE9492F000AAFA3 /* ProcessStepsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessStepsViewController.h; sourceTree = "<group>"; };
+		9FA5EE5D1FE9492F000AAFA3 /* ProcessStepsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessStepsViewController.m; sourceTree = "<group>"; };
+		9FA5EE5E1FE9492F000AAFA3 /* ProcessStepsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProcessStepsViewController.xib; sourceTree = "<group>"; };
+		9FA5EE621FE94DCF000AAFA3 /* DZNSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DZNSegmentedControl.h; sourceTree = "<group>"; };
+		9FA5EE631FE94DCF000AAFA3 /* DZNSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DZNSegmentedControl.m; sourceTree = "<group>"; };
+		9FA5EE641FE94DCF000AAFA3 /* UIScrollView+DZNSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+DZNSegmentedControl.h"; sourceTree = "<group>"; };
+		9FA5EE651FE94DCF000AAFA3 /* UIScrollView+DZNSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+DZNSegmentedControl.m"; sourceTree = "<group>"; };
+		9FA5EE681FE97EDB000AAFA3 /* ProductListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductListViewCell.h; sourceTree = "<group>"; };
+		9FA5EE691FE97EDB000AAFA3 /* ProductListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductListViewCell.m; sourceTree = "<group>"; };
+		9FA5EE6A1FE97EDB000AAFA3 /* ProductListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductListViewCell.xib; sourceTree = "<group>"; };
 		9FB1BEAB1F514343008D179E /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
 		9FB1BEAC1F514343008D179E /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
 		9FB1BEAD1F514343008D179E /* CollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1174,6 +1190,9 @@
 				9FF0A6181F7E447C006486AA /* ProductProcessStepsView.h */,
 				9FF0A6191F7E447C006486AA /* ProductProcessStepsView.m */,
 				9FF0A61A1F7E447C006486AA /* ProductProcessStepsView.xib */,
+				9FA5EE5C1FE9492F000AAFA3 /* ProcessStepsViewController.h */,
+				9FA5EE5D1FE9492F000AAFA3 /* ProcessStepsViewController.m */,
+				9FA5EE5E1FE9492F000AAFA3 /* ProcessStepsViewController.xib */,
 			);
 			path = ProcessControl;
 			sourceTree = "<group>";
@@ -1198,6 +1217,9 @@
 				9F7FE5721F7B9CAA005CB4DF /* ProductCollectionViewCell.h */,
 				9F7FE5731F7B9CAA005CB4DF /* ProductCollectionViewCell.m */,
 				9F7FE5741F7B9CAA005CB4DF /* ProductCollectionViewCell.xib */,
+				9FA5EE681FE97EDB000AAFA3 /* ProductListViewCell.h */,
+				9FA5EE691FE97EDB000AAFA3 /* ProductListViewCell.m */,
+				9FA5EE6A1FE97EDB000AAFA3 /* ProductListViewCell.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -1271,6 +1293,17 @@
 				9FA264651F48A32C004C882E /* TasklistViewCell.xib */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		9FA5EE611FE94DCF000AAFA3 /* DZNSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				9FA5EE621FE94DCF000AAFA3 /* DZNSegmentedControl.h */,
+				9FA5EE631FE94DCF000AAFA3 /* DZNSegmentedControl.m */,
+				9FA5EE641FE94DCF000AAFA3 /* UIScrollView+DZNSegmentedControl.h */,
+				9FA5EE651FE94DCF000AAFA3 /* UIScrollView+DZNSegmentedControl.m */,
+			);
+			path = DZNSegmentedControl;
 			sourceTree = "<group>";
 		};
 		9FB1BEAA1F513C2A008D179E /* Cell */ = {
@@ -1518,6 +1551,7 @@
 		9FEEE59D1EEFF881005B5ECA /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				9FA5EE611FE94DCF000AAFA3 /* DZNSegmentedControl */,
 				89854ADA1FB97B3A00C6E38D /* GridView */,
 				894018631FB5A0E4002B8AFD /* BlackRaccoon */,
 				8919BE701FB4DD5100EE6839 /* SDWebImage */,
@@ -1688,6 +1722,7 @@
 				895F5F7C1FCEF17D00ED3349 /* GridView.xib in Resources */,
 				9F056B281F433469002F3B61 /* Icon.png in Resources */,
 				D283865C1FB23CA800BB304C /* Roboto-Regular.ttf in Resources */,
+				9FA5EE6C1FE97EDB000AAFA3 /* ProductListViewCell.xib in Resources */,
 				D227678B1FAE4B5400215D87 /* LICENSE in Resources */,
 				9FE99C331FBD7112006B58DE /* FeedbackDetailView.xib in Resources */,
 				895F5F811FCEF75800ED3349 /* StockCell.xib in Resources */,
@@ -1724,6 +1759,7 @@
 				894EE6981FE00EF8009244A7 /* LockConfirmScreen.xib in Resources */,
 				894C5F5F1FBB147600FA4E5D /* RunPartCell.xib in Resources */,
 				8950A7281FC6C14E006C66CB /* AddCommentScreen.xib in Resources */,
+				9FA5EE601FE9492F000AAFA3 /* ProcessStepsViewController.xib in Resources */,
 				9F03A9221F45667700A7A316 /* DemandListViewCell.xib in Resources */,
 				9F471CFA1F53FF4600B294B7 /* InProcessView.xib in Resources */,
 				9F7AB1A41F7D233C0013CBE1 /* check_mark@2x.png in Resources */,
@@ -1777,12 +1813,14 @@
 				9F3FF6CD1F4BDF7500F52F64 /* FAImageView.m in Sources */,
 				8919BE8E1FB4DD5100EE6839 /* SDWebImageManager.m in Sources */,
 				9F8567921F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.m in Sources */,
+				9FA5EE6B1FE97EDB000AAFA3 /* ProductListViewCell.m in Sources */,
 				89854AEA1FB97B3A00C6E38D /* UIView+GMGridViewAdditions.m in Sources */,
 				D22767991FAE4B8000215D87 /* Reachability.m in Sources */,
 				9FD12D8E1F443CEF00F0E0A8 /* ConnectionManager.m in Sources */,
 				89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */,
 				9F8567901F73DDB10067ABE1 /* OperatorEntryView.m in Sources */,
 				8952873C1FCF39EE005C46EE /* AuditActionCell.m in Sources */,
+				9FA5EE671FE94DCF000AAFA3 /* UIScrollView+DZNSegmentedControl.m in Sources */,
 				9FD12D8F1F443CEF00F0E0A8 /* DataManager.m in Sources */,
 				8919BE961FB4DD5100EE6839 /* SDImageCache.m in Sources */,
 				9F85678E1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.m in Sources */,
@@ -1818,6 +1856,7 @@
 				D283865F1FB2476C00BB304C /* PartModel.m in Sources */,
 				9FD12D9B1F44707A00F0E0A8 /* MIBadgeLabel.m in Sources */,
 				D22767941FAE4B5400215D87 /* UIRefreshControl+AFNetworking.m in Sources */,
+				9FA5EE661FE94DCF000AAFA3 /* DZNSegmentedControl.m in Sources */,
 				9F3144B81F7ABFD200B9D32C /* CKCalendarView.m in Sources */,
 				894B6F051FCD994100E271B1 /* PartDescriptionScreen.m in Sources */,
 				9FF0A61B1F7E447C006486AA /* ProductProcessStepsView.m in Sources */,
@@ -1901,6 +1940,7 @@
 				9FE99C371FBF242D006B58DE /* FeedbackListViewController.m in Sources */,
 				3BCDA4181FB346560021BC03 /* ProductAdminPopover.m in Sources */,
 				9F056B2E1F433F32002F3B61 /* TopBarView.m in Sources */,
+				9FA5EE5F1FE9492F000AAFA3 /* ProcessStepsViewController.m in Sources */,
 				9F3144AF1F7A307600B9D32C /* NIDropDown.m in Sources */,
 				9F40AD7F1F2F469A002C64BA /* HomeViewController.m in Sources */,
 				9F471D0A1F541F7700B294B7 /* ToDoViewCell.m in Sources */,

@@ -16,10 +16,12 @@
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *photo;
+@property (nonatomic, strong) NSMutableArray *processSteps;
 @property (nonatomic, unsafe_unretained) int order;
 
 + (ProductModel*) objectFrom:(NSDictionary*)data;
 - (BOOL) isVisible;
 - (NSURL*) photoURL;
-
+- (NSMutableArray*)getProcessSteps;
+- (void)setProcessSteps:(NSMutableArray *)processSteps;
 @end

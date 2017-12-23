@@ -19,6 +19,7 @@
     p.status = data[@"Status"];
     p.name = data[@"Name"];
     p.photo = data[@"Images"];
+    p.processSteps = [[NSMutableArray alloc] init];
     
     NSString *order = data[@"Order"];
     if (order.length == 0)
@@ -42,6 +43,14 @@
     } else {
         return [NSURL URLWithString:[NSString stringWithFormat:@"https://www.aginova.com/production_app_images/%@", _photo]];
     }
+}
+
+- (NSMutableArray*)getProcessSteps {
+    return _processSteps;
+}
+
+- (void)setProcessSteps:(NSMutableArray *)processSteps {
+    _processSteps = processSteps;
 }
 
 @end

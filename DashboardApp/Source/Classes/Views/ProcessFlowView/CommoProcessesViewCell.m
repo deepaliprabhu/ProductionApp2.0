@@ -26,13 +26,36 @@
     // Configure the view for the selected state
 }
 
-- (void)setCellData:(NSMutableDictionary *)cellData index:(int)index_{
+- (void)setCellData:(NSMutableDictionary *)cellData index:(int)index_ isAdded:(BOOL)added_{
     index = index_;
-    _titleLabel.text = [NSString stringWithFormat:@"%@-%@",cellData[@"processno"],cellData[@"processname"]];
+    added = added_;
+    _titleLabel.text = [NSString stringWithFormat:@"%@-%@",cellData[@"processno"],[cellData[@"processname"] uppercaseString]];
+    if (added) {
+        UIImage *iconTick = [UIImage imageWithIcon:@"fa-check-circle" backgroundColor:[UIColor clearColor] iconColor:[UIColor greenColor] fontSize:20];
+        [_addButton setImage:iconTick forState:UIControlStateNormal];
+        [_addButton setTintColor:[UIColor colorWithRed:74.0f/255.0f green:217.0f/255.0f blue:102.0f/255.0f alpha:1.0f]];
+    }
+    else {
+        UIImage *iconCircle = [UIImage imageWithIcon:@"fa-circle-o" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:20];
+        [_addButton setImage:iconCircle forState:UIControlStateNormal];
+        [_addButton setTintColor:[UIColor darkGrayColor]];
+    }
 }
 
 - (IBAction)addButtonPressed:(id)sender {
-    [_delegate addButtonPressedAtIndex:index];
+    if (added) {
+        added = false;
+        UIImage *iconCircle = [UIImage imageWithIcon:@"fa-circle-o" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:20];
+        [_addButton setImage:iconCircle forState:UIControlStateNormal];
+        [_addButton setTintColor:[UIColor darkGrayColor]];
+    }
+    else {
+        added = true;
+        UIImage *iconTick = [UIImage imageWithIcon:@"fa-check-circle" backgroundColor:[UIColor clearColor] iconColor:[UIColor greenColor] fontSize:20];
+        [_addButton setImage:iconTick forState:UIControlStateNormal];
+        [_addButton setTintColor:[UIColor colorWithRed:74.0f/255.0f green:217.0f/255.0f blue:102.0f/255.0f alpha:1.0f]];
+    }
+    [_delegate addButtonPressedAtIndex:index withValue:added];
 }
 
 @end

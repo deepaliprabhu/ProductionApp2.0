@@ -18,6 +18,7 @@
 #import "UIView+Screenshot.h"
 #import "RunCommentsScreen.h"
 #import "RunDetailsScreen.h"
+#import "ProcessStepsViewController.h"
 
 @interface HomeViewController ()
 
@@ -155,8 +156,8 @@
 }
 
 - (void) processControlSelected {
-    ProductListViewController *productListVC = [ProductListViewController new];
-    productListVC.image = [self.view screenshot];
+    ProcessStepsViewController *productListVC = [ProcessStepsViewController new];
+    //productListVC.image = [self.view screenshot];
     [self.navigationController pushViewController:productListVC animated:true];
 }
 
