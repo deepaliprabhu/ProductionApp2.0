@@ -41,10 +41,8 @@
 		894018821FB5A0E4002B8AFD /* BRRequestCreateDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018781FB5A0E4002B8AFD /* BRRequestCreateDirectory.m */; };
 		8940188A1FB5EFAC002B8AFD /* PurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018891FB5EFAC002B8AFD /* PurchaseModel.m */; };
 		8942B8BC1FEC2705003D9B8A /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8BB1FEC2705003D9B8A /* UserModel.m */; };
-		8942B8C01FEC289D003D9B8A /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8BF1FEC289D003D9B8A /* UserManager.m */; };
 		8942B8C51FEC293C003D9B8A /* LoginScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8C31FEC293C003D9B8A /* LoginScreen.m */; };
 		8942B8C61FEC293C003D9B8A /* LoginScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8942B8C41FEC293C003D9B8A /* LoginScreen.xib */; };
-		8942B8CA1FEC373E003D9B8A /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8C81FEC373E003D9B8A /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8942B8CE1FEC3908003D9B8A /* SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8CC1FEC3908003D9B8A /* SplashScreen.m */; };
 		8942B8CF1FEC3908003D9B8A /* SplashScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8942B8CD1FEC3908003D9B8A /* SplashScreen.xib */; };
 		894B6F051FCD994100E271B1 /* PartDescriptionScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */; };
@@ -108,6 +106,7 @@
 		89AC0AB31FC60E07008CA56B /* CommentsPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC0AB11FC60E07008CA56B /* CommentsPartCell.m */; };
 		89AC0AB41FC60E07008CA56B /* CommentsPartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89AC0AB21FC60E07008CA56B /* CommentsPartCell.xib */; };
 		89AC0AB71FC60E4D008CA56B /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC0AB61FC60E4D008CA56B /* CommentModel.m */; };
+		89AF44801FEEEC59004D119C /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AF447E1FEEEC58004D119C /* SFHFKeychainUtils.m */; };
 		9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F022F671F618DED000E138B /* RunProcessStepsView.m */; };
 		9F022F6A1F618E03000E138B /* RunProcessStepsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F022F691F618E03000E138B /* RunProcessStepsView.xib */; };
 		9F03A91A1F4563C900A7A316 /* DemandListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F03A9191F4563C900A7A316 /* DemandListView.m */; };
@@ -344,8 +343,6 @@
 		8942B8C21FEC293C003D9B8A /* LoginScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginScreen.h; sourceTree = "<group>"; };
 		8942B8C31FEC293C003D9B8A /* LoginScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginScreen.m; sourceTree = "<group>"; };
 		8942B8C41FEC293C003D9B8A /* LoginScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginScreen.xib; sourceTree = "<group>"; };
-		8942B8C81FEC373E003D9B8A /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
-		8942B8C91FEC373E003D9B8A /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		8942B8CB1FEC3908003D9B8A /* SplashScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplashScreen.h; sourceTree = "<group>"; };
 		8942B8CC1FEC3908003D9B8A /* SplashScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SplashScreen.m; sourceTree = "<group>"; };
 		8942B8CD1FEC3908003D9B8A /* SplashScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashScreen.xib; sourceTree = "<group>"; };
@@ -448,6 +445,8 @@
 		89AC0AB21FC60E07008CA56B /* CommentsPartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentsPartCell.xib; sourceTree = "<group>"; };
 		89AC0AB51FC60E4D008CA56B /* CommentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
 		89AC0AB61FC60E4D008CA56B /* CommentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
+		89AF447E1FEEEC58004D119C /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		89AF447F1FEEEC58004D119C /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		9F022F661F618DED000E138B /* RunProcessStepsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunProcessStepsView.h; sourceTree = "<group>"; };
 		9F022F671F618DED000E138B /* RunProcessStepsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunProcessStepsView.m; sourceTree = "<group>"; };
 		9F022F691F618E03000E138B /* RunProcessStepsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunProcessStepsView.xib; sourceTree = "<group>"; };
@@ -843,15 +842,6 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
-		8942B8C71FEC373E003D9B8A /* SFHFKeychainUtils */ = {
-			isa = PBXGroup;
-			children = (
-				8942B8C81FEC373E003D9B8A /* SFHFKeychainUtils.m */,
-				8942B8C91FEC373E003D9B8A /* SFHFKeychainUtils.h */,
-			);
-			path = SFHFKeychainUtils;
-			sourceTree = "<group>";
-		};
 		894B6F071FCDAD3100E271B1 /* popovers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1037,6 +1027,22 @@
 				898574491FE9504300EAB20C /* DailyLogRawScreen.xib */,
 			);
 			path = popovers;
+			sourceTree = "<group>";
+		};
+		89AF447C1FEEEB5C004D119C /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		89AF447D1FEEEC58004D119C /* SFHFKeychainUtils */ = {
+			isa = PBXGroup;
+			children = (
+				89AF447E1FEEEC58004D119C /* SFHFKeychainUtils.m */,
+				89AF447F1FEEEC58004D119C /* SFHFKeychainUtils.h */,
+			);
+			path = SFHFKeychainUtils;
 			sourceTree = "<group>";
 		};
 		9F03A9171F4563B300A7A316 /* DemandList */ = {
@@ -1545,6 +1551,7 @@
 				9FEEE57D1EEFEFA2005B5ECA /* DashboardApp */,
 				9FEEE57C1EEFEFA2005B5ECA /* Products */,
 				9F252A621F4DBF9D0056DA8F /* Frameworks */,
+				89AF447C1FEEEB5C004D119C /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1665,20 +1672,21 @@
 		9FEEE59D1EEFF881005B5ECA /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				9FA5EE611FE94DCF000AAFA3 /* DZNSegmentedControl */,
-				89854ADA1FB97B3A00C6E38D /* GridView */,
-				894018631FB5A0E4002B8AFD /* BlackRaccoon */,
-				8919BE701FB4DD5100EE6839 /* SDWebImage */,
-				D22767961FAE4B8000215D87 /* Reachability */,
 				D227675F1FAE4B5400215D87 /* AFNetworking */,
-				9F7AB19C1F7D233C0013CBE1 /* kDropDown */,
+				894018631FB5A0E4002B8AFD /* BlackRaccoon */,
 				9F3144B01F7ABFD200B9D32C /* CKCalendar */,
-				9F3144AC1F7A307600B9D32C /* NIDropDown */,
-				9FC2B0DE1F792502008B7F42 /* RNActivityView */,
-				9F4DE4141F558EBC0016DB03 /* MBCircularBar */,
-				9F471CEB1F53DD3700B294B7 /* SSToolKit */,
+				9FA5EE611FE94DCF000AAFA3 /* DZNSegmentedControl */,
 				9F3FF6C41F4BDF6000F52F64 /* FontAwesome */,
+				89854ADA1FB97B3A00C6E38D /* GridView */,
+				9F7AB19C1F7D233C0013CBE1 /* kDropDown */,
+				9F4DE4141F558EBC0016DB03 /* MBCircularBar */,
 				9FD12D951F44707A00F0E0A8 /* MIBadge */,
+				9F3144AC1F7A307600B9D32C /* NIDropDown */,
+				D22767961FAE4B8000215D87 /* Reachability */,
+				9FC2B0DE1F792502008B7F42 /* RNActivityView */,
+				8919BE701FB4DD5100EE6839 /* SDWebImage */,
+				89AF447D1FEEEC58004D119C /* SFHFKeychainUtils */,
+				9F471CEB1F53DD3700B294B7 /* SSToolKit */,
 			);
 			path = Libs;
 			sourceTree = "<group>";
@@ -1933,7 +1941,6 @@
 				D22767861FAE4B5400215D87 /* AFNetworkReachabilityManager.m in Sources */,
 				9F3FF6CD1F4BDF7500F52F64 /* FAImageView.m in Sources */,
 				8919BE8E1FB4DD5100EE6839 /* SDWebImageManager.m in Sources */,
-				8942B8CA1FEC373E003D9B8A /* SFHFKeychainUtils.m in Sources */,
 				898574451FE9482200EAB20C /* DayLogModel.m in Sources */,
 				9F8567921F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.m in Sources */,
 				9FA5EE6B1FE97EDB000AAFA3 /* ProductListViewCell.m in Sources */,
@@ -2038,6 +2045,7 @@
 				9F3FF6CE1F4BDF7500F52F64 /* UIFont+FontAwesome.m in Sources */,
 				8919BE9A1FB4DD5100EE6839 /* UIView+WebCacheOperation.m in Sources */,
 				9F7767441F572A640092F603 /* RunListTableView.m in Sources */,
+				89AF44801FEEEC59004D119C /* SFHFKeychainUtils.m in Sources */,
 				D227678A1FAE4B5400215D87 /* AFURLSessionManager.m in Sources */,
 				9F4DE4191F558EBC0016DB03 /* MBCircularProgressBarLayer.m in Sources */,
 				894EE6A21FE0262F009244A7 /* LockConfirmationCell.m in Sources */,
