@@ -12,6 +12,8 @@
 #import "BRRequest.h"
 #import "BRRequestUpload.h"
 #import "LoadingView.h"
+#import <CommonCrypto/CommonDigest.h>
+#import "UserManager.h"
 
 static ProdAPI *_sharedInstance = nil;
 
@@ -42,6 +44,17 @@ static ProdAPI *_sharedInstance = nil;
     return _sharedInstance;
 }
 
++ (NSString*) jsonString:(id)data {
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data options:0 error:nil];
+    if (!jsonData) {
+        return nil;
+    } else {
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        return jsonString;
+    }
+}
+
 - (void) initData
 {
     _manager = [AFHTTPSessionManager manager];
@@ -49,13 +62,19 @@ static ProdAPI *_sharedInstance = nil;
     serializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     _manager.responseSerializer = serializer;
     
-    AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
-    requestSerializer.cachePolicy = NSURLRequestReloadIgnoringCacheData;
-    _manager.requestSerializer = requestSerializer;
+//    AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
+//    requestSerializer.cachePolicy = NSURLRequestReloadIgnoringCacheData;
+//    _manager.requestSerializer = requestSerializer;
     
     AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
     securityPolicy.allowInvalidCertificates = YES;
     _manager.securityPolicy = securityPolicy;
+}
+
+- (void) loginWithUser:(NSString*)user password:(NSString*)pass withCompletion:(void (^)(BOOL success, id response))block {
+    
+    NSString *url = @"http://aginova.info/aginova/json/processes.php?call=Login";
+    [self callPOST:url parameters:@{@"uid":user, @"pwd":pass} completion:block];
 }
 
 - (void) getAuditHistoryFor:(NSString*)part withCompletion:(void (^)(BOOL success, id response))block {
@@ -159,7 +178,7 @@ static ProdAPI *_sharedInstance = nil;
 
 - (void) reconcilePart:(NSString*)part atLocation:(NSString*)l withQty:(NSString*)qty completion:(void (^)(BOOL success, id response))block {
     
-    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=reconcile_part&partno=%@&location=%@&by=test@aginova.com&mode=RECONCILE_PARTS&qty=%@", part, l, qty];
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=reconcile_part&partno=%@&location=%@&by=%@&mode=RECONCILE_PARTS&qty=%@", part, l, [[UserManager sharedInstance] loggedUser].username, qty];
     url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [self callGETURL:url completion:block];
 }
@@ -168,7 +187,7 @@ static ProdAPI *_sharedInstance = nil;
 
     NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/lock_run.php?runid=%d", runID];
     url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [self callPOST:url parameters:@{@"JSON":json} completion:block];
+    [self callPOST:url parameters:@{@"json":json, @"runid":@(runID)} completion:block];
 }
 
 - (void) getSalesPerYearFor:(NSString*)product completion:(void (^)(BOOL success, id response))block {
@@ -178,7 +197,40 @@ static ProdAPI *_sharedInstance = nil;
     [self callGETURL:url completion:block];
 }
 
-#pragma mark -
+- (void) getProcessFlowForRun:(int)runId product:(NSString*)product completion:(void (^)(BOOL success, id response))block {
+    
+    NSString *url = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getRunProcessFlow&run_flow_id=%d_%@-%@-%@",runId,product, @"PC1",@"1.0"];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
+- (void) getDailyLogForRun:(int)runId product:(NSString*)product completion:(void (^)(BOOL success, id response))block {
+    
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=getRunProcessFlow&run_flow_id=%d_%@-%@-%@",runId,product, @"PC1",@"1.0"];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
+- (void) addDailyLog:(NSString*)log forRunFlow:(NSString*)flow completion:(void (^)(BOOL success, id response))block {
+    
+    NSDateFormatter *f = [NSDateFormatter new];
+    f.dateFormat = @"yyyy-MM-dd HH:mm";
+    NSString *time = [f stringFromDate:[NSDate date]];
+    NSString *updatedBy = [[[UserManager sharedInstance] loggedUser] name];
+    
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=updateRunProcessFlow&do=update&run_flow_id=%@&updatedTimestamp=%@&updatedBy=%@&count=1&json=%@", flow, time, updatedBy, log];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
+- (void) getBOMForRun:(int)runId completion:(void (^)(BOOL success, id response))block {
+    
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=get_run_buffer_data&runid=%d",runId];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
+#pragma mark - Factory
 
 - (void) callPOST:(NSString*)url parameters:(NSDictionary*)params completion:(void (^)(BOOL success, id response))block
 {
@@ -303,6 +355,22 @@ static ProdAPI *_sharedInstance = nil;
             _isReachable = YES;
             break;
     }
+}
+
+#pragma mark - Utils
+
+- (NSString *)MD5From:(NSString*)str {
+    
+    const char * pointer = [str UTF8String];
+    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
+    
+    CC_MD5(pointer, (CC_LONG)strlen(pointer), md5Buffer);
+    
+    NSMutableString *string = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [string appendFormat:@"%02x",md5Buffer[i]];
+    
+    return string;
 }
 
 @end

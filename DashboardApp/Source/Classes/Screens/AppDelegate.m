@@ -11,16 +11,20 @@
 #import <Parse/Parse.h>
 #import "Defines.h"
 #import "LayoutUtils.h"
+#import "LoginScreen.h"
+#import "SplashScreen.h"
 
 @interface AppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    
+    UINavigationController *_nav;
+}
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     
     [UINavigationController setProductionStyle];
     [UIBarButtonItem setProductionStyle];
@@ -29,36 +33,22 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    HomeViewController *homeVC = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:nil toolbarClass:nil];
-
-    [navigationController setViewControllers:@[homeVC]];
+    UIViewController *screen;
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LOGGEDIN_USER"] == nil) {
+        screen = [[LoginScreen alloc] initWithNibName:@"LoginScreen" bundle:nil];
+    } else {
+        screen = [[SplashScreen alloc] initWithNibName:@"SplashScreen" bundle:nil];
+    }
     
-    [self.window setRootViewController:navigationController];
+    _nav = [[UINavigationController alloc] initWithNavigationBarClass:nil toolbarClass:nil];
+    _nav.navigationBarHidden = true;
+    [_nav setViewControllers:@[screen]];
+    [self.window setRootViewController:_nav];
+    
     [self.window makeKeyAndVisible];
     
     return YES;
 }
-
-- (void)setupParse {
-    
-    [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
-        configuration.applicationId = @"8bt2VSdezwVq4A2VOg86OJDGk51yMSJxapnK2XoR";
-        configuration.clientKey = @"6HVTHAoTThUC9uM9UIPBorcxsOyDue3v6t4GRLtK";
-        configuration.server = @"https://parseapi.back4app.com/";
-    }]];
-    [PFUser enableAutomaticUser];
-    
-    PFACL *defaultACL = [PFACL ACL];
-    
-    // If you would like all objects to be private by default, remove this line.
-    [defaultACL setPublicWriteAccess:YES];
-    [defaultACL setPublicReadAccess:YES];
-    
-    
-    [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
-}
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -86,5 +76,37 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - Utils
+
+- (void) goHome {
+
+    HomeViewController *homeVC = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    [_nav setViewControllers:@[homeVC] animated:true];
+}
+
+- (void) goLogin {
+ 
+    LoginScreen *screen = [[LoginScreen alloc] initWithNibName:@"LoginScreen" bundle:nil];
+    [_nav setViewControllers:@[screen] animated:true];
+}
+
+- (void)setupParse {
+    
+    [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
+        configuration.applicationId = @"8bt2VSdezwVq4A2VOg86OJDGk51yMSJxapnK2XoR";
+        configuration.clientKey = @"6HVTHAoTThUC9uM9UIPBorcxsOyDue3v6t4GRLtK";
+        configuration.server = @"https://parseapi.back4app.com/";
+    }]];
+    [PFUser enableAutomaticUser];
+    
+    PFACL *defaultACL = [PFACL ACL];
+    
+    // If you would like all objects to be private by default, remove this line.
+    [defaultACL setPublicWriteAccess:YES];
+    [defaultACL setPublicReadAccess:YES];
+    
+    
+    [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
+}
 
 @end

@@ -180,12 +180,14 @@ static ServerManager *_sharedInstance = nil;
 }
 
 - (void)getProcessList {
+    
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makeRequest:@"http://aginova.info/aginova/json/processes.php?call=getProcessList" withTag:9];
 }
 
 - (void)getProductList {
+    
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makeRequest:@"http://aginova.info/aginova/json/product_list.php" withTag:10];

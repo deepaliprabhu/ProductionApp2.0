@@ -40,6 +40,13 @@
 		894018811FB5A0E4002B8AFD /* BRRequestListDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018771FB5A0E4002B8AFD /* BRRequestListDirectory.m */; };
 		894018821FB5A0E4002B8AFD /* BRRequestCreateDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018781FB5A0E4002B8AFD /* BRRequestCreateDirectory.m */; };
 		8940188A1FB5EFAC002B8AFD /* PurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018891FB5EFAC002B8AFD /* PurchaseModel.m */; };
+		8942B8BC1FEC2705003D9B8A /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8BB1FEC2705003D9B8A /* UserModel.m */; };
+		8942B8C01FEC289D003D9B8A /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8BF1FEC289D003D9B8A /* UserManager.m */; };
+		8942B8C51FEC293C003D9B8A /* LoginScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8C31FEC293C003D9B8A /* LoginScreen.m */; };
+		8942B8C61FEC293C003D9B8A /* LoginScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8942B8C41FEC293C003D9B8A /* LoginScreen.xib */; };
+		8942B8CA1FEC373E003D9B8A /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8C81FEC373E003D9B8A /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8942B8CE1FEC3908003D9B8A /* SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8CC1FEC3908003D9B8A /* SplashScreen.m */; };
+		8942B8CF1FEC3908003D9B8A /* SplashScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8942B8CD1FEC3908003D9B8A /* SplashScreen.xib */; };
 		894B6F051FCD994100E271B1 /* PartDescriptionScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */; };
 		894B6F061FCD994100E271B1 /* PartDescriptionScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */; };
 		894B6F0C1FCDAD7600E271B1 /* PODateScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F0A1FCDAD7600E271B1 /* PODateScreen.m */; };
@@ -67,6 +74,9 @@
 		895023F71FE1616A008A1165 /* LocationReconcileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895023F51FE1616A008A1165 /* LocationReconcileCell.xib */; };
 		8950A7271FC6C14E006C66CB /* AddCommentScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8950A7251FC6C14E006C66CB /* AddCommentScreen.m */; };
 		8950A7281FC6C14E006C66CB /* AddCommentScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8950A7261FC6C14E006C66CB /* AddCommentScreen.xib */; };
+		89512A1A1FE926A800BF7456 /* ProcessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89512A191FE926A800BF7456 /* ProcessModel.m */; };
+		89512A1F1FE9327100BF7456 /* ProcessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89512A1D1FE9327100BF7456 /* ProcessCell.m */; };
+		89512A201FE9327100BF7456 /* ProcessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89512A1E1FE9327100BF7456 /* ProcessCell.xib */; };
 		895287371FCF2B33005C46EE /* StockLogScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 895287351FCF2B33005C46EE /* StockLogScreen.m */; };
 		895287381FCF2B33005C46EE /* StockLogScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895287361FCF2B33005C46EE /* StockLogScreen.xib */; };
 		8952873C1FCF39EE005C46EE /* AuditActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8952873A1FCF39EE005C46EE /* AuditActionCell.m */; };
@@ -82,6 +92,13 @@
 		89854AE91FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854AE01FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m */; };
 		89854AEA1FB97B3A00C6E38D /* UIView+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854AE31FB97B3A00C6E38D /* UIView+GMGridViewAdditions.m */; };
 		89854AEB1FB97B3A00C6E38D /* GMGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854AE41FB97B3A00C6E38D /* GMGridViewCell.m */; };
+		898574451FE9482200EAB20C /* DayLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 898574441FE9482200EAB20C /* DayLogModel.m */; };
+		8985744A1FE9504300EAB20C /* DailyLogRawScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 898574481FE9504300EAB20C /* DailyLogRawScreen.m */; };
+		8985744B1FE9504300EAB20C /* DailyLogRawScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 898574491FE9504300EAB20C /* DailyLogRawScreen.xib */; };
+		8985744F1FE9535500EAB20C /* DailyLogCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8985744D1FE9535500EAB20C /* DailyLogCollectionCell.m */; };
+		898574501FE9535500EAB20C /* DailyLogCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8985744E1FE9535500EAB20C /* DailyLogCollectionCell.xib */; };
+		898574551FE9645100EAB20C /* DailyLogInputScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 898574531FE9645100EAB20C /* DailyLogInputScreen.m */; };
+		898574561FE9645100EAB20C /* DailyLogInputScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 898574541FE9645100EAB20C /* DailyLogInputScreen.xib */; };
 		89897E2D1FBF0AFA000B39EA /* ActionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89897E2C1FBF0AFA000B39EA /* ActionModel.m */; };
 		89897E301FBF0BAC000B39EA /* PartAuditModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89897E2F1FBF0BAC000B39EA /* PartAuditModel.m */; };
 		89897E391FBF140C000B39EA /* StockGraphScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 89897E371FBF140C000B39EA /* StockGraphScreen.m */; };
@@ -320,6 +337,18 @@
 		894018781FB5A0E4002B8AFD /* BRRequestCreateDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRequestCreateDirectory.m; sourceTree = "<group>"; };
 		894018881FB5EFAC002B8AFD /* PurchaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PurchaseModel.h; sourceTree = "<group>"; };
 		894018891FB5EFAC002B8AFD /* PurchaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PurchaseModel.m; sourceTree = "<group>"; };
+		8942B8BA1FEC2705003D9B8A /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		8942B8BB1FEC2705003D9B8A /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		8942B8BE1FEC289D003D9B8A /* UserManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
+		8942B8BF1FEC289D003D9B8A /* UserManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
+		8942B8C21FEC293C003D9B8A /* LoginScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginScreen.h; sourceTree = "<group>"; };
+		8942B8C31FEC293C003D9B8A /* LoginScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginScreen.m; sourceTree = "<group>"; };
+		8942B8C41FEC293C003D9B8A /* LoginScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginScreen.xib; sourceTree = "<group>"; };
+		8942B8C81FEC373E003D9B8A /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		8942B8C91FEC373E003D9B8A /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
+		8942B8CB1FEC3908003D9B8A /* SplashScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplashScreen.h; sourceTree = "<group>"; };
+		8942B8CC1FEC3908003D9B8A /* SplashScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SplashScreen.m; sourceTree = "<group>"; };
+		8942B8CD1FEC3908003D9B8A /* SplashScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashScreen.xib; sourceTree = "<group>"; };
 		894B6F021FCD994100E271B1 /* PartDescriptionScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartDescriptionScreen.h; sourceTree = "<group>"; };
 		894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartDescriptionScreen.m; sourceTree = "<group>"; };
 		894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartDescriptionScreen.xib; sourceTree = "<group>"; };
@@ -361,6 +390,11 @@
 		8950A7241FC6C14E006C66CB /* AddCommentScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddCommentScreen.h; sourceTree = "<group>"; };
 		8950A7251FC6C14E006C66CB /* AddCommentScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddCommentScreen.m; sourceTree = "<group>"; };
 		8950A7261FC6C14E006C66CB /* AddCommentScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCommentScreen.xib; sourceTree = "<group>"; };
+		89512A181FE926A800BF7456 /* ProcessModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessModel.h; sourceTree = "<group>"; };
+		89512A191FE926A800BF7456 /* ProcessModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessModel.m; sourceTree = "<group>"; };
+		89512A1C1FE9327100BF7456 /* ProcessCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessCell.h; sourceTree = "<group>"; };
+		89512A1D1FE9327100BF7456 /* ProcessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessCell.m; sourceTree = "<group>"; };
+		89512A1E1FE9327100BF7456 /* ProcessCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProcessCell.xib; sourceTree = "<group>"; };
 		895287341FCF2B33005C46EE /* StockLogScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockLogScreen.h; sourceTree = "<group>"; };
 		895287351FCF2B33005C46EE /* StockLogScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StockLogScreen.m; sourceTree = "<group>"; };
 		895287361FCF2B33005C46EE /* StockLogScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StockLogScreen.xib; sourceTree = "<group>"; };
@@ -388,6 +422,17 @@
 		89854AE41FB97B3A00C6E38D /* GMGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridViewCell.m; sourceTree = "<group>"; };
 		89854AE51FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+GMGridViewAdditions.h"; sourceTree = "<group>"; };
 		89854AE61FB97B3A00C6E38D /* GMGridViewLayoutStrategies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridViewLayoutStrategies.h; sourceTree = "<group>"; };
+		898574431FE9482200EAB20C /* DayLogModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DayLogModel.h; sourceTree = "<group>"; };
+		898574441FE9482200EAB20C /* DayLogModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DayLogModel.m; sourceTree = "<group>"; };
+		898574471FE9504300EAB20C /* DailyLogRawScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyLogRawScreen.h; sourceTree = "<group>"; };
+		898574481FE9504300EAB20C /* DailyLogRawScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyLogRawScreen.m; sourceTree = "<group>"; };
+		898574491FE9504300EAB20C /* DailyLogRawScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyLogRawScreen.xib; sourceTree = "<group>"; };
+		8985744C1FE9535500EAB20C /* DailyLogCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyLogCollectionCell.h; sourceTree = "<group>"; };
+		8985744D1FE9535500EAB20C /* DailyLogCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyLogCollectionCell.m; sourceTree = "<group>"; };
+		8985744E1FE9535500EAB20C /* DailyLogCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyLogCollectionCell.xib; sourceTree = "<group>"; };
+		898574521FE9645100EAB20C /* DailyLogInputScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyLogInputScreen.h; sourceTree = "<group>"; };
+		898574531FE9645100EAB20C /* DailyLogInputScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyLogInputScreen.m; sourceTree = "<group>"; };
+		898574541FE9645100EAB20C /* DailyLogInputScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyLogInputScreen.xib; sourceTree = "<group>"; };
 		89897E2B1FBF0AFA000B39EA /* ActionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionModel.h; sourceTree = "<group>"; };
 		89897E2C1FBF0AFA000B39EA /* ActionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionModel.m; sourceTree = "<group>"; };
 		89897E2E1FBF0BAC000B39EA /* PartAuditModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartAuditModel.h; sourceTree = "<group>"; };
@@ -681,6 +726,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		891007311FEA818D004CF3A8 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				D22767591FAE49A100215D87 /* ProdAPI.h */,
+				D227675A1FAE49A300215D87 /* ProdAPI.m */,
+				9FD12D881F443CEF00F0E0A8 /* ConnectionManager.h */,
+				9FD12D891F443CEF00F0E0A8 /* ConnectionManager.m */,
+				9FD12D8A1F443CEF00F0E0A8 /* DataManager.h */,
+				9FD12D8B1F443CEF00F0E0A8 /* DataManager.m */,
+				9FD12D8C1F443CEF00F0E0A8 /* ServerManager.h */,
+				9FD12D8D1F443CEF00F0E0A8 /* ServerManager.m */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		891007321FEA81C1004CF3A8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8919BE9D1FB4E47D00EE6839 /* LayoutUtils.h */,
+				8919BE9C1FB4E47D00EE6839 /* LayoutUtils.m */,
+				D28A35651FB046FB00AE6B51 /* UIAlertView+Blocks.h */,
+				D28A35661FB046FB00AE6B51 /* UIAlertView+Blocks.m */,
+				D2A44F2F1FAF2BBA00DF37B8 /* LoadingView.h */,
+				D2A44F2E1FAF2BB900DF37B8 /* LoadingView.m */,
+				D2A44F301FAF2BBA00DF37B8 /* LoadingView.xib */,
+				8919BEA01FB4EEF100EE6839 /* UIView+Screenshot.h */,
+				8919BE9F1FB4EEF100EE6839 /* UIView+Screenshot.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		8919BE701FB4DD5100EE6839 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -743,6 +819,37 @@
 				894018781FB5A0E4002B8AFD /* BRRequestCreateDirectory.m */,
 			);
 			path = BlackRaccoon;
+			sourceTree = "<group>";
+		};
+		8942B8BD1FEC2877003D9B8A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				8942B8BE1FEC289D003D9B8A /* UserManager.h */,
+				8942B8BF1FEC289D003D9B8A /* UserManager.m */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		8942B8C11FEC292F003D9B8A /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				8942B8CB1FEC3908003D9B8A /* SplashScreen.h */,
+				8942B8CC1FEC3908003D9B8A /* SplashScreen.m */,
+				8942B8CD1FEC3908003D9B8A /* SplashScreen.xib */,
+				8942B8C21FEC293C003D9B8A /* LoginScreen.h */,
+				8942B8C31FEC293C003D9B8A /* LoginScreen.m */,
+				8942B8C41FEC293C003D9B8A /* LoginScreen.xib */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		8942B8C71FEC373E003D9B8A /* SFHFKeychainUtils */ = {
+			isa = PBXGroup;
+			children = (
+				8942B8C81FEC373E003D9B8A /* SFHFKeychainUtils.m */,
+				8942B8C91FEC373E003D9B8A /* SFHFKeychainUtils.h */,
+			);
+			path = SFHFKeychainUtils;
 			sourceTree = "<group>";
 		};
 		894B6F071FCDAD3100E271B1 /* popovers */ = {
@@ -885,6 +992,21 @@
 			path = ChangePODate;
 			sourceTree = "<group>";
 		};
+		89512A1B1FE9321600BF7456 /* RunDetailsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				898574461FE9502A00EAB20C /* popovers */,
+				9FD12DA21F449F8B00F0E0A8 /* cells */,
+				9FD12D9D1F4473B900F0E0A8 /* RunViewController.h */,
+				9FD12D9E1F4473B900F0E0A8 /* RunViewController.m */,
+				9FD12D9F1F4473B900F0E0A8 /* RunViewController.xib */,
+				89037EA11FE7C4DF00242005 /* RunDetailsScreen.h */,
+				89037EA21FE7C4DF00242005 /* RunDetailsScreen.m */,
+				89037EA31FE7C4DF00242005 /* RunDetailsScreen.xib */,
+			);
+			path = RunDetailsScreen;
+			sourceTree = "<group>";
+		};
 		89854ADA1FB97B3A00C6E38D /* GridView */ = {
 			isa = PBXGroup;
 			children = (
@@ -902,6 +1024,19 @@
 				89854AE61FB97B3A00C6E38D /* GMGridViewLayoutStrategies.h */,
 			);
 			path = GridView;
+			sourceTree = "<group>";
+		};
+		898574461FE9502A00EAB20C /* popovers */ = {
+			isa = PBXGroup;
+			children = (
+				898574521FE9645100EAB20C /* DailyLogInputScreen.h */,
+				898574531FE9645100EAB20C /* DailyLogInputScreen.m */,
+				898574541FE9645100EAB20C /* DailyLogInputScreen.xib */,
+				898574471FE9504300EAB20C /* DailyLogRawScreen.h */,
+				898574481FE9504300EAB20C /* DailyLogRawScreen.m */,
+				898574491FE9504300EAB20C /* DailyLogRawScreen.xib */,
+			);
+			path = popovers;
 			sourceTree = "<group>";
 		};
 		9F03A9171F4563B300A7A316 /* DemandList */ = {
@@ -960,15 +1095,10 @@
 			children = (
 				9F056B361F434BC3002F3B61 /* Defines.h */,
 				9FD12D941F44411A00F0E0A8 /* Constants.h */,
-				D28A35651FB046FB00AE6B51 /* UIAlertView+Blocks.h */,
-				D28A35661FB046FB00AE6B51 /* UIAlertView+Blocks.m */,
-				D2A44F2F1FAF2BBA00DF37B8 /* LoadingView.h */,
-				D2A44F2E1FAF2BB900DF37B8 /* LoadingView.m */,
-				D2A44F301FAF2BBA00DF37B8 /* LoadingView.xib */,
-				8919BE9D1FB4E47D00EE6839 /* LayoutUtils.h */,
-				8919BE9C1FB4E47D00EE6839 /* LayoutUtils.m */,
-				8919BEA01FB4EEF100EE6839 /* UIView+Screenshot.h */,
-				8919BE9F1FB4EEF100EE6839 /* UIView+Screenshot.m */,
+				8942B8BD1FEC2877003D9B8A /* Managers */,
+				9FEEE59B1EEFF881005B5ECA /* Models */,
+				891007321FEA81C1004CF3A8 /* Views */,
+				9FEEE59D1EEFF881005B5ECA /* Libs */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1365,28 +1495,29 @@
 		9FD12D9C1F4473A600F0E0A8 /* Run */ = {
 			isa = PBXGroup;
 			children = (
+				89512A1B1FE9321600BF7456 /* RunDetailsScreen */,
 				D283864F1FB2283300BB304C /* RunPartsScreen */,
 				9F9B53A31F5FC2EF008D6C67 /* ProcessFlowView */,
 				9F8567841F73DDB10067ABE1 /* OperatorEntry */,
-				9FD12DA21F449F8B00F0E0A8 /* Cell */,
-				9FD12D9D1F4473B900F0E0A8 /* RunViewController.h */,
-				9FD12D9E1F4473B900F0E0A8 /* RunViewController.m */,
-				9FD12D9F1F4473B900F0E0A8 /* RunViewController.xib */,
-				89037EA11FE7C4DF00242005 /* RunDetailsScreen.h */,
-				89037EA21FE7C4DF00242005 /* RunDetailsScreen.m */,
-				89037EA31FE7C4DF00242005 /* RunDetailsScreen.xib */,
 			);
 			path = Run;
 			sourceTree = "<group>";
 		};
-		9FD12DA21F449F8B00F0E0A8 /* Cell */ = {
+		9FD12DA21F449F8B00F0E0A8 /* cells */ = {
 			isa = PBXGroup;
 			children = (
 				9FD12DA31F449FB300F0E0A8 /* RunPartsViewCell.h */,
 				9FD12DA41F449FB300F0E0A8 /* RunPartsViewCell.m */,
 				9FD12DA51F449FB300F0E0A8 /* RunPartsViewCell.xib */,
+				89512A1C1FE9327100BF7456 /* ProcessCell.h */,
+				89512A1D1FE9327100BF7456 /* ProcessCell.m */,
+				89512A1E1FE9327100BF7456 /* ProcessCell.xib */,
+				8985744C1FE9535500EAB20C /* DailyLogCollectionCell.h */,
+				8985744D1FE9535500EAB20C /* DailyLogCollectionCell.m */,
+				8985744E1FE9535500EAB20C /* DailyLogCollectionCell.xib */,
 			);
-			name = Cell;
+			name = cells;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		9FE99C1F1FBD4E65006B58DE /* Feedback */ = {
@@ -1431,13 +1562,7 @@
 				9F252A5E1F4DBE650056DA8F /* Bolts.framework */,
 				9F252A5F1F4DBE650056DA8F /* Parse.framework */,
 				9FEEE5981EEFF881005B5ECA /* Source */,
-				9FEEE5811EEFEFA2005B5ECA /* AppDelegate.h */,
-				9FEEE5821EEFEFA2005B5ECA /* AppDelegate.m */,
 				9FEEE5951EEFF881005B5ECA /* Resources */,
-				9FEEE58A1EEFEFA2005B5ECA /* Assets.xcassets */,
-				9FEEE58C1EEFEFA2005B5ECA /* LaunchScreen.storyboard */,
-				9FEEE58F1EEFEFA2005B5ECA /* Info.plist */,
-				9FEEE57E1EEFEFA2005B5ECA /* Supporting Files */,
 			);
 			path = DashboardApp;
 			sourceTree = "<group>";
@@ -1448,23 +1573,20 @@
 				9FEEE57F1EEFEFA2005B5ECA /* main.m */,
 			);
 			name = "Supporting Files";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		9FEEE5951EEFF881005B5ECA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9FEEE58A1EEFEFA2005B5ECA /* Assets.xcassets */,
+				9FEEE58C1EEFEFA2005B5ECA /* LaunchScreen.storyboard */,
+				9FEEE58F1EEFEFA2005B5ECA /* Info.plist */,
+				9FEEE57E1EEFEFA2005B5ECA /* Supporting Files */,
 				9F3FF6D11F4BDFBE00F52F64 /* Fonts */,
-				9FEEE5961EEFF881005B5ECA /* Docs */,
 				9FEEE5971EEFF881005B5ECA /* Images */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		9FEEE5961EEFF881005B5ECA /* Docs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Docs;
 			sourceTree = "<group>";
 		};
 		9FEEE5971EEFF881005B5ECA /* Images */ = {
@@ -1483,7 +1605,6 @@
 			isa = PBXGroup;
 			children = (
 				9FEEE5991EEFF881005B5ECA /* Classes */,
-				9FEEE59D1EEFF881005B5ECA /* Libs */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1491,30 +1612,14 @@
 		9FEEE5991EEFF881005B5ECA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				891007311FEA818D004CF3A8 /* Networking */,
 				9F056B351F43464F002F3B61 /* Utils */,
-				9FEEE59A1EEFF881005B5ECA /* Controllers */,
-				9FEEE59B1EEFF881005B5ECA /* Data */,
 				9FEEE59C1EEFF881005B5ECA /* Screens */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		9FEEE59A1EEFF881005B5ECA /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				D22767591FAE49A100215D87 /* ProdAPI.h */,
-				D227675A1FAE49A300215D87 /* ProdAPI.m */,
-				9FD12D881F443CEF00F0E0A8 /* ConnectionManager.h */,
-				9FD12D891F443CEF00F0E0A8 /* ConnectionManager.m */,
-				9FD12D8A1F443CEF00F0E0A8 /* DataManager.h */,
-				9FD12D8B1F443CEF00F0E0A8 /* DataManager.m */,
-				9FD12D8C1F443CEF00F0E0A8 /* ServerManager.h */,
-				9FD12D8D1F443CEF00F0E0A8 /* ServerManager.m */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		9FEEE59B1EEFF881005B5ECA /* Data */ = {
+		9FEEE59B1EEFF881005B5ECA /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				9FD12D911F443DBC00F0E0A8 /* Run.h */,
@@ -1533,17 +1638,26 @@
 				89897E2F1FBF0BAC000B39EA /* PartAuditModel.m */,
 				89AC0AB51FC60E4D008CA56B /* CommentModel.h */,
 				89AC0AB61FC60E4D008CA56B /* CommentModel.m */,
+				89512A181FE926A800BF7456 /* ProcessModel.h */,
+				89512A191FE926A800BF7456 /* ProcessModel.m */,
+				898574431FE9482200EAB20C /* DayLogModel.h */,
+				898574441FE9482200EAB20C /* DayLogModel.m */,
+				8942B8BA1FEC2705003D9B8A /* UserModel.h */,
+				8942B8BB1FEC2705003D9B8A /* UserModel.m */,
 			);
-			path = Data;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		9FEEE59C1EEFF881005B5ECA /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				9FEEE5811EEFEFA2005B5ECA /* AppDelegate.h */,
+				9FEEE5821EEFEFA2005B5ECA /* AppDelegate.m */,
+				8942B8C11FEC292F003D9B8A /* Auth */,
+				9F40AD7B1F2F4669002C64BA /* Home */,
 				9FE99C1F1FBD4E65006B58DE /* Feedback */,
 				9F7FE5651F7B789E005CB4DF /* ProcessControl */,
 				9FD12D9C1F4473A600F0E0A8 /* Run */,
-				9F40AD7B1F2F4669002C64BA /* Home */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -1713,6 +1827,7 @@
 				9F7FE5761F7B9CAA005CB4DF /* ProductCollectionViewCell.xib in Resources */,
 				89897E3A1FBF140C000B39EA /* StockGraphScreen.xib in Resources */,
 				894EE69E1FE0229E009244A7 /* LockConfirmationHeaderView.xib in Resources */,
+				898574561FE9645100EAB20C /* DailyLogInputScreen.xib in Resources */,
 				9F471D091F541F7700B294B7 /* ToDoView.xib in Resources */,
 				9FD12DA11F4473B900F0E0A8 /* RunViewController.xib in Resources */,
 				9FE99C291FBD4E65006B58DE /* FeedbackListViewCell.xib in Resources */,
@@ -1729,11 +1844,14 @@
 				894F9BD41FBC7B6B00DC2C6B /* PurchasePartCell.xib in Resources */,
 				9FD12D871F443A3700F0E0A8 /* RunListViewCell.xib in Resources */,
 				894F9BDA1FBCA0BC00DC2C6B /* PartHistoryScreen.xib in Resources */,
+				898574501FE9535500EAB20C /* DailyLogCollectionCell.xib in Resources */,
 				894B6F121FCDCBB700E271B1 /* RunCommentsScreen.xib in Resources */,
 				9FEEE58E1EEFEFA2005B5ECA /* LaunchScreen.storyboard in Resources */,
 				9F471D141F542B9300B294B7 /* RoadBlocksView.xib in Resources */,
 				895023F11FE149EC008A1165 /* ReconcileScreen.xib in Resources */,
 				9F252A5D1F4D50000056DA8F /* feedbackBgImage.png in Resources */,
+				8942B8CF1FEC3908003D9B8A /* SplashScreen.xib in Resources */,
+				8942B8C61FEC293C003D9B8A /* LoginScreen.xib in Resources */,
 				9F977EF31F62FFD8009C2B6D /* CommonProcessesViewCell.xib in Resources */,
 				9F471D0B1F541F7700B294B7 /* ToDoViewCell.xib in Resources */,
 				9FA264611F48A1BD004C882E /* TasklistView.xib in Resources */,
@@ -1755,6 +1873,7 @@
 				894B6F061FCD994100E271B1 /* PartDescriptionScreen.xib in Resources */,
 				9F7767411F56D6E90092F603 /* LeftCollectionViewCell.xib in Resources */,
 				9F3144BB1F7ABFD200B9D32C /* right_arrow.png in Resources */,
+				8985744B1FE9504300EAB20C /* DailyLogRawScreen.xib in Resources */,
 				3BCDA4191FB346560021BC03 /* ProductAdminPopover.xib in Resources */,
 				894EE6981FE00EF8009244A7 /* LockConfirmScreen.xib in Resources */,
 				894C5F5F1FBB147600FA4E5D /* RunPartCell.xib in Resources */,
@@ -1769,6 +1888,7 @@
 				894EE6A31FE0262F009244A7 /* LockConfirmationCell.xib in Resources */,
 				9F471D161F542B9300B294B7 /* RoadBlocksViewCell.xib in Resources */,
 				89AC0AB41FC60E07008CA56B /* CommentsPartCell.xib in Resources */,
+				89512A201FE9327100BF7456 /* ProcessCell.xib in Resources */,
 				9FD12D7B1F43F77200F0E0A8 /* Icon_alpha.png in Resources */,
 				9FD12D811F43FD5600F0E0A8 /* OverviewView.xib in Resources */,
 				9FE99C381FBF242D006B58DE /* FeedbackListViewController.xib in Resources */,
@@ -1806,12 +1926,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8919BE911FB4DD5100EE6839 /* SDWebImageDownloader.m in Sources */,
+				89512A1F1FE9327100BF7456 /* ProcessCell.m in Sources */,
 				8919BE9B1FB4DD5100EE6839 /* UIButton+WebCache.m in Sources */,
 				895F5F801FCEF75800ED3349 /* StockCell.m in Sources */,
 				9F471CF41F53DD3700B294B7 /* SSGradientView.m in Sources */,
 				D22767861FAE4B5400215D87 /* AFNetworkReachabilityManager.m in Sources */,
 				9F3FF6CD1F4BDF7500F52F64 /* FAImageView.m in Sources */,
 				8919BE8E1FB4DD5100EE6839 /* SDWebImageManager.m in Sources */,
+				8942B8CA1FEC373E003D9B8A /* SFHFKeychainUtils.m in Sources */,
+				898574451FE9482200EAB20C /* DayLogModel.m in Sources */,
 				9F8567921F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.m in Sources */,
 				9FA5EE6B1FE97EDB000AAFA3 /* ProductListViewCell.m in Sources */,
 				89854AEA1FB97B3A00C6E38D /* UIView+GMGridViewAdditions.m in Sources */,
@@ -1829,6 +1952,7 @@
 				9F471D131F542B9300B294B7 /* RoadBlocksView.m in Sources */,
 				89037EA41FE7C4DF00242005 /* RunDetailsScreen.m in Sources */,
 				8919BE901FB4DD5100EE6839 /* UIImageView+HighlightedWebCache.m in Sources */,
+				8942B8CE1FEC3908003D9B8A /* SplashScreen.m in Sources */,
 				3B649A871FB3236400B8DC78 /* PartsCell.m in Sources */,
 				9FD12D861F443A3700F0E0A8 /* RunListViewCell.m in Sources */,
 				D28A35671FB046FC00AE6B51 /* UIAlertView+Blocks.m in Sources */,
@@ -1846,6 +1970,7 @@
 				8940187C1FB5A0E4002B8AFD /* BRRequestDownload.m in Sources */,
 				D22767901FAE4B5400215D87 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				894018821FB5A0E4002B8AFD /* BRRequestCreateDirectory.m in Sources */,
+				8985744F1FE9535500EAB20C /* DailyLogCollectionCell.m in Sources */,
 				D22767871FAE4B5400215D87 /* AFSecurityPolicy.m in Sources */,
 				D22767951FAE4B5400215D87 /* UIWebView+AFNetworking.m in Sources */,
 				9F471CF31F53DD3700B294B7 /* SSDrawingUtilities.m in Sources */,
@@ -1883,6 +2008,7 @@
 				9F909AAD1F4EBB4E00DBFA63 /* GanttView.m in Sources */,
 				D22767911FAE4B5400215D87 /* UIButton+AFNetworking.m in Sources */,
 				9FA2645F1F48A179004C882E /* TasklistView.m in Sources */,
+				8985744A1FE9504300EAB20C /* DailyLogRawScreen.m in Sources */,
 				8940187F1FB5A0E4002B8AFD /* BRRequest.m in Sources */,
 				895023F01FE149EC008A1165 /* ReconcileScreen.m in Sources */,
 				9FE99C311FBD70F8006B58DE /* FeedbackDetailView.m in Sources */,
@@ -1899,6 +2025,7 @@
 				894F9BD31FBC7B6B00DC2C6B /* PurchasePartCell.m in Sources */,
 				D227678D1FAE4B5400215D87 /* AFAutoPurgingImageCache.m in Sources */,
 				D22767851FAE4B5400215D87 /* AFHTTPSessionManager.m in Sources */,
+				89512A1A1FE926A800BF7456 /* ProcessModel.m in Sources */,
 				89854AE71FB97B3A00C6E38D /* GMGridView.m in Sources */,
 				9FC2B0E41F792502008B7F42 /* UIView+RNActivityView.m in Sources */,
 				D227678E1FAE4B5400215D87 /* AFImageDownloader.m in Sources */,
@@ -1930,8 +2057,11 @@
 				9F7FE5751F7B9CAA005CB4DF /* ProductCollectionViewCell.m in Sources */,
 				9F471CF21F53DD3700B294B7 /* SSBorderedView.m in Sources */,
 				8940187E1FB5A0E4002B8AFD /* BRRequestQueue.m in Sources */,
+				898574551FE9645100EAB20C /* DailyLogInputScreen.m in Sources */,
+				8942B8BC1FEC2705003D9B8A /* UserModel.m in Sources */,
 				9F3FF6D01F4BDF7500F52F64 /* UIImage+FontAwesome.m in Sources */,
 				89AC0AB71FC60E4D008CA56B /* CommentModel.m in Sources */,
+				8942B8C51FEC293C003D9B8A /* LoginScreen.m in Sources */,
 				89AC0AB31FC60E07008CA56B /* CommentsPartCell.m in Sources */,
 				8940187D1FB5A0E4002B8AFD /* BRRequestUpload.m in Sources */,
 				894B6F111FCDCBB700E271B1 /* RunCommentsScreen.m in Sources */,
@@ -2085,7 +2215,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/DashboardApp",
 				);
-				INFOPLIST_FILE = DashboardApp/Info.plist;
+				INFOPLIST_FILE = DashboardApp/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aginova.productionapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2104,7 +2234,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/DashboardApp",
 				);
-				INFOPLIST_FILE = DashboardApp/Info.plist;
+				INFOPLIST_FILE = DashboardApp/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aginova.productionapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";

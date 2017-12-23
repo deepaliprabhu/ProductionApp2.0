@@ -16,6 +16,9 @@
 @property (nonatomic, unsafe_unretained) BOOL isReachable;
 
 + (ProdAPI*) sharedInstance;
++ (NSString*) jsonString:(id)data;
+
+- (void) loginWithUser:(NSString*)user password:(NSString*)pass withCompletion:(void (^)(BOOL success, id response))block;
 - (void) updateProduct:(NSString*)productID status:(NSString*)status withCompletion:(void (^)(BOOL success, id response))block;
 - (void) updateProduct:(NSString*)productID image:(NSString*)image withCompletion:(void (^)(BOOL success, id response))block;
 - (void) setOrder:(int)o forProduct:(NSString*)productID withCompletion:(void (^)(BOOL success, id response))block;
@@ -35,6 +38,10 @@
 - (void) reconcilePart:(NSString*)part atLocation:(NSString*)l withQty:(NSString*)qty completion:(void (^)(BOOL success, id response))block;
 - (void) lockRun:(int)runID withAllocations:(NSString*)json completion:(void (^)(BOOL success, id response))block;
 - (void) getSalesPerYearFor:(NSString*)product completion:(void (^)(BOOL success, id response))block;
+- (void) getProcessFlowForRun:(int)runId product:(NSString*)product completion:(void (^)(BOOL success, id response))block;
+- (void) getDailyLogForRun:(int)runId product:(NSString*)product completion:(void (^)(BOOL success, id response))block;
+- (void) addDailyLog:(NSString*)log forRunFlow:(NSString*)flow completion:(void (^)(BOOL success, id response))block;
+- (void) getBOMForRun:(int)runId completion:(void (^)(BOOL success, id response))block;
 
 @end
 

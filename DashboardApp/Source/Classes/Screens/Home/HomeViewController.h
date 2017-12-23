@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TopBarView.h"
 #import "RunListView.h"
 #import "OverviewView.h"
 #import "DemandListView.h"
@@ -27,7 +26,6 @@
     IBOutlet UILabel *_roadblocksCountLabel;
     IBOutlet UIButton *_tasklistButton;
     IBOutlet UIButton *_activityLogButton;
-    IBOutlet UIButton *_titleButton;
     IBOutlet UIImageView *_doneImageView;
     IBOutlet UIImageView *_todoImageView;
     IBOutlet UIImageView *_roadblocksImageView;
@@ -35,14 +33,12 @@
     IBOutlet UIImageView *_tasklistImageView;
     IBOutlet UIView *_overviewView;
     IBOutlet UIView *_leftPaneView;
-    IBOutlet UIView *_topPaneView;
     IBOutlet UIView *_bottomPaneView;
     IBOutlet UIView *_inProcessView;
     IBOutlet UIView *_todoView;
     IBOutlet UIView *_roadBlocksView;
     UIView *movableView;
     
-    TopBarView *topBarView;
     RunListView *runListView;
     FeedbackListView *feedbackListView;
     OverviewView *overviewView;

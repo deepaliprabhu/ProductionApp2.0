@@ -32,6 +32,7 @@
 #import "UIView+Screenshot.h"
 #import "Constants.h"
 #import "LockConfirmScreen.h"
+#import "UserManager.h"
 
 const CGFloat kMinTableHeight = 119;
 
@@ -147,6 +148,7 @@ typedef enum
     [self filterPriorityRuns];
     [self layoutButtons];
     [self getParts];
+    [self getBOM];
 }
 
 - (void) dealloc {
@@ -313,6 +315,7 @@ typedef enum
     [_comments removeAllObjects];
     
     [self partsButtonTapped];
+    [self getBOM];
 }
 
 - (IBAction) partTitleButtonTapped
@@ -588,13 +591,14 @@ typedef enum
     [_purchasesTableView reloadData];
 
     NSString *message = [NSString stringWithFormat:@"changed expected date for PO %@", po];
-    [[ProdAPI sharedInstance] addComment:message forPart:_visiblePart.part from:@"test@aginova.com" withCompletion:^(BOOL success, id response) {
+    NSString *user = [[UserManager sharedInstance] loggedUser].username;
+    [[ProdAPI sharedInstance] addComment:message forPart:_visiblePart.part from:user withCompletion:^(BOOL success, id response) {
         
         if (success)
         {
             CommentModel *c = [CommentModel new];
             c.date = [NSDate date];
-            c.author = @"test@aginova.com";
+            c.author = [[UserManager sharedInstance] loggedUser].username;
             c.message = message;
             [self newCommentAdded:c];
         }
@@ -1176,6 +1180,18 @@ typedef enum
     }];
 }
 
+- (void) getBOM {
+    
+    [[ProdAPI sharedInstance] getBOMForRun:(int)_run.runId completion:^(BOOL success, id response) {
+        
+        if (success) {
+            
+        } else {
+            
+        }
+    }];
+}
+
 #pragma mark - Utils
 
 - (void) changeOrderFrom:(int)from to:(int)to {
@@ -1251,7 +1267,7 @@ typedef enum
     
     int c = 0;
     for (PartModel *s in _parts) {
-        c = (int)c+s.alternateParts.count+1;
+        c = (int)c+(int)s.alternateParts.count+1;
     }
     
     return c;
