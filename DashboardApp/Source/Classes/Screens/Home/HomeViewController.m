@@ -391,6 +391,13 @@
     }
 }
 
+#pragma mark - Actions
+
+- (IBAction) userButtonTapped {
+    
+    
+}
+
 #pragma mark - RunListViewProtocol
 
 - (void) showCommentsForRun:(Run*)run {
