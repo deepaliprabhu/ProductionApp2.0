@@ -331,18 +331,22 @@
 - (void) getProcessFlow {
     
     [LoadingView showLoading:@"Loading..."];
-    [[ProdAPI sharedInstance] getProcessFlowForRun:[_run getRunId] product:[_run getProductNumber] completion:^(BOOL success, id response) {
+    [[ProdAPI sharedInstance] getProcessFlowForProduct:[_run getProductNumber] completion:^(BOOL success, id response) {
       
         if (success) {
             
             [LoadingView removeLoading];
             _processes = [NSMutableArray array];
             NSArray *processes = [response firstObject][@"processes"];
-            for (NSDictionary *processData in processes) {
+            for (int i=0; i<processes.count;i++) {
                 
+                NSDictionary *processData = processes[i];
                 NSDictionary *commonProcess = [[DataManager sharedInstance] getProcessForNo:processData[@"processno"]];
                 ProcessModel *model = [ProcessModel objectFromProcess:processData andCommon:commonProcess];
                 [_processes addObject:model];
+                
+                if ([commonProcess[@"processname"] isEqualToString:@"Passive Test"])
+                    break;
             }
             [_tableView reloadData];
             if (_processes.count > 0) {

@@ -19,6 +19,7 @@
 #import "RunCommentsScreen.h"
 #import "RunDetailsScreen.h"
 #import "ProcessStepsViewController.h"
+#import "UserManager.h"
 
 @interface HomeViewController ()
 

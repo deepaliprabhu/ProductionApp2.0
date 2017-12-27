@@ -204,6 +204,13 @@ static ProdAPI *_sharedInstance = nil;
     [self callGETURL:url completion:block];
 }
 
+- (void) getProcessFlowForProduct:(NSString *)product completion:(void (^)(BOOL, id))block {
+    
+    NSString *url = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getProcessFlow&process_ctrl_id=%@-%@-%@", product, @"PC1",@"1.0"];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
 - (void) getDailyLogForRun:(int)runId product:(NSString*)product completion:(void (^)(BOOL success, id response))block {
     
     NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=getRunProcessFlow&run_flow_id=%d_%@-%@-%@",runId,product, @"PC1",@"1.0"];
