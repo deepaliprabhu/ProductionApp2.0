@@ -20,6 +20,7 @@
 #import "RunDetailsScreen.h"
 #import "ProcessStepsViewController.h"
 #import "UserManager.h"
+#import "UserDetailsScreen.h"
 
 @interface HomeViewController ()
 
@@ -395,7 +396,9 @@
 
 - (IBAction) userButtonTapped {
     
-    
+    UserDetailsScreen *screen = [[UserDetailsScreen alloc] init];
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:CGRectMake(wScr-17, 60, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:true];
 }
 
 #pragma mark - RunListViewProtocol

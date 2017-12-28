@@ -32,6 +32,17 @@ static UserManager *_sharedInstance = nil;
     return _user;
 }
 
+- (void) logout {
+    
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"LOGGEDIN_USER"];
+    
+    _user = nil;
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"LOGGEDIN_USER"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [SFHFKeychainUtils deleteItemForUsername:username andServiceName:@"PRODAPPLOGIN" error:nil];
+}
+
 - (void) setLoggedUser:(UserModel*)user forPassword:(NSString*)pass {
  
     _user = user;

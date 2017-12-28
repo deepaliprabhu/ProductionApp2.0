@@ -14,5 +14,6 @@
 + (UserManager*) sharedInstance;
 - (void) loginWithUser:(NSString*)user andPassword:(NSString*)password withBlock:(void (^)(BOOL success))block;
 - (UserModel*) loggedUser;
+- (void) logout;
 
 @end
