@@ -79,6 +79,8 @@
 		895287381FCF2B33005C46EE /* StockLogScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895287361FCF2B33005C46EE /* StockLogScreen.xib */; };
 		8952873C1FCF39EE005C46EE /* AuditActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8952873A1FCF39EE005C46EE /* AuditActionCell.m */; };
 		8952873D1FCF39EE005C46EE /* AuditActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8952873B1FCF39EE005C46EE /* AuditActionCell.xib */; };
+		8954345D1FF517B900ECDDEE /* BomHistoryScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8954345B1FF517B900ECDDEE /* BomHistoryScreen.m */; };
+		8954345E1FF517B900ECDDEE /* BomHistoryScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8954345C1FF517B900ECDDEE /* BomHistoryScreen.xib */; };
 		895DEA291FF3C722001ADAFE /* DZNSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 895DEA251FF3C722001ADAFE /* DZNSegmentedControl.m */; };
 		895DEA2A1FF3C722001ADAFE /* UIScrollView+DZNSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 895DEA281FF3C722001ADAFE /* UIScrollView+DZNSegmentedControl.m */; };
 		895DEA2B1FF3C7C0001ADAFE /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8BF1FEC289D003D9B8A /* UserManager.m */; };
@@ -401,6 +403,9 @@
 		895287391FCF39EE005C46EE /* AuditActionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditActionCell.h; sourceTree = "<group>"; };
 		8952873A1FCF39EE005C46EE /* AuditActionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditActionCell.m; sourceTree = "<group>"; };
 		8952873B1FCF39EE005C46EE /* AuditActionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuditActionCell.xib; sourceTree = "<group>"; };
+		8954345A1FF517B900ECDDEE /* BomHistoryScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BomHistoryScreen.h; sourceTree = "<group>"; };
+		8954345B1FF517B900ECDDEE /* BomHistoryScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BomHistoryScreen.m; sourceTree = "<group>"; };
+		8954345C1FF517B900ECDDEE /* BomHistoryScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BomHistoryScreen.xib; sourceTree = "<group>"; };
 		895DEA251FF3C722001ADAFE /* DZNSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DZNSegmentedControl.m; sourceTree = "<group>"; };
 		895DEA261FF3C722001ADAFE /* UIScrollView+DZNSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+DZNSegmentedControl.h"; sourceTree = "<group>"; };
 		895DEA271FF3C722001ADAFE /* DZNSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DZNSegmentedControl.h; sourceTree = "<group>"; };
@@ -851,6 +856,7 @@
 		894B6F071FCDAD3100E271B1 /* popovers */ = {
 			isa = PBXGroup;
 			children = (
+				895434591FF517A700ECDDEE /* BOMHistory */,
 				895023FB1FE16876008A1165 /* AddComment */,
 				895023FC1FE16895008A1165 /* ChangePODate */,
 				894EE6991FE0226B009244A7 /* Lock */,
@@ -1001,6 +1007,16 @@
 				89037EA31FE7C4DF00242005 /* RunDetailsScreen.xib */,
 			);
 			path = RunDetailsScreen;
+			sourceTree = "<group>";
+		};
+		895434591FF517A700ECDDEE /* BOMHistory */ = {
+			isa = PBXGroup;
+			children = (
+				8954345A1FF517B900ECDDEE /* BomHistoryScreen.h */,
+				8954345B1FF517B900ECDDEE /* BomHistoryScreen.m */,
+				8954345C1FF517B900ECDDEE /* BomHistoryScreen.xib */,
+			);
+			path = BOMHistory;
 			sourceTree = "<group>";
 		};
 		895DEA241FF3C722001ADAFE /* DZNSegmentedControl */ = {
@@ -1908,6 +1924,7 @@
 				9F471D161F542B9300B294B7 /* RoadBlocksViewCell.xib in Resources */,
 				89AC0AB41FC60E07008CA56B /* CommentsPartCell.xib in Resources */,
 				89512A201FE9327100BF7456 /* ProcessCell.xib in Resources */,
+				8954345E1FF517B900ECDDEE /* BomHistoryScreen.xib in Resources */,
 				9FD12D7B1F43F77200F0E0A8 /* Icon_alpha.png in Resources */,
 				9FD12D811F43FD5600F0E0A8 /* OverviewView.xib in Resources */,
 				9FE99C381FBF242D006B58DE /* FeedbackListViewController.xib in Resources */,
@@ -1945,6 +1962,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8919BE911FB4DD5100EE6839 /* SDWebImageDownloader.m in Sources */,
+				8954345D1FF517B900ECDDEE /* BomHistoryScreen.m in Sources */,
 				89512A1F1FE9327100BF7456 /* ProcessCell.m in Sources */,
 				8919BE9B1FB4DD5100EE6839 /* UIButton+WebCache.m in Sources */,
 				895F5F801FCEF75800ED3349 /* StockCell.m in Sources */,
