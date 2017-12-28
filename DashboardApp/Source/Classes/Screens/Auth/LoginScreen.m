@@ -95,8 +95,8 @@
 
 - (void) initLayout {
     
-    _userTextField.text = @"guest@aginova.com";
-    _passwordTextField.text = @"guest123";
+//    _userTextField.text = @"guest@aginova.com";
+//    _passwordTextField.text = @"guest123";
     
     _loginButton.layer.borderWidth = 2;
     _loginButton.layer.borderColor = ccolor(224, 224, 224).CGColor;
