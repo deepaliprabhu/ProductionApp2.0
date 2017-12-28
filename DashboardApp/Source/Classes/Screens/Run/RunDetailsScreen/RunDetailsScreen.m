@@ -430,7 +430,11 @@
         p.qtyTarget = [NSString stringWithFormat:@"%d", target];
         p.processed = [self getProcessedForProcess:p];
     }
+    
     [_tableView reloadData];
+    if (_processes.count > 0) {
+        [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:false scrollPosition:UITableViewScrollPositionTop];
+    }
 }
 
 - (int) getProcessedForProcess:(ProcessModel*)p {
