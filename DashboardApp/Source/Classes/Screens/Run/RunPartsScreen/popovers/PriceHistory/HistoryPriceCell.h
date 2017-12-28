@@ -11,5 +11,6 @@
 @interface HistoryPriceCell : UITableViewCell
 
 - (void) layoutWith:(NSDictionary*)data currentPrice:(float)currentPrice atIndex:(int)index;
+- (void) layoutWithBOMPrice:(float)price atDate:(NSDate*)date;
 
 @end

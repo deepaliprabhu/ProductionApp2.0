@@ -242,6 +242,10 @@ typedef enum
 
 - (IBAction) bomButtonTapped {
     
+    BomHistoryScreen *screen = [[BomHistoryScreen alloc] init];
+    screen.bomValues = _bomValues;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:CGRectMake(wScr/2-1, 80, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:true];
 }
 
 - (IBAction) runsButtonTapped {

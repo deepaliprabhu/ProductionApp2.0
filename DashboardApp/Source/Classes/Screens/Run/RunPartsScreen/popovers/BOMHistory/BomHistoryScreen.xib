@@ -8,17 +8,67 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Light.ttf">
+            <string>Roboto-Light</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BomHistoryScreen">
             <connections>
+                <outlet property="_tableView" destination="zgM-Sg-EXK" id="gha-QV-LM5"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="190" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9l-fZ-pBY">
+                    <rect key="frame" x="10" y="0.0" width="64" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="AoZ-p3-zPJ"/>
+                        <constraint firstAttribute="width" constant="64" id="hLL-JL-eaG"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRICE" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JeW-aU-oXB">
+                    <rect key="frame" x="129" y="0.0" width="44" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="4pC-NQ-gyA"/>
+                        <constraint firstAttribute="width" constant="44" id="Xek-DD-yPO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zgM-Sg-EXK">
+                    <rect key="frame" x="0.0" y="32" width="190" height="635"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="qkt-ZY-oIS"/>
+                        <outlet property="delegate" destination="-1" id="bdC-yd-eoz"/>
+                    </connections>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="E9l-fZ-pBY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="FBt-Au-Uhb"/>
+                <constraint firstAttribute="bottom" secondItem="zgM-Sg-EXK" secondAttribute="bottom" id="KTx-0K-rbD"/>
+                <constraint firstItem="zgM-Sg-EXK" firstAttribute="top" secondItem="E9l-fZ-pBY" secondAttribute="bottom" id="MK5-jf-RFv"/>
+                <constraint firstItem="E9l-fZ-pBY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="UWi-Bi-K7X"/>
+                <constraint firstItem="JeW-aU-oXB" firstAttribute="leading" secondItem="E9l-fZ-pBY" secondAttribute="trailing" constant="55" id="hhR-77-izs"/>
+                <constraint firstItem="zgM-Sg-EXK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lpg-M1-yqf"/>
+                <constraint firstItem="JeW-aU-oXB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="lza-Yt-Ztg"/>
+                <constraint firstAttribute="trailing" secondItem="zgM-Sg-EXK" secondAttribute="trailing" id="wFo-Yi-zqb"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="24" y="52.5"/>
         </view>
     </objects>
 </document>

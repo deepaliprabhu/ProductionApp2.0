@@ -10,4 +10,6 @@
 
 @interface BomHistoryScreen : UIViewController
 
+@property (nonatomic, strong) NSArray *bomValues;
+
 @end
