@@ -75,6 +75,8 @@
     NSMutableArray *_processes;
     NSMutableArray *_days;
     NSMutableArray *_filteredDays;
+    NSArray *_passiveTests;
+    NSArray *_activeTests;
     int _maxDayLogValue;
     
     ProcessModel *_selectedProcess;
@@ -255,9 +257,45 @@
     _qtyRejectedLabel.text = model.qtyReject;
     
     [_processDetailsLabel scrollRectToVisible:CGRectZero animated:false];
+    
+    if ([model.processName isEqualToString:@"Passive Test"]) {
+        
+        if (_passiveTests == nil) {
+            [self getPassiveTests];
+        } else {
+            
+        }
+    } else if ([model.processName isEqualToString:@"Active Test"]) {
+        
+        if (_activeTests == nil) {
+            [self getActiveTests];
+        } else {
+            
+        }
+    }
 }
 
 #pragma mark - Utils
+
+- (void) getPassiveTests {
+ 
+    [[ProdAPI sharedInstance] getPassiveTestsWithCompletion:^(BOOL success, id response) {
+        
+        if (success) {
+            _passiveTests = [NSArray array];
+        }
+    }];
+}
+
+- (void) getActiveTests {
+    
+    [[ProdAPI sharedInstance] getActiveTestsWithCompletion:^(BOOL success, id response) {
+        
+        if (success) {
+            _activeTests = [NSArray array];
+        }
+    }];
+}
 
 - (DayLogModel*) todayLog {
     
@@ -430,7 +468,11 @@
         p.qtyTarget = [NSString stringWithFormat:@"%d", target];
         p.processed = [self getProcessedForProcess:p];
     }
+    
     [_tableView reloadData];
+    if (_processes.count > 0) {
+        [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:false scrollPosition:UITableViewScrollPositionTop];
+    }
 }
 
 - (int) getProcessedForProcess:(ProcessModel*)p {

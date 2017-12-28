@@ -55,4 +55,19 @@ static NSDateFormatter *_dateFormatter2 = nil;
     _priceLabel.textColor = c;
 }
 
+- (void) layoutWithBOMPrice:(float)price atDate:(NSDate*)date {
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        _dateFormatter1 = [NSDateFormatter new];
+        _dateFormatter1.dateFormat = @"yyyy-MM-dd";
+        _dateFormatter2 = [NSDateFormatter new];
+        _dateFormatter2.dateFormat = @"dd MMM yyyy";
+    });
+    
+    _dateLabel.text = [_dateFormatter2 stringFromDate:date];
+    _priceLabel.text = [NSString stringWithFormat:@"%.4f$", price];
+}
+
 @end

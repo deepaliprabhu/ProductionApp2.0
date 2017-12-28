@@ -237,6 +237,16 @@ static ProdAPI *_sharedInstance = nil;
     [self callGETURL:url completion:block];
 }
 
+- (void) getActiveTestsWithCompletion:(void (^)(BOOL success, id response))block {
+    NSString *url = @"http://www.aginova.info/aginova/json/processes.php?call=get_test_data&test=active";
+    [self callGETURL:url completion:block];
+}
+
+- (void) getPassiveTestsWithCompletion:(void (^)(BOOL success, id response))block {
+    NSString *url = @"http://www.aginova.info/aginova/json/processes.php?call=get_test_data&test=passive";
+    [self callGETURL:url completion:block];
+}
+
 #pragma mark - Factory
 
 - (void) callPOST:(NSString*)url parameters:(NSDictionary*)params completion:(void (^)(BOOL success, id response))block

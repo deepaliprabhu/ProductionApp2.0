@@ -33,6 +33,7 @@
 #import "Constants.h"
 #import "LockConfirmScreen.h"
 #import "UserManager.h"
+#import "BomHistoryScreen.h"
 
 const CGFloat kMinTableHeight = 119;
 
@@ -109,6 +110,7 @@ typedef enum
     NSMutableArray *_parts;
     NSMutableArray *_comments;
     NSMutableArray *_priorityRuns;
+    NSArray *_bomValues;
     
     NSDateFormatter *_formatter;
     
@@ -240,6 +242,10 @@ typedef enum
 
 - (IBAction) bomButtonTapped {
     
+    BomHistoryScreen *screen = [[BomHistoryScreen alloc] init];
+    screen.bomValues = _bomValues;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:CGRectMake(wScr/2-1, 80, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:true];
 }
 
 - (IBAction) runsButtonTapped {
@@ -634,7 +640,7 @@ typedef enum
 
 - (void) initLayout {
     
-    [self layoutTitle];
+    _titleLabel.text = [NSString stringWithFormat:@"Product %@, Run %ld", _run.productName, (long)_run.runId];
     
     [self addShadowTo:_partsHolderView];
     [self addShadowTo:_masonStockView];
@@ -643,31 +649,33 @@ typedef enum
     [self addShadowTo:_transitStockView];
 }
 
-- (void) layoutTitle {
+- (void) layoutBOM {
     
-    float alpha = 0;
-    _titleLabel.text = [NSString stringWithFormat:@"Product %@, Run %ld", _run.productName, (long)_run.runId];
-    if (_cost < 0)
-    {
-        _titleTopConstraint.constant = 20;
-        alpha = 0;
-        _bomLabel.text = @"-$";
-    }
-    else
-    {
-        _titleTopConstraint.constant = 10;
-        alpha = 1;
-        NSString *bom = [NSString stringWithFormat:@"BOM %.5f$", _cost];
-        _bomLabel.text = bom;
+    if (_bomValues != nil) {
         
-        CGFloat w = [LayoutUtils widthForText:bom withFont:ccFont(@"Roboto-Bold", 19)];
-        _bomWidthConstraint.constant = w;
+        float alpha = 0;
+        if (_bomValues.count == 0)
+        {
+            _titleTopConstraint.constant = 20;
+            alpha = 0;
+            _bomLabel.text = @"-$";
+        }
+        else
+        {
+            _titleTopConstraint.constant = 10;
+            alpha = 1;
+            NSString *bom = [NSString stringWithFormat:@"BOM %.5f$", [[_bomValues firstObject][@"price"] floatValue]];
+            _bomLabel.text = bom;
+            
+            CGFloat w = [LayoutUtils widthForText:bom withFont:ccFont(@"Roboto-Bold", 19)];
+            _bomWidthConstraint.constant = w;
+        }
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            _bomView.alpha = alpha;
+            [self.view layoutIfNeeded];
+        }];
     }
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        _bomView.alpha = alpha;
-        [self.view layoutIfNeeded];
-    }];
 }
 
 - (void) addShadowTo:(UIView*)v {
@@ -901,7 +909,7 @@ typedef enum
             for (PartModel *p in _parts) {
                 _cost += [p.qty intValue]*[p.pricePerUnit floatValue];
             }
-            [self layoutTitle];
+            
             [self getHistoryForAlternateParts];
             [self getAuditForParts];
             [self getRunsForParts];
@@ -1186,9 +1194,33 @@ typedef enum
         
         if (success) {
             
+            if ([response isKindOfClass:[NSArray class]]) {
+                
+                NSDateFormatter *f = [NSDateFormatter new];
+                f.dateFormat = @"yyyy-MM-dd HH:mm";
+                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+                for (NSDictionary *d in response) {
+                    
+                    NSString *bomID = d[@"BOM_ID"];
+                    if (dict[bomID] == nil) {
+                        NSString *time = d[@"DATETIME"];
+                        NSDictionary *temp = @{@"price": @([d[@"PRICE"] floatValue]), @"time":[f dateFromString:time]};
+                        dict[bomID] = temp;
+                    } else {
+                        NSMutableDictionary *temp = [NSMutableDictionary dictionaryWithDictionary:dict[bomID]];
+                        temp[@"price"] = @([temp[@"price"] floatValue] + [d[@"PRICE"] floatValue]);
+                        dict[bomID] = temp;
+                    }
+                }
+                
+                NSArray *arr = [[dict allValues] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"time" ascending:false]]];
+                _bomValues = [NSArray arrayWithArray:arr];
+            }
         } else {
             
         }
+        
+        [self layoutBOM];
     }];
 }
 
