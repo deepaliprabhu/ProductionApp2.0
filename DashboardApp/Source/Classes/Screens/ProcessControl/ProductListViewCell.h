@@ -10,12 +10,21 @@
 #import "Defines.h"
 #import "ProductModel.h"
 
-
+@protocol ProductListViewCellDelegate;
 @interface ProductListViewCell : UITableViewCell {
     IBOutlet UIImageView *_productImageView;
     IBOutlet UIImageView *_stateImageView;
     IBOutlet UILabel *_productNameLabel;
+    IBOutlet UIButton *_stateButton;
+    
+    BOOL isActive;
+    int index;
 }
+__pd(ProductListViewCellDelegate);
 - (void) setCellData:(ProductModel*)p atIndex:(int)index_ forAdmin:(BOOL)isAdmin;
 
+@end
+
+@protocol ProductListViewCellDelegate <NSObject>
+- (void)stateButtonPressedAtIndex:(int)index;
 @end

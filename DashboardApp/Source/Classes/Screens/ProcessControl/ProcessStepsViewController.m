@@ -69,7 +69,6 @@
     _closeButton.layer.cornerRadius = 8.0f;
     _closeButton.layer.borderWidth = 1.5f;
     _closeButton.layer.borderColor = [UIColor grayColor].CGColor;
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -198,6 +197,7 @@
 }
 
 - (void)getProcessFlowForProduct:(ProductModel*)product {
+    processStepsArray = [[NSMutableArray alloc] init];
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getProcessFlow&process_ctrl_id=%@-%@-%@",product.productNumber, @"PC1",@"1.0"] withTag:3];
@@ -212,7 +212,6 @@
 
 - (void) parseJsonResponse:(NSData*)jsonData withTag:(int)tag {
     NSLog(@"jsonData = %@", jsonData);
-    processStepsArray = [[NSMutableArray alloc] init];
 
     NSString *partShortString = @"";
     NSError* error;
@@ -410,6 +409,17 @@
     for (int i=0; i < deletedProcessArray.count; ++i) {
         [self deleteProcessFromListAtIndex:i];
     }
+}
+
+- (void)stateButtonPressedAtIndex:(int)index {
+    ProductModel *product = productsArray[index];
+    ProductListViewCell *cell = [_productListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    ProductAdminPopover *screen = [[ProductAdminPopover alloc] initWithNibName:@"ProductAdminPopover" bundle:nil];
+    screen.product = product;
+    screen.delegate = self;
+    screen.sourceRect = cell.frame;
+    _adminPopover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [_adminPopover presentPopoverFromRect:cell.frame inView:cell.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
 }
 
 

@@ -25,7 +25,7 @@
 
 - (void)setCellData:(ProductModel*)p atIndex:(int)index_ forAdmin:(BOOL)isAdmin
 {
-  //  index = index_;
+    index = index_;
     _productNameLabel.text = p.name;
     
     if ([p photoURL] == nil)
@@ -40,10 +40,14 @@
     
     if (isAdmin == true)
     {
-        if ([p.productStatus isEqualToString:@"InActive"])
-            _stateImageView.image = ccimg(@"productDeactivatedIcon");
-        else
-            _stateImageView.image = ccimg(@"productActivatedIcon");
+        if ([p.productStatus isEqualToString:@"InActive"]) {
+            isActive = false;
+            [_stateButton setImage:ccimg(@"productDeactivatedIcon") forState:UIControlStateNormal];
+        }
+        else {
+            isActive = true;
+            [_stateButton setImage:ccimg(@"productActivatedIcon") forState:UIControlStateNormal];
+        }
     } else
     {
         _stateImageView.image = nil;
@@ -55,4 +59,15 @@
         }
     }
 }
+
+- (IBAction)stateButtonPressed:(id)sender {
+    if (isActive) {
+        isActive = false;
+    }
+    else {
+        isActive = true;
+    }
+    [_delegate stateButtonPressedAtIndex:index];
+}
+
 @end

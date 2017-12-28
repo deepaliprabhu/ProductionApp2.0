@@ -10,8 +10,9 @@
 #import "DZNSegmentedControl.h"
 #import "ProductModel.h"
 #import "CommonProcessesViewCell.h"
+#import "ProductAdminPopover.h"
 
-@interface ProcessStepsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate> {
+@interface ProcessStepsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ProductAdminPopoverDelegate> {
     IBOutlet UITableView *_productListTableView;
     IBOutlet UITableView *_processListTableView;
     IBOutlet UIView *_leftPaneView;
@@ -48,6 +49,7 @@
     ProductModel *selectedProduct;
     
     NSString *processCntrlId;
+    UIPopoverController *_adminPopover;
 }
 
 @end

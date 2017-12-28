@@ -23,22 +23,27 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKG-vJ-vo5">
-                        <rect key="frame" x="78" y="10" width="234" height="21"/>
+                        <rect key="frame" x="86" y="10" width="226" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.0" alpha="0.76894048999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Trd-0s-Jsg">
-                        <rect key="frame" x="54" y="12" width="16" height="16"/>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aV1-9K-N2n">
+                        <rect key="frame" x="47" y="2" width="37" height="37"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                        <connections>
+                            <action selector="stateButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="3p8-Jg-lDf"/>
+                        </connections>
+                    </button>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="_productImageView" destination="eT6-OV-UlL" id="Q8n-Iy-tsC"/>
                 <outlet property="_productNameLabel" destination="WKG-vJ-vo5" id="bNL-tT-yW2"/>
-                <outlet property="_stateImageView" destination="Trd-0s-Jsg" id="gT5-v3-2tV"/>
+                <outlet property="_stateButton" destination="aV1-9K-N2n" id="1Ni-em-Z25"/>
             </connections>
             <point key="canvasLocation" x="43" y="88"/>
         </tableViewCell>
