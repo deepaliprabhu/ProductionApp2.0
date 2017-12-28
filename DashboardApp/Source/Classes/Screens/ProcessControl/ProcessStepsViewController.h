@@ -32,6 +32,17 @@
     IBOutlet UIButton *_closeButton;
     IBOutlet UIButton *_createStepButton;
     
+    IBOutlet UIView *_processInfoView;
+    IBOutlet UILabel *_processNameLabel;
+    IBOutlet UILabel *_timeLabel;
+    IBOutlet UILabel *_pointsLabel;
+    IBOutlet UILabel *_operator1Label;
+    IBOutlet UILabel *_operator2Label;
+    IBOutlet UILabel *_operator3Label;
+    IBOutlet UITableView *_wiTableView;
+    
+    UIView *backgroundDimmingView;
+    
     DZNSegmentedControl *control;
     
     NSMutableArray *productGroupsArray;
@@ -43,6 +54,8 @@
     NSMutableArray *indexArray;
     NSMutableArray *alteredIndexArray;
     NSMutableArray *alteredProcessesArray;
+    NSMutableArray *workInstructionsArray;
+    NSMutableDictionary *selectedProcessData;
     
     BOOL screenIsForAdmin;
     

@@ -69,11 +69,35 @@
     _closeButton.layer.cornerRadius = 8.0f;
     _closeButton.layer.borderWidth = 1.5f;
     _closeButton.layer.borderColor = [UIColor grayColor].CGColor;
+    
+    backgroundDimmingView = [self buildBackgroundDimmingView];
+    [self.view addSubview:backgroundDimmingView];
+    backgroundDimmingView.hidden = true;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (UIView *)buildBackgroundDimmingView {
+    UIView *bgView;
+    //blur effect for iOS8
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat frameHeight = screenRect.size.height;
+    CGFloat frameWidth = screenRect.size.width;
+    CGFloat sideLength = frameHeight > frameWidth ? frameHeight : frameWidth;
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1) {
+        UIBlurEffect *eff = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        bgView = [[UIVisualEffectView alloc] initWithEffect:eff];
+        bgView.frame = CGRectMake(0, 0, sideLength, sideLength);
+    }
+    else {
+        bgView = [[UIView alloc] initWithFrame:self.view.frame];
+        bgView.backgroundColor = [UIColor blackColor];
+    }
+    bgView.alpha = 0.7;
+    return bgView;
 }
 
 - (void)selectedSegment:(DZNSegmentedControl *)control {
@@ -107,7 +131,10 @@
     else if ([tableView isEqual:_processListTableView]) {
         return [processStepsArray count];
     }
-    return [commonProcessStepsArray count];
+    else if ([tableView isEqual:_commonProcessListTableView]) {
+        return [commonProcessStepsArray count];
+    }
+    return [workInstructionsArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -117,7 +144,7 @@
         if (cell == nil) {
             cell = [[NSBundle mainBundle] loadNibNamed:simpleTableIdentifier owner:nil options:nil][0];
         }
-       // cell.delegate = self;
+        cell.delegate = self;
         [cell setCellData:[filteredProductsArray objectAtIndex:indexPath.row] atIndex:indexPath.row forAdmin:screenIsForAdmin];
         return cell;
     }
@@ -131,7 +158,7 @@
         [cell setCellData:[processStepsArray objectAtIndex:indexPath.row] index:indexPath.row];
         return cell;
     }
-    else {
+    else if ([tableView isEqual:_commonProcessListTableView]){
         static NSString *simpleTableIdentifier = @"CommonProcessesViewCell";
         CommonProcessesViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
         if (cell == nil) {
@@ -139,6 +166,23 @@
         }
         cell.delegate = self;
         [cell setCellData:[commonProcessStepsArray objectAtIndex:indexPath.row] index:indexPath.row isAdded:[indexArray[indexPath.row] boolValue]];
+        return cell;
+    }
+    else {
+        static NSString *CellIdentifier = @"identifier";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (cell == nil)
+        {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+        
+        cell.textLabel.text = workInstructionsArray[indexPath.row];
+        cell.textLabel.font = [cell.textLabel.font fontWithSize:11];
+        cell.textLabel.textColor = [UIColor darkGrayColor];
+        cell.textLabel.numberOfLines = 2;
+        // cell.imageView.image = [UIImage imageNamed:@"placeholder.png"];
+        
         return cell;
     }
     return nil;
@@ -149,10 +193,16 @@
         selectedProduct = filteredProductsArray[indexPath.row];
         [self loadProductProcessFlow:filteredProductsArray[indexPath.row]];
     }
-    else if ([tableView isEqual:_processListTableView]){
+    if ([tableView isEqual:_commonProcessListTableView]) {
+        selectedProcessData = commonProcessStepsArray[indexPath.row];
+        [self setUpWorkInstructionsForString:selectedProcessData[@"workinstructions"]];
+        [self showProcessInfoViewWithData:selectedProcessData];
     }
-    else {
-        
+    else if ([tableView isEqual:_processListTableView]){
+        NSMutableDictionary *processData = processStepsArray[indexPath.row];
+        selectedProcessData = [__DataManager getProcessForNo:processData[@"processno"]];
+        [self setUpWorkInstructionsForString:selectedProcessData[@"workinstructions"]];
+        [self showProcessInfoViewWithData:selectedProcessData];
     }
 }
 
@@ -412,7 +462,7 @@
 }
 
 - (void)stateButtonPressedAtIndex:(int)index {
-    ProductModel *product = productsArray[index];
+    ProductModel *product = filteredProductsArray[index];
     ProductListViewCell *cell = [_productListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
     ProductAdminPopover *screen = [[ProductAdminPopover alloc] initWithNibName:@"ProductAdminPopover" bundle:nil];
     screen.product = product;
@@ -422,6 +472,46 @@
     [_adminPopover presentPopoverFromRect:cell.frame inView:cell.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
 }
 
+#pragma mark - ProductAdminPopoverDelegate
+
+- (void) statusChangedForProducts {
+    [_productListTableView reloadData];
+    [self resetSegmentTitles];
+   // [self layoutCountLabel];
+}
+
+
+- (void) presentPhotoPicker:(UIImagePickerController *)p {
+    [self presentViewController:p animated:true completion:nil];
+}
+
+- (void) dismissPhotoPicker {
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (void)showProcessInfoViewWithData:(NSMutableDictionary*)processData {
+    backgroundDimmingView.hidden = false;
+    [self.view bringSubviewToFront:backgroundDimmingView];
+    _processInfoView.frame = CGRectMake(self.view.frame.size.width/2-_processInfoView.frame.size.width/2, self.view.frame.size.height/2-_processInfoView.frame.size.height/2, _processInfoView.frame.size.width, _processInfoView.frame.size.height);
+    _processInfoView.layer.cornerRadius = 12.0f;
+    _processNameLabel.text = [NSString stringWithFormat:@"%@: %@",processData[@"stationid"],processData[@"processname"]];
+    _timeLabel.text = processData[@"time"];
+    _operator1Label.text = processData[@"op1"];
+    _operator2Label.text = processData[@"op2"];
+    _operator3Label.text = processData[@"op3"];
+    [self.view addSubview:_processInfoView];
+}
+
+- (void)setUpWorkInstructionsForString:(NSString*)wiString {
+    workInstructionsArray = [[NSMutableArray alloc] init];
+    workInstructionsArray = [[wiString componentsSeparatedByString:@"\n"] mutableCopy];
+    [_wiTableView reloadData];
+}
+
+- (IBAction)closeProcessInfoView {
+    backgroundDimmingView.hidden = true;
+    [_processInfoView removeFromSuperview];
+}
 
 /*
 #pragma mark - Navigation

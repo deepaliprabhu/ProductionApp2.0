@@ -300,7 +300,6 @@ __CREATEVIEW(ProductProcessStepsView, @"ProductProcessStepsView", 0);
     _operator1Label.text = processData[@"op1"];
     _operator2Label.text = processData[@"op2"];
     _operator3Label.text = processData[@"op3"];
-    
 }
 
 - (IBAction)closeProcessInfoView {

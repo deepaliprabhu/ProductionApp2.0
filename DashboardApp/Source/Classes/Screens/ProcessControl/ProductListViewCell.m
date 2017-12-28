@@ -51,6 +51,7 @@
     } else
     {
         _stateImageView.image = nil;
+        [_stateButton setImage:nil forState:UIControlStateNormal];
         NSString *status = [p.status lowercaseString];
         if (([status isEqualToString:@"archive"])||([status isEqualToString:@"open"])) {
             self.backgroundColor = ccolora(255, 255, 255, 0.2);
@@ -61,12 +62,12 @@
 }
 
 - (IBAction)stateButtonPressed:(id)sender {
-    if (isActive) {
+    /*if (isActive) {
         isActive = false;
     }
     else {
         isActive = true;
-    }
+    }*/
     [_delegate stateButtonPressedAtIndex:index];
 }
 
