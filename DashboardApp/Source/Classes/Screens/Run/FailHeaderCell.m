@@ -8,10 +8,17 @@
 
 #import "FailHeaderCell.h"
 
-@implementation FailHeaderCell
+@implementation FailHeaderCell {
+    __weak IBOutlet UILabel *_reasonLabel;
+}
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
++ (CGFloat) heightFor:(NSString*)text {
+
+    return 0;
+}
+
+- (void) layoutWithReason:(NSString*)reason {
+    _reasonLabel.text = reason;
 }
 
 @end

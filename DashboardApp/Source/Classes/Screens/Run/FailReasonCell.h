@@ -10,4 +10,6 @@
 
 @interface FailReasonCell : UITableViewCell
 
+- (void) layoutWithFail:(NSDictionary*)fail;
+
 @end

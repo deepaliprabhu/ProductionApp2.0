@@ -10,4 +10,7 @@
 
 @interface FailHeaderCell : UITableViewCell
 
++ (CGFloat) heightFor:(NSString*)text;
+- (void) layoutWithReason:(NSString*)reason;
+
 @end
