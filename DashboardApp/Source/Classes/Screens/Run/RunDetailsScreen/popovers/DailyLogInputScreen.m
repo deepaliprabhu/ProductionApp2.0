@@ -56,7 +56,7 @@
     
     NSString *json = [NSString stringWithFormat:@"[%@]" ,[ProdAPI jsonString:log]];
     [LoadingView showLoading:@"Loading..."];
-    [[ProdAPI sharedInstance] addDailyLog:json forRunFlow:_process.runFlowId completion:^(BOOL success, id response) {
+    [[ProdAPI sharedInstance] addDailyLog:json forRunFlow:[_run getRunFlowId] completion:^(BOOL success, id response) {
        
         if (success) {
             [LoadingView removeLoading];

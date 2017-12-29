@@ -82,6 +82,7 @@
 - (NSString*)getDescription;
 - (void)setCategory:(int)category_;
 - (int)getCategory;
+- (NSString*) getRunFlowId;
 - (NSMutableArray*)getRunFeedbacks;
 - (void)addRunFeedback:(NSMutableDictionary*)feedbackData;
 - (NSMutableArray*)getRunPartsShort;

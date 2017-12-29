@@ -92,6 +92,12 @@
 		895F5F811FCEF75800ED3349 /* StockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895F5F7F1FCEF75800ED3349 /* StockCell.xib */; };
 		89619E191FBDB4E8005A5BE7 /* PriorityRunCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89619E171FBDB4E8005A5BE7 /* PriorityRunCell.m */; };
 		89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */; };
+		897BA32D1FF65FF900C8DA9A /* FailedTestsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */; };
+		897BA32E1FF65FF900C8DA9A /* FailedTestsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */; };
+		897BA3321FF662B600C8DA9A /* FailHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA3301FF662B600C8DA9A /* FailHeaderCell.m */; };
+		897BA3331FF662B600C8DA9A /* FailHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA3311FF662B600C8DA9A /* FailHeaderCell.xib */; };
+		897BA3371FF662C300C8DA9A /* FailReasonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA3351FF662C300C8DA9A /* FailReasonCell.m */; };
+		897BA3381FF662C300C8DA9A /* FailReasonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA3361FF662C300C8DA9A /* FailReasonCell.xib */; };
 		89854AE71FB97B3A00C6E38D /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADB1FB97B3A00C6E38D /* GMGridView.m */; };
 		89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADF1FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m */; };
 		89854AE91FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854AE01FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m */; };
@@ -422,6 +428,15 @@
 		89619E161FBDB4E8005A5BE7 /* PriorityRunCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriorityRunCell.h; sourceTree = "<group>"; };
 		89619E171FBDB4E8005A5BE7 /* PriorityRunCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriorityRunCell.m; sourceTree = "<group>"; };
 		89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriorityRunCell.xib; sourceTree = "<group>"; };
+		897BA32A1FF65FF900C8DA9A /* FailedTestsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FailedTestsScreen.h; sourceTree = "<group>"; };
+		897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FailedTestsScreen.m; sourceTree = "<group>"; };
+		897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailedTestsScreen.xib; sourceTree = "<group>"; };
+		897BA32F1FF662B600C8DA9A /* FailHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FailHeaderCell.h; sourceTree = "<group>"; };
+		897BA3301FF662B600C8DA9A /* FailHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FailHeaderCell.m; sourceTree = "<group>"; };
+		897BA3311FF662B600C8DA9A /* FailHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailHeaderCell.xib; sourceTree = "<group>"; };
+		897BA3341FF662C300C8DA9A /* FailReasonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FailReasonCell.h; sourceTree = "<group>"; };
+		897BA3351FF662C300C8DA9A /* FailReasonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FailReasonCell.m; sourceTree = "<group>"; };
+		897BA3361FF662C300C8DA9A /* FailReasonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailReasonCell.xib; sourceTree = "<group>"; };
 		89854ADB1FB97B3A00C6E38D /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
 		89854ADC1FB97B3A00C6E38D /* GMGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridViewCell.h; sourceTree = "<group>"; };
 		89854ADD1FB97B3A00C6E38D /* GMGridViewCell+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridViewCell+Extended.h"; sourceTree = "<group>"; };
@@ -1059,6 +1074,9 @@
 				898574471FE9504300EAB20C /* DailyLogRawScreen.h */,
 				898574481FE9504300EAB20C /* DailyLogRawScreen.m */,
 				898574491FE9504300EAB20C /* DailyLogRawScreen.xib */,
+				897BA32A1FF65FF900C8DA9A /* FailedTestsScreen.h */,
+				897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */,
+				897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */,
 			);
 			path = popovers;
 			sourceTree = "<group>";
@@ -1547,6 +1565,12 @@
 				8985744C1FE9535500EAB20C /* DailyLogCollectionCell.h */,
 				8985744D1FE9535500EAB20C /* DailyLogCollectionCell.m */,
 				8985744E1FE9535500EAB20C /* DailyLogCollectionCell.xib */,
+				897BA32F1FF662B600C8DA9A /* FailHeaderCell.h */,
+				897BA3301FF662B600C8DA9A /* FailHeaderCell.m */,
+				897BA3311FF662B600C8DA9A /* FailHeaderCell.xib */,
+				897BA3341FF662C300C8DA9A /* FailReasonCell.h */,
+				897BA3351FF662C300C8DA9A /* FailReasonCell.m */,
+				897BA3361FF662C300C8DA9A /* FailReasonCell.xib */,
 			);
 			name = cells;
 			path = ..;
@@ -1918,6 +1942,7 @@
 				9F471CFA1F53FF4600B294B7 /* InProcessView.xib in Resources */,
 				9F7AB1A41F7D233C0013CBE1 /* check_mark@2x.png in Resources */,
 				9F40AD801F2F469A002C64BA /* HomeViewController.xib in Resources */,
+				897BA32E1FF65FF900C8DA9A /* FailedTestsScreen.xib in Resources */,
 				9F7AB1A51F7D233C0013CBE1 /* done@2x.png in Resources */,
 				9F056B341F433F8E002F3B61 /* RunListView.xib in Resources */,
 				894EE6A31FE0262F009244A7 /* LockConfirmationCell.xib in Resources */,
@@ -1934,6 +1959,7 @@
 				9F471D001F54003300B294B7 /* InProcessViewCell.xib in Resources */,
 				9F252A571F4D46C00056DA8F /* stockBgImage.png in Resources */,
 				895023F71FE1616A008A1165 /* LocationReconcileCell.xib in Resources */,
+				897BA3381FF662C300C8DA9A /* FailReasonCell.xib in Resources */,
 				9F7767461F572A780092F603 /* RunListTableView.xib in Resources */,
 				9F8567911F73DDB10067ABE1 /* OperatorEntryView.xib in Resources */,
 				9F252A5B1F4D4F400056DA8F /* demandsBgImage.png in Resources */,
@@ -1950,6 +1976,7 @@
 				9F909AAF1F4EBB6200DBFA63 /* GanttView.xib in Resources */,
 				894F9BDF1FBCA90C00DC2C6B /* HistoryPriceCell.xib in Resources */,
 				8952873D1FCF39EE005C46EE /* AuditActionCell.xib in Resources */,
+				897BA3331FF662B600C8DA9A /* FailHeaderCell.xib in Resources */,
 				9FB1BEAF1F514343008D179E /* CollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1961,6 +1988,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				897BA32D1FF65FF900C8DA9A /* FailedTestsScreen.m in Sources */,
 				8919BE911FB4DD5100EE6839 /* SDWebImageDownloader.m in Sources */,
 				8954345D1FF517B900ECDDEE /* BomHistoryScreen.m in Sources */,
 				89512A1F1FE9327100BF7456 /* ProcessCell.m in Sources */,
@@ -1975,6 +2003,7 @@
 				9FA5EE6B1FE97EDB000AAFA3 /* ProductListViewCell.m in Sources */,
 				89854AEA1FB97B3A00C6E38D /* UIView+GMGridViewAdditions.m in Sources */,
 				D22767991FAE4B8000215D87 /* Reachability.m in Sources */,
+				897BA3321FF662B600C8DA9A /* FailHeaderCell.m in Sources */,
 				9FD12D8E1F443CEF00F0E0A8 /* ConnectionManager.m in Sources */,
 				89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */,
 				9F8567901F73DDB10067ABE1 /* OperatorEntryView.m in Sources */,
@@ -2102,6 +2131,7 @@
 				89AC0AB71FC60E4D008CA56B /* CommentModel.m in Sources */,
 				8942B8C51FEC293C003D9B8A /* LoginScreen.m in Sources */,
 				89AC0AB31FC60E07008CA56B /* CommentsPartCell.m in Sources */,
+				897BA3371FF662C300C8DA9A /* FailReasonCell.m in Sources */,
 				8940187D1FB5A0E4002B8AFD /* BRRequestUpload.m in Sources */,
 				894B6F111FCDCBB700E271B1 /* RunCommentsScreen.m in Sources */,
 				8919BE971FB4DD5100EE6839 /* SDWebImageDownloaderOperation.m in Sources */,

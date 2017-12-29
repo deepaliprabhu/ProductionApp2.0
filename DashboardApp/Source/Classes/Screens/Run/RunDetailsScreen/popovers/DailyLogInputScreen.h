@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ProcessModel.h"
 #import "DayLogModel.h"
+#import "Run.h"
 
 @protocol DailyLogInputProtocol;
 
@@ -16,6 +17,7 @@
 
 @property (nonatomic, unsafe_unretained) ProcessModel *process;
 @property (nonatomic, unsafe_unretained) DayLogModel *dayLog;
+@property (nonatomic, unsafe_unretained) Run *run;
 @property (nonatomic, unsafe_unretained) id <DailyLogInputProtocol> delegate;
 
 @end

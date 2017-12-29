@@ -137,6 +137,10 @@
     return _productNumber;
 }
 
+- (NSString*) getRunFlowId {
+    return [NSString stringWithFormat:@"%d_%@-%@-%@",[self getRunId],[self getProductNumber], @"PC1",@"1.0"];
+}
+
 - (NSString*)getProductName {
     return self.productName;
 }

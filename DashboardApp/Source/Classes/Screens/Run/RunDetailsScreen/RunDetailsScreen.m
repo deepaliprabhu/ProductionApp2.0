@@ -20,6 +20,7 @@
 #import "DailyLogRawScreen.h"
 #import "DailyLogCollectionCell.h"
 #import "DailyLogInputScreen.h"
+#import "FailedTestsScreen.h"
 
 @interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol>
 
@@ -72,11 +73,17 @@
     
     __weak IBOutlet UILabel *_lockedLabel;
     
+    __weak IBOutlet UIView *_testsView;
+    __weak IBOutlet UIActivityIndicatorView *_testsSpinner;
+    __weak IBOutlet UILabel *_passedTestsLabel;
+    __weak IBOutlet UILabel *_failedTestsLabel;
+    __weak IBOutlet UIButton *_failedTestsButton;
+    
     NSMutableArray *_processes;
     NSMutableArray *_days;
     NSMutableArray *_filteredDays;
-    NSArray *_passiveTests;
-    NSArray *_activeTests;
+    NSMutableArray *_passiveTests;
+    NSMutableArray *_activeTests;
     int _maxDayLogValue;
     
     ProcessModel *_selectedProcess;
@@ -128,6 +135,7 @@
     screen.delegate = self;
     screen.process = _selectedProcess;
     screen.dayLog = [self todayLog];
+    screen.run = _run;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
     nav.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:nav animated:true completion:nil];
@@ -140,6 +148,21 @@
     UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
     CGRect rect = [_dailyLogHolderView convertRect:_rawDataButton.bounds toView:self.view];
     [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:true];
+}
+
+- (IBAction) failedTestsButtonTapped {
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    for (NSDictionary *dict in _passiveTests) {
+        if ([dict[@"passed"] isEqualToString:@"false"])
+            [arr addObject:dict];
+    }
+    
+    FailedTestsScreen *screen = [[FailedTestsScreen alloc] initWithNibName:@"FailedTestsScreen" bundle:nil];
+    screen.failedCases = arr;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    CGRect rect = [_detailsHolderView convertRect:_testsView.bounds toView:self.view];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -263,37 +286,86 @@
         if (_passiveTests == nil) {
             [self getPassiveTests];
         } else {
-            
+            [self layoutPassiveTests];
         }
     } else if ([model.processName isEqualToString:@"Active Test"]) {
         
         if (_activeTests == nil) {
             [self getActiveTests];
         } else {
-            
+            [self layoutActiveTests];
         }
+    } else {
+        _testsView.alpha = 0;
     }
+}
+
+- (void) layoutPassiveTests {
+    
+    _testsView.alpha = 1;
+    
+    int pass = 0;
+    int fail = 0;
+    for (NSDictionary *d in _passiveTests) {
+        
+        if ([d[@"passed"] isEqualToString:@"false"])
+            fail++;
+        else
+            pass++;
+    }
+    
+    _passedTestsLabel.text = [NSString stringWithFormat:@"%d", pass];
+    _failedTestsLabel.text = [NSString stringWithFormat:@"%d", fail];
+    _failedTestsButton.alpha = fail > 0;
+}
+
+- (void) layoutActiveTests {
+    
 }
 
 #pragma mark - Utils
 
 - (void) getPassiveTests {
  
+    [_testsSpinner startAnimating];
     [[ProdAPI sharedInstance] getPassiveTestsWithCompletion:^(BOOL success, id response) {
         
+        [_testsSpinner stopAnimating];
+        _passiveTests = [NSMutableArray array];
         if (success) {
-            _passiveTests = [NSArray array];
+            if ([response isKindOfClass:[NSArray class]]) {
+                
+                for (NSDictionary *d in response) {
+                    if ([d[@"Run"] intValue] == _run.runId) {
+                        [_passiveTests addObject:d];
+                    }
+                }
+            }
         }
+        
+        [self layoutPassiveTests];
     }];
 }
 
 - (void) getActiveTests {
     
+    [_testsSpinner startAnimating];
     [[ProdAPI sharedInstance] getActiveTestsWithCompletion:^(BOOL success, id response) {
         
+        [_testsSpinner stopAnimating];
+        _activeTests = [NSMutableArray array];
         if (success) {
-            _activeTests = [NSArray array];
+            if ([response isKindOfClass:[NSArray class]]) {
+                
+                for (NSDictionary *d in response) {
+                    if ([d[@"Run"] intValue] == _run.runId) {
+                        [_activeTests addObject:d];
+                    }
+                }
+            }
         }
+        
+        [self layoutActiveTests];
     }];
 }
 
@@ -414,11 +486,13 @@
             _days = [NSMutableArray array];
             NSArray *days = [response firstObject][@"processes"];
             days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
-            for (NSDictionary *dict in days) {
+            for (int i=0; i<days.count; i++) {
+                NSDictionary *dict = days[i];
                 DayLogModel *d = [DayLogModel objFromData:dict];
                 if ([self dayLogAlreadyExists:d] == false)
                     [_days addObject:d];
             }
+            [_days sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
             _rawDataButton.alpha = _days.count == 0 ? 0 : 1;
             [self getTargets];
             [self layoutDailyLogForProcess:_selectedProcess];
