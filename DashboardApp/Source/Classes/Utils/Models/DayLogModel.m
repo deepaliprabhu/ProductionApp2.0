@@ -27,7 +27,10 @@ static NSDateFormatter *_formatter = nil;
     model.good = [data[@"qtyGood"] intValue];
     model.target = [data[@"qtyTarget"] intValue];
     model.processId = data[@"stepid"];
-    
+    model.dateAssigned = data[@"dateAssigned"];
+    model.dateCompleted = data[@"dateCompleted"];
+    model.person = data[@"operator"];
+
     if ([data[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == false) {
         model.date = [_formatter dateFromString:data[@"datetime"]];
     }

@@ -270,14 +270,18 @@
     _dailyLogHolderView.alpha = 1;
     
     _processTitleLabel.text = model.processName;
-    _personLabel.text = model.person;
     _processDetailsLabel.text = model.instructions;
     _timeLabel.text = model.processingTime;
-    _dateAssignedLabel.text = model.dateAssigned;
-    _dateCompletedLabel.text = model.dateCompleted;
-    _qtyGoodLabel.text = model.qtyGood;
-    _qtyReworkLabel.text = model.qtyRework;
-    _qtyRejectedLabel.text = model.qtyReject;
+    
+    DayLogModel *d = [self dayForProcess:model.stepId];
+    if (d != nil) {
+        _qtyGoodLabel.text = [NSString stringWithFormat:@"%d", d.good];
+        _qtyReworkLabel.text = [NSString stringWithFormat:@"%d", d.rework];
+        _qtyRejectedLabel.text = [NSString stringWithFormat:@"%d", d.reject];
+        _dateAssignedLabel.text = d.dateAssigned;
+        _dateCompletedLabel.text = d.dateCompleted;
+        _personLabel.text = d.person;
+    }
     
     [_processDetailsLabel scrollRectToVisible:CGRectZero animated:false];
     
@@ -301,12 +305,20 @@
 }
 
 - (void) layoutPassiveTests {
+    [self layoutTests:_passiveTests];
+}
+
+- (void) layoutActiveTests {
+    [self layoutTests:_activeTests];
+}
+
+- (void) layoutTests:(NSArray*)tests {
     
     _testsView.alpha = 1;
     
     int pass = 0;
     int fail = 0;
-    for (NSDictionary *d in _passiveTests) {
+    for (NSDictionary *d in tests) {
         
         if ([d[@"passed"] isEqualToString:@"false"])
             fail++;
@@ -317,10 +329,6 @@
     _passedTestsLabel.text = [NSString stringWithFormat:@"%d", pass];
     _failedTestsLabel.text = [NSString stringWithFormat:@"%d", fail];
     _failedTestsButton.alpha = fail > 0;
-}
-
-- (void) layoutActiveTests {
-    
 }
 
 #pragma mark - Utils
@@ -455,7 +463,7 @@
                 ProcessModel *model = [ProcessModel objectFromProcess:processData andCommon:commonProcess];
                 [_processes addObject:model];
                 
-                if ([commonProcess[@"processname"] isEqualToString:@"Passive Test"])
+                if ([_run getCategory] == 0 && [commonProcess[@"processname"] isEqualToString:@"Passive Test"])
                     break;
             }
             [_tableView reloadData];
@@ -487,7 +495,11 @@
             NSArray *days = [response firstObject][@"processes"];
             days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
             for (int i=0; i<days.count; i++) {
+                
                 NSDictionary *dict = days[i];
+                if ([dict[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == true)
+                    continue;
+                
                 DayLogModel *d = [DayLogModel objFromData:dict];
                 if ([self dayLogAlreadyExists:d] == false)
                     [_days addObject:d];
@@ -504,11 +516,21 @@
     
     NSCalendar *c = [NSCalendar currentCalendar];
     for (DayLogModel *d in _days) {
-        if ([c isDate:log.date inSameDayAsDate:d.date])
+        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processId isEqualToString:log.processId])
             return true;
     }
     
     return false;
+}
+
+- (DayLogModel*) dayForProcess:(NSString*)process {
+    
+    for (DayLogModel *d in _days) {
+        if ([d.processId isEqualToString:process])
+            return d;
+    }
+    
+    return nil;
 }
 
 - (void) layoutDailyLogForProcess:(ProcessModel*)p {
@@ -533,6 +555,7 @@
     }
     
     _graphTopLabel.text = [NSString stringWithFormat:@"%.0f", ceilf(_maxDayLogValue*1.2f)];
+    [self layoutWithProcess:_selectedProcess];
 }
 
 - (void) getTargets {

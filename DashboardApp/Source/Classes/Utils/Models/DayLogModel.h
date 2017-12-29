@@ -17,6 +17,9 @@
 @property (nonatomic, unsafe_unretained) int good;
 @property (nonatomic, unsafe_unretained) int target;
 @property (nonatomic, strong) NSString *processId;
+@property (nonatomic, strong) NSString *dateAssigned;
+@property (nonatomic, strong) NSString *dateCompleted;
+@property (nonatomic, strong) NSString *person;
 
 + (DayLogModel*) objFromData:(NSDictionary*)data;
 - (int) totalWork;
