@@ -19,19 +19,24 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProcessStepsViewController">
             <connections>
+                <outlet property="_addProcessView" destination="zki-lW-fce" id="VBg-9h-8m1"/>
                 <outlet property="_addStepButton" destination="87K-QS-Bta" id="v3L-uS-xdO"/>
                 <outlet property="_closeButton" destination="LXt-np-KzC" id="Yek-Uk-EDM"/>
                 <outlet property="_commonProcessListTableView" destination="hdW-cT-SIn" id="XeK-ML-Ush"/>
                 <outlet property="_createStepButton" destination="C99-it-uWH" id="SBR-Fj-iP6"/>
                 <outlet property="_editProcessFlowView" destination="xqZ-tr-rQf" id="wc3-x5-0q6"/>
                 <outlet property="_leftPaneView" destination="oJ3-QE-4ji" id="spb-Gh-fEM"/>
+                <outlet property="_operator1Button" destination="Hv8-UA-yXA" id="g8O-If-0Sk"/>
                 <outlet property="_operator1Label" destination="ZmT-m7-7Gb" id="c9v-nE-nEj"/>
+                <outlet property="_operator2Button" destination="dHh-wV-mye" id="TF7-RB-3ny"/>
                 <outlet property="_operator2Label" destination="yTz-sH-VSn" id="fU1-Da-l8t"/>
+                <outlet property="_operator3Button" destination="vF1-Kt-6pt" id="Zfw-OY-mbD"/>
                 <outlet property="_operator3Label" destination="JgY-AD-rgA" id="HAY-BL-aAa"/>
                 <outlet property="_pointsLabel" destination="PUk-mL-diL" id="TSs-cB-qT9"/>
                 <outlet property="_processInfoView" destination="Uxh-7H-CK5" id="crY-7P-CkI"/>
                 <outlet property="_processListTableView" destination="0Dc-eE-Sdb" id="rhG-v3-Iyc"/>
                 <outlet property="_processNameLabel" destination="18a-1b-cxm" id="WE9-m0-LxB"/>
+                <outlet property="_processNameTF" destination="I7m-8J-9Sa" id="bR2-wq-ch0"/>
                 <outlet property="_processNoLabel" destination="n4q-Xs-8o5" id="Q9g-2S-MND"/>
                 <outlet property="_productIdLabel" destination="aO5-RQ-amZ" id="xB7-N8-gcX"/>
                 <outlet property="_productImageView" destination="3K6-uH-966" id="NER-Mf-TqZ"/>
@@ -39,8 +44,10 @@
                 <outlet property="_productNameLabel" destination="OGI-yG-KyR" id="F3P-YT-cLJ"/>
                 <outlet property="_rightPaneView" destination="phJ-23-CC9" id="Xxp-gX-mNN"/>
                 <outlet property="_saveButton" destination="pgp-cH-CmK" id="Ly9-Ln-G1h"/>
+                <outlet property="_stationIdButton" destination="7cr-Jx-Bac" id="Bfn-4Y-znF"/>
                 <outlet property="_submitButton" destination="66j-ju-MSu" id="1JG-Ai-Vge"/>
                 <outlet property="_timeLabel" destination="wmC-LD-FlN" id="FWk-de-k4U"/>
+                <outlet property="_timeTF" destination="4vI-we-SwE" id="ShV-mj-OXo"/>
                 <outlet property="_wiTableView" destination="Lqh-HU-lAS" id="GYW-re-oTS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -334,6 +341,9 @@
                     <state key="normal" title="Create New Step">
                         <color key="titleColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
+                    <connections>
+                        <action selector="createProcessPressed:" destination="-1" eventType="touchUpInside" id="jZY-6W-x3p"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -454,8 +464,179 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="375.5" y="737.5"/>
         </view>
+        <view contentMode="scaleToFill" id="zki-lW-fce">
+            <rect key="frame" x="0.0" y="0.0" width="467" height="412"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Station:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oyb-Qq-b31">
+                    <rect key="frame" x="16" y="10" width="59" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Operator:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T5h-E1-hVj">
+                    <rect key="frame" x="16" y="91" width="88" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKN-sl-f59">
+                    <rect key="frame" x="20" y="321" width="106" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I7m-8J-9Sa">
+                    <rect key="frame" x="16" y="283" width="435" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="226-DH-Ey1"/>
+                    </connections>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4vI-we-SwE">
+                    <rect key="frame" x="16" y="344" width="155" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="r9o-qx-TOp"/>
+                    </connections>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kk-sS-u2u">
+                    <rect key="frame" x="0.0" y="382" width="75" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="cancelNewProcessPressed:" destination="-1" eventType="touchUpInside" id="cmz-EH-2GS"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="78v-MC-5Rh">
+                    <rect key="frame" x="16" y="69" width="435" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="0.74761284719999999" colorSpace="calibratedWhite"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7cr-Jx-Bac">
+                    <rect key="frame" x="20" y="39" width="435" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="Pick Station">
+                        <color key="titleColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="pickStationPressed:" destination="-1" eventType="touchUpInside" id="G0L-RA-lyh"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="downArrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="mre-lb-Nvc">
+                    <rect key="frame" x="427" y="44" width="28" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZQ-lj-l7W">
+                    <rect key="frame" x="397" y="382" width="70" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                    <state key="normal" title="Save">
+                        <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="saveEditCommonPressed:" destination="-1" eventType="touchUpInside" id="C9J-xh-qQB"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="95l-qr-xUb">
+                    <rect key="frame" x="16" y="141" width="435" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="0.74761284719999999" colorSpace="calibratedWhite"/>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="downArrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="paI-tF-i2d">
+                    <rect key="frame" x="426" y="116" width="28" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hv8-UA-yXA">
+                    <rect key="frame" x="20" y="111" width="435" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="Pick Operator 1">
+                        <color key="titleColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="pickOperatorPressed:" destination="-1" eventType="touchUpInside" id="uPo-LR-MO1"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Process Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UpR-Qb-jQl">
+                    <rect key="frame" x="16" y="261" width="155" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ijt-EI-Q68">
+                    <rect key="frame" x="16" y="234" width="435" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="0.74761284719999999" colorSpace="calibratedWhite"/>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="downArrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="zTY-wO-UxK">
+                    <rect key="frame" x="426" y="209" width="28" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vF1-Kt-6pt">
+                    <rect key="frame" x="20" y="204" width="435" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="Pick Operator 3">
+                        <color key="titleColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="pickOperatorPressed:" destination="-1" eventType="touchUpInside" id="Tqt-v6-MZY"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KtC-OL-A7E">
+                    <rect key="frame" x="16" y="188" width="435" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="0.74761284719999999" colorSpace="calibratedWhite"/>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="downArrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="ruG-ys-0b6">
+                    <rect key="frame" x="426" y="163" width="28" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHh-wV-mye">
+                    <rect key="frame" x="20" y="158" width="435" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="Pick Operator 2">
+                        <color key="titleColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="pickOperatorPressed:" destination="-1" eventType="touchUpInside" id="FQ2-2e-poR"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W7f-gC-kv6">
+                    <rect key="frame" x="202" y="382" width="70" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                    <state key="normal" title="Delete">
+                        <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="deleteCommonProcess:" destination="-1" eventType="touchUpInside" id="KOp-pq-Dqm"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="375.5" y="1297"/>
+        </view>
     </objects>
     <resources>
         <image name="Icon_alpha.png" width="57" height="57"/>
+        <image name="downArrow.png" width="32" height="24"/>
     </resources>
 </document>

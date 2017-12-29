@@ -121,12 +121,12 @@
         }
     }
     cell.textLabel.text =[list objectAtIndex:indexPath.row];
-    cell.textLabel.textColor = [UIColor whiteColor];
-    cell.backgroundColor = [UIColor grayColor];
+    cell.textLabel.textColor = self.tintColor;
+   // cell.backgroundColor = [UIColor grayColor];
     UIView * v = [[UIView alloc] init];
-    v.backgroundColor = [UIColor grayColor];
+   // v.backgroundColor = [UIColor grayColor];
     cell.selectedBackgroundView = v;
-    tableView.separatorColor = [UIColor whiteColor];
+    //tableView.separatorColor = [UIColor whiteColor];
     
     return cell;
 }

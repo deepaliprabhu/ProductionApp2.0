@@ -13,6 +13,7 @@
 @interface CommonProcessesViewCell : UITableViewCell {
     IBOutlet UILabel *_titleLabel;
     IBOutlet UIButton *_addButton;
+    IBOutlet UIButton *_editButton;
 
     int index;
     BOOL added;
@@ -23,4 +24,5 @@ __pd(CommonProcessesViewCellDelegate);
 
 @protocol CommonProcessesViewCellDelegate <NSObject>
 - (void)addButtonPressedAtIndex:(int)index withValue:(BOOL)isAdded;
+- (void)editProcessAtIndex:(int)index;
 @end

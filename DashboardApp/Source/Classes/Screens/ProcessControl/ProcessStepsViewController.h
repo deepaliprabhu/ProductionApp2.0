@@ -11,8 +11,9 @@
 #import "ProductModel.h"
 #import "CommonProcessesViewCell.h"
 #import "ProductAdminPopover.h"
+#import "NIDropDown.h"
 
-@interface ProcessStepsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ProductAdminPopoverDelegate> {
+@interface ProcessStepsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ProductAdminPopoverDelegate, NIDropDownDelegate, UITextFieldDelegate> {
     IBOutlet UITableView *_productListTableView;
     IBOutlet UITableView *_processListTableView;
     IBOutlet UIView *_leftPaneView;
@@ -41,9 +42,18 @@
     IBOutlet UILabel *_operator3Label;
     IBOutlet UITableView *_wiTableView;
     
+    IBOutlet UIView *_addProcessView;
+    IBOutlet UIButton *_stationIdButton;
+    IBOutlet UIButton *_operator1Button;
+    IBOutlet UIButton *_operator2Button;
+    IBOutlet UIButton *_operator3Button;
+    IBOutlet UITextField *_processNameTF;
+    IBOutlet UITextField *_timeTF;
+    
     UIView *backgroundDimmingView;
     
     DZNSegmentedControl *control;
+    NIDropDown *dropDown;
     
     NSMutableArray *productGroupsArray;
     NSMutableArray *productsArray;;
@@ -56,6 +66,8 @@
     NSMutableArray *alteredProcessesArray;
     NSMutableArray *workInstructionsArray;
     NSMutableDictionary *selectedProcessData;
+    NSMutableArray *stationsArray;
+    NSMutableArray *operatorArray;
     
     BOOL screenIsForAdmin;
     
@@ -63,6 +75,10 @@
     
     NSString *processCntrlId;
     UIPopoverController *_adminPopover;
+    
+    int selectedStation;
+    int selectedIndex;
+    int selectedOperatorIndex;
 }
 
 @end

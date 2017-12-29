@@ -17,6 +17,10 @@
     // Initialization code
     UIImage *iconAdd = [UIImage imageWithIcon:@"fa-plus-circle" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:20];
     [_addButton setImage:iconAdd forState:UIControlStateNormal];
+    
+    UIImage *iconEdit = [UIImage imageWithIcon:@"fa-pencil" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:20];
+    [_editButton setImage:iconEdit forState:UIControlStateNormal];
+    [_editButton setTintColor:[UIColor colorWithRed:41.f/255.f green:169.f/255.f blue:244.f/255.f alpha:1.0]];
 
 }
 
@@ -56,6 +60,10 @@
         [_addButton setTintColor:[UIColor colorWithRed:74.0f/255.0f green:217.0f/255.0f blue:102.0f/255.0f alpha:1.0f]];
     }
     [_delegate addButtonPressedAtIndex:index withValue:added];
+}
+
+- (IBAction)editPressed:(id)sender {
+    [_delegate editProcessAtIndex:index];
 }
 
 @end
