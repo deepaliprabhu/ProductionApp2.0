@@ -8,17 +8,15 @@
 
 #import "FailReasonCell.h"
 
-@implementation FailReasonCell
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+@implementation FailReasonCell {
+    __weak IBOutlet UILabel *_pcbLabel;
+    __weak IBOutlet UILabel *_panelLabel;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void) layoutWithFail:(NSDictionary*)fail {
+ 
+    _pcbLabel.text = fail[@"pcbId"];
+    _panelLabel.text = fail[@"panelId"];
 }
 
 @end
