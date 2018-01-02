@@ -48,7 +48,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
     
     _runsArray = runList;
     [self initRunColors];
-    [self filterRunsForIndex:1];
+    [self pcbPressed:nil];
 }
 
 - (UITableView*)getTableView {
