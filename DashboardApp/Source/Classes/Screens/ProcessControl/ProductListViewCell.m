@@ -40,6 +40,7 @@
     
     if (isAdmin == true)
     {
+        _productNameLabel.frame = CGRectMake(_stateButton.frame.origin.x+_stateButton.frame.size.width, _productNameLabel.frame.origin.y, _productNameLabel.frame.size.width, _productNameLabel.frame.size.height);
         if ([p.productStatus isEqualToString:@"InActive"]) {
             isActive = false;
             [_stateButton setImage:ccimg(@"productDeactivatedIcon") forState:UIControlStateNormal];
@@ -50,6 +51,7 @@
         }
     } else
     {
+        _productNameLabel.frame = CGRectMake(_stateButton.frame.origin.x+10, _productNameLabel.frame.origin.y, _productNameLabel.frame.size.width, _productNameLabel.frame.size.height);
         _stateImageView.image = nil;
         [_stateButton setImage:nil forState:UIControlStateNormal];
         NSString *status = [p.status lowercaseString];

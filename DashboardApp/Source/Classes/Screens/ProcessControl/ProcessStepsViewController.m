@@ -83,7 +83,7 @@
     
     stationsArray = [NSMutableArray arrayWithObjects:@"S1-Store Activities",@"S2-Material Issue", @"S3-Contract Manufacturing",@"S4-Misc Activities",@"S5-Inspection & Testing", @"S6-Soldering", @"S7-Moulding", @"S8-Machanical Assembly", @"S9-Final Inspection", @"S10-Product Packaging", @"S11-Case Packaging",@"S12-Dispatch",nil];
     
-    operatorArray = [NSMutableArray arrayWithObjects:@"Govind", @"Archana",@"Ram",@"Pranali", @"Raman", @"Lalu", @"Arvind", @"Sadashiv", @"Sonali",nil];
+    operatorArray = [NSMutableArray arrayWithObjects:@"Govind", @"Archana",@"Arvind",@"Pranali", @"Raman", @"Lalu", @"Venkat", @"Sadashiv", @"Sonali",nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -277,8 +277,8 @@
 }
 
 - (void)deleteCommonProcessFromListAtIndex:(int)index {
-    [self.navigationController.view showActivityViewWithLabel:@"Deleting process"];
-    [self.navigationController.view hideActivityViewWithAfterDelay:60];
+    //[self.navigationController.view showActivityViewWithLabel:@"Deleting process"];
+    //[self.navigationController.view hideActivityViewWithAfterDelay:60];
     NSMutableDictionary *processData = commonProcessStepsArray[index];
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
@@ -494,6 +494,8 @@
 }
 
 - (IBAction)submitForApprovalPressed:(id)sender {
+    [self.navigationController.view showActivityViewWithLabel:@"Saving process changes"];
+    [self.navigationController.view hideActivityViewWithAfterDelay:60];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",selectedProduct.productID,@"ProductId",@"1.0", @"VersionId", @"Draft", @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];

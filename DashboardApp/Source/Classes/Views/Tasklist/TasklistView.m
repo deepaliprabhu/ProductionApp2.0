@@ -18,7 +18,7 @@ __CREATEVIEW(TasklistView, @"TasklistView", 0);
 - (void)initView {
     UIImage *iconAdd = [UIImage imageWithIcon:@"fa-plus-circle" backgroundColor:[UIColor clearColor] iconColor:[UIColor blackColor] fontSize:15];
     [_addButton setImage:iconAdd forState:UIControlStateNormal];
-    namesArray = [NSMutableArray arrayWithObjects:@"Matt", @"Ashok", @"Arvind", @"Ram", @"Elizabeth", @"Arthur", @"Vally",nil];
+    namesArray = [NSMutableArray arrayWithObjects:@"Matt", @"Ashok", @"Arvind", @"Elizabeth", @"Arthur", @"Vally",nil];
     [self getTasks];
     [_tableView reloadData];
 }
