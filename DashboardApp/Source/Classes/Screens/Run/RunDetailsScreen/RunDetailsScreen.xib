@@ -45,6 +45,7 @@
                 <outlet property="_personLabel" destination="Sjh-Qe-EJg" id="9uZ-46-gS3"/>
                 <outlet property="_priorityLabel" destination="TN5-F2-Wcj" id="ljF-xV-GbC"/>
                 <outlet property="_processDetailsLabel" destination="OPA-qA-bWj" id="kCk-Xg-9SS"/>
+                <outlet property="_processTitleButtonWidthConstraint" destination="Zce-DC-Eje" id="IuP-9I-gLi"/>
                 <outlet property="_processTitleLabel" destination="iPJ-Wx-Fdc" id="VvG-co-Ifr"/>
                 <outlet property="_productNameLabel" destination="3zg-jP-XQJ" id="TeZ-U7-ztE"/>
                 <outlet property="_qtyGoodLabel" destination="jAv-TF-y7A" id="wDX-Qq-Dd7"/>
@@ -144,9 +145,8 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Se-EE-W4m">
+                        <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Se-EE-W4m">
                             <rect key="frame" x="510" y="0.0" width="514" height="301"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Passive Tests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPJ-Wx-Fdc">
                                     <rect key="frame" x="32" y="27" width="461" height="24"/>
@@ -155,6 +155,23 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="f3J-sa-zMZ">
+                                    <rect key="frame" x="32" y="29" width="120" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="3MR-I0-aC5"/>
+                                        <constraint firstAttribute="width" constant="120" id="Zce-DC-Eje"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="10"/>
+                                    <state key="normal" title="___________________________________________________________________________________________________">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <state key="highlighted">
+                                        <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="titleButtonTapped" destination="-1" eventType="touchUpInside" id="2Ks-S2-Lch"/>
+                                    </connections>
+                                </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Details:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5HB-OV-XSd">
                                     <rect key="frame" x="32" y="67" width="52" height="19"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -319,6 +336,12 @@
                                 </activityIndicatorView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="514" id="INC-2E-qxe"/>
+                                <constraint firstItem="f3J-sa-zMZ" firstAttribute="leading" secondItem="8Se-EE-W4m" secondAttribute="leading" constant="32" id="Lq0-Aq-fNb"/>
+                                <constraint firstItem="f3J-sa-zMZ" firstAttribute="top" secondItem="8Se-EE-W4m" secondAttribute="top" constant="29" id="TCc-fA-ETA"/>
+                                <constraint firstAttribute="height" constant="301" id="erd-b2-bsX"/>
+                            </constraints>
                         </view>
                         <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MEX-gP-8Ln">
                             <rect key="frame" x="510" y="301" width="514" height="256"/>
@@ -461,6 +484,8 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="8Se-EE-W4m" secondAttribute="trailing" id="6zH-yI-p3v"/>
+                        <constraint firstItem="8Se-EE-W4m" firstAttribute="top" secondItem="M88-r0-b9R" secondAttribute="top" id="8Ii-Jg-439"/>
                         <constraint firstAttribute="height" constant="557" id="xSC-lK-BfY"/>
                     </constraints>
                 </view>

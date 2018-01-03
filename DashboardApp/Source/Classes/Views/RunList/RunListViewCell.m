@@ -8,17 +8,31 @@
 
 #import "RunListViewCell.h"
 
-@implementation RunListViewCell
+@implementation RunListViewCell {
+    
+    IBOutlet UILabel *_runNameLabel;
+    IBOutlet UILabel *_statusLabel;
+    IBOutlet UILabel *_weekLabel;
+    IBOutlet UILabel *_quantityLabel;
+    IBOutlet UILabel *_progressLabel;
+    IBOutlet UIImageView *_imageView;
+    
+    Run *_run;
+}
 
-- (void)setCellData:(Run*)run_ {
+- (void) setCellData:(Run*)run showType:(BOOL)show {
     
-    run = run_;
+    _run = run;
     
-    if ([run getCategory] == 0) {
-        _runNameLabel.text = [NSString stringWithFormat:@"[PCB] %d: %@",[run getRunId], [run getProductName]];
-    }
-    else {
-        _runNameLabel.text = [NSString stringWithFormat:@"[ASSM] %d: %@",[run getRunId], [run getProductName]];
+    if (show) {
+        if ([run getCategory] == 0) {
+            _runNameLabel.text = [NSString stringWithFormat:@"[PCB] %d: %@",[_run getRunId], [_run getProductName]];
+        }
+        else {
+            _runNameLabel.text = [NSString stringWithFormat:@"[ASSM] %d: %@",[_run getRunId], [_run getProductName]];
+        }
+    } else {
+        _runNameLabel.text = [NSString stringWithFormat:@"%d: %@",[_run getRunId], [_run getProductName]];
     }
 
     _quantityLabel.text = [NSString stringWithFormat:@"%d",[run getQuantity]];
@@ -27,12 +41,12 @@
     _imageView.image = [UIImage imageNamed: [run isLocked] ? @"lockRunIcon" : @"unlockRunIcon"];
 }
 
-- (Run*)getRun {
-    return run;
+- (Run*) getRun {
+    return _run;
 }
 
 - (IBAction) commentsButtonTapped {
-    [_delegate showCommentsForRun:run];
+    [_delegate showCommentsForRun:_run];
 }
 
 @end

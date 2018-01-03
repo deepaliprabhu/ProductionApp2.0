@@ -21,6 +21,7 @@
 #import "DailyLogCollectionCell.h"
 #import "DailyLogInputScreen.h"
 #import "FailedTestsScreen.h"
+#import "LayoutUtils.h"
 
 @interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol>
 
@@ -51,6 +52,7 @@
     __weak IBOutlet UITableView *_tableView;
     
     __weak IBOutlet UILabel *_processTitleLabel;
+    __weak IBOutlet NSLayoutConstraint *_processTitleButtonWidthConstraint;
     __weak IBOutlet UITextView *_processDetailsLabel;
     __weak IBOutlet UILabel *_personLabel;
     __weak IBOutlet UILabel *_timeLabel;
@@ -165,6 +167,10 @@
     [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
+- (IBAction) titleButtonTapped {
+    
+}
+
 #pragma mark - UICollectionViewDelegate
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -256,7 +262,7 @@
     UINib *cellNib = [UINib nibWithNibName:@"DailyLogCollectionCell" bundle:nil];
     [_dailyLogCollectionView registerNib:cellNib forCellWithReuseIdentifier:@"DailyLogCollectionCell"];
     
-    _titleLabel.text = cstrf(@"RUN %d", [_run getRunId]);
+    _titleLabel.text = cstrf(@"[%@] RUN %d", [_run getCategory]==0?@"PCB":@"ASSM", [_run getRunId]);
     
     _yearsHolderView.layer.borderColor = ccolor(190, 190, 190).CGColor;
     _yearsHolderView.layer.borderWidth = 1;
@@ -270,6 +276,9 @@
     _dailyLogHolderView.alpha = 1;
     
     _processTitleLabel.text = model.processName;
+    UIFont *f = [UIFont fontWithName:@"Roboto-Light" size:20];
+    _processTitleButtonWidthConstraint.constant = [LayoutUtils widthForText:model.processName withFont:f];
+    [self.view layoutIfNeeded];
     _processDetailsLabel.text = model.instructions;
     _timeLabel.text = model.processingTime;
     
