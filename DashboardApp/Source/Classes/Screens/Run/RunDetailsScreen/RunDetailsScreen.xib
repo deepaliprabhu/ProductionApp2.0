@@ -125,7 +125,6 @@
                             </state>
                             <connections>
                                 <action selector="commentsButtonTapped" destination="-1" eventType="touchUpInside" id="2Ei-2X-DeU"/>
-                                <action selector="shortsButtonTapped" destination="-1" eventType="touchUpInside" id="xB6-xg-Bgi"/>
                             </connections>
                         </button>
                     </subviews>
