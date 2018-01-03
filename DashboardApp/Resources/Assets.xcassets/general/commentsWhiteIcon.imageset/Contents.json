@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "lockRunIcon.png",
+      "filename" : "commentsWhiteIcon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "lockRunIcon@2x.png",
+      "filename" : "commentsWhiteIcon@2x.png",
       "scale" : "2x"
     },
     {

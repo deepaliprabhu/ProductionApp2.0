@@ -102,15 +102,30 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YAJ-JJ-7et">
-                            <rect key="frame" x="928" y="14" width="68" height="34"/>
+                            <rect key="frame" x="928" y="10" width="68" height="42"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="18"/>
-                            <state key="normal" title="Shorts"/>
+                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                            <state key="normal" title="Shorts" image="partIcon"/>
                             <state key="highlighted">
                                 <color key="titleColor" red="0.45098039220000002" green="0.45098039220000002" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="shortsButtonTapped" destination="-1" eventType="touchUpInside" id="Bn7-pO-F5o"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Boj-iI-V04">
+                            <rect key="frame" x="808" y="10" width="103" height="42"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                            <state key="normal" title="Comments" image="commentsWhiteIcon"/>
+                            <state key="highlighted">
+                                <color key="titleColor" red="0.45098039220000002" green="0.45098039220000002" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="commentsButtonTapped" destination="-1" eventType="touchUpInside" id="2Ei-2X-DeU"/>
+                                <action selector="shortsButtonTapped" destination="-1" eventType="touchUpInside" id="xB6-xg-Bgi"/>
                             </connections>
                         </button>
                     </subviews>
@@ -676,7 +691,9 @@
         </view>
     </objects>
     <resources>
-        <image name="backButtonIcon" width="36" height="10"/>
+        <image name="backButtonIcon" width="21" height="15"/>
+        <image name="commentsWhiteIcon" width="16" height="15"/>
         <image name="enterDataButton" width="123" height="33"/>
+        <image name="partIcon" width="19" height="18"/>
     </resources>
 </document>

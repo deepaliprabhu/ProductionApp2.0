@@ -22,6 +22,7 @@
 #import "DailyLogInputScreen.h"
 #import "FailedTestsScreen.h"
 #import "LayoutUtils.h"
+#import "RunCommentsScreen.h"
 
 @interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol>
 
@@ -169,6 +170,15 @@
 
 - (IBAction) titleButtonTapped {
     
+}
+
+- (IBAction) commentsButtonTapped {
+    
+    RunCommentsScreen *screen = [[RunCommentsScreen alloc] initWithNibName:@"RunCommentsScreen" bundle:nil];
+    screen.run = _run;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
+    nav.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:nav animated:true completion:nil];
 }
 
 #pragma mark - UICollectionViewDelegate
