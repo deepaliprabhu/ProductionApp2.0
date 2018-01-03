@@ -13,7 +13,7 @@
 #import "ProductAdminPopover.h"
 #import "NIDropDown.h"
 
-@interface ProcessStepsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ProductAdminPopoverDelegate, NIDropDownDelegate, UITextFieldDelegate> {
+@interface ProcessStepsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ProductAdminPopoverDelegate, NIDropDownDelegate, UITextFieldDelegate, UIAlertViewDelegate> {
     IBOutlet UITableView *_productListTableView;
     IBOutlet UITableView *_processListTableView;
     IBOutlet UIView *_leftPaneView;
@@ -22,10 +22,14 @@
     IBOutlet UIImageView *_submitImageView;
     IBOutlet UIButton *_submitButton;
     IBOutlet UIButton *_addStepButton;
+    IBOutlet UIButton *_puneApprovalButton;
+    IBOutlet UIButton *_masonApprovalButton;
+    IBOutlet UIButton *_lausanneApprovalButton;
     IBOutlet UILabel *_productNameLabel;
     IBOutlet UILabel *_productIdLabel;
     IBOutlet UILabel *_processNoLabel;
     IBOutlet UIImageView *_productImageView;
+    IBOutlet UIView *_productDetailView;
     
     IBOutlet UIView *_editProcessFlowView;
     IBOutlet UITableView *_commonProcessListTableView;
@@ -74,6 +78,7 @@
     ProductModel *selectedProduct;
     
     NSString *processCntrlId;
+    NSString *processStatus;
     UIPopoverController *_adminPopover;
     
     int selectedStation;

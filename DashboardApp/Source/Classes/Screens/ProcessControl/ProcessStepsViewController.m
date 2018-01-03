@@ -65,8 +65,20 @@
     [_createStepButton setImage:iconPlus forState:UIControlStateNormal];
     
     _submitButton.layer.cornerRadius = 8.0f;
-    _submitButton.layer.borderWidth = 1.5f;
+    _submitButton.layer.borderWidth = 1.8f;
     _submitButton.layer.borderColor = [UIColor grayColor].CGColor;
+    
+    _puneApprovalButton.layer.cornerRadius = 3.0f;
+    _puneApprovalButton.layer.borderWidth = 0.8f;
+    _puneApprovalButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    
+    _masonApprovalButton.layer.cornerRadius = 3.0f;
+    _masonApprovalButton.layer.borderWidth = 0.8f;
+    _masonApprovalButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    
+    _lausanneApprovalButton.layer.cornerRadius = 3.0f;
+    _lausanneApprovalButton.layer.borderWidth = 0.8f;
+    _lausanneApprovalButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
     
     _saveButton.layer.cornerRadius = 8.0f;
     _saveButton.layer.borderWidth = 1.5f;
@@ -74,7 +86,7 @@
     [_saveButton setImage:iconRight forState:UIControlStateNormal];
     
     _closeButton.layer.cornerRadius = 8.0f;
-    _closeButton.layer.borderWidth = 1.5f;
+    _closeButton.layer.borderWidth = 1.8f;
     _closeButton.layer.borderColor = [UIColor grayColor].CGColor;
     
     backgroundDimmingView = [self buildBackgroundDimmingView];
@@ -83,7 +95,7 @@
     
     stationsArray = [NSMutableArray arrayWithObjects:@"S1-Store Activities",@"S2-Material Issue", @"S3-Contract Manufacturing",@"S4-Misc Activities",@"S5-Inspection & Testing", @"S6-Soldering", @"S7-Moulding", @"S8-Machanical Assembly", @"S9-Final Inspection", @"S10-Product Packaging", @"S11-Case Packaging",@"S12-Dispatch",nil];
     
-    operatorArray = [NSMutableArray arrayWithObjects:@"Govind", @"Archana",@"Ram",@"Pranali", @"Raman", @"Lalu", @"Arvind", @"Sadashiv", @"Sonali",nil];
+    operatorArray = [NSMutableArray arrayWithObjects:@"Govind", @"Archana",@"Arvind",@"Pranali", @"Raman", @"Lalu", @"Venkatesh", @"Sadashiv", @"Sonali",nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -123,7 +135,7 @@
     [self resetSegmentTitles];
     [_productListTableView reloadData];
     selectedProduct = filteredProductsArray[0];
-    [self loadProductProcessFlow:filteredProductsArray[0]];
+   // [self loadProductProcessFlow:filteredProductsArray[0]];
 }
 
 - (void) initProcesses {
@@ -202,6 +214,7 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     selectedIndex = indexPath.row;
     if ([tableView isEqual:_productListTableView]) {
+        _productDetailView.hidden = false;
         selectedProduct = filteredProductsArray[indexPath.row];
         [self loadProductProcessFlow:filteredProductsArray[indexPath.row]];
     }
@@ -252,6 +265,8 @@
         processStepsArray = [product getProcessSteps];
         [_processListTableView reloadData];
         [self setUpCommonProcessTable];
+        [self setupForStatus:product.status];
+        NSLog(@"product status = %@",product.productStatus);
     }
     else {
         [self getProcessFlowForProduct:product];
@@ -259,6 +274,13 @@
 }
 
 - (void)getProcessFlowForProduct:(ProductModel*)product {
+    _puneApprovalButton.backgroundColor = [UIColor grayColor];
+    _masonApprovalButton.backgroundColor = [UIColor grayColor];
+    _lausanneApprovalButton.backgroundColor = [UIColor grayColor];
+    [_puneApprovalButton setUserInteractionEnabled:false];
+    [_masonApprovalButton setUserInteractionEnabled:false];
+    [_lausanneApprovalButton setUserInteractionEnabled:false];
+    
     [self.navigationController.view showActivityViewWithLabel:@"Fetching process flow"];
     [self.navigationController.view hideActivityViewWithAfterDelay:60];
     processStepsArray = [[NSMutableArray alloc] init];
@@ -277,8 +299,8 @@
 }
 
 - (void)deleteCommonProcessFromListAtIndex:(int)index {
-    [self.navigationController.view showActivityViewWithLabel:@"Deleting process"];
-    [self.navigationController.view hideActivityViewWithAfterDelay:60];
+    //[self.navigationController.view showActivityViewWithLabel:@"Deleting process"];
+    //[self.navigationController.view hideActivityViewWithAfterDelay:60];
     NSMutableDictionary *processData = commonProcessStepsArray[index];
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
@@ -328,6 +350,8 @@
             NSLog(@"json processes array=%@",jsonProcessesArray);
             processStepsArray=[jsonProcessesArray mutableCopy];
             processCntrlId = jsonDict[@"process_ctrl_id"];
+            processStatus = jsonDict[@"status"];
+            [self setupForStatus:jsonDict[@"status"]];
             NSLog(@"processes Array=%@",processStepsArray);
             [selectedProduct setProcessSteps:processStepsArray];
             [_processListTableView reloadData];
@@ -338,6 +362,98 @@
     }
     [_processListTableView reloadData];
     [self setUpCommonProcessTable];
+}
+
+- (void)setupForStatus:(NSString*)status {
+    _processNoLabel.text = [NSString stringWithFormat:@"%@ (DRAFT)", processCntrlId];
+
+    if ([status isEqualToString:@"OPEN"]||[status isEqualToString:@"Draft"]||[status isEqualToString:@"Open"]) {
+        _processNoLabel.text = [NSString stringWithFormat:@"%@ (DRAFT)", processCntrlId];
+        _puneApprovalButton.backgroundColor = [UIColor redColor];
+        _masonApprovalButton.backgroundColor = [UIColor grayColor];
+        _lausanneApprovalButton.backgroundColor = [UIColor grayColor];
+        [_puneApprovalButton setUserInteractionEnabled:true];
+        [_masonApprovalButton setUserInteractionEnabled:false];
+        [_lausanneApprovalButton setUserInteractionEnabled:false];
+    }
+    else if([status isEqualToString:@"Pune Approved"]) {
+        _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+        _masonApprovalButton.backgroundColor = [UIColor redColor];
+        _lausanneApprovalButton.backgroundColor = [UIColor grayColor];
+        [_puneApprovalButton setUserInteractionEnabled:false];
+        [_masonApprovalButton setUserInteractionEnabled:true];
+        [_lausanneApprovalButton setUserInteractionEnabled:false];
+    }
+    else if([status isEqualToString:@"Mason Approved"]) {
+        _puneApprovalButton.backgroundColor =  [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+        _masonApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+        _lausanneApprovalButton.backgroundColor = [UIColor redColor];
+        [_puneApprovalButton setUserInteractionEnabled:false];
+        [_masonApprovalButton setUserInteractionEnabled:false];
+        [_lausanneApprovalButton setUserInteractionEnabled:true];
+    }
+    else if([status isEqualToString:@"Lausanne Approved"]) {
+        _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+        _masonApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+        _lausanneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+        [_puneApprovalButton setUserInteractionEnabled:false];
+        [_masonApprovalButton setUserInteractionEnabled:false];
+        [_lausanneApprovalButton setUserInteractionEnabled:false];
+    }
+}
+
+- (IBAction)puneApprovalPressed:(id)sender {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Are you sure you want to approve the process for Pune" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"Cancel", nil];
+    alertView.tag = 1;
+    [alertView show];
+}
+
+- (IBAction)masonApprovalPressed:(id)sender {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Are you sure you want to approve the process for Mason" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"Cancel", nil];
+    alertView.tag = 2;
+    [alertView show];
+}
+
+- (IBAction)lausanneApprovalPressed:(id)sender {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Are you sure you want to approve the process for Lausanne" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"Cancel", nil];
+    alertView.tag = 3;
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        switch (alertView.tag) {
+            case 1: {
+                _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+                _masonApprovalButton.backgroundColor = [UIColor redColor];
+                [_puneApprovalButton setUserInteractionEnabled:false];
+                [_masonApprovalButton setUserInteractionEnabled:true];
+                processStatus = @"Pune Approved";
+            }
+                break;
+            case 2: {
+                _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+                _masonApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+                _lausanneApprovalButton.backgroundColor = [UIColor redColor];
+                [_lausanneApprovalButton setUserInteractionEnabled:true];
+                [_masonApprovalButton setUserInteractionEnabled:false];
+                processStatus = @"Mason Approved";
+            }
+                break;
+            case 3: {
+                _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+                _masonApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+                _lausanneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+                [_lausanneApprovalButton setUserInteractionEnabled:false];
+                [_masonApprovalButton setUserInteractionEnabled:false];
+                processStatus = @"Lausanne Approved";
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
 }
 
 - (void) parseJsonResponse:(NSData*)jsonData {
@@ -494,9 +610,11 @@
 }
 
 - (IBAction)submitForApprovalPressed:(id)sender {
+    [self.navigationController.view showActivityViewWithLabel:@"Saving process changes"];
+    [self.navigationController.view hideActivityViewWithAfterDelay:3];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",selectedProduct.productID,@"ProductId",@"1.0", @"VersionId", @"Draft", @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
+    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",selectedProduct.productID,@"ProductId",@"1.0", @"VersionId", processStatus, @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
     [__DataManager syncProcesses:processStepsArray withProcessData:processData];
     
     //delete removed processes
