@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    operatorArray = [NSMutableArray arrayWithObjects:@"Arvind", @"Govind", @"Archana",@"Pranali", @"Raman", @"Lalu", @"Sadashiv", @"Sonali", @"Abhijith", @"Venkat",nil];
+    operatorArray = [NSMutableArray arrayWithObjects:@"Arvind", @"Govind", @"Archana",@"Pranali", @"Raman", @"Lalu", @"Sadashiv", @"Sonali", @"Abhijith", @"Venkatesh",nil];
 }
 
 - (void)setCellData:(NSMutableDictionary*)cellData rowIndex:(int)rowIndex colIndex:(int)colIndex{
