@@ -297,11 +297,11 @@
     [self.view layoutIfNeeded];
     _timeLabel.text = model.processingTime;
     
+    if (_days.count > 0)
+        [self layoutQuantitiesForProcess:model.stepId];
+
     DayLogModel *d = [self dayForProcess:model.stepId];
     if (d != nil) {
-        _qtyGoodLabel.text = [NSString stringWithFormat:@"%d", d.good];
-        _qtyReworkLabel.text = [NSString stringWithFormat:@"%d", d.rework];
-        _qtyRejectedLabel.text = [NSString stringWithFormat:@"%d", d.reject];
         _dateAssignedLabel.text = d.dateAssigned;
         _dateCompletedLabel.text = d.dateCompleted;
         _personLabel.text = d.person;
@@ -553,6 +553,24 @@
     }
     
     return nil;
+}
+
+- (void) layoutQuantitiesForProcess:(NSString*)process {
+    
+    int total = 0;
+    int rework = 0;
+    int good = 0;
+    for (DayLogModel *d in _days) {
+        if ([d.processId isEqualToString:process]) {
+            total += d.target;
+            rework += d.rework;
+            good += d.good;
+        }
+    }
+    
+    _qtyGoodLabel.text = [NSString stringWithFormat:@"%d", good];
+    _qtyReworkLabel.text = [NSString stringWithFormat:@"%d", rework];
+    _qtyRejectedLabel.text = [NSString stringWithFormat:@"%d", total - good - rework];
 }
 
 - (void) layoutDailyLogForProcess:(ProcessModel*)p {
