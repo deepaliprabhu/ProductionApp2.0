@@ -23,6 +23,7 @@
 #import "FailedTestsScreen.h"
 #import "LayoutUtils.h"
 #import "RunCommentsScreen.h"
+#import "ProcessDetailsScreen.h"
 
 @interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol>
 
@@ -53,8 +54,8 @@
     __weak IBOutlet UITableView *_tableView;
     
     __weak IBOutlet UILabel *_processTitleLabel;
+    __weak IBOutlet UIButton *_processTitleButton;
     __weak IBOutlet NSLayoutConstraint *_processTitleButtonWidthConstraint;
-    __weak IBOutlet UITextView *_processDetailsLabel;
     __weak IBOutlet UILabel *_personLabel;
     __weak IBOutlet UILabel *_timeLabel;
     __weak IBOutlet UILabel *_dateAssignedLabel;
@@ -170,6 +171,11 @@
 
 - (IBAction) titleButtonTapped {
     
+    ProcessDetailsScreen *screen = [[ProcessDetailsScreen alloc] initWithNibName:@"ProcessDetailsScreen" bundle:nil];
+    screen.details = _selectedProcess.instructions;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    CGRect rect = CGRectMake(540, 240, 10, 40);
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:true];
 }
 
 - (IBAction) commentsButtonTapped {
@@ -289,7 +295,6 @@
     UIFont *f = [UIFont fontWithName:@"Roboto-Light" size:20];
     _processTitleButtonWidthConstraint.constant = [LayoutUtils widthForText:model.processName withFont:f];
     [self.view layoutIfNeeded];
-    _processDetailsLabel.text = model.instructions;
     _timeLabel.text = model.processingTime;
     
     DayLogModel *d = [self dayForProcess:model.stepId];
@@ -301,8 +306,6 @@
         _dateCompletedLabel.text = d.dateCompleted;
         _personLabel.text = d.person;
     }
-    
-    [_processDetailsLabel scrollRectToVisible:CGRectZero animated:false];
     
     if ([model.processName isEqualToString:@"Passive Test"]) {
         
