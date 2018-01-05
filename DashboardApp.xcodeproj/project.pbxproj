@@ -122,6 +122,8 @@
 		89AF44801FEEEC59004D119C /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AF447E1FEEEC58004D119C /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		89B5CF211FFF8BC600A53581 /* DayLogScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B5CF1F1FFF8BC600A53581 /* DayLogScreen.m */; };
 		89B5CF221FFF8BC600A53581 /* DayLogScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89B5CF201FFF8BC600A53581 /* DayLogScreen.xib */; };
+		89B5CF261FFFBA4F00A53581 /* PassedTestsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B5CF241FFFBA4F00A53581 /* PassedTestsScreen.m */; };
+		89B5CF271FFFBA4F00A53581 /* PassedTestsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89B5CF251FFFBA4F00A53581 /* PassedTestsScreen.xib */; };
 		9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F022F671F618DED000E138B /* RunProcessStepsView.m */; };
 		9F022F6A1F618E03000E138B /* RunProcessStepsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F022F691F618E03000E138B /* RunProcessStepsView.xib */; };
 		9F03A91A1F4563C900A7A316 /* DemandListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F03A9191F4563C900A7A316 /* DemandListView.m */; };
@@ -482,6 +484,9 @@
 		89B5CF1E1FFF8BC600A53581 /* DayLogScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DayLogScreen.h; sourceTree = "<group>"; };
 		89B5CF1F1FFF8BC600A53581 /* DayLogScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DayLogScreen.m; sourceTree = "<group>"; };
 		89B5CF201FFF8BC600A53581 /* DayLogScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DayLogScreen.xib; sourceTree = "<group>"; };
+		89B5CF231FFFBA4F00A53581 /* PassedTestsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PassedTestsScreen.h; sourceTree = "<group>"; };
+		89B5CF241FFFBA4F00A53581 /* PassedTestsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PassedTestsScreen.m; sourceTree = "<group>"; };
+		89B5CF251FFFBA4F00A53581 /* PassedTestsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PassedTestsScreen.xib; sourceTree = "<group>"; };
 		9F022F661F618DED000E138B /* RunProcessStepsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunProcessStepsView.h; sourceTree = "<group>"; };
 		9F022F671F618DED000E138B /* RunProcessStepsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunProcessStepsView.m; sourceTree = "<group>"; };
 		9F022F691F618E03000E138B /* RunProcessStepsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunProcessStepsView.xib; sourceTree = "<group>"; };
@@ -1082,6 +1087,9 @@
 				897BA32A1FF65FF900C8DA9A /* FailedTestsScreen.h */,
 				897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */,
 				897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */,
+				89B5CF231FFFBA4F00A53581 /* PassedTestsScreen.h */,
+				89B5CF241FFFBA4F00A53581 /* PassedTestsScreen.m */,
+				89B5CF251FFFBA4F00A53581 /* PassedTestsScreen.xib */,
 				8961A3D31FFE39970058E353 /* ProcessDetailsScreen.h */,
 				8961A3D41FFE39970058E353 /* ProcessDetailsScreen.m */,
 				8961A3D51FFE39970058E353 /* ProcessDetailsScreen.xib */,
@@ -1889,6 +1897,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FF0A61C1F7E447C006486AA /* ProductProcessStepsView.xib in Resources */,
+				89B5CF271FFFBA4F00A53581 /* PassedTestsScreen.xib in Resources */,
 				89B5CF221FFF8BC600A53581 /* DayLogScreen.xib in Resources */,
 				9F056B2F1F433F32002F3B61 /* TopBarView.xib in Resources */,
 				9F7FE5761F7B9CAA005CB4DF /* ProductCollectionViewCell.xib in Resources */,
@@ -2006,6 +2015,7 @@
 				9F471CF41F53DD3700B294B7 /* SSGradientView.m in Sources */,
 				D22767861FAE4B5400215D87 /* AFNetworkReachabilityManager.m in Sources */,
 				9F3FF6CD1F4BDF7500F52F64 /* FAImageView.m in Sources */,
+				89B5CF261FFFBA4F00A53581 /* PassedTestsScreen.m in Sources */,
 				8919BE8E1FB4DD5100EE6839 /* SDWebImageManager.m in Sources */,
 				898574451FE9482200EAB20C /* DayLogModel.m in Sources */,
 				9F8567921F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.m in Sources */,

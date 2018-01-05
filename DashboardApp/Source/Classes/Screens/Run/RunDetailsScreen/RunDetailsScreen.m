@@ -26,6 +26,7 @@
 #import "ProcessDetailsScreen.h"
 #import "DayLogScreen.h"
 #import "PODateScreen.h"
+#import "PassedTestsScreen.h"
 
 @interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol, PODateScreenDelegate>
 
@@ -152,7 +153,7 @@
     DailyLogRawScreen *screen = [[DailyLogRawScreen alloc] initWithNibName:@"DailyLogRawScreen" bundle:nil];
     screen.days = _days;
     UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
-    CGRect rect = [_testsView convertRect:_passedTestsLabel.frame toView:self.view];
+    CGRect rect = [_dailyLogHolderView convertRect:_rawDataButton.bounds toView:self.view];
     [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:true];
 }
 
@@ -163,6 +164,12 @@
         if ([dict[@"passed"] isEqualToString:@"true"])
             [arr addObject:dict];
     }
+    
+    PassedTestsScreen *screen = [[PassedTestsScreen alloc] initWithNibName:@"PassedTestsScreen" bundle:nil];
+    screen.passedTests = arr;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    CGRect rect = [_testsView convertRect:_passedTestsLabel.frame toView:self.view];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
 - (IBAction) failedTestsButtonTapped {
