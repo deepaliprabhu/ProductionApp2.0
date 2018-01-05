@@ -96,8 +96,6 @@
 		8961A3D71FFE39970058E353 /* ProcessDetailsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8961A3D51FFE39970058E353 /* ProcessDetailsScreen.xib */; };
 		897BA32D1FF65FF900C8DA9A /* FailedTestsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */; };
 		897BA32E1FF65FF900C8DA9A /* FailedTestsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */; };
-		897BA3321FF662B600C8DA9A /* FailHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA3301FF662B600C8DA9A /* FailHeaderCell.m */; };
-		897BA3331FF662B600C8DA9A /* FailHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA3311FF662B600C8DA9A /* FailHeaderCell.xib */; };
 		897BA3371FF662C300C8DA9A /* FailReasonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA3351FF662C300C8DA9A /* FailReasonCell.m */; };
 		897BA3381FF662C300C8DA9A /* FailReasonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA3361FF662C300C8DA9A /* FailReasonCell.xib */; };
 		89854AE71FB97B3A00C6E38D /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADB1FB97B3A00C6E38D /* GMGridView.m */; };
@@ -438,9 +436,6 @@
 		897BA32A1FF65FF900C8DA9A /* FailedTestsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FailedTestsScreen.h; sourceTree = "<group>"; };
 		897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FailedTestsScreen.m; sourceTree = "<group>"; };
 		897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailedTestsScreen.xib; sourceTree = "<group>"; };
-		897BA32F1FF662B600C8DA9A /* FailHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FailHeaderCell.h; sourceTree = "<group>"; };
-		897BA3301FF662B600C8DA9A /* FailHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FailHeaderCell.m; sourceTree = "<group>"; };
-		897BA3311FF662B600C8DA9A /* FailHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailHeaderCell.xib; sourceTree = "<group>"; };
 		897BA3341FF662C300C8DA9A /* FailReasonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FailReasonCell.h; sourceTree = "<group>"; };
 		897BA3351FF662C300C8DA9A /* FailReasonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FailReasonCell.m; sourceTree = "<group>"; };
 		897BA3361FF662C300C8DA9A /* FailReasonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailReasonCell.xib; sourceTree = "<group>"; };
@@ -1581,9 +1576,6 @@
 				8985744C1FE9535500EAB20C /* DailyLogCollectionCell.h */,
 				8985744D1FE9535500EAB20C /* DailyLogCollectionCell.m */,
 				8985744E1FE9535500EAB20C /* DailyLogCollectionCell.xib */,
-				897BA32F1FF662B600C8DA9A /* FailHeaderCell.h */,
-				897BA3301FF662B600C8DA9A /* FailHeaderCell.m */,
-				897BA3311FF662B600C8DA9A /* FailHeaderCell.xib */,
 				897BA3341FF662C300C8DA9A /* FailReasonCell.h */,
 				897BA3351FF662C300C8DA9A /* FailReasonCell.m */,
 				897BA3361FF662C300C8DA9A /* FailReasonCell.xib */,
@@ -1994,7 +1986,6 @@
 				9F909AAF1F4EBB6200DBFA63 /* GanttView.xib in Resources */,
 				894F9BDF1FBCA90C00DC2C6B /* HistoryPriceCell.xib in Resources */,
 				8952873D1FCF39EE005C46EE /* AuditActionCell.xib in Resources */,
-				897BA3331FF662B600C8DA9A /* FailHeaderCell.xib in Resources */,
 				9FB1BEAF1F514343008D179E /* CollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2021,7 +2012,6 @@
 				9FA5EE6B1FE97EDB000AAFA3 /* ProductListViewCell.m in Sources */,
 				89854AEA1FB97B3A00C6E38D /* UIView+GMGridViewAdditions.m in Sources */,
 				D22767991FAE4B8000215D87 /* Reachability.m in Sources */,
-				897BA3321FF662B600C8DA9A /* FailHeaderCell.m in Sources */,
 				9FD12D8E1F443CEF00F0E0A8 /* ConnectionManager.m in Sources */,
 				89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */,
 				9F8567901F73DDB10067ABE1 /* OperatorEntryView.m in Sources */,

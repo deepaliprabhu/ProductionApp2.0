@@ -12,53 +12,84 @@
         <array key="Roboto-Light.ttf">
             <string>Roboto-Light</string>
         </array>
-        <array key="Roboto-Regular.ttf">
-            <string>Roboto-Regular</string>
-        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FailReasonCell" id="KGk-i7-Jjw" customClass="FailReasonCell">
-            <rect key="frame" x="0.0" y="0.0" width="400" height="34"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="34"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="400" height="33.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="600" height="33.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Panel Id:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nlt-fQ-mEz">
-                        <rect key="frame" x="16" y="7" width="66" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nlt-fQ-mEz">
+                        <rect key="frame" x="10" y="7" width="66" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="A7Q-Eo-kkD"/>
+                            <constraint firstAttribute="width" constant="66" id="ptQ-0P-xOj"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zda-WO-nnI">
-                        <rect key="frame" x="90" y="7" width="66" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pcb Id:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmH-aQ-U9G">
-                        <rect key="frame" x="196" y="7" width="53" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmH-aQ-U9G">
+                        <rect key="frame" x="86" y="7" width="53" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="53" id="5Rt-8e-t9o"/>
+                            <constraint firstAttribute="height" constant="21" id="dUX-1s-oNy"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7LF-zZ-QEj">
-                        <rect key="frame" x="257" y="7" width="66" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gRX-U6-igf">
+                        <rect key="frame" x="145" y="7" width="253" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="253" id="ubs-e1-bPy"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYi-JC-5J7">
+                        <rect key="frame" x="411" y="7" width="182" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="182" id="1UF-8r-h0z"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dHo-jB-k5w">
+                        <rect key="frame" x="10" y="33" width="590" height="1"/>
+                        <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="IUd-2v-u5v"/>
+                        </constraints>
+                    </view>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="WYi-JC-5J7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="6Fd-lX-IkW"/>
+                    <constraint firstAttribute="bottom" secondItem="gRX-U6-igf" secondAttribute="bottom" constant="5.5" id="6mn-nJ-8Ob"/>
+                    <constraint firstItem="gRX-U6-igf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="7IQ-ZB-NPA"/>
+                    <constraint firstItem="Nlt-fQ-mEz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="8aF-zb-QpW"/>
+                    <constraint firstItem="dHo-jB-k5w" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Dh8-FH-gf9"/>
+                    <constraint firstItem="WYi-JC-5J7" firstAttribute="leading" secondItem="gRX-U6-igf" secondAttribute="trailing" constant="13" id="NZH-DZ-4SA"/>
+                    <constraint firstItem="hmH-aQ-U9G" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="OLN-vB-GTg"/>
+                    <constraint firstItem="gRX-U6-igf" firstAttribute="leading" secondItem="hmH-aQ-U9G" secondAttribute="trailing" constant="6" id="TkE-nf-Xc8"/>
+                    <constraint firstAttribute="bottom" secondItem="dHo-jB-k5w" secondAttribute="bottom" id="TpP-uH-mld"/>
+                    <constraint firstAttribute="bottom" secondItem="WYi-JC-5J7" secondAttribute="bottom" constant="5.5" id="Ye6-QU-pd7"/>
+                    <constraint firstItem="hmH-aQ-U9G" firstAttribute="leading" secondItem="Nlt-fQ-mEz" secondAttribute="trailing" constant="10" id="ZQ1-yz-eHE"/>
+                    <constraint firstAttribute="trailing" secondItem="dHo-jB-k5w" secondAttribute="trailing" id="j0o-Tz-Q0B"/>
+                    <constraint firstItem="Nlt-fQ-mEz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="tHm-k3-YW8"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="_panelLabel" destination="zda-WO-nnI" id="iyo-EE-uWa"/>
-                <outlet property="_pcbLabel" destination="7LF-zZ-QEj" id="oIu-qD-bi8"/>
+                <outlet property="_commentsLabel" destination="WYi-JC-5J7" id="hE3-2L-r4c"/>
+                <outlet property="_panelLabel" destination="Nlt-fQ-mEz" id="AgZ-26-t8j"/>
+                <outlet property="_pcbLabel" destination="hmH-aQ-U9G" id="S84-hT-9ht"/>
+                <outlet property="_verdictLabel" destination="gRX-U6-igf" id="BBZ-LB-6e2"/>
             </connections>
         </tableViewCell>
     </objects>

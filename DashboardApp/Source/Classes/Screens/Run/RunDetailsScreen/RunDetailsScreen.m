@@ -152,7 +152,7 @@
     DailyLogRawScreen *screen = [[DailyLogRawScreen alloc] initWithNibName:@"DailyLogRawScreen" bundle:nil];
     screen.days = _days;
     UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
-    CGRect rect = [_dailyLogHolderView convertRect:_rawDataButton.bounds toView:self.view];
+    CGRect rect = [_testsView convertRect:_passedTestsLabel.frame toView:self.view];
     [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:true];
 }
 
@@ -176,7 +176,7 @@
     FailedTestsScreen *screen = [[FailedTestsScreen alloc] initWithNibName:@"FailedTestsScreen" bundle:nil];
     screen.failedCases = arr;
     UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
-    CGRect rect = [_detailsHolderView convertRect:_testsView.bounds toView:self.view];
+    CGRect rect = [_testsView convertRect:_failedTestsLabel.frame toView:self.view];
     [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
