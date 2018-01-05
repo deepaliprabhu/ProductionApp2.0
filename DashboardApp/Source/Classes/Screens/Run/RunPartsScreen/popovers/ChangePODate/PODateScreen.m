@@ -38,6 +38,9 @@
 
 - (void) calendar:(CKCalendarView *)calendar didSelectDate:(NSDate *)date {
     
+    if (_purchase == nil)
+        return;
+    
     NSDateFormatter *f = [NSDateFormatter new];
     f.dateFormat = @"dd MMM yyyy";
     

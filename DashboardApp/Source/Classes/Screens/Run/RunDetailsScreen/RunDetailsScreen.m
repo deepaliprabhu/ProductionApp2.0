@@ -25,8 +25,9 @@
 #import "RunCommentsScreen.h"
 #import "ProcessDetailsScreen.h"
 #import "DayLogScreen.h"
+#import "PODateScreen.h"
 
-@interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol>
+@interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol, PODateScreenDelegate>
 
 @end
 
@@ -65,6 +66,7 @@
     __weak IBOutlet UILabel *_qtyRejectedLabel;
     __weak IBOutlet UILabel *_qtyGoodLabel;
     __weak IBOutlet UIView *_detailsHolderView;
+    __weak IBOutlet NSLayoutConstraint *_detailsHolderViewHeightConstraint;
 
     __weak IBOutlet UIView *_dailyLogHolderView;
     __weak IBOutlet UICollectionView *_dailyLogCollectionView;
@@ -82,7 +84,6 @@
     __weak IBOutlet UIActivityIndicatorView *_testsSpinner;
     __weak IBOutlet UILabel *_passedTestsLabel;
     __weak IBOutlet UILabel *_failedTestsLabel;
-    __weak IBOutlet UIButton *_failedTestsButton;
     
     NSMutableArray *_processes;
     NSMutableArray *_days;
@@ -155,6 +156,15 @@
     [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:true];
 }
 
+- (IBAction) passedTestsButtonTapped {
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    for (NSDictionary *dict in _passiveTests) {
+        if ([dict[@"passed"] isEqualToString:@"true"])
+            [arr addObject:dict];
+    }
+}
+
 - (IBAction) failedTestsButtonTapped {
     
     NSMutableArray *arr = [NSMutableArray array];
@@ -186,6 +196,26 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
     nav.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:nav animated:true completion:nil];
+}
+
+- (IBAction) dateAssignedButtonTapped {
+    
+    PODateScreen *screen = [[PODateScreen alloc] initWithNibName:@"PODateScreen" bundle:nil];
+    //    screen.purchase = _visiblePart.purchases[index];
+        screen.delegate = self;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    CGRect rect = [_detailsHolderView convertRect:_dateAssignedLabel.frame toView:self.view];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
+}
+
+- (IBAction) dateCompletedButtonTapped {
+    
+    PODateScreen *screen = [[PODateScreen alloc] initWithNibName:@"PODateScreen" bundle:nil];
+//    screen.purchase = _visiblePart.purchases[index];
+    screen.delegate = self;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    CGRect rect = [_detailsHolderView convertRect:_dateCompletedLabel.frame toView:self.view];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -285,6 +315,12 @@
     }
 }
 
+#pragma mark - PODateProtocol
+
+- (void) expectedDateChangedForPO:(NSString *)po {
+    
+}
+
 #pragma mark - Layout
 
 - (void) initLayout {
@@ -338,6 +374,10 @@
         }
     } else {
         _testsView.alpha = 0;
+        [UIView animateWithDuration:0.3 animations:^{
+            _detailsHolderViewHeightConstraint.constant = 210;
+            [self.view layoutIfNeeded];
+        }];
     }
 }
 
@@ -352,6 +392,10 @@
 - (void) layoutTests:(NSArray*)tests {
     
     _testsView.alpha = 1;
+    [UIView animateWithDuration:0.3 animations:^{
+        _detailsHolderViewHeightConstraint.constant = 243;
+        [self.view layoutIfNeeded];
+    }];
     
     int pass = 0;
     int fail = 0;
@@ -365,7 +409,6 @@
     
     _passedTestsLabel.text = [NSString stringWithFormat:@"%d", pass];
     _failedTestsLabel.text = [NSString stringWithFormat:@"%d", fail];
-    _failedTestsButton.alpha = fail > 0;
 }
 
 #pragma mark - Utils
