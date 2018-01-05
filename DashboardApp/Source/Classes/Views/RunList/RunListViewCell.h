@@ -11,20 +11,13 @@
 
 @protocol RunListViewCellProtocol;
 
-@interface RunListViewCell : UITableViewCell {
-    IBOutlet UILabel *_runNameLabel;
-    IBOutlet UILabel *_statusLabel;
-    IBOutlet UILabel *_weekLabel;
-    IBOutlet UILabel *_quantityLabel;
-    IBOutlet UILabel *_progressLabel;
-    IBOutlet UIImageView *_imageView;
-    Run *run;
-}
+@interface RunListViewCell : UITableViewCell
 
 @property (nonatomic, unsafe_unretained) id <RunListViewCellProtocol> delegate;
 
-- (void)setCellData:(Run*)run_;
-- (Run*)getRun;
+- (void) setCellData:(Run*)run showType:(BOOL)show;
+- (Run*) getRun;
+
 @end
 
 

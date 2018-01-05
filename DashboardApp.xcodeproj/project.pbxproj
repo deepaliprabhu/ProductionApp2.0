@@ -92,6 +92,8 @@
 		895F5F811FCEF75800ED3349 /* StockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895F5F7F1FCEF75800ED3349 /* StockCell.xib */; };
 		89619E191FBDB4E8005A5BE7 /* PriorityRunCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89619E171FBDB4E8005A5BE7 /* PriorityRunCell.m */; };
 		89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */; };
+		8961A3D61FFE39970058E353 /* ProcessDetailsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8961A3D41FFE39970058E353 /* ProcessDetailsScreen.m */; };
+		8961A3D71FFE39970058E353 /* ProcessDetailsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8961A3D51FFE39970058E353 /* ProcessDetailsScreen.xib */; };
 		897BA32D1FF65FF900C8DA9A /* FailedTestsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */; };
 		897BA32E1FF65FF900C8DA9A /* FailedTestsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */; };
 		897BA3321FF662B600C8DA9A /* FailHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA3301FF662B600C8DA9A /* FailHeaderCell.m */; };
@@ -428,6 +430,9 @@
 		89619E161FBDB4E8005A5BE7 /* PriorityRunCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriorityRunCell.h; sourceTree = "<group>"; };
 		89619E171FBDB4E8005A5BE7 /* PriorityRunCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriorityRunCell.m; sourceTree = "<group>"; };
 		89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriorityRunCell.xib; sourceTree = "<group>"; };
+		8961A3D31FFE39970058E353 /* ProcessDetailsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessDetailsScreen.h; sourceTree = "<group>"; };
+		8961A3D41FFE39970058E353 /* ProcessDetailsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessDetailsScreen.m; sourceTree = "<group>"; };
+		8961A3D51FFE39970058E353 /* ProcessDetailsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProcessDetailsScreen.xib; sourceTree = "<group>"; };
 		897BA32A1FF65FF900C8DA9A /* FailedTestsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FailedTestsScreen.h; sourceTree = "<group>"; };
 		897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FailedTestsScreen.m; sourceTree = "<group>"; };
 		897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailedTestsScreen.xib; sourceTree = "<group>"; };
@@ -1077,6 +1082,9 @@
 				897BA32A1FF65FF900C8DA9A /* FailedTestsScreen.h */,
 				897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */,
 				897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */,
+				8961A3D31FFE39970058E353 /* ProcessDetailsScreen.h */,
+				8961A3D41FFE39970058E353 /* ProcessDetailsScreen.m */,
+				8961A3D51FFE39970058E353 /* ProcessDetailsScreen.xib */,
 			);
 			path = popovers;
 			sourceTree = "<group>";
@@ -1890,6 +1898,7 @@
 				9F471D091F541F7700B294B7 /* ToDoView.xib in Resources */,
 				9FD12DA11F4473B900F0E0A8 /* RunViewController.xib in Resources */,
 				9FE99C291FBD4E65006B58DE /* FeedbackListViewCell.xib in Resources */,
+				8961A3D71FFE39970058E353 /* ProcessDetailsScreen.xib in Resources */,
 				89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */,
 				9FE99C271FBD4E65006B58DE /* FeedbackListView.xib in Resources */,
 				9F71C43E1FC1582900550F86 /* downArrow.png in Resources */,
@@ -2084,6 +2093,7 @@
 				9F977EF21F62FFD8009C2B6D /* CommoProcessesViewCell.m in Sources */,
 				9FA264661F48A32C004C882E /* TasklistViewCell.m in Sources */,
 				895DEA2A1FF3C722001ADAFE /* UIScrollView+DZNSegmentedControl.m in Sources */,
+				8961A3D61FFE39970058E353 /* ProcessDetailsScreen.m in Sources */,
 				9FEEE5831EEFEFA2005B5ECA /* AppDelegate.m in Sources */,
 				9F7767401F56D6E90092F603 /* LeftCollectionViewCell.m in Sources */,
 				89897E301FBF0BAC000B39EA /* PartAuditModel.m in Sources */,

@@ -142,7 +142,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
         cell = [[NSBundle mainBundle] loadNibNamed:simpleTableIdentifier owner:nil options:nil][0];
         cell.delegate = self;
     }
-    [cell setCellData:_filteredRunsArray[indexPath.row]];
+    [cell setCellData:_filteredRunsArray[indexPath.row] showType:_selectedType>1];
     return cell;
 }
 
@@ -203,7 +203,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
                     [_filteredRunsArray addObject:run];
                 }
             }
-            [_pcbButton setTitle:[NSString stringWithFormat:@"PCB Line (%lu)",(unsigned long)_filteredRunsArray.count] forState:UIControlStateNormal];
+            [_pcbButton setTitle:[NSString stringWithFormat:@"PCB (%lu)",(unsigned long)_filteredRunsArray.count] forState:UIControlStateNormal];
         }
             break;
         case 1: {
@@ -213,7 +213,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
                     [_filteredRunsArray addObject:run];
                 }
             }
-            [_assmButton setTitle:[NSString stringWithFormat:@"ASSM Line (%lu)",(unsigned long)_filteredRunsArray.count] forState:UIControlStateNormal];
+            [_assmButton setTitle:[NSString stringWithFormat:@"ASSM (%lu)",(unsigned long)_filteredRunsArray.count] forState:UIControlStateNormal];
         }
             break;
         case 2: {

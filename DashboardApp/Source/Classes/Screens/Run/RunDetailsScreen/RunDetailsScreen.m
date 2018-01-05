@@ -21,6 +21,9 @@
 #import "DailyLogCollectionCell.h"
 #import "DailyLogInputScreen.h"
 #import "FailedTestsScreen.h"
+#import "LayoutUtils.h"
+#import "RunCommentsScreen.h"
+#import "ProcessDetailsScreen.h"
 
 @interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol>
 
@@ -51,7 +54,8 @@
     __weak IBOutlet UITableView *_tableView;
     
     __weak IBOutlet UILabel *_processTitleLabel;
-    __weak IBOutlet UITextView *_processDetailsLabel;
+    __weak IBOutlet UIButton *_processTitleButton;
+    __weak IBOutlet NSLayoutConstraint *_processTitleButtonWidthConstraint;
     __weak IBOutlet UILabel *_personLabel;
     __weak IBOutlet UILabel *_timeLabel;
     __weak IBOutlet UILabel *_dateAssignedLabel;
@@ -165,6 +169,24 @@
     [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
+- (IBAction) titleButtonTapped {
+    
+    ProcessDetailsScreen *screen = [[ProcessDetailsScreen alloc] initWithNibName:@"ProcessDetailsScreen" bundle:nil];
+    screen.details = _selectedProcess.instructions;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    CGRect rect = CGRectMake(540, 240, 10, 40);
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:true];
+}
+
+- (IBAction) commentsButtonTapped {
+    
+    RunCommentsScreen *screen = [[RunCommentsScreen alloc] initWithNibName:@"RunCommentsScreen" bundle:nil];
+    screen.run = _run;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
+    nav.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:nav animated:true completion:nil];
+}
+
 #pragma mark - UICollectionViewDelegate
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -256,7 +278,7 @@
     UINib *cellNib = [UINib nibWithNibName:@"DailyLogCollectionCell" bundle:nil];
     [_dailyLogCollectionView registerNib:cellNib forCellWithReuseIdentifier:@"DailyLogCollectionCell"];
     
-    _titleLabel.text = cstrf(@"RUN %d", [_run getRunId]);
+    _titleLabel.text = cstrf(@"[%@] RUN %d", [_run getCategory]==0?@"PCB":@"ASSM", [_run getRunId]);
     
     _yearsHolderView.layer.borderColor = ccolor(190, 190, 190).CGColor;
     _yearsHolderView.layer.borderWidth = 1;
@@ -270,20 +292,20 @@
     _dailyLogHolderView.alpha = 1;
     
     _processTitleLabel.text = model.processName;
-    _processDetailsLabel.text = model.instructions;
+    UIFont *f = [UIFont fontWithName:@"Roboto-Light" size:20];
+    _processTitleButtonWidthConstraint.constant = [LayoutUtils widthForText:model.processName withFont:f];
+    [self.view layoutIfNeeded];
     _timeLabel.text = model.processingTime;
     
+    if (_days.count > 0)
+        [self layoutQuantitiesForProcess:model.stepId];
+
     DayLogModel *d = [self dayForProcess:model.stepId];
     if (d != nil) {
-        _qtyGoodLabel.text = [NSString stringWithFormat:@"%d", d.good];
-        _qtyReworkLabel.text = [NSString stringWithFormat:@"%d", d.rework];
-        _qtyRejectedLabel.text = [NSString stringWithFormat:@"%d", d.reject];
         _dateAssignedLabel.text = d.dateAssigned;
         _dateCompletedLabel.text = d.dateCompleted;
         _personLabel.text = d.person;
     }
-    
-    [_processDetailsLabel scrollRectToVisible:CGRectZero animated:false];
     
     if ([model.processName isEqualToString:@"Passive Test"]) {
         
@@ -531,6 +553,24 @@
     }
     
     return nil;
+}
+
+- (void) layoutQuantitiesForProcess:(NSString*)process {
+    
+    int total = 0;
+    int rework = 0;
+    int good = 0;
+    for (DayLogModel *d in _days) {
+        if ([d.processId isEqualToString:process]) {
+            total += d.target;
+            rework += d.rework;
+            good += d.good;
+        }
+    }
+    
+    _qtyGoodLabel.text = [NSString stringWithFormat:@"%d", good];
+    _qtyReworkLabel.text = [NSString stringWithFormat:@"%d", rework];
+    _qtyRejectedLabel.text = [NSString stringWithFormat:@"%d", total - good - rework];
 }
 
 - (void) layoutDailyLogForProcess:(ProcessModel*)p {
