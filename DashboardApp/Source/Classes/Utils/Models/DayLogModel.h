@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSString *dateAssigned;
 @property (nonatomic, strong) NSString *dateCompleted;
 @property (nonatomic, strong) NSString *person;
+@property (nonatomic, strong) NSString *comments;
 
 + (DayLogModel*) objFromData:(NSDictionary*)data;
 - (int) totalWork;

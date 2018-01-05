@@ -30,6 +30,7 @@ static NSDateFormatter *_formatter = nil;
     model.dateAssigned = data[@"dateAssigned"];
     model.dateCompleted = data[@"dateCompleted"];
     model.person = data[@"operator"];
+    model.comments = data[@"comments"];
 
     if ([data[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == false) {
         model.date = [_formatter dateFromString:data[@"datetime"]];

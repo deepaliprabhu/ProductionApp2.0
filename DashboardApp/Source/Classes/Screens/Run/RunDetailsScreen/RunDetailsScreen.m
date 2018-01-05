@@ -24,6 +24,7 @@
 #import "LayoutUtils.h"
 #import "RunCommentsScreen.h"
 #import "ProcessDetailsScreen.h"
+#import "DayLogScreen.h"
 
 @interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol>
 
@@ -202,6 +203,20 @@
     DailyLogCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"DailyLogCollectionCell" forIndexPath:indexPath];
     [cell layoutWithDayLog:_filteredDays[indexPath.row] maxVal:_maxDayLogValue];
     return cell;
+}
+
+- (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    DayLogModel *model = _filteredDays[indexPath.row];
+    DayLogScreen *screen = [[DayLogScreen alloc] initWithNibName:@"DayLogScreen" bundle:nil];
+    screen.log = model;
+    
+    UICollectionViewLayoutAttributes * theAttributes = [collectionView layoutAttributesForItemAtIndexPath:indexPath];
+    CGRect rect = [collectionView convertRect:theAttributes.frame toView:collectionView.superview.superview.superview];
+    rect.size.height = 190;
+    
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
 #pragma mark - UITableViewDelegate
@@ -576,15 +591,10 @@
 - (void) layoutDailyLogForProcess:(ProcessModel*)p {
     
     _filteredDays = [NSMutableArray array];
-    _maxDayLogValue = 0;
+    _maxDayLogValue = (int)_run.quantity;
     for (DayLogModel *d in _days) {
-        
         if (d.date != nil && d.processId == p.stepId)
             [_filteredDays addObject: d];
-        
-        if ([d totalWork] > _maxDayLogValue) {
-            _maxDayLogValue = [d totalWork];
-        }
     }
     
     [_dailyLogCollectionView reloadData];
@@ -594,7 +604,7 @@
         [_dailyLogCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_filteredDays.count-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionRight animated:false];
     }
     
-    _graphTopLabel.text = [NSString stringWithFormat:@"%.0f", ceilf(_maxDayLogValue*1.2f)];
+    _graphTopLabel.text = [NSString stringWithFormat:@"%d", _maxDayLogValue];
     [self layoutWithProcess:_selectedProcess];
 }
 

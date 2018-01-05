@@ -9,6 +9,7 @@
 #import "DailyLogInputScreen.h"
 #import "LoadingView.h"
 #import "ProdAPI.h"
+#import "UserManager.h"
 
 @interface DailyLogInputScreen () <UITextFieldDelegate>
 
@@ -46,7 +47,7 @@
     NSMutableDictionary *log = [NSMutableDictionary dictionary];
     log[@"stepid"] = _process.stepId;
     log[@"processno"] = _process.processNo;
-    log[@"operator"] = _process.person;
+    log[@"operator"] = [[[UserManager sharedInstance] loggedUser] name];
     log[@"comments"] = @"";
     log[@"status"] = @"tmp";
     log[@"qtyTarget"] = [NSString stringWithFormat:@"%d", target];
