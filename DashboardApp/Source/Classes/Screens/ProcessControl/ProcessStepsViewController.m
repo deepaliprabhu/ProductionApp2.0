@@ -423,6 +423,12 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
         switch (alertView.tag) {
+            case 0: {
+                [self deleteCommonProcessFromListAtIndex:selectedIndex];
+                [_addProcessView removeFromSuperview];
+                backgroundDimmingView.hidden = true;
+            }
+                break;
             case 1: {
                 _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
                 _masonApprovalButton.backgroundColor = [UIColor redColor];
@@ -453,6 +459,9 @@
             default:
                 break;
         }
+    }
+    else {
+        
     }
 }
 
@@ -811,9 +820,9 @@
 }
 
 - (IBAction)deleteCommonProcess:(id)sender {
-    [self deleteCommonProcessFromListAtIndex:selectedIndex];
-    [_addProcessView removeFromSuperview];
-    backgroundDimmingView.hidden = true;
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Are you sure you want to delete this process?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"Cancel", nil];
+    alertView.tag = 0;
+    [alertView show];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
