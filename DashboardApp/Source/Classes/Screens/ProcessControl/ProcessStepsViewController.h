@@ -58,6 +58,7 @@
     UIView *backgroundDimmingView;
     
     DZNSegmentedControl *control;
+    DZNSegmentedControl *waitingControl;
     NIDropDown *dropDown;
     
     NSMutableArray *productGroupsArray;
@@ -73,6 +74,7 @@
     NSMutableDictionary *selectedProcessData;
     NSMutableArray *stationsArray;
     NSMutableArray *operatorArray;
+    NSMutableArray *waitingArray;
     
     BOOL screenIsForAdmin;
     
