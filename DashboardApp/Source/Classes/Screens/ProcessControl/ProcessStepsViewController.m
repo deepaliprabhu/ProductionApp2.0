@@ -32,6 +32,7 @@
     processStepsArray = [[NSMutableArray alloc] init];
     filteredProductsArray = [[NSMutableArray alloc] init];
     indexArray = [[NSMutableArray alloc] init];
+    filteredIndexArray = [[NSMutableArray alloc] init];
     alteredProcessesArray = [[NSMutableArray alloc] init];
     deletedProcessArray = [[NSMutableArray alloc] init];
     
@@ -169,6 +170,7 @@
 
 - (void) initProcesses {
     commonProcessStepsArray = [__DataManager getCommonProcesses];
+    filteredCommonProcessStepsArray = commonProcessStepsArray;
     [_commonProcessListTableView reloadData];
 }
 
@@ -184,7 +186,7 @@
         return [processStepsArray count];
     }
     else if ([tableView isEqual:_commonProcessListTableView]) {
-        return [commonProcessStepsArray count];
+        return [filteredCommonProcessStepsArray count];
     }
     return [workInstructionsArray count];
 }
@@ -217,7 +219,7 @@
             cell = [[NSBundle mainBundle] loadNibNamed:simpleTableIdentifier owner:nil options:nil][0];
         }
         cell.delegate = self;
-        [cell setCellData:[commonProcessStepsArray objectAtIndex:indexPath.row] index:indexPath.row isAdded:[indexArray[indexPath.row] boolValue]];
+        [cell setCellData:[filteredCommonProcessStepsArray objectAtIndex:indexPath.row] index:indexPath.row isAdded:[filteredIndexArray[indexPath.row] boolValue]];
         return cell;
     }
     else {
@@ -630,6 +632,7 @@
         }
     }
     alteredIndexArray = indexArray;
+    filteredIndexArray = indexArray;
     [_commonProcessListTableView reloadData];
 }
 
@@ -653,6 +656,7 @@
 - (IBAction)saveEditPressed:(id)sender {
     [_editProcessFlowView removeFromSuperview];
     indexArray = alteredIndexArray;
+    filteredIndexArray = indexArray;
     processStepsArray = [__DataManager reorderProcesses:alteredProcessesArray];
     [_processListTableView reloadData];
 }
@@ -927,6 +931,30 @@
     return true;
 }
 
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if ([searchText isEqualToString:@""]) {
+        filteredCommonProcessStepsArray = commonProcessStepsArray;
+        filteredIndexArray = indexArray;
+        [_commonProcessListTableView reloadData];
+    }
+    else
+        [self filteredSearchList:searchText];
+}
+
+- (void)filteredSearchList:(NSString*)searchText {
+    NSMutableArray *filteredArray = [[NSMutableArray alloc] init];
+    filteredIndexArray = [[NSMutableArray alloc] init];
+    for (int i=0; i < commonProcessStepsArray.count ;++i) {
+        NSMutableDictionary *processData = commonProcessStepsArray[i];
+        if ([[processData[@"processname"] uppercaseString] containsString:[searchText uppercaseString]]) {
+            [filteredArray addObject:processData];
+            [filteredIndexArray addObject:indexArray[i]];
+        }
+    }
+    filteredCommonProcessStepsArray = filteredArray;
+    [_commonProcessListTableView reloadData];
+}
 /*
 #pragma mark - Navigation
 
