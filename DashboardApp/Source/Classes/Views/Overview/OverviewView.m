@@ -8,6 +8,7 @@
 
 #import "OverviewView.h"
 #import "UIImage+FontAwesome.h"
+#import "ProductModel.h"
 
 @implementation OverviewView
 __CREATEVIEW(OverviewView, @"OverviewView", 0);
@@ -102,6 +103,16 @@ __CREATEVIEW(OverviewView, @"OverviewView", 0);
     _feedbacksCountLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)[feedbacksList count]];
 }
 
+- (void)setProductsList:(NSMutableArray*)productsList {
+    int count =0;
+    for (int i=0; i < productsList.count; ++i) {
+        ProductModel *product = productsList[i];
+        if ([product.status isEqualToString:@"OPEN"]||[product.status isEqualToString:@"Draft"]||[product.status isEqualToString:@"Open"]||[product.status isEqualToString:@"Pune Approved"]||[product.status isEqualToString:@"Mason Approved"]) {
+            count++;
+        }
+    }
+    _processCountLabel.text = [NSString stringWithFormat:@"%d",count];
+}
 
 - (IBAction)runsPressed:(id)sender {
     [_delegate runsSelected];

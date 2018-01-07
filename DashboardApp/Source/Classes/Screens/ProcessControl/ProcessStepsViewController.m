@@ -47,12 +47,18 @@
     [_leftPaneView addSubview:control];
     if ([__DataManager getProductsArray].count > 0) {
         [self initProductList];
+    }
+    else {
+        [__ServerManager getProductList];
+    }
+    
+    if ([__DataManager getCommonProcesses].count > 0) {
         [self initProcesses];
     }
     else {
         [__ServerManager getProcessList];
-        [__ServerManager getProductList];
     }
+    
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(initProductList) name:kNotificationProductsReceived object:nil];
     [center addObserver:self selector:@selector(initProcesses) name:kNotificationCommonProcessesReceived object:nil];
@@ -92,6 +98,10 @@
     backgroundDimmingView = [self buildBackgroundDimmingView];
     [self.view addSubview:backgroundDimmingView];
     backgroundDimmingView.hidden = true;
+    
+    [_puneApprovalButton setTitle:@"Submit Pune" forState:UIControlStateNormal];
+    [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
+    [_masonApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
     
     stationsArray = [NSMutableArray arrayWithObjects:@"S1-Store Activities",@"S2-Material Issue", @"S3-Contract Manufacturing",@"S4-Misc Activities",@"S5-Inspection & Testing", @"S6-Soldering", @"S7-Moulding", @"S8-Machanical Assembly", @"S9-Final Inspection", @"S10-Product Packaging", @"S11-Case Packaging",@"S12-Dispatch",nil];
     
@@ -135,7 +145,7 @@
     [self resetSegmentTitles];
     [_productListTableView reloadData];
     selectedProduct = filteredProductsArray[0];
-   // [self loadProductProcessFlow:filteredProductsArray[0]];
+    //[self loadProductProcessFlow:filteredProductsArray[0]];
 }
 
 - (void) initProcesses {
@@ -215,6 +225,12 @@
     selectedIndex = indexPath.row;
     if ([tableView isEqual:_productListTableView]) {
         _productDetailView.hidden = false;
+        [_puneApprovalButton setTitle:@"Submit Pune" forState:UIControlStateNormal];
+        [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
+        [_masonApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
+        _puneApprovalButton.backgroundColor = [UIColor grayColor];
+        _masonApprovalButton.backgroundColor = [UIColor grayColor];
+        _lausanneApprovalButton.backgroundColor = [UIColor grayColor];
         selectedProduct = filteredProductsArray[indexPath.row];
         [self loadProductProcessFlow:filteredProductsArray[indexPath.row]];
     }
@@ -322,7 +338,7 @@
     [self.navigationController.view hideActivityViewWithAfterDelay:60];
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
-    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=addProcess&processno=%@&processname=%@&desc=%@&wi=%@&stationid=%@&op1=%@&op2=%@&op3=%@&time=%@",processData[@"processno"], [self urlEncodeUsingEncoding:processData[@"processname"]],@"",@"", processData[@"stationid"], processData[@"op1"], processData[@"op2"], processData[@"op3"], processData[@"time"]] withTag:2];
+    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=addProcess&processno=%@&processname=%@&desc=%@&wi=%@&stationid=%@&op1=%@&op2=%@&op3=%@&time=%@",processData[@"processno"], [self urlEncodeUsingEncoding:processData[@"processname"]],@"",[self urlEncodeUsingEncoding:processData[@"workinstructions"]], processData[@"stationid"], processData[@"op1"], processData[@"op2"], processData[@"op3"], processData[@"time"]] withTag:2];
 }
 
 
@@ -369,6 +385,9 @@
 
     if ([status isEqualToString:@"OPEN"]||[status isEqualToString:@"Draft"]||[status isEqualToString:@"Open"]) {
         _processNoLabel.text = [NSString stringWithFormat:@"%@ (DRAFT)", processCntrlId];
+        [_puneApprovalButton setTitle:@"Submit Pune" forState:UIControlStateNormal];
+        [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
+        [_masonApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
         _puneApprovalButton.backgroundColor = [UIColor redColor];
         _masonApprovalButton.backgroundColor = [UIColor grayColor];
         _lausanneApprovalButton.backgroundColor = [UIColor grayColor];
@@ -377,6 +396,10 @@
         [_lausanneApprovalButton setUserInteractionEnabled:false];
     }
     else if([status isEqualToString:@"Pune Approved"]) {
+        [_puneApprovalButton setTitle:@"Pune Approved" forState:UIControlStateNormal];
+        [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
+        [_masonApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
+
         _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
         _masonApprovalButton.backgroundColor = [UIColor redColor];
         _lausanneApprovalButton.backgroundColor = [UIColor grayColor];
@@ -385,6 +408,10 @@
         [_lausanneApprovalButton setUserInteractionEnabled:false];
     }
     else if([status isEqualToString:@"Mason Approved"]) {
+        [_puneApprovalButton setTitle:@"Pune Approved" forState:UIControlStateNormal];
+        [_masonApprovalButton setTitle:@"Mason Approved" forState:UIControlStateNormal];
+        [_masonApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
+
         _puneApprovalButton.backgroundColor =  [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
         _masonApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
         _lausanneApprovalButton.backgroundColor = [UIColor redColor];
@@ -393,6 +420,11 @@
         [_lausanneApprovalButton setUserInteractionEnabled:true];
     }
     else if([status isEqualToString:@"Lausanne Approved"]) {
+        _processNoLabel.text = [NSString stringWithFormat:@"%@", processCntrlId];
+        _processNoTF.textColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+        [_puneApprovalButton setTitle:@"Pune Approved" forState:UIControlStateNormal];
+        [_masonApprovalButton setTitle:@"Mason Approved" forState:UIControlStateNormal];
+        [_lausanneApprovalButton setTitle:@"Lausanne Approved" forState:UIControlStateNormal];
         _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
         _masonApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
         _lausanneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
@@ -503,7 +535,6 @@
     for (int i=0; i < 4; ++i) {
         if (control.selectedSegmentIndex == i) {
             if (screenIsForAdmin) {
-                
                 int c = 0;
                 for (ProductModel *p in filteredProductsArray)
                 {
@@ -730,7 +761,10 @@
     
     if (_addProcessView.tag == 1) {
         NSMutableDictionary *lastProcess = commonProcessStepsArray[commonProcessStepsArray.count-1];
-        [processData setObject:[NSString stringWithFormat:@"%@%lu",@"P",commonProcessStepsArray.count+1] forKey:@"processno"];
+        int processNo = [[lastProcess[@"processno"] stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue]+1;
+        [processData setObject:_processNoTF.text forKey:@"processno"];
+        NSString *wiString = @"- Open the Run as per demand.\n- Check the CRM stock as per RUN quantity.\n- Order the parts shown short in the CRM from the vendor as per PCB BOM.\n- Put tentative Run start and finish date based on product task time.\n- Publish/forecast  information to concerned.\n- Follow up on daily basis to ensure or review Run forecast.\n";
+        [processData setObject:wiString forKey:@"workinstructions"];
         [self addProcessToList:processData];
     }
     else {

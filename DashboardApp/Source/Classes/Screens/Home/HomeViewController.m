@@ -41,6 +41,8 @@
     [center addObserver:self selector:@selector(initRuns) name:kNotificationRunsReceived object:nil];
     [center addObserver:self selector:@selector(initDemands) name:kNotificationDemandsReceived object:nil];
     [center addObserver:self selector:@selector(initFeedbacks) name:kNotificationFeedbacksReceived object:nil];
+    [center addObserver:self selector:@selector(initProducts) name:kNotificationProductsReceived object:nil];
+    
     self.navigationController.navigationBar.hidden = true;
 
     UIImage *iconDone = [UIImage imageWithIcon:@"fa-calendar-check-o" backgroundColor:[UIColor clearColor] iconColor:[UIColor blackColor] fontSize:25];
@@ -128,7 +130,7 @@
     [__ServerManager getRunsList];
     [__ServerManager getDemands];
     [__ServerManager getFeedbacks];
-    
+    [__ServerManager getProductList];
     _versionLabel.text = cstrf(@"Version %@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
     _userLabel.text = [[[UserManager sharedInstance] loggedUser] name];
     _roleLabel.text = [[[UserManager sharedInstance] loggedUser] role];
@@ -196,6 +198,10 @@
 - (void) initFeedbacks {
     [feedbackListView setFeedbacksList:[__DataManager getFeedbackList]];
     [overviewView setFeedbacksList:[__DataManager getFeedbackList]];
+}
+
+- (void) initProducts {
+    [overviewView setProductsList:[__DataManager getProductsArray]];
 }
 
 - (void) runSelectedAtIndex:(int)runId {

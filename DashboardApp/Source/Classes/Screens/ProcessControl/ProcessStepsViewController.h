@@ -51,6 +51,7 @@
     IBOutlet UIButton *_operator1Button;
     IBOutlet UIButton *_operator2Button;
     IBOutlet UIButton *_operator3Button;
+    IBOutlet UITextField *_processNoTF;
     IBOutlet UITextField *_processNameTF;
     IBOutlet UITextField *_timeTF;
     
