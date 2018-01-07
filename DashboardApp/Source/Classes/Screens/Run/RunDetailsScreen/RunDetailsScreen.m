@@ -346,6 +346,12 @@
 
 - (void) layoutWithProcess:(ProcessModel*)model {
     
+    if (model == nil) {
+        _detailsHolderView.alpha = 0;
+        _dailyLogHolderView.alpha = 0;
+        return;
+    }
+    
     _detailsHolderView.alpha = 1;
     _dailyLogHolderView.alpha = 1;
     

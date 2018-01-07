@@ -104,6 +104,8 @@ typedef enum
     __unsafe_unretained IBOutlet UIView *_runsHeaderView;
     __unsafe_unretained IBOutlet UIView *_prioritiesHeaderView;
     
+    __unsafe_unretained IBOutlet UILabel *_lockLabel;
+    
     NSMutableArray *_visibleObjs;
     NSMutableArray *_shorts;
     NSMutableArray *_alShorts;
@@ -306,6 +308,7 @@ typedef enum
 - (void) runWasLocked {
     
     _run.isLocked = true;
+    _lockLabel.alpha = _run.isLocked;
     
     _shortButton.alpha = 0;
     _alShortButton.alpha = 0;
@@ -647,6 +650,8 @@ typedef enum
     [self addShadowTo:_historyView];
     [self addShadowTo:_puneStockView];
     [self addShadowTo:_transitStockView];
+    
+    _lockLabel.alpha = _run.isLocked;
 }
 
 - (void) layoutBOM {
