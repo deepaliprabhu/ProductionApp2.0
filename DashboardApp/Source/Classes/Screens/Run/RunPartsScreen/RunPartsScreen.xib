@@ -30,6 +30,7 @@
                 <outlet property="_componentsTable" destination="SnP-Us-Sab" id="0MF-Gu-Aad"/>
                 <outlet property="_detailsHolderView" destination="FLx-ck-1RW" id="3Hx-AK-3dg"/>
                 <outlet property="_historyView" destination="7HG-Gd-57G" id="poq-gm-z4y"/>
+                <outlet property="_lockLabel" destination="CGJ-vL-8vE" id="MjM-LA-9gm"/>
                 <outlet property="_masonDateLabel" destination="giU-lu-ptg" id="u5w-P0-OAY"/>
                 <outlet property="_masonModeLabel" destination="dlx-lq-oy5" id="Qhc-Dy-O4C"/>
                 <outlet property="_masonStockLabel" destination="RAU-vY-jYG" id="2Tw-mJ-eaS"/>
@@ -945,6 +946,16 @@
                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Locked" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGJ-vL-8vE">
+                    <rect key="frame" x="115" y="99" width="89" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="89" id="FcE-n1-4un"/>
+                        <constraint firstAttribute="height" constant="30" id="sZH-Ac-LFX"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="25"/>
+                    <color key="textColor" red="0.46274509800000002" green="0.82352941180000006" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.94117647059999998" green="0.95686274510000002" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -958,6 +969,8 @@
                 <constraint firstAttribute="trailing" secondItem="FLx-ck-1RW" secondAttribute="trailing" id="HgA-kI-2Pj"/>
                 <constraint firstItem="WMi-Tj-HQM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="JrT-so-1KM"/>
                 <constraint firstAttribute="trailing" secondItem="Xtb-nx-Hfd" secondAttribute="trailing" id="KaU-4f-TZp"/>
+                <constraint firstItem="CGJ-vL-8vE" firstAttribute="top" secondItem="Xtb-nx-Hfd" secondAttribute="bottom" constant="18" id="LQV-9n-MWE"/>
+                <constraint firstItem="CGJ-vL-8vE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="115" id="VUO-KS-vH7"/>
                 <constraint firstItem="FLx-ck-1RW" firstAttribute="top" secondItem="Xtb-nx-Hfd" secondAttribute="bottom" constant="51" id="bu4-6C-szT"/>
                 <constraint firstItem="oWr-Wr-SBW" firstAttribute="centerX" secondItem="FLx-ck-1RW" secondAttribute="centerX" id="cB7-X3-eyD"/>
                 <constraint firstItem="Xtb-nx-Hfd" firstAttribute="top" secondItem="lnI-y5-NXe" secondAttribute="bottom" id="ehK-1k-1wv"/>
@@ -967,7 +980,7 @@
         </view>
     </objects>
     <resources>
-        <image name="backButtonIcon" width="36" height="10"/>
+        <image name="backButtonIcon" width="21" height="15"/>
         <image name="dropdownBomIcon" width="15" height="7"/>
         <image name="dropdownPriceIcon" width="15" height="7"/>
         <image name="searchPartsIcon" width="14" height="15"/>
