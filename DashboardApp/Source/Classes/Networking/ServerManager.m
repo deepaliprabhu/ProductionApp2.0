@@ -110,7 +110,7 @@ static ServerManager *_sharedInstance = nil;
 }
 
 - (void)addProcessFlowWithJsonString:(NSString*)jsonString {
-    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateProcessFlow&do=add%@",[self urlEncodeUsingEncoding:jsonString]];
+    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateProcessFlow&do=update%@",[self urlEncodeUsingEncoding:jsonString]];
     connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makeRequest:urlString];

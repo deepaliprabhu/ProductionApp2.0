@@ -348,6 +348,7 @@
                 <outlet property="_historyBgView" destination="FVY-Nj-I5X" id="dgI-og-ZYu"/>
                 <outlet property="_ongoingRunsBgView" destination="fen-Es-pCj" id="T8W-fS-3tJ"/>
                 <outlet property="_openRunsButton" destination="ZuA-wO-6dm" id="4Bx-gQ-6IV"/>
+                <outlet property="_processCountLabel" destination="aSx-xW-sj9" id="UAG-Cw-pyN"/>
                 <outlet property="_productionImageView" destination="Yrh-aG-g8t" id="GxC-8a-RPm"/>
                 <outlet property="_reportsImageView" destination="gLL-yW-7BW" id="i6K-zb-pLH"/>
                 <outlet property="_rmaBgView" destination="Ukc-ov-ZeS" id="1xL-il-H84"/>

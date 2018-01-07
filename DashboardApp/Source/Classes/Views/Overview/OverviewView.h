@@ -16,6 +16,7 @@
     IBOutlet UILabel *_runCountLabel;
     IBOutlet UILabel *_demandsCountLabel;
     IBOutlet UILabel *_feedbacksCountLabel;
+    IBOutlet UILabel *_processCountLabel;
     //IBOutlet UIButton *_partsButton;
     IBOutlet UIButton *_demandListButton;
     IBOutlet UIButton *_openRunsButton;
@@ -53,6 +54,7 @@ __CREATEVIEWH(OverviewView);
 - (void)setRunList:(NSMutableArray*)runList;
 - (void)setDemandList:(NSMutableArray*)demandList;
 - (void)setFeedbacksList:(NSMutableArray*)feedbacksList;
+- (void)setProductsList:(NSMutableArray*)productsList;
 
 @end
 
