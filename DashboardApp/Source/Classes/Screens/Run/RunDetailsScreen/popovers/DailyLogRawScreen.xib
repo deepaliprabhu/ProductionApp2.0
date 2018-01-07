@@ -25,15 +25,20 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RXt-6d-PDz">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RXt-6d-PDz">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="RXt-6d-PDz" secondAttribute="trailing" id="Bty-XO-hHu"/>
+                <constraint firstItem="RXt-6d-PDz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Zbj-ch-VO6"/>
+                <constraint firstAttribute="bottom" secondItem="RXt-6d-PDz" secondAttribute="bottom" id="tOM-pb-1FO"/>
+                <constraint firstItem="RXt-6d-PDz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="uoz-h1-END"/>
+            </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

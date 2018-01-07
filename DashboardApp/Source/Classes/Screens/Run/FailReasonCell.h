@@ -10,6 +10,8 @@
 
 @interface FailReasonCell : UITableViewCell
 
++ (CGFloat) heightForFail:(NSDictionary*)fail;
+
 - (void) layoutWithFail:(NSDictionary*)fail;
 
 @end

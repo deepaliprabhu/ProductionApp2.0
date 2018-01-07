@@ -24,8 +24,11 @@
 #import "LayoutUtils.h"
 #import "RunCommentsScreen.h"
 #import "ProcessDetailsScreen.h"
+#import "DayLogScreen.h"
+#import "PODateScreen.h"
+#import "PassedTestsScreen.h"
 
-@interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol>
+@interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol, PODateScreenDelegate>
 
 @end
 
@@ -64,6 +67,7 @@
     __weak IBOutlet UILabel *_qtyRejectedLabel;
     __weak IBOutlet UILabel *_qtyGoodLabel;
     __weak IBOutlet UIView *_detailsHolderView;
+    __weak IBOutlet NSLayoutConstraint *_detailsHolderViewHeightConstraint;
 
     __weak IBOutlet UIView *_dailyLogHolderView;
     __weak IBOutlet UICollectionView *_dailyLogCollectionView;
@@ -81,7 +85,6 @@
     __weak IBOutlet UIActivityIndicatorView *_testsSpinner;
     __weak IBOutlet UILabel *_passedTestsLabel;
     __weak IBOutlet UILabel *_failedTestsLabel;
-    __weak IBOutlet UIButton *_failedTestsButton;
     
     NSMutableArray *_processes;
     NSMutableArray *_days;
@@ -154,6 +157,21 @@
     [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:true];
 }
 
+- (IBAction) passedTestsButtonTapped {
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    for (NSDictionary *dict in _passiveTests) {
+        if ([dict[@"passed"] isEqualToString:@"true"])
+            [arr addObject:dict];
+    }
+    
+    PassedTestsScreen *screen = [[PassedTestsScreen alloc] initWithNibName:@"PassedTestsScreen" bundle:nil];
+    screen.passedTests = arr;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    CGRect rect = [_testsView convertRect:_passedTestsLabel.frame toView:self.view];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
+}
+
 - (IBAction) failedTestsButtonTapped {
     
     NSMutableArray *arr = [NSMutableArray array];
@@ -165,7 +183,7 @@
     FailedTestsScreen *screen = [[FailedTestsScreen alloc] initWithNibName:@"FailedTestsScreen" bundle:nil];
     screen.failedCases = arr;
     UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
-    CGRect rect = [_detailsHolderView convertRect:_testsView.bounds toView:self.view];
+    CGRect rect = [_testsView convertRect:_failedTestsLabel.frame toView:self.view];
     [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
@@ -187,6 +205,26 @@
     [self presentViewController:nav animated:true completion:nil];
 }
 
+- (IBAction) dateAssignedButtonTapped {
+    
+    PODateScreen *screen = [[PODateScreen alloc] initWithNibName:@"PODateScreen" bundle:nil];
+    //    screen.purchase = _visiblePart.purchases[index];
+        screen.delegate = self;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    CGRect rect = [_detailsHolderView convertRect:_dateAssignedLabel.frame toView:self.view];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
+}
+
+- (IBAction) dateCompletedButtonTapped {
+    
+    PODateScreen *screen = [[PODateScreen alloc] initWithNibName:@"PODateScreen" bundle:nil];
+//    screen.purchase = _visiblePart.purchases[index];
+    screen.delegate = self;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    CGRect rect = [_detailsHolderView convertRect:_dateCompletedLabel.frame toView:self.view];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
+}
+
 #pragma mark - UICollectionViewDelegate
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -202,6 +240,20 @@
     DailyLogCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"DailyLogCollectionCell" forIndexPath:indexPath];
     [cell layoutWithDayLog:_filteredDays[indexPath.row] maxVal:_maxDayLogValue];
     return cell;
+}
+
+- (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    DayLogModel *model = _filteredDays[indexPath.row];
+    DayLogScreen *screen = [[DayLogScreen alloc] initWithNibName:@"DayLogScreen" bundle:nil];
+    screen.log = model;
+    
+    UICollectionViewLayoutAttributes * theAttributes = [collectionView layoutAttributesForItemAtIndexPath:indexPath];
+    CGRect rect = [collectionView convertRect:theAttributes.frame toView:collectionView.superview.superview.superview];
+    rect.size.height = 190;
+    
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
 #pragma mark - UITableViewDelegate
@@ -270,6 +322,12 @@
     }
 }
 
+#pragma mark - PODateProtocol
+
+- (void) expectedDateChangedForPO:(NSString *)po {
+    
+}
+
 #pragma mark - Layout
 
 - (void) initLayout {
@@ -323,6 +381,10 @@
         }
     } else {
         _testsView.alpha = 0;
+        [UIView animateWithDuration:0.3 animations:^{
+            _detailsHolderViewHeightConstraint.constant = 210;
+            [self.view layoutIfNeeded];
+        }];
     }
 }
 
@@ -337,6 +399,10 @@
 - (void) layoutTests:(NSArray*)tests {
     
     _testsView.alpha = 1;
+    [UIView animateWithDuration:0.3 animations:^{
+        _detailsHolderViewHeightConstraint.constant = 243;
+        [self.view layoutIfNeeded];
+    }];
     
     int pass = 0;
     int fail = 0;
@@ -350,7 +416,6 @@
     
     _passedTestsLabel.text = [NSString stringWithFormat:@"%d", pass];
     _failedTestsLabel.text = [NSString stringWithFormat:@"%d", fail];
-    _failedTestsButton.alpha = fail > 0;
 }
 
 #pragma mark - Utils
@@ -576,15 +641,10 @@
 - (void) layoutDailyLogForProcess:(ProcessModel*)p {
     
     _filteredDays = [NSMutableArray array];
-    _maxDayLogValue = 0;
+    _maxDayLogValue = (int)_run.quantity;
     for (DayLogModel *d in _days) {
-        
         if (d.date != nil && d.processId == p.stepId)
             [_filteredDays addObject: d];
-        
-        if ([d totalWork] > _maxDayLogValue) {
-            _maxDayLogValue = [d totalWork];
-        }
     }
     
     [_dailyLogCollectionView reloadData];
@@ -594,7 +654,7 @@
         [_dailyLogCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_filteredDays.count-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionRight animated:false];
     }
     
-    _graphTopLabel.text = [NSString stringWithFormat:@"%.0f", ceilf(_maxDayLogValue*1.2f)];
+    _graphTopLabel.text = [NSString stringWithFormat:@"%d", _maxDayLogValue];
     [self layoutWithProcess:_selectedProcess];
 }
 
