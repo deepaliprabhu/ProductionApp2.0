@@ -13,7 +13,7 @@
 #import "ProductAdminPopover.h"
 #import "NIDropDown.h"
 
-@interface ProcessStepsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ProductAdminPopoverDelegate, NIDropDownDelegate, UITextFieldDelegate, UIAlertViewDelegate> {
+@interface ProcessStepsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ProductAdminPopoverDelegate, NIDropDownDelegate, UITextFieldDelegate, UIAlertViewDelegate, UISearchBarDelegate> {
     IBOutlet UITableView *_productListTableView;
     IBOutlet UITableView *_processListTableView;
     IBOutlet UIView *_leftPaneView;
@@ -58,6 +58,7 @@
     UIView *backgroundDimmingView;
     
     DZNSegmentedControl *control;
+    DZNSegmentedControl *waitingControl;
     NIDropDown *dropDown;
     
     NSMutableArray *productGroupsArray;
@@ -66,13 +67,16 @@
     NSMutableArray *processStepsArray;
     NSMutableArray *deletedProcessArray;
     NSMutableArray *commonProcessStepsArray;
+    NSMutableArray *filteredCommonProcessStepsArray;
     NSMutableArray *indexArray;
+    NSMutableArray *filteredIndexArray;
     NSMutableArray *alteredIndexArray;
     NSMutableArray *alteredProcessesArray;
     NSMutableArray *workInstructionsArray;
     NSMutableDictionary *selectedProcessData;
     NSMutableArray *stationsArray;
     NSMutableArray *operatorArray;
+    NSMutableArray *waitingArray;
     
     BOOL screenIsForAdmin;
     

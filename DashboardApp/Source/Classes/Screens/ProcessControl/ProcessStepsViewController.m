@@ -32,19 +32,31 @@
     processStepsArray = [[NSMutableArray alloc] init];
     filteredProductsArray = [[NSMutableArray alloc] init];
     indexArray = [[NSMutableArray alloc] init];
+    filteredIndexArray = [[NSMutableArray alloc] init];
     alteredProcessesArray = [[NSMutableArray alloc] init];
     deletedProcessArray = [[NSMutableArray alloc] init];
     
-    productGroupsArray = [NSMutableArray arrayWithObjects:@"Sentinel", @"Inspector", @"GrillVille", @"Misc.",nil];
+    productGroupsArray = [NSMutableArray arrayWithObjects:@"Waiting", @"Sentinel", @"Inspector", @"GrillVille", @"Misc.",nil];
+    
+    waitingArray = [NSMutableArray arrayWithObjects:@"Pune Approval", @"Mason Approval", @"Lausanne Approval",nil];
 
     control = [[DZNSegmentedControl alloc] initWithItems:productGroupsArray];
     control.tintColor = [UIColor colorWithRed:41.f/255.f green:169.f/255.f blue:244.f/255.f alpha:1.0];
-    // control.delegate = self;
+    control.tag = 1;
     control.selectedSegmentIndex = 0;
     control.frame = CGRectMake(0, 80, screenRect.size.width/2, 50);
-    
     [control addTarget:self action:@selector(selectedSegment:) forControlEvents:UIControlEventValueChanged];
     [_leftPaneView addSubview:control];
+    
+    waitingControl = [[DZNSegmentedControl alloc] initWithItems:waitingArray];
+    waitingControl.tintColor = [UIColor colorWithRed:41.f/255.f green:169.f/255.f blue:244.f/255.f alpha:1.0];
+    waitingControl.selectedSegmentIndex = 0;
+    waitingControl.tag = 2;
+    waitingControl.frame = CGRectMake(0, 130, screenRect.size.width/2, 50);
+    [waitingControl addTarget:self action:@selector(selectedSegment:) forControlEvents:UIControlEventValueChanged];
+    [_leftPaneView addSubview:waitingControl];
+    
+    
     if ([__DataManager getProductsArray].count > 0) {
         [self initProductList];
     }
@@ -133,7 +145,15 @@
     return bgView;
 }
 
-- (void)selectedSegment:(DZNSegmentedControl *)control {
+- (void)selectedSegment:(DZNSegmentedControl *)control_ {
+    if (control.selectedSegmentIndex == 0) {
+        waitingControl.hidden = false;
+        _productListTableView.frame = CGRectMake(_productListTableView.frame.origin.x, waitingControl.frame.origin.y+waitingControl.frame.size.height, _productListTableView.frame.size.width, _productListTableView.frame.size.height);
+    }
+    else {
+        waitingControl.hidden = true;
+        _productListTableView.frame = CGRectMake(_productListTableView.frame.origin.x, waitingControl.frame.origin.y, _productListTableView.frame.size.width, _productListTableView.frame.size.height);
+    }
     filteredProductsArray = [self filteredProductsArrayForIndex:control.selectedSegmentIndex];
     [self resetSegmentTitles];
     [_productListTableView reloadData];
@@ -150,6 +170,7 @@
 
 - (void) initProcesses {
     commonProcessStepsArray = [__DataManager getCommonProcesses];
+    filteredCommonProcessStepsArray = commonProcessStepsArray;
     [_commonProcessListTableView reloadData];
 }
 
@@ -165,7 +186,7 @@
         return [processStepsArray count];
     }
     else if ([tableView isEqual:_commonProcessListTableView]) {
-        return [commonProcessStepsArray count];
+        return [filteredCommonProcessStepsArray count];
     }
     return [workInstructionsArray count];
 }
@@ -198,7 +219,7 @@
             cell = [[NSBundle mainBundle] loadNibNamed:simpleTableIdentifier owner:nil options:nil][0];
         }
         cell.delegate = self;
-        [cell setCellData:[commonProcessStepsArray objectAtIndex:indexPath.row] index:indexPath.row isAdded:[indexArray[indexPath.row] boolValue]];
+        [cell setCellData:[filteredCommonProcessStepsArray objectAtIndex:indexPath.row] index:indexPath.row isAdded:[filteredIndexArray[indexPath.row] boolValue]];
         return cell;
     }
     else {
@@ -504,6 +525,17 @@
 - (NSMutableArray*) filteredProductsArrayForIndex:(int)index
 {
     NSMutableArray *filteredArray = [[NSMutableArray alloc] init];
+
+    if (index == 0) {
+        for (int i=0; i < productsArray.count; ++i) {
+            ProductModel *product = productsArray[i];
+            if ([product.status isEqualToString:@"OPEN"]||[product.status isEqualToString:@"Draft"]||[product.status isEqualToString:@"Open"]||[product.status isEqualToString:@"Pune Approved"]||[product.status isEqualToString:@"Mason Approved"]) {
+                [filteredArray addObject:product];
+            }
+        }
+        filteredArray = [self filteredWaitingArray:filteredArray];
+        return filteredArray;
+    }
     for (int i=0; i < productsArray.count; ++i) {
         
         ProductModel *p = productsArray[i];
@@ -512,27 +544,59 @@
         }
         if ([[p.name lowercaseString] containsString:@"sentinel"])
         {
-            if (index == 0)
+            if (index == 1)
                 [filteredArray addObject:p];
         }
         else if ([[p.name lowercaseString] containsString:@"receptor"] || [[p.name lowercaseString] containsString:@"inspector"])
         {
-            if (index == 1)
+            if (index == 2)
                 [filteredArray addObject:p];
         }
         else if ([[p.name lowercaseString] containsString:@"grillville"])
         {
-            if (index == 2)
+            if (index == 3)
                 [filteredArray addObject:p];
         }
-        else if (index == 3)
+        else if (index == 4)
             [filteredArray addObject:p];
     }
     return filteredArray;
 }
 
+- (NSMutableArray*)filteredWaitingArray:(NSMutableArray*)waitingProductsArray {
+    [control setTitle:[NSString stringWithFormat:@"%@ (%lu)",productGroupsArray[0],(unsigned long)waitingProductsArray.count] forSegmentAtIndex:0];
+    NSMutableArray *filteredWaitingArray = [[NSMutableArray alloc] init];
+    for (int i =0; i < waitingProductsArray.count; ++i) {
+        ProductModel *product = waitingProductsArray[i];
+        switch (waitingControl.selectedSegmentIndex) {
+            case 0: {
+                if ([product.status isEqualToString:@"OPEN"]||[product.status isEqualToString:@"Draft"]||[product.status isEqualToString:@"Open"]){
+                    [filteredWaitingArray addObject:product];
+                }
+            }
+                break;
+            case 1: {
+                if ([product.status isEqualToString:@"Pune Approved"]) {
+                    [filteredWaitingArray addObject:product];
+                }
+            }
+                break;
+            case 2: {
+                if ([product.status isEqualToString:@"Mason Approved"]) {
+                    [filteredWaitingArray addObject:product];
+                }
+            }
+                break;
+            default:
+                break;
+        }
+    }
+    [waitingControl setCount:[NSNumber numberWithInteger:filteredWaitingArray.count] forSegmentAtIndex:waitingControl.selectedSegmentIndex];
+    return filteredWaitingArray;
+}
+
 - (void)resetSegmentTitles {
-    for (int i=0; i < 4; ++i) {
+    for (int i=1; i < 5; ++i) {
         if (control.selectedSegmentIndex == i) {
             if (screenIsForAdmin) {
                 int c = 0;
@@ -568,6 +632,7 @@
         }
     }
     alteredIndexArray = indexArray;
+    filteredIndexArray = indexArray;
     [_commonProcessListTableView reloadData];
 }
 
@@ -591,7 +656,8 @@
 - (IBAction)saveEditPressed:(id)sender {
     [_editProcessFlowView removeFromSuperview];
     indexArray = alteredIndexArray;
-    processStepsArray = alteredProcessesArray;
+    filteredIndexArray = indexArray;
+    processStepsArray = [__DataManager reorderProcesses:alteredProcessesArray];
     [_processListTableView reloadData];
 }
 
@@ -865,6 +931,30 @@
     return true;
 }
 
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if ([searchText isEqualToString:@""]) {
+        filteredCommonProcessStepsArray = commonProcessStepsArray;
+        filteredIndexArray = indexArray;
+        [_commonProcessListTableView reloadData];
+    }
+    else
+        [self filteredSearchList:searchText];
+}
+
+- (void)filteredSearchList:(NSString*)searchText {
+    NSMutableArray *filteredArray = [[NSMutableArray alloc] init];
+    filteredIndexArray = [[NSMutableArray alloc] init];
+    for (int i=0; i < commonProcessStepsArray.count ;++i) {
+        NSMutableDictionary *processData = commonProcessStepsArray[i];
+        if ([[processData[@"processname"] uppercaseString] containsString:[searchText uppercaseString]]) {
+            [filteredArray addObject:processData];
+            [filteredIndexArray addObject:indexArray[i]];
+        }
+    }
+    filteredCommonProcessStepsArray = filteredArray;
+    [_commonProcessListTableView reloadData];
+}
 /*
 #pragma mark - Navigation
 

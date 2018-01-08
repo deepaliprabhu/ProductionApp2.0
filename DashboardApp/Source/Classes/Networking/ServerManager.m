@@ -281,11 +281,6 @@ static ServerManager *_sharedInstance = nil;
 
         switch (tag) {
             case 0: {
-                //[[NSFileManager defaultManager] removeItemAtPath:[RLMRealmConfiguration defaultConfiguration].path error:nil];
-               // RLMRealmConfiguration *configuration = [RLMRealmConfiguration defaultConfiguration];
-                
-                //RLMRealm *realm = [RLMRealm realmWithConfiguration:configuration error:nil]; // Create realm pointing to default file
-               // Data *realmData = [[Data alloc] init];
                 NSMutableArray *runsArray = [[NSMutableArray alloc] init];
                 for (int i=0; i < [json count]; ++i) {
                     Run *run = [[Run alloc] init];
