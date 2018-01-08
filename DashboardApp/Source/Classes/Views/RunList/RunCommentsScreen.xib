@@ -73,7 +73,7 @@
                             </connections>
                         </tableView>
                         <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no comments" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sl9-y2-bPb">
-                            <rect key="frame" x="170.5" y="95" width="200" height="18"/>
+                            <rect key="frame" x="170.5" y="285" width="200" height="18"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="18" id="Aap-Mx-EVR"/>
                                 <constraint firstAttribute="width" constant="200" id="bpT-HW-bdm"/>
@@ -115,7 +115,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Q7r-vp-CWD" secondAttribute="trailing" constant="18" id="73f-v3-Uf2"/>
-                        <constraint firstItem="Sl9-y2-bPb" firstAttribute="top" secondItem="sNc-JA-PEX" secondAttribute="top" constant="95" id="CLP-V8-1FX"/>
+                        <constraint firstItem="Sl9-y2-bPb" firstAttribute="top" secondItem="sNc-JA-PEX" secondAttribute="top" constant="285" id="CLP-V8-1FX"/>
                         <constraint firstAttribute="bottom" secondItem="Ufk-s1-dei" secondAttribute="bottom" id="PHV-wG-ela"/>
                         <constraint firstItem="Q7r-vp-CWD" firstAttribute="leading" secondItem="sNc-JA-PEX" secondAttribute="leading" constant="18" id="RyH-eb-4Ia"/>
                         <constraint firstItem="RLW-R2-Hvi" firstAttribute="leading" secondItem="sNc-JA-PEX" secondAttribute="leading" id="ZOm-gt-Ic5"/>
