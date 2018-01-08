@@ -199,7 +199,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
         case 0: {
             for (int i=0; i < _runsArray.count; ++i) {
                 Run *run = _runsArray[i];
-                if ([run getCategory] == 0) {
+                if ([run getCategory] == 0 && [[run getRunType] isEqualToString:@"Development"] == false) {
                     [_filteredRunsArray addObject:run];
                 }
             }
@@ -209,7 +209,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
         case 1: {
             for (int i=0; i < _runsArray.count; ++i) {
                 Run *run = _runsArray[i];
-                if ([run getCategory] == 1) {
+                if ([run getCategory] == 1 && [[run getRunType] isEqualToString:@"Development"] == false) {
                     [_filteredRunsArray addObject:run];
                 }
             }

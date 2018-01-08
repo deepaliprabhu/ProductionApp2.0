@@ -185,7 +185,8 @@ static ProdAPI *_sharedInstance = nil;
 
 - (void) lockRun:(int)runID withAllocations:(NSString*)json completion:(void (^)(BOOL success, id response))block {
 
-    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/lock_run.php?runid=%d", runID];
+    NSString *email = [[[UserManager sharedInstance] loggedUser] username];
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/lock_run.php?runid=%d&user=%@", runID, email];
     url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [self callPOST:url parameters:@{@"json":json, @"runid":@(runID)} completion:block];
 }
