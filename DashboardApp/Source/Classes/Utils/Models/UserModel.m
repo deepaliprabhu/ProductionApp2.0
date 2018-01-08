@@ -24,4 +24,8 @@
     return u;
 }
 
+- (BOOL) isAdmin {
+    return [_role isEqualToString:@"Admin"];
+}
+
 @end
