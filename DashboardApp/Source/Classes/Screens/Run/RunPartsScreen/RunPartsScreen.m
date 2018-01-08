@@ -34,6 +34,7 @@
 #import "LockConfirmScreen.h"
 #import "UserManager.h"
 #import "BomHistoryScreen.h"
+#import "UserManager.h"
 
 const CGFloat kMinTableHeight = 119;
 
@@ -860,6 +861,9 @@ typedef enum
 }
 
 - (void) addFooterView {
+    
+    if ([[UserManager sharedInstance] loggedUser].isAdmin == false)
+        return;
     
     if (_selectedComps == AlShortsComps) {
         

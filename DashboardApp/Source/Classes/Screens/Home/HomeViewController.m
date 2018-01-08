@@ -60,8 +60,6 @@
     UIImage *iconTasklist = [UIImage imageWithIcon:@"fa-tasks" backgroundColor:[UIColor clearColor] iconColor:[UIColor blackColor] fontSize:25];
     _tasklistImageView.image = iconTasklist;
     
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    
     runListView = [RunListView createView];
     runListView.frame = CGRectMake(0, 0, _overviewView.frame.size.width, _overviewView.frame.size.height);
     runListView.delegate = self;

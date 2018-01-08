@@ -19,5 +19,6 @@
 @property (nonatomic, strong) NSString *points;
 
 + (UserModel*) objectFromData:(NSDictionary*)data;
+- (BOOL) isAdmin;
 
 @end
