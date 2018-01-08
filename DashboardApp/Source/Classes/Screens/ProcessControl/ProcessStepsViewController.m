@@ -408,7 +408,7 @@
         _processNoLabel.text = [NSString stringWithFormat:@"%@ (DRAFT)", processCntrlId];
         [_puneApprovalButton setTitle:@"Submit Pune" forState:UIControlStateNormal];
         [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
-        [_masonApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
+        [_lausanneApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
         _puneApprovalButton.backgroundColor = [UIColor redColor];
         _masonApprovalButton.backgroundColor = [UIColor grayColor];
         _lausanneApprovalButton.backgroundColor = [UIColor grayColor];
@@ -419,7 +419,7 @@
     else if([status isEqualToString:@"Pune Approved"]) {
         [_puneApprovalButton setTitle:@"Pune Approved" forState:UIControlStateNormal];
         [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
-        [_masonApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
+        [_lausanneApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
 
         _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
         _masonApprovalButton.backgroundColor = [UIColor redColor];
@@ -431,7 +431,7 @@
     else if([status isEqualToString:@"Mason Approved"]) {
         [_puneApprovalButton setTitle:@"Pune Approved" forState:UIControlStateNormal];
         [_masonApprovalButton setTitle:@"Mason Approved" forState:UIControlStateNormal];
-        [_masonApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
+        [_lausanneApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
 
         _puneApprovalButton.backgroundColor =  [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
         _masonApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
@@ -484,6 +484,7 @@
                 break;
             case 1: {
                 _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+                [_puneApprovalButton setTitle:@"Pune Approved" forState:UIControlStateNormal];
                 _masonApprovalButton.backgroundColor = [UIColor redColor];
                 [_puneApprovalButton setUserInteractionEnabled:false];
                 [_masonApprovalButton setUserInteractionEnabled:true];
@@ -493,6 +494,7 @@
             case 2: {
                 _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
                 _masonApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+                [_masonApprovalButton setTitle:@"Mason Approved" forState:UIControlStateNormal];
                 _lausanneApprovalButton.backgroundColor = [UIColor redColor];
                 [_lausanneApprovalButton setUserInteractionEnabled:true];
                 [_masonApprovalButton setUserInteractionEnabled:false];
@@ -503,6 +505,7 @@
                 _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
                 _masonApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
                 _lausanneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+                [_lausanneApprovalButton setTitle:@"Lausanne Approved" forState:UIControlStateNormal];
                 [_lausanneApprovalButton setUserInteractionEnabled:false];
                 [_masonApprovalButton setUserInteractionEnabled:false];
                 processStatus = @"Lausanne Approved";

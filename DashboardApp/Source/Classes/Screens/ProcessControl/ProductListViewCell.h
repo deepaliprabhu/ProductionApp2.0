@@ -14,6 +14,7 @@
 @interface ProductListViewCell : UITableViewCell {
     IBOutlet UIImageView *_productImageView;
     IBOutlet UIImageView *_stateImageView;
+    IBOutlet UIImageView *_statusImageView;
     IBOutlet UILabel *_productNameLabel;
     IBOutlet UIButton *_stateButton;
     

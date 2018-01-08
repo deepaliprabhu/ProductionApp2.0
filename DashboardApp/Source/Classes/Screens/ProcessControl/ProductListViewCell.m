@@ -8,6 +8,8 @@
 
 #import "ProductListViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "UIImage+FontAwesome.h"
+
 
 
 @implementation ProductListViewCell
@@ -60,6 +62,19 @@
         } else if ([status containsString:@"waiting"]) {
             self.backgroundColor = ccolora(131, 188, 72, 0.4);
         }
+    }
+    
+    if ([p.status isEqualToString:@""]) {
+        UIImage *iconAdd = [UIImage imageWithIcon:@"fa-plus-circle" backgroundColor:[UIColor clearColor] iconColor:[UIColor grayColor] fontSize:10];
+        [_statusImageView setImage:iconAdd];
+    }
+    else if ([p.status isEqualToString:@"OPEN"]||[p.status isEqualToString:@"Draft"]||[p.status isEqualToString:@"Open"]||[p.status isEqualToString:@"Pune Approved"]||[p.status isEqualToString:@"Mason Approved"]) {
+        UIImage *iconAdd = [UIImage imageWithIcon:@"fa-exclamation-circle" backgroundColor:[UIColor clearColor] iconColor:[UIColor redColor] fontSize:10];
+        [_statusImageView setImage:iconAdd];
+    }
+    else if ([p.status isEqualToString:@"Lausanne Approved"]) {
+        UIImage *iconAdd = [UIImage imageWithIcon:@"fa-check-circle" backgroundColor:[UIColor clearColor] iconColor:[UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f] fontSize:10];
+        [_statusImageView setImage:iconAdd];
     }
 }
 

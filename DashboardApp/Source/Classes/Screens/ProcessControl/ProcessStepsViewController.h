@@ -14,6 +14,7 @@
 #import "NIDropDown.h"
 
 @interface ProcessStepsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ProductAdminPopoverDelegate, NIDropDownDelegate, UITextFieldDelegate, UIAlertViewDelegate, UISearchBarDelegate> {
+    
     IBOutlet UITableView *_productListTableView;
     IBOutlet UITableView *_processListTableView;
     IBOutlet UIView *_leftPaneView;

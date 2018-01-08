@@ -23,8 +23,8 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKG-vJ-vo5">
-                        <rect key="frame" x="86" y="10" width="226" height="21"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <rect key="frame" x="86" y="10" width="206" height="21"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                         <color key="textColor" white="0.0" alpha="0.76894048999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -38,12 +38,17 @@
                             <action selector="stateButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="3p8-Jg-lDf"/>
                         </connections>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Vw-hJ-AHg">
+                        <rect key="frame" x="290" y="12" width="15" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="_productImageView" destination="eT6-OV-UlL" id="Q8n-Iy-tsC"/>
                 <outlet property="_productNameLabel" destination="WKG-vJ-vo5" id="bNL-tT-yW2"/>
                 <outlet property="_stateButton" destination="aV1-9K-N2n" id="1Ni-em-Z25"/>
+                <outlet property="_statusImageView" destination="5Vw-hJ-AHg" id="3OO-fx-feb"/>
             </connections>
             <point key="canvasLocation" x="43" y="88"/>
         </tableViewCell>
