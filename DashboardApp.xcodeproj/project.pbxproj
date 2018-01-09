@@ -94,6 +94,8 @@
 		89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */; };
 		8961A3D61FFE39970058E353 /* ProcessDetailsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8961A3D41FFE39970058E353 /* ProcessDetailsScreen.m */; };
 		8961A3D71FFE39970058E353 /* ProcessDetailsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8961A3D51FFE39970058E353 /* ProcessDetailsScreen.xib */; };
+		8970C3AE20050A51001F7680 /* RunListScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8970C3AC20050A51001F7680 /* RunListScreen.m */; };
+		8970C3AF20050A51001F7680 /* RunListScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8970C3AD20050A51001F7680 /* RunListScreen.xib */; };
 		897BA32D1FF65FF900C8DA9A /* FailedTestsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */; };
 		897BA32E1FF65FF900C8DA9A /* FailedTestsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */; };
 		897BA3371FF662C300C8DA9A /* FailReasonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA3351FF662C300C8DA9A /* FailReasonCell.m */; };
@@ -435,6 +437,9 @@
 		8961A3D31FFE39970058E353 /* ProcessDetailsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessDetailsScreen.h; sourceTree = "<group>"; };
 		8961A3D41FFE39970058E353 /* ProcessDetailsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessDetailsScreen.m; sourceTree = "<group>"; };
 		8961A3D51FFE39970058E353 /* ProcessDetailsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProcessDetailsScreen.xib; sourceTree = "<group>"; };
+		8970C3AB20050A51001F7680 /* RunListScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunListScreen.h; sourceTree = "<group>"; };
+		8970C3AC20050A51001F7680 /* RunListScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunListScreen.m; sourceTree = "<group>"; };
+		8970C3AD20050A51001F7680 /* RunListScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunListScreen.xib; sourceTree = "<group>"; };
 		897BA32A1FF65FF900C8DA9A /* FailedTestsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FailedTestsScreen.h; sourceTree = "<group>"; };
 		897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FailedTestsScreen.m; sourceTree = "<group>"; };
 		897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailedTestsScreen.xib; sourceTree = "<group>"; };
@@ -1056,6 +1061,35 @@
 			path = DashboardApp/Source/Libs/DZNSegmentedControl;
 			sourceTree = SOURCE_ROOT;
 		};
+		8970C3B020051FBA001F7680 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				894B6F0E1FCDCBB700E271B1 /* RunCommentsScreen.h */,
+				894B6F0F1FCDCBB700E271B1 /* RunCommentsScreen.m */,
+				894B6F101FCDCBB700E271B1 /* RunCommentsScreen.xib */,
+			);
+			name = Comments;
+			sourceTree = "<group>";
+		};
+		8970C3B120051FDE001F7680 /* RunsList */ = {
+			isa = PBXGroup;
+			children = (
+				9FD12D831F443A3700F0E0A8 /* RunListViewCell.h */,
+				9FD12D841F443A3700F0E0A8 /* RunListViewCell.m */,
+				9FD12D851F443A3700F0E0A8 /* RunListViewCell.xib */,
+				8970C3AB20050A51001F7680 /* RunListScreen.h */,
+				8970C3AC20050A51001F7680 /* RunListScreen.m */,
+				8970C3AD20050A51001F7680 /* RunListScreen.xib */,
+				9F056B301F433F51002F3B61 /* RunListView.h */,
+				9F056B311F433F51002F3B61 /* RunListView.m */,
+				9F056B331F433F8E002F3B61 /* RunListView.xib */,
+				9F7767421F572A640092F603 /* RunListTableView.h */,
+				9F7767431F572A640092F603 /* RunListTableView.m */,
+				9F7767451F572A780092F603 /* RunListTableView.xib */,
+			);
+			name = RunsList;
+			sourceTree = "<group>";
+		};
 		89854ADA1FB97B3A00C6E38D /* GridView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1138,22 +1172,14 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
-		9F056B291F433F32002F3B61 /* RunList */ = {
+		9F056B291F433F32002F3B61 /* Runs */ = {
 			isa = PBXGroup;
 			children = (
-				9FD12D821F443A1400F0E0A8 /* Cell */,
-				9F056B301F433F51002F3B61 /* RunListView.h */,
-				9F056B311F433F51002F3B61 /* RunListView.m */,
-				9F056B331F433F8E002F3B61 /* RunListView.xib */,
-				9F7767421F572A640092F603 /* RunListTableView.h */,
-				9F7767431F572A640092F603 /* RunListTableView.m */,
-				9F7767451F572A780092F603 /* RunListTableView.xib */,
-				894B6F0E1FCDCBB700E271B1 /* RunCommentsScreen.h */,
-				894B6F0F1FCDCBB700E271B1 /* RunCommentsScreen.m */,
-				894B6F101FCDCBB700E271B1 /* RunCommentsScreen.xib */,
+				8970C3B120051FDE001F7680 /* RunsList */,
+				8970C3B020051FBA001F7680 /* Comments */,
 			);
-			name = RunList;
-			path = ../../Views/RunList;
+			name = Runs;
+			path = ../../Views/Runs;
 			sourceTree = "<group>";
 		};
 		9F056B2A1F433F32002F3B61 /* TopBar */ = {
@@ -1286,7 +1312,7 @@
 				9F03A9171F4563B300A7A316 /* DemandList */,
 				9F909AAA1F4EBB3800DBFA63 /* Gantt */,
 				9FD12D7C1F43FD2800F0E0A8 /* Overview */,
-				9F056B291F433F32002F3B61 /* RunList */,
+				9F056B291F433F32002F3B61 /* Runs */,
 				9FA264591F48A13D004C882E /* Tasklist */,
 				9F471D0C1F542B9300B294B7 /* RoadBlocks */,
 				9F471CF51F53FF2000B294B7 /* InProcess */,
@@ -1538,16 +1564,6 @@
 			);
 			name = Overview;
 			path = ../../Views/Overview;
-			sourceTree = "<group>";
-		};
-		9FD12D821F443A1400F0E0A8 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				9FD12D831F443A3700F0E0A8 /* RunListViewCell.h */,
-				9FD12D841F443A3700F0E0A8 /* RunListViewCell.m */,
-				9FD12D851F443A3700F0E0A8 /* RunListViewCell.xib */,
-			);
-			name = Cell;
 			sourceTree = "<group>";
 		};
 		9FD12D951F44707A00F0E0A8 /* MIBadge */ = {
@@ -1935,6 +1951,7 @@
 				9FA264611F48A1BD004C882E /* TasklistView.xib in Resources */,
 				9FEEE58B1EEFEFA2005B5ECA /* Assets.xcassets in Resources */,
 				9F7AB1A61F7D233C0013CBE1 /* drop_down@2x.png in Resources */,
+				8970C3AF20050A51001F7680 /* RunListScreen.xib in Resources */,
 				D283865B1FB23CA800BB304C /* Roboto-Medium.ttf in Resources */,
 				894B6F0D1FCDAD7600E271B1 /* PODateScreen.xib in Resources */,
 				D2A44F321FAF2BBA00DF37B8 /* LoadingView.xib in Resources */,
@@ -2069,6 +2086,7 @@
 				895DEA2B1FF3C7C0001ADAFE /* UserManager.m in Sources */,
 				9FD12DA61F449FB400F0E0A8 /* RunPartsViewCell.m in Sources */,
 				D227678F1FAE4B5400215D87 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				8970C3AE20050A51001F7680 /* RunListScreen.m in Sources */,
 				894F9BDE1FBCA90C00DC2C6B /* HistoryPriceCell.m in Sources */,
 				8940187B1FB5A0E4002B8AFD /* BRStreamInfo.m in Sources */,
 				89AC0AAE1FC5A84D008CA56B /* AlternatePartCell.m in Sources */,

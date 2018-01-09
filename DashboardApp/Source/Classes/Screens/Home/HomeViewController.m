@@ -21,6 +21,7 @@
 #import "ProcessStepsViewController.h"
 #import "UserManager.h"
 #import "UserDetailsScreen.h"
+#import "RunListScreen.h"
 
 @interface HomeViewController ()
 
@@ -143,9 +144,14 @@
 
 // OverviewViewDelegate methods
 - (void) runsSelected {
-    overviewView.hidden = true;
-    runListView.hidden = false;
-    ganttView.hidden = false;
+    
+//    overviewView.hidden = true;
+//    runListView.hidden = false;
+//    ganttView.hidden = false;
+    
+    RunListScreen *screen = [[RunListScreen alloc] initWithNibName:@"RunListScreen" bundle:nil];
+    screen.runsList = runsListArray;
+    [self.navigationController pushViewController:screen animated:true];
 }
 
 - (void) demandsSelected {
