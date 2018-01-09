@@ -94,8 +94,12 @@
 		89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */; };
 		8961A3D61FFE39970058E353 /* ProcessDetailsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8961A3D41FFE39970058E353 /* ProcessDetailsScreen.m */; };
 		8961A3D71FFE39970058E353 /* ProcessDetailsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8961A3D51FFE39970058E353 /* ProcessDetailsScreen.xib */; };
-		8970C3AE20050A51001F7680 /* RunListScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8970C3AC20050A51001F7680 /* RunListScreen.m */; };
 		8970C3AF20050A51001F7680 /* RunListScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8970C3AD20050A51001F7680 /* RunListScreen.xib */; };
+		8970C3B22005618C001F7680 /* RunListScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8970C3AC20050A51001F7680 /* RunListScreen.m */; };
+		8970C3B6200561FE001F7680 /* RunScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8970C3B4200561FE001F7680 /* RunScheduleCell.m */; };
+		8970C3B7200561FE001F7680 /* RunScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8970C3B5200561FE001F7680 /* RunScheduleCell.xib */; };
+		8970C3BB20056A55001F7680 /* RunScheduleSlotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8970C3B920056A55001F7680 /* RunScheduleSlotCell.m */; };
+		8970C3BC20056A55001F7680 /* RunScheduleSlotCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8970C3BA20056A55001F7680 /* RunScheduleSlotCell.xib */; };
 		897BA32D1FF65FF900C8DA9A /* FailedTestsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */; };
 		897BA32E1FF65FF900C8DA9A /* FailedTestsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */; };
 		897BA3371FF662C300C8DA9A /* FailReasonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA3351FF662C300C8DA9A /* FailReasonCell.m */; };
@@ -442,6 +446,12 @@
 		8970C3AB20050A51001F7680 /* RunListScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunListScreen.h; sourceTree = "<group>"; };
 		8970C3AC20050A51001F7680 /* RunListScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunListScreen.m; sourceTree = "<group>"; };
 		8970C3AD20050A51001F7680 /* RunListScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunListScreen.xib; sourceTree = "<group>"; };
+		8970C3B3200561FE001F7680 /* RunScheduleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunScheduleCell.h; sourceTree = "<group>"; };
+		8970C3B4200561FE001F7680 /* RunScheduleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunScheduleCell.m; sourceTree = "<group>"; };
+		8970C3B5200561FE001F7680 /* RunScheduleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunScheduleCell.xib; sourceTree = "<group>"; };
+		8970C3B820056A55001F7680 /* RunScheduleSlotCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunScheduleSlotCell.h; sourceTree = "<group>"; };
+		8970C3B920056A55001F7680 /* RunScheduleSlotCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunScheduleSlotCell.m; sourceTree = "<group>"; };
+		8970C3BA20056A55001F7680 /* RunScheduleSlotCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunScheduleSlotCell.xib; sourceTree = "<group>"; };
 		897BA32A1FF65FF900C8DA9A /* FailedTestsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FailedTestsScreen.h; sourceTree = "<group>"; };
 		897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FailedTestsScreen.m; sourceTree = "<group>"; };
 		897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailedTestsScreen.xib; sourceTree = "<group>"; };
@@ -1091,6 +1101,12 @@
 				9F7767421F572A640092F603 /* RunListTableView.h */,
 				9F7767431F572A640092F603 /* RunListTableView.m */,
 				9F7767451F572A780092F603 /* RunListTableView.xib */,
+				8970C3B3200561FE001F7680 /* RunScheduleCell.h */,
+				8970C3B4200561FE001F7680 /* RunScheduleCell.m */,
+				8970C3B5200561FE001F7680 /* RunScheduleCell.xib */,
+				8970C3B820056A55001F7680 /* RunScheduleSlotCell.h */,
+				8970C3B920056A55001F7680 /* RunScheduleSlotCell.m */,
+				8970C3BA20056A55001F7680 /* RunScheduleSlotCell.xib */,
 			);
 			name = RunsList;
 			sourceTree = "<group>";
@@ -1955,6 +1971,7 @@
 				D283865B1FB23CA800BB304C /* Roboto-Medium.ttf in Resources */,
 				894B6F0D1FCDAD7600E271B1 /* PODateScreen.xib in Resources */,
 				D2A44F321FAF2BBA00DF37B8 /* LoadingView.xib in Resources */,
+				8970C3BC20056A55001F7680 /* RunScheduleSlotCell.xib in Resources */,
 				3B649A881FB3236400B8DC78 /* PartsCell.xib in Resources */,
 				D28386561FB23B5E00BB304C /* Roboto-Bold.ttf in Resources */,
 				9F3144BA1F7ABFD200B9D32C /* left_arrow@2x.png in Resources */,
@@ -2007,6 +2024,7 @@
 				9F85678F1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.xib in Resources */,
 				89037EA51FE7C4DF00242005 /* RunDetailsScreen.xib in Resources */,
 				D28386541FB2285600BB304C /* RunPartsScreen.xib in Resources */,
+				8970C3B7200561FE001F7680 /* RunScheduleCell.xib in Resources */,
 				9F3FF6D61F4BF1F800F52F64 /* FontAwesome.ttf in Resources */,
 				9F7FE5701F7B8DEE005CB4DF /* ProductGroupView.xib in Resources */,
 				9F909AAF1F4EBB6200DBFA63 /* GanttView.xib in Resources */,
@@ -2102,6 +2120,7 @@
 				9F7FE5691F7B78C2005CB4DF /* ProductListViewController.m in Sources */,
 				895F5F7A1FCEF17500ED3349 /* GridView.m in Sources */,
 				894B6F0C1FCDAD7600E271B1 /* PODateScreen.m in Sources */,
+				8970C3B22005618C001F7680 /* RunListScreen.m in Sources */,
 				9F471CFF1F54003300B294B7 /* InProcessViewCell.m in Sources */,
 				D2A44F2D1FAF1FD400DF37B8 /* ProductModel.m in Sources */,
 				894C5F5A1FBB0ED300FA4E5D /* RunModel.m in Sources */,
@@ -2152,6 +2171,7 @@
 				895287371FCF2B33005C46EE /* StockLogScreen.m in Sources */,
 				9F03A91A1F4563C900A7A316 /* DemandListView.m in Sources */,
 				9FEEE5801EEFEFA2005B5ECA /* main.m in Sources */,
+				8970C3BB20056A55001F7680 /* RunScheduleSlotCell.m in Sources */,
 				8919BE991FB4DD5100EE6839 /* UIImageView+WebCache.m in Sources */,
 				9FD12D931F443DBC00F0E0A8 /* Run.m in Sources */,
 				894C5F5E1FBB147600FA4E5D /* RunPartCell.m in Sources */,
@@ -2183,6 +2203,7 @@
 				9F471D0A1F541F7700B294B7 /* ToDoViewCell.m in Sources */,
 				9FE99C261FBD4E65006B58DE /* FeedbackListView.m in Sources */,
 				89897E2D1FBF0AFA000B39EA /* ActionModel.m in Sources */,
+				8970C3B6200561FE001F7680 /* RunScheduleCell.m in Sources */,
 				894EE69C1FE02298009244A7 /* LockConfirmationHeaderView.m in Sources */,
 				9FB1BEAE1F514343008D179E /* CollectionViewCell.m in Sources */,
 				9FD12DA01F4473B900F0E0A8 /* RunViewController.m in Sources */,

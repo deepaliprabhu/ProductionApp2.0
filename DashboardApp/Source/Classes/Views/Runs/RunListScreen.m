@@ -11,12 +11,16 @@
 #import "RunCommentsScreen.h"
 #import "RunDetailsScreen.h"
 #import "DataManager.h"
+#import "RunScheduleCell.h"
 
 @interface RunListScreen () <RunListViewDelegate>
 
 @end
 
-@implementation RunListScreen
+@implementation RunListScreen {
+    
+    __weak IBOutlet UICollectionView *_collectionView;
+}
 
 - (void)viewDidLoad {
     
@@ -34,11 +38,41 @@
 
 - (void) initLayout {
     
+    [_collectionView registerClass:[RunScheduleCell class] forCellWithReuseIdentifier:@"RunScheduleCell"];
+    UINib *cellNib = [UINib nibWithNibName:@"RunScheduleCell" bundle:nil];
+    [_collectionView registerNib:cellNib forCellWithReuseIdentifier:@"RunScheduleCell"];
+    
     RunListView *list = [RunListView createView];
     list.frame = CGRectMake(9, 90, 635, 667);
     list.delegate = self;
     [list setRunList:[NSMutableArray arrayWithArray:_runsList]];
     [self.view addSubview:list];
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 3;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    RunScheduleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RunScheduleCell" forIndexPath:indexPath];
+    
+    NSString *week = nil;
+    if (indexPath.row == 0)
+        week = @"Last week";
+    else if (indexPath.row == 1)
+        week = @"This week";
+    else
+        week = @"Next week";
+    
+    [cell layoutWithWeek:week];
+    return cell;
 }
 
 #pragma mark - RunListDelegate
