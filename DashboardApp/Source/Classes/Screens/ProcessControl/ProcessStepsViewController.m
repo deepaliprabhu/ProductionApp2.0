@@ -50,9 +50,9 @@
     
     waitingControl = [[DZNSegmentedControl alloc] initWithItems:waitingArray];
     waitingControl.tintColor = [UIColor colorWithRed:41.f/255.f green:169.f/255.f blue:244.f/255.f alpha:1.0];
-    waitingControl.selectedSegmentIndex = 0;
     waitingControl.tag = 2;
     waitingControl.frame = CGRectMake(0, 130, screenRect.size.width/2, 50);
+    waitingControl.selectedSegmentIndex = 0;
     [waitingControl addTarget:self action:@selector(selectedSegment:) forControlEvents:UIControlEventValueChanged];
     [_leftPaneView addSubview:waitingControl];
     
@@ -166,6 +166,12 @@
     [_productListTableView reloadData];
     selectedProduct = filteredProductsArray[0];
     //[self loadProductProcessFlow:filteredProductsArray[0]];
+    [waitingControl setSelectedSegmentIndex:2 animated:false];
+    [self selectedSegment:waitingControl];
+    [waitingControl setSelectedSegmentIndex:1 animated:false];
+    [self selectedSegment:waitingControl];
+    [waitingControl setSelectedSegmentIndex:0 animated:false];
+    [self selectedSegment:waitingControl];
 }
 
 - (void) initProcesses {

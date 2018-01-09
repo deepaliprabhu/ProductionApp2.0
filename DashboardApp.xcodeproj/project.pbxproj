@@ -222,6 +222,10 @@
 		9FA5EE6C1FE97EDB000AAFA3 /* ProductListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA5EE6A1FE97EDB000AAFA3 /* ProductListViewCell.xib */; };
 		9FB1BEAE1F514343008D179E /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB1BEAC1F514343008D179E /* CollectionViewCell.m */; };
 		9FB1BEAF1F514343008D179E /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FB1BEAD1F514343008D179E /* CollectionViewCell.xib */; };
+		9FBA7FE52003E5E400D2713A /* DemandsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBA7FE32003E5E400D2713A /* DemandsViewController.m */; };
+		9FBA7FE62003E5E400D2713A /* DemandsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FBA7FE42003E5E400D2713A /* DemandsViewController.xib */; };
+		9FBA7FEA2003EAAE00D2713A /* DemandsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBA7FE82003EAAE00D2713A /* DemandsViewCell.m */; };
+		9FBA7FEB2003EAAE00D2713A /* DemandsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FBA7FE92003EAAE00D2713A /* DemandsViewCell.xib */; };
 		9FC2B0E31F792502008B7F42 /* RNActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC2B0E01F792502008B7F42 /* RNActivityView.m */; };
 		9FC2B0E41F792502008B7F42 /* UIView+RNActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC2B0E21F792502008B7F42 /* UIView+RNActivityView.m */; };
 		9FD12D7B1F43F77200F0E0A8 /* Icon_alpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FD12D7A1F43F77200F0E0A8 /* Icon_alpha.png */; };
@@ -627,6 +631,12 @@
 		9FB1BEAB1F514343008D179E /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
 		9FB1BEAC1F514343008D179E /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
 		9FB1BEAD1F514343008D179E /* CollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
+		9FBA7FE22003E5E400D2713A /* DemandsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemandsViewController.h; sourceTree = "<group>"; };
+		9FBA7FE32003E5E400D2713A /* DemandsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemandsViewController.m; sourceTree = "<group>"; };
+		9FBA7FE42003E5E400D2713A /* DemandsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemandsViewController.xib; sourceTree = "<group>"; };
+		9FBA7FE72003EAAE00D2713A /* DemandsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemandsViewCell.h; sourceTree = "<group>"; };
+		9FBA7FE82003EAAE00D2713A /* DemandsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemandsViewCell.m; sourceTree = "<group>"; };
+		9FBA7FE92003EAAE00D2713A /* DemandsViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemandsViewCell.xib; sourceTree = "<group>"; };
 		9FC2B0DF1F792502008B7F42 /* RNActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNActivityView.h; sourceTree = "<group>"; };
 		9FC2B0E01F792502008B7F42 /* RNActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNActivityView.m; sourceTree = "<group>"; };
 		9FC2B0E11F792502008B7F42 /* UIView+RNActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RNActivityView.h"; sourceTree = "<group>"; };
@@ -1123,6 +1133,9 @@
 				9F03A9181F4563C900A7A316 /* DemandListView.h */,
 				9F03A9191F4563C900A7A316 /* DemandListView.m */,
 				9F03A91B1F4563DD00A7A316 /* DemandListView.xib */,
+				9FBA7FE22003E5E400D2713A /* DemandsViewController.h */,
+				9FBA7FE32003E5E400D2713A /* DemandsViewController.m */,
+				9FBA7FE42003E5E400D2713A /* DemandsViewController.xib */,
 			);
 			name = DemandList;
 			path = ../../Views/DemandList;
@@ -1134,6 +1147,9 @@
 				9F03A91E1F45667700A7A316 /* DemandListViewCell.h */,
 				9F03A91F1F45667700A7A316 /* DemandListViewCell.m */,
 				9F03A9201F45667700A7A316 /* DemandListViewCell.xib */,
+				9FBA7FE72003EAAE00D2713A /* DemandsViewCell.h */,
+				9FBA7FE82003EAAE00D2713A /* DemandsViewCell.m */,
+				9FBA7FE92003EAAE00D2713A /* DemandsViewCell.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -1911,6 +1927,7 @@
 				8961A3D71FFE39970058E353 /* ProcessDetailsScreen.xib in Resources */,
 				89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */,
 				9FE99C271FBD4E65006B58DE /* FeedbackListView.xib in Resources */,
+				9FBA7FEB2003EAAE00D2713A /* DemandsViewCell.xib in Resources */,
 				9F71C43E1FC1582900550F86 /* downArrow.png in Resources */,
 				895F5F7C1FCEF17D00ED3349 /* GridView.xib in Resources */,
 				9F056B281F433469002F3B61 /* Icon.png in Resources */,
@@ -1926,6 +1943,7 @@
 				894B6F121FCDCBB700E271B1 /* RunCommentsScreen.xib in Resources */,
 				9FEEE58E1EEFEFA2005B5ECA /* LaunchScreen.storyboard in Resources */,
 				9F471D141F542B9300B294B7 /* RoadBlocksView.xib in Resources */,
+				9FBA7FE62003E5E400D2713A /* DemandsViewController.xib in Resources */,
 				895023F11FE149EC008A1165 /* ReconcileScreen.xib in Resources */,
 				9F252A5D1F4D50000056DA8F /* feedbackBgImage.png in Resources */,
 				8942B8CF1FEC3908003D9B8A /* SplashScreen.xib in Resources */,
@@ -2069,6 +2087,7 @@
 				895DEA2B1FF3C7C0001ADAFE /* UserManager.m in Sources */,
 				9FD12DA61F449FB400F0E0A8 /* RunPartsViewCell.m in Sources */,
 				D227678F1FAE4B5400215D87 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				9FBA7FEA2003EAAE00D2713A /* DemandsViewCell.m in Sources */,
 				894F9BDE1FBCA90C00DC2C6B /* HistoryPriceCell.m in Sources */,
 				8940187B1FB5A0E4002B8AFD /* BRStreamInfo.m in Sources */,
 				89AC0AAE1FC5A84D008CA56B /* AlternatePartCell.m in Sources */,
@@ -2156,6 +2175,7 @@
 				894B6F111FCDCBB700E271B1 /* RunCommentsScreen.m in Sources */,
 				8919BE971FB4DD5100EE6839 /* SDWebImageDownloaderOperation.m in Sources */,
 				9F471D081F541F7700B294B7 /* ToDoView.m in Sources */,
+				9FBA7FE52003E5E400D2713A /* DemandsViewController.m in Sources */,
 				9FE99C371FBF242D006B58DE /* FeedbackListViewController.m in Sources */,
 				3BCDA4181FB346560021BC03 /* ProductAdminPopover.m in Sources */,
 				9F056B2E1F433F32002F3B61 /* TopBarView.m in Sources */,
@@ -2308,7 +2328,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aginova.productionapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4f64cce7-1150-4fa3-899a-38a93bcc4a05";
+				PROVISIONING_PROFILE = "eec74f88-e3c4-4e50-8409-bf4b48bb44f3";
 				PROVISIONING_PROFILE_SPECIFIER = "AdHoc] ProductionApp 2.0";
 			};
 			name = Debug;
@@ -2327,7 +2347,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aginova.productionapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4f64cce7-1150-4fa3-899a-38a93bcc4a05";
+				PROVISIONING_PROFILE = "eec74f88-e3c4-4e50-8409-bf4b48bb44f3";
 				PROVISIONING_PROFILE_SPECIFIER = "AdHoc] ProductionApp 2.0";
 			};
 			name = Release;

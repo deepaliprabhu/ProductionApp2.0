@@ -105,13 +105,17 @@ __CREATEVIEW(OverviewView, @"OverviewView", 0);
 
 - (void)setProductsList:(NSMutableArray*)productsList {
     int count =0;
+    int productionCount = 0;
     for (int i=0; i < productsList.count; ++i) {
         ProductModel *product = productsList[i];
         if ([product.status isEqualToString:@"OPEN"]||[product.status isEqualToString:@"Draft"]||[product.status isEqualToString:@"Open"]||[product.status isEqualToString:@"Pune Approved"]||[product.status isEqualToString:@"Mason Approved"]) {
             count++;
         }
+        if ([product.productStatus isEqualToString:@"Production"]) {
+            productionCount++;
+        }
     }
-    _processCountLabel.text = [NSString stringWithFormat:@"%d",count];
+    _processCountLabel.text = [NSString stringWithFormat:@"%d/%d",count,productionCount];
 }
 
 - (IBAction)runsPressed:(id)sender {

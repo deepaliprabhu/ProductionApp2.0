@@ -21,6 +21,7 @@
 #import "ProcessStepsViewController.h"
 #import "UserManager.h"
 #import "UserDetailsScreen.h"
+#import "DemandsViewController.h"
 
 @interface HomeViewController ()
 
@@ -149,8 +150,10 @@
 }
 
 - (void) demandsSelected {
-    overviewView.hidden = true;
-    demandListView.hidden = false;
+    //overviewView.hidden = true;
+    //demandListView.hidden = false;
+    DemandsViewController *demandsVC = [DemandsViewController new];
+    [self.navigationController pushViewController:demandsVC animated:true];
 }
 
 - (void)feedbacksSelected {
