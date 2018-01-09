@@ -16,8 +16,6 @@
 
 @implementation RunListView
 {
-    __weak IBOutlet UIButton *_orderButton;
-    
     NSMutableArray *_runsArray;
     NSMutableArray *_filteredRunsArray;
     NSMutableArray *_colorsArray;
@@ -51,12 +49,8 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
     [self pcbPressed:nil];
 }
 
-- (UITableView*)getTableView {
-    return _tableView;
-}
-
 - (UIView*)getDragView {
-    return _dragView;
+    return nil;
 }
 
 - (Run*)getRunAtLocation:(CGPoint)location {
@@ -90,16 +84,11 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
     [_tableView reloadData];
 }
 
-- (IBAction)closePressed:(id)sender {
-    [_delegate closeSelected];
-}
-
 - (IBAction)pcbPressed:(id)sender {
     
     _tableView.editing = false;
-    _downImageView.frame = CGRectMake((_pcbButton.frame.origin.x+_pcbButton.frame.size.width/2)-_downImageView.frame.size.width/2, _downImageView.frame.origin.y, _downImageView.frame.size.width, _downImageView.frame.size.height);
+    _downImageView.frame = CGRectMake((_pcbButton.frame.origin.x+_pcbButton.frame.size.width/2)-_downImageView.frame.size.width/2-25, _downImageView.frame.origin.y, _downImageView.frame.size.width, _downImageView.frame.size.height);
     [self filterRunsForIndex:0];
-    [_delegate selectedRunType:0];
 }
 
 - (IBAction)assmPressed:(id)sender {
@@ -107,7 +96,6 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
     _tableView.editing = false;
     _downImageView.frame = CGRectMake((_assmButton.frame.origin.x+_assmButton.frame.size.width/2)-_downImageView.frame.size.width/2, _downImageView.frame.origin.y, _downImageView.frame.size.width, _downImageView.frame.size.height);
     [self filterRunsForIndex:1];
-    [_delegate selectedRunType:1];
 }
 
 - (IBAction)devPressed:(id)sender {
@@ -142,7 +130,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
         cell = [[NSBundle mainBundle] loadNibNamed:simpleTableIdentifier owner:nil options:nil][0];
         cell.delegate = self;
     }
-    [cell setCellData:_filteredRunsArray[indexPath.row] showType:_selectedType>1];
+    [cell setCellData:_filteredRunsArray[indexPath.row] showType:_selectedType>1 showShipping:_selectedType==3];
     return cell;
 }
 
@@ -199,7 +187,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
         case 0: {
             for (int i=0; i < _runsArray.count; ++i) {
                 Run *run = _runsArray[i];
-                if ([run getCategory] == 0) {
+                if ([run getCategory] == 0 && [[run getRunType] isEqualToString:@"Development"] == false) {
                     [_filteredRunsArray addObject:run];
                 }
             }
@@ -209,7 +197,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
         case 1: {
             for (int i=0; i < _runsArray.count; ++i) {
                 Run *run = _runsArray[i];
-                if ([run getCategory] == 1) {
+                if ([run getCategory] == 1 && [[run getRunType] isEqualToString:@"Development"] == false) {
                     [_filteredRunsArray addObject:run];
                 }
             }
@@ -293,10 +281,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
     self.layer.borderWidth = 1.0;
     self.layer.borderColor = [UIColor colorWithRed:184.0f/255.0f green:184.0f/255.0f blue:184.0f/255.0f alpha:0.5].CGColor;
     
-    UIImage *iconAdd = [UIImage imageWithIcon:@"fa-plus-circle" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:20];
-    [_addButton setImage:iconAdd forState:UIControlStateNormal];
     UIImage *iconStats = [UIImage imageWithIcon:@"fa-caret-down" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:20];
-    
     _downImageView.image = iconStats;
     
     _colorsArray = [[NSMutableArray alloc] init];

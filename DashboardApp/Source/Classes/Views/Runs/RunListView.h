@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Defines.h"
-#import "RunListTableView.h"
 #import "RunListViewCell.h"
 #import "Run.h"
 
@@ -18,10 +17,9 @@
     IBOutlet UIButton *_pcbButton;
     IBOutlet UIButton *_assmButton;
     IBOutlet UIButton *_devButton;
-    IBOutlet UIButton *_addButton;
-    IBOutlet RunListTableView *_tableView;
+    IBOutlet UIButton *_orderButton;
+    IBOutlet UITableView *_tableView;
     IBOutlet UIImageView *_downImageView;
-    IBOutlet UIView *_dragView;
 }
 
 __pd(RunListViewDelegate);
@@ -29,7 +27,6 @@ __CREATEVIEWH(RunListView);
 
 - (void)setRunList:(NSMutableArray*)runList;
 - (Run*)getRunAtLocation:(CGPoint)location;
-- (UITableView*)getTableView;
 - (UIView*)getDragView;
 
 @end
@@ -38,7 +35,5 @@ __CREATEVIEWH(RunListView);
 
 - (void) showCommentsForRun:(Run*)run;
 - (void) runSelectedAtIndex:(int)runId;
-- (void) selectedRunType:(int)runType;
-- (void) closeSelected;
 
 @end

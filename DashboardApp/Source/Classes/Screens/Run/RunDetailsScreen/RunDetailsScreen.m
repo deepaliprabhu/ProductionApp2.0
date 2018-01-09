@@ -27,6 +27,7 @@
 #import "DayLogScreen.h"
 #import "PODateScreen.h"
 #import "PassedTestsScreen.h"
+#import "LayoutUtils.h"
 
 @interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol, PODateScreenDelegate>
 
@@ -60,7 +61,6 @@
     __weak IBOutlet UIButton *_processTitleButton;
     __weak IBOutlet NSLayoutConstraint *_processTitleButtonWidthConstraint;
     __weak IBOutlet UILabel *_personLabel;
-    __weak IBOutlet UILabel *_timeLabel;
     __weak IBOutlet UILabel *_dateAssignedLabel;
     __weak IBOutlet UILabel *_dateCompletedLabel;
     __weak IBOutlet UILabel *_qtyReworkLabel;
@@ -85,6 +85,7 @@
     __weak IBOutlet UIActivityIndicatorView *_testsSpinner;
     __weak IBOutlet UILabel *_passedTestsLabel;
     __weak IBOutlet UILabel *_failedTestsLabel;
+    __weak IBOutlet UILabel *_reworkTestsLabel;
     
     NSMutableArray *_processes;
     NSMutableArray *_days;
@@ -286,7 +287,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     _selectedProcess = _processes[indexPath.row];
-    [self layoutWithProcess:_selectedProcess];
+    [self layoutSelectedProcess];
     [self layoutDailyLogForProcess:_selectedProcess];
 }
 
@@ -344,9 +345,31 @@
     [self fillYears];
 }
 
-- (void) layoutWithProcess:(ProcessModel*)model {
+- (void) layoutProcessTitle {
     
-    if (model == nil) {
+    NSString *title = _selectedProcess.processName;
+    if (_selectedProcess.processingTime.length > 0) {
+        title = cstrf(@"%@ (time: %@)", title, _selectedProcess.processingTime);
+    }
+    _processTitleLabel.text = title;
+    UIFont *f = [UIFont fontWithName:@"Roboto-Light" size:20];
+    _processTitleButtonWidthConstraint.constant = [LayoutUtils widthForText:title withFont:f];
+    [self.view layoutIfNeeded];
+}
+
+- (void) layoutProcessDetails {
+ 
+    DayLogModel *d = [self dayForProcess:_selectedProcess.stepId];
+    if (d != nil) {
+        _dateAssignedLabel.text = [d.dateAssigned nonEmptyValue];
+        _dateCompletedLabel.text = [d.dateCompleted nonEmptyValue];
+        _personLabel.text = [d.person nonEmptyValue];
+    }
+}
+
+- (void) layoutSelectedProcess {
+    
+    if (_selectedProcess == nil) {
         _detailsHolderView.alpha = 0;
         _dailyLogHolderView.alpha = 0;
         return;
@@ -355,30 +378,19 @@
     _detailsHolderView.alpha = 1;
     _dailyLogHolderView.alpha = 1;
     
-    _processTitleLabel.text = model.processName;
-    UIFont *f = [UIFont fontWithName:@"Roboto-Light" size:20];
-    _processTitleButtonWidthConstraint.constant = [LayoutUtils widthForText:model.processName withFont:f];
-    [self.view layoutIfNeeded];
-    _timeLabel.text = model.processingTime;
-    
+    [self layoutProcessTitle];
     if (_days.count > 0)
-        [self layoutQuantitiesForProcess:model.stepId];
-
-    DayLogModel *d = [self dayForProcess:model.stepId];
-    if (d != nil) {
-        _dateAssignedLabel.text = d.dateAssigned;
-        _dateCompletedLabel.text = d.dateCompleted;
-        _personLabel.text = d.person;
-    }
+        [self layoutQuantitiesForProcess:_selectedProcess.stepId];
+    [self layoutProcessDetails];
     
-    if ([model.processName isEqualToString:@"Passive Test"]) {
+    if ([_selectedProcess.processName isEqualToString:@"Passive Test"]) {
         
         if (_passiveTests == nil) {
             [self getPassiveTests];
         } else {
             [self layoutPassiveTests];
         }
-    } else if ([model.processName isEqualToString:@"Active Test"]) {
+    } else if ([_selectedProcess.processName isEqualToString:@"Active Test"]) {
         
         if (_activeTests == nil) {
             [self getActiveTests];
@@ -388,7 +400,7 @@
     } else {
         _testsView.alpha = 0;
         [UIView animateWithDuration:0.3 animations:^{
-            _detailsHolderViewHeightConstraint.constant = 210;
+            _detailsHolderViewHeightConstraint.constant = 220;
             [self.view layoutIfNeeded];
         }];
     }
@@ -406,22 +418,27 @@
     
     _testsView.alpha = 1;
     [UIView animateWithDuration:0.3 animations:^{
-        _detailsHolderViewHeightConstraint.constant = 243;
+        _detailsHolderViewHeightConstraint.constant = 240;
         [self.view layoutIfNeeded];
     }];
     
     int pass = 0;
     int fail = 0;
+    int rework = 0;
     for (NSDictionary *d in tests) {
         
         if ([d[@"passed"] isEqualToString:@"false"])
             fail++;
         else
             pass++;
+        
+        if ([d[@"reworked"] isEqualToString:@"true"])
+            rework++;
     }
     
     _passedTestsLabel.text = [NSString stringWithFormat:@"%d", pass];
     _failedTestsLabel.text = [NSString stringWithFormat:@"%d", fail];
+    _reworkTestsLabel.text = [NSString stringWithFormat:@"%d", rework];
 }
 
 #pragma mark - Utils
@@ -562,7 +579,7 @@
             [_tableView reloadData];
             if (_processes.count > 0) {
                 _selectedProcess = _processes[0];
-                [self layoutWithProcess:_selectedProcess];
+                [self layoutSelectedProcess];
                 [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:false scrollPosition:UITableViewScrollPositionTop];
             }
         
@@ -661,7 +678,7 @@
     }
     
     _graphTopLabel.text = [NSString stringWithFormat:@"%d", _maxDayLogValue];
-    [self layoutWithProcess:_selectedProcess];
+    [self layoutSelectedProcess];
 }
 
 - (void) getTargets {
