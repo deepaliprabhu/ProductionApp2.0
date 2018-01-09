@@ -273,6 +273,18 @@
 
 @end
 
+@implementation NSString (Utils)
+
+- (NSString*) nonEmptyValue {
+    
+    if (self.length > 0)
+        return self;
+    else
+        return @"-";
+}
+
+@end
+
 @implementation UIView (Layout)
 
 - (void) fadeIn

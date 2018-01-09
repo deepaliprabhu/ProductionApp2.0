@@ -67,3 +67,9 @@
 + (void) setProductionStyle;
 
 @end
+
+@interface NSString (Utils)
+
+- (NSString*) nonEmptyValue;
+
+@end
