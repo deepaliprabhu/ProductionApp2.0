@@ -218,6 +218,6 @@
         </view>
     </objects>
     <resources>
-        <image name="downArrow.png" width="16" height="16"/>
+        <image name="downArrow.png" width="32" height="24"/>
     </resources>
 </document>
