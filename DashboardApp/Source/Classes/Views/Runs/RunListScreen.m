@@ -9,6 +9,8 @@
 #import "RunListScreen.h"
 #import "RunListView.h"
 #import "RunCommentsScreen.h"
+#import "RunDetailsScreen.h"
+#import "DataManager.h"
 
 @interface RunListScreen () <RunListViewDelegate>
 
@@ -52,14 +54,9 @@
 
 - (void) runSelectedAtIndex:(int)runId {
     
-}
-
-- (void) selectedRunType:(int)runType {
-    
-}
-
-- (void) closeSelected {
-    
+    RunDetailsScreen *screen = [RunDetailsScreen new];
+    screen.run = [[DataManager sharedInstance] getRunWithId:runId];
+    [self.navigationController pushViewController:screen animated:true];
 }
 
 @end

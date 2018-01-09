@@ -15,7 +15,7 @@
 
 @property (nonatomic, unsafe_unretained) id <RunListViewCellProtocol> delegate;
 
-- (void) setCellData:(Run*)run showType:(BOOL)show;
+- (void) setCellData:(Run*)run showType:(BOOL)show showShipping:(BOOL)shipping;
 - (Run*) getRun;
 
 @end

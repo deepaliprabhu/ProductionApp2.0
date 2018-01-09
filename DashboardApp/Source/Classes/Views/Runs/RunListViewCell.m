@@ -20,7 +20,7 @@
     Run *_run;
 }
 
-- (void) setCellData:(Run*)run showType:(BOOL)show {
+- (void) setCellData:(Run*)run showType:(BOOL)show showShipping:(BOOL)shipping {
     
     _run = run;
     
@@ -37,7 +37,11 @@
 
     _quantityLabel.text = [NSString stringWithFormat:@"%d",[run getQuantity]];
     _statusLabel.text = [run getStatus];
-    _weekLabel.text = [run getRunData][@"Shipping"];
+    if (shipping == false) {
+        _weekLabel.text = [run getRunData][@"Shipping"];
+    } else {
+        _weekLabel.text = @"";
+    }
     _imageView.image = [UIImage imageNamed: [run isLocked] ? @"lockRunIcon" : @"unlockRunIcon"];
 }
 

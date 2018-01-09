@@ -133,8 +133,6 @@
 		9F03A9211F45667700A7A316 /* DemandListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F03A91F1F45667700A7A316 /* DemandListViewCell.m */; };
 		9F03A9221F45667700A7A316 /* DemandListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F03A9201F45667700A7A316 /* DemandListViewCell.xib */; };
 		9F056B281F433469002F3B61 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F056B271F433469002F3B61 /* Icon.png */; };
-		9F056B2E1F433F32002F3B61 /* TopBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F056B2C1F433F32002F3B61 /* TopBarView.m */; };
-		9F056B2F1F433F32002F3B61 /* TopBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F056B2D1F433F32002F3B61 /* TopBarView.xib */; };
 		9F056B321F433F51002F3B61 /* RunListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F056B311F433F51002F3B61 /* RunListView.m */; };
 		9F056B341F433F8E002F3B61 /* RunListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F056B331F433F8E002F3B61 /* RunListView.xib */; };
 		9F252A571F4D46C00056DA8F /* stockBgImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F252A561F4D46C00056DA8F /* stockBgImage.png */; };
@@ -502,9 +500,6 @@
 		9F03A91F1F45667700A7A316 /* DemandListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemandListViewCell.m; sourceTree = "<group>"; };
 		9F03A9201F45667700A7A316 /* DemandListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemandListViewCell.xib; sourceTree = "<group>"; };
 		9F056B271F433469002F3B61 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		9F056B2B1F433F32002F3B61 /* TopBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopBarView.h; sourceTree = "<group>"; };
-		9F056B2C1F433F32002F3B61 /* TopBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopBarView.m; sourceTree = "<group>"; };
-		9F056B2D1F433F32002F3B61 /* TopBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopBarView.xib; sourceTree = "<group>"; };
 		9F056B301F433F51002F3B61 /* RunListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunListView.h; sourceTree = "<group>"; };
 		9F056B311F433F51002F3B61 /* RunListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunListView.m; sourceTree = "<group>"; };
 		9F056B331F433F8E002F3B61 /* RunListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunListView.xib; sourceTree = "<group>"; };
@@ -1074,12 +1069,12 @@
 		8970C3B120051FDE001F7680 /* RunsList */ = {
 			isa = PBXGroup;
 			children = (
-				9FD12D831F443A3700F0E0A8 /* RunListViewCell.h */,
-				9FD12D841F443A3700F0E0A8 /* RunListViewCell.m */,
-				9FD12D851F443A3700F0E0A8 /* RunListViewCell.xib */,
 				8970C3AB20050A51001F7680 /* RunListScreen.h */,
 				8970C3AC20050A51001F7680 /* RunListScreen.m */,
 				8970C3AD20050A51001F7680 /* RunListScreen.xib */,
+				9FD12D831F443A3700F0E0A8 /* RunListViewCell.h */,
+				9FD12D841F443A3700F0E0A8 /* RunListViewCell.m */,
+				9FD12D851F443A3700F0E0A8 /* RunListViewCell.xib */,
 				9F056B301F433F51002F3B61 /* RunListView.h */,
 				9F056B311F433F51002F3B61 /* RunListView.m */,
 				9F056B331F433F8E002F3B61 /* RunListView.xib */,
@@ -1180,17 +1175,6 @@
 			);
 			name = Runs;
 			path = ../../Views/Runs;
-			sourceTree = "<group>";
-		};
-		9F056B2A1F433F32002F3B61 /* TopBar */ = {
-			isa = PBXGroup;
-			children = (
-				9F056B2B1F433F32002F3B61 /* TopBarView.h */,
-				9F056B2C1F433F32002F3B61 /* TopBarView.m */,
-				9F056B2D1F433F32002F3B61 /* TopBarView.xib */,
-			);
-			name = TopBar;
-			path = ../../Views/TopBar;
 			sourceTree = "<group>";
 		};
 		9F056B351F43464F002F3B61 /* Utils */ = {
@@ -1309,15 +1293,14 @@
 		9F40AD7B1F2F4669002C64BA /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				9F056B291F433F32002F3B61 /* Runs */,
 				9F03A9171F4563B300A7A316 /* DemandList */,
 				9F909AAA1F4EBB3800DBFA63 /* Gantt */,
 				9FD12D7C1F43FD2800F0E0A8 /* Overview */,
-				9F056B291F433F32002F3B61 /* Runs */,
 				9FA264591F48A13D004C882E /* Tasklist */,
 				9F471D0C1F542B9300B294B7 /* RoadBlocks */,
 				9F471CF51F53FF2000B294B7 /* InProcess */,
 				9F471D011F541F7700B294B7 /* ToDo */,
-				9F056B2A1F433F32002F3B61 /* TopBar */,
 				9F40AD7C1F2F469A002C64BA /* HomeViewController.h */,
 				9F40AD7D1F2F469A002C64BA /* HomeViewController.m */,
 				9F40AD7E1F2F469A002C64BA /* HomeViewController.xib */,
@@ -1915,7 +1898,6 @@
 				9FF0A61C1F7E447C006486AA /* ProductProcessStepsView.xib in Resources */,
 				89B5CF271FFFBA4F00A53581 /* PassedTestsScreen.xib in Resources */,
 				89B5CF221FFF8BC600A53581 /* DayLogScreen.xib in Resources */,
-				9F056B2F1F433F32002F3B61 /* TopBarView.xib in Resources */,
 				9F7FE5761F7B9CAA005CB4DF /* ProductCollectionViewCell.xib in Resources */,
 				89897E3A1FBF140C000B39EA /* StockGraphScreen.xib in Resources */,
 				894EE69E1FE0229E009244A7 /* LockConfirmationHeaderView.xib in Resources */,
@@ -2176,7 +2158,6 @@
 				9F471D081F541F7700B294B7 /* ToDoView.m in Sources */,
 				9FE99C371FBF242D006B58DE /* FeedbackListViewController.m in Sources */,
 				3BCDA4181FB346560021BC03 /* ProductAdminPopover.m in Sources */,
-				9F056B2E1F433F32002F3B61 /* TopBarView.m in Sources */,
 				9FA5EE5F1FE9492F000AAFA3 /* ProcessStepsViewController.m in Sources */,
 				9F3144AF1F7A307600B9D32C /* NIDropDown.m in Sources */,
 				9F40AD7F1F2F469A002C64BA /* HomeViewController.m in Sources */,
