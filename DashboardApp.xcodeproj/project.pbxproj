@@ -190,8 +190,6 @@
 		9F71C43E1FC1582900550F86 /* downArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F71C43D1FC1582900550F86 /* downArrow.png */; };
 		9F7767401F56D6E90092F603 /* LeftCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F77673E1F56D6E90092F603 /* LeftCollectionViewCell.m */; };
 		9F7767411F56D6E90092F603 /* LeftCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F77673F1F56D6E90092F603 /* LeftCollectionViewCell.xib */; };
-		9F7767441F572A640092F603 /* RunListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7767431F572A640092F603 /* RunListTableView.m */; };
-		9F7767461F572A780092F603 /* RunListTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7767451F572A780092F603 /* RunListTableView.xib */; };
 		9F7AB1A41F7D233C0013CBE1 /* check_mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F7AB19D1F7D233C0013CBE1 /* check_mark@2x.png */; };
 		9F7AB1A51F7D233C0013CBE1 /* done@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F7AB19E1F7D233C0013CBE1 /* done@2x.png */; };
 		9F7AB1A61F7D233C0013CBE1 /* drop_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F7AB19F1F7D233C0013CBE1 /* drop_down@2x.png */; };
@@ -588,9 +586,6 @@
 		9F77673D1F56D6E90092F603 /* LeftCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftCollectionViewCell.h; sourceTree = "<group>"; };
 		9F77673E1F56D6E90092F603 /* LeftCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftCollectionViewCell.m; sourceTree = "<group>"; };
 		9F77673F1F56D6E90092F603 /* LeftCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftCollectionViewCell.xib; sourceTree = "<group>"; };
-		9F7767421F572A640092F603 /* RunListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunListTableView.h; sourceTree = "<group>"; };
-		9F7767431F572A640092F603 /* RunListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunListTableView.m; sourceTree = "<group>"; };
-		9F7767451F572A780092F603 /* RunListTableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunListTableView.xib; sourceTree = "<group>"; };
 		9F7AB19D1F7D233C0013CBE1 /* check_mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_mark@2x.png"; sourceTree = "<group>"; };
 		9F7AB19E1F7D233C0013CBE1 /* done@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "done@2x.png"; sourceTree = "<group>"; };
 		9F7AB19F1F7D233C0013CBE1 /* drop_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drop_down@2x.png"; sourceTree = "<group>"; };
@@ -1098,9 +1093,6 @@
 				9F056B301F433F51002F3B61 /* RunListView.h */,
 				9F056B311F433F51002F3B61 /* RunListView.m */,
 				9F056B331F433F8E002F3B61 /* RunListView.xib */,
-				9F7767421F572A640092F603 /* RunListTableView.h */,
-				9F7767431F572A640092F603 /* RunListTableView.m */,
-				9F7767451F572A780092F603 /* RunListTableView.xib */,
 				8970C3B3200561FE001F7680 /* RunScheduleCell.h */,
 				8970C3B4200561FE001F7680 /* RunScheduleCell.m */,
 				8970C3B5200561FE001F7680 /* RunScheduleCell.xib */,
@@ -2013,7 +2005,6 @@
 				9F252A571F4D46C00056DA8F /* stockBgImage.png in Resources */,
 				895023F71FE1616A008A1165 /* LocationReconcileCell.xib in Resources */,
 				897BA3381FF662C300C8DA9A /* FailReasonCell.xib in Resources */,
-				9F7767461F572A780092F603 /* RunListTableView.xib in Resources */,
 				9F8567911F73DDB10067ABE1 /* OperatorEntryView.xib in Resources */,
 				9F252A5B1F4D4F400056DA8F /* demandsBgImage.png in Resources */,
 				89AC0AAF1FC5A84D008CA56B /* AlternatePartCell.xib in Resources */,
@@ -2158,7 +2149,6 @@
 				89854AEB1FB97B3A00C6E38D /* GMGridViewCell.m in Sources */,
 				9F3FF6CE1F4BDF7500F52F64 /* UIFont+FontAwesome.m in Sources */,
 				8919BE9A1FB4DD5100EE6839 /* UIView+WebCacheOperation.m in Sources */,
-				9F7767441F572A640092F603 /* RunListTableView.m in Sources */,
 				89AF44801FEEEC59004D119C /* SFHFKeychainUtils.m in Sources */,
 				D227678A1FAE4B5400215D87 /* AFURLSessionManager.m in Sources */,
 				9F4DE4191F558EBC0016DB03 /* MBCircularProgressBarLayer.m in Sources */,

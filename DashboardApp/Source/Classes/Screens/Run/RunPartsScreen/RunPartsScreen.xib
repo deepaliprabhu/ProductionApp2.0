@@ -29,6 +29,7 @@
                 <outlet property="_commentsTableView" destination="iIc-Wn-o6t" id="cXW-ao-NyR"/>
                 <outlet property="_componentsTable" destination="SnP-Us-Sab" id="0MF-Gu-Aad"/>
                 <outlet property="_detailsHolderView" destination="FLx-ck-1RW" id="3Hx-AK-3dg"/>
+                <outlet property="_hardToGetButton" destination="Dsf-aU-mOl" id="HgF-Gf-VZf"/>
                 <outlet property="_historyView" destination="7HG-Gd-57G" id="poq-gm-z4y"/>
                 <outlet property="_lockLabel" destination="CGJ-vL-8vE" id="MjM-LA-9gm"/>
                 <outlet property="_masonDateLabel" destination="giU-lu-ptg" id="u5w-P0-OAY"/>
@@ -550,6 +551,23 @@
                                         <constraint firstAttribute="height" constant="1" id="MY7-fY-jdk"/>
                                     </constraints>
                                 </view>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dsf-aU-mOl">
+                                    <rect key="frame" x="510" y="38" width="118" height="23"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="19"/>
+                                    <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="98" minY="-3" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="hard to get" image="checkmarkUnselectedIcon">
+                                        <color key="titleColor" red="0.22352941179999999" green="0.21960784310000001" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <state key="selected" image="checkmarkSelectedIcon"/>
+                                    <state key="highlighted">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="hardToGetButtonTapped" destination="-1" eventType="touchUpInside" id="iFe-Nn-5dh"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -981,6 +999,8 @@
     </objects>
     <resources>
         <image name="backButtonIcon" width="21" height="15"/>
+        <image name="checkmarkSelectedIcon" width="20" height="18"/>
+        <image name="checkmarkUnselectedIcon" width="20" height="18"/>
         <image name="dropdownBomIcon" width="15" height="7"/>
         <image name="dropdownPriceIcon" width="15" height="7"/>
         <image name="searchPartsIcon" width="14" height="15"/>

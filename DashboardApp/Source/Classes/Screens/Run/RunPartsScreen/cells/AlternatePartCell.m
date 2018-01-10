@@ -17,6 +17,7 @@
     __weak IBOutlet UILabel *_vendorLabel;
     __weak IBOutlet UILabel *_quantityLabel;
     __weak IBOutlet UIView *_separatorView;
+    __weak IBOutlet UIImageView *_redFlagImageView;
     __weak IBOutlet NSLayoutConstraint *_bottomConstraintSeparatorView;
     __weak IBOutlet UIActivityIndicatorView *_priceSpinner;
     __weak IBOutlet UIActivityIndicatorView *_poSpinner;
@@ -24,6 +25,8 @@
 
 - (void) layoutWithPart:(PartModel*)part isLast:(BOOL)last
 {
+    _redFlagImageView.alpha = part.isHardToGet;
+    
     _nameLabel.text = [NSString stringWithFormat:@"%@", part.part];
     _vendorLabel.text = @"-";
     _quantityLabel.text = @"-";
@@ -36,6 +39,8 @@
 
 - (void) layoutWithShort:(PartModel*)part isLast:(BOOL)last
 {
+    _redFlagImageView.alpha = part.isHardToGet;
+    
     _nameLabel.text = [NSString stringWithFormat:@"%@", part.part];
     _quantityLabel.text = @"-";
     [self layoutStockForPart:part];

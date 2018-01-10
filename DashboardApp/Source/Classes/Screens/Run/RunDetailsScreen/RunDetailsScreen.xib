@@ -82,10 +82,10 @@
                     <rect key="frame" x="0.0" y="20" width="1024" height="61"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q2e-CX-0qb">
-                            <rect key="frame" x="262" y="20" width="500" height="21"/>
+                            <rect key="frame" x="332" y="20" width="360" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="jjB-0F-iBQ"/>
-                                <constraint firstAttribute="width" constant="500" id="zYg-2O-aDu"/>
+                                <constraint firstAttribute="width" constant="360" id="zYg-2O-aDu"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="21"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -105,7 +105,7 @@
                             <rect key="frame" x="928" y="10" width="68" height="42"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="-3" minY="0.0" maxX="10" maxY="0.0"/>
                             <state key="normal" title="Shorts" image="partIcon"/>
                             <state key="highlighted">
                                 <color key="titleColor" red="0.45098039220000002" green="0.45098039220000002" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -125,6 +125,19 @@
                             </state>
                             <connections>
                                 <action selector="commentsButtonTapped" destination="-1" eventType="touchUpInside" id="2Ei-2X-DeU"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9j-tl-9U7">
+                            <rect key="frame" x="709" y="10" width="82" height="42"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                            <state key="normal" title="Demand" image="demandIcon"/>
+                            <state key="highlighted">
+                                <color key="titleColor" red="0.45098039220000002" green="0.45098039220000002" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="demandButtonTapped" destination="-1" eventType="touchUpInside" id="JV8-LY-5OQ"/>
                             </connections>
                         </button>
                     </subviews>
@@ -817,6 +830,7 @@
     <resources>
         <image name="backButtonIcon" width="36" height="10"/>
         <image name="commentsWhiteIcon" width="16" height="15"/>
+        <image name="demandIcon" width="16" height="12"/>
         <image name="enterDataButton" width="123" height="33"/>
         <image name="partIcon" width="19" height="18"/>
     </resources>

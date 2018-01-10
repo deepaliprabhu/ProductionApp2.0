@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -24,7 +24,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLi-dS-Zte">
-                        <rect key="frame" x="16" y="5" width="80" height="21"/>
+                        <rect key="frame" x="21" y="5" width="75" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                         <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -67,10 +67,14 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </activityIndicatorView>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l0I-WD-byE">
-                        <rect key="frame" x="9" y="8" width="1" height="24"/>
+                        <rect key="frame" x="15" y="8" width="1" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.25671812890000001" green="0.25671043989999998" blue="0.25671476129999998" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="redFlagIcon" translatesAutoresizingMaskIntoConstraints="NO" id="VOG-0u-7xc">
+                        <rect key="frame" x="5" y="9" width="8" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -79,10 +83,14 @@
                 <outlet property="_priceLabel" destination="GQw-qX-FEg" id="zuR-oc-65O"/>
                 <outlet property="_priceSpinner" destination="1cW-Au-nmx" id="Vej-od-dvE"/>
                 <outlet property="_quantityLabel" destination="W43-q7-yDK" id="5CU-zv-BEA"/>
+                <outlet property="_redFlagImageView" destination="VOG-0u-7xc" id="stt-nA-LMo"/>
                 <outlet property="_separatorView" destination="l0I-WD-byE" id="6Zf-XW-tvT"/>
                 <outlet property="_stockLabel" destination="IFz-tO-Fqc" id="Dtc-Qt-bsX"/>
                 <outlet property="_vendorLabel" destination="4kb-bx-hob" id="Yrm-gw-jwR"/>
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="redFlagIcon" width="30" height="42"/>
+    </resources>
 </document>

@@ -106,6 +106,7 @@ typedef enum
     __unsafe_unretained IBOutlet UIView *_prioritiesHeaderView;
     
     __unsafe_unretained IBOutlet UILabel *_lockLabel;
+    __unsafe_unretained IBOutlet UIButton *_hardToGetButton;
     
     NSMutableArray *_visibleObjs;
     NSMutableArray *_shorts;
@@ -337,6 +338,24 @@ typedef enum
     r.size.width = 2;
     CGRect rect = [_partTitleButton convertRect:r toView:self.view];
     [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:true];
+}
+
+- (IBAction) hardToGetButtonTapped {
+    
+    BOOL selected = _visiblePart.isHardToGet;
+    
+    [LoadingView showLoading:@"Loading..."];
+    [[ProdAPI sharedInstance] markHardToGetPart:_visiblePart.part completion:^(BOOL success, id response) {
+      
+        if (success) {
+            [LoadingView removeLoading];
+            _visiblePart.isHardToGet = !selected;
+            _hardToGetButton.selected = !selected;
+            [_componentsTable reloadData];
+        } else {
+            [LoadingView showLoading:@"Error, please try again later!"];
+        }
+    }];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -713,6 +732,8 @@ typedef enum
         _detailsHolderView.alpha = 1;
         _seeDetailsLabel.alpha = 0;
         
+        _hardToGetButton.selected = part.isHardToGet;
+        
         [_partTitleButton setTitle:part.part forState:UIControlStateNormal];
         CGFloat w = [LayoutUtils widthForText:part.part withFont:ccFont(@"Roboto-Regular", 20)];
         _partTitleLineWidthConstraint.constant = w;
@@ -973,6 +994,7 @@ typedef enum
             s.audit = p.audit;
             s.priceHistory = p.priceHistory;
             s.shortQty = p.shortQty;
+            s.isHardToGet = p.isHardToGet;
             [_shorts addObject:s];
         }
     }
@@ -1018,6 +1040,7 @@ typedef enum
             if (totalStock < needed) {
                 
                 PartModel *s = [PartModel partFrom:p.data];
+                s.isHardToGet = p.isHardToGet;
                 s.purchases = p.purchases;
                 s.audit = p.audit;
                 s.priceHistory = p.priceHistory;

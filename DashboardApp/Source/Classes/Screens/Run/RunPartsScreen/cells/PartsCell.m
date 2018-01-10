@@ -17,6 +17,7 @@
     __weak IBOutlet UILabel *_vendorLabel;
     __weak IBOutlet UILabel *_quantityLabel;
     __weak IBOutlet UIView *_separatorView;
+    __weak IBOutlet UIImageView *_redFlagImageView;
     __weak IBOutlet UIActivityIndicatorView *_priceSpinner;
     __weak IBOutlet UIActivityIndicatorView *_poSpinner;
 }
@@ -40,6 +41,8 @@
 }
 
 - (void) layoutWithShort:(PartModel*)m {
+    
+    _redFlagImageView.alpha = m.isHardToGet;
     
     UIColor *c = ccolor(100, 100, 100);
     _nameLabel.text = m.part;
@@ -85,6 +88,7 @@
 
 - (void) layoutWithPart:(PartModel*)m {
     
+    _redFlagImageView.alpha = m.isHardToGet;
     _separatorView.alpha = (m.alternateParts.count > 0);
     _nameLabel.text = m.part;
     if (m.vendor.length == 0)

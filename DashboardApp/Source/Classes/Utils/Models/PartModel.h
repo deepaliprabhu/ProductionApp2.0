@@ -38,6 +38,7 @@
 @property (nonatomic, unsafe_unretained) int shortQty;
 @property (nonatomic, strong) PartAuditModel *audit;
 @property (nonatomic, unsafe_unretained) BOOL isAlternate;
+@property (nonatomic, unsafe_unretained) BOOL isHardToGet;
 
 + (PartModel*) partFrom:(NSDictionary*)data;
 - (int) totalStock;
