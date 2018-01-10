@@ -11,6 +11,6 @@
 
 @interface AuditLogCell : UITableViewCell
 
-- (void) layoutWithModel:(ActionModel*)model;
+- (void) layoutWithModel:(ActionModel*)model atIndex:(int)idx;
 
 @end

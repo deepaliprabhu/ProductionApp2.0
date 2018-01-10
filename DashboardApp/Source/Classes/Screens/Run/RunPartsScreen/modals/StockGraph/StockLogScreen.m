@@ -47,7 +47,7 @@
         cell = [[NSBundle mainBundle] loadNibNamed:simpleTableIdentifier owner:nil options:nil][0];
     }
 
-    [cell layoutWithModel:_actions[indexPath.row]];
+    [cell layoutWithModel:_actions[indexPath.row] atIndex:(int)indexPath.row];
     
     return cell;
 }
@@ -57,7 +57,7 @@
 - (void) initLayout {
     
     CGFloat h = MIN(32+34*_actions.count, 700);
-    self.preferredContentSize = CGSizeMake(530, h);
+    self.preferredContentSize = CGSizeMake(700, h);
     
     [_tableView reloadData];
 }
