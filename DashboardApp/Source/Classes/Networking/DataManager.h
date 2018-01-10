@@ -48,6 +48,7 @@ __pds(DataManagerProtocol);
 - (NSMutableArray*)getRMAList;
 - (void)setDemandList:(NSMutableArray*)demandsArray_;
 - (NSMutableArray*)getDemandList;
+- (int) indexOfDemandForProduct:(NSString*)productNumber;
 - (void)setPartsTransferList:(NSMutableArray*)partsTransferArray_;
 - (NSMutableArray*)getFeedbackList;
 - (void)setFeedbackList:(NSMutableArray*)feedbacksArray_;

@@ -10,28 +10,35 @@
 #import "DataManager.h"
 #import "DemandsViewCell.h"
 
-@interface DemandsViewController ()
-
-@end
-
-@implementation DemandsViewController
+@implementation DemandsViewController {
+    __weak IBOutlet UIButton *_backButton;
+}
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    _notesTextView.layer.borderWidth = 0.4f;
-    _notesTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _statsView.layer.borderWidth = 0.4f;
-    _statsView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     
-    demandsArray = [__DataManager getDemandList];
+    [super viewDidLoad];
+    
+    [self initLayout];
+    
+    if (_productNumber == nil) {
+        demandsArray = [[DataManager sharedInstance] getDemandList];
+    } else {
+        int i = [[DataManager sharedInstance] indexOfDemandForProduct:_productNumber];
+        NSDictionary *d = [[DataManager sharedInstance] getDemandList][i];
+        demandsArray = [NSMutableArray arrayWithObject:d];
+    }
+    
     [_tableView reloadData];
+    [self selectProductAt:0];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - Actions
+
+- (IBAction)closePressed:(id)sender {
+    [self.navigationController popViewControllerAnimated:true];
 }
+
+#pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 40.0f;
@@ -47,22 +54,42 @@
     if (cell == nil) {
         cell = [[NSBundle mainBundle] loadNibNamed:simpleTableIdentifier owner:nil options:nil][0];
     }
-    //cell.delegate = self;
+
     [cell setCellData:[demandsArray objectAtIndex:indexPath.row]];
     return cell;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    selectedIndex = indexPath.row;
+    [self selectProductAt:(int)indexPath.row];
+}
+
+#pragma mark - Layout
+
+- (void) initLayout {
+
+    _notesTextView.layer.borderWidth = 0.4f;
+    _notesTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _statsView.layer.borderWidth = 0.4f;
+    _statsView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    
+    if (_productNumber == nil) {
+        [_backButton setTitle:@"Dashboard" forState:UIControlStateNormal];
+    } else {
+        [_backButton setTitle:@"Run" forState:UIControlStateNormal];
+    }
+}
+
+#pragma mark - Utils
+
+- (void) selectProductAt:(int)index {
+    
+    selectedIndex = index;
     _rightPaneView.hidden = false;
     [self showDetailForDemand];
 }
 
-- (IBAction)closePressed:(id)sender {
-    [self.navigationController popViewControllerAnimated:true];
-}
-
-- (void)showDetailForDemand {
+- (void) showDetailForDemand {
+    
     NSMutableDictionary *demandData = demandsArray[selectedIndex];
     _productNameLabel.text = demandData[@"Product"];
     _notesTextView.text = demandData[@"Notes"];
@@ -75,14 +102,5 @@
     _daysOpenLabel.text = demandData[@"Days Open"];
     _runsLabel.text = demandData[@"Runs"];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

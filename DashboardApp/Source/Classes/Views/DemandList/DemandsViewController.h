@@ -23,12 +23,12 @@
     IBOutlet UILabel *_longTermDateLabel;
     IBOutlet UILabel *_stockQtyLabel;
     IBOutlet UILabel *_stockDateLabel;
-    
-    
-    
+
     NSMutableArray *demandsArray;
     
     int selectedIndex;
 }
+
+@property (nonatomic, strong) NSString *productNumber;
 
 @end

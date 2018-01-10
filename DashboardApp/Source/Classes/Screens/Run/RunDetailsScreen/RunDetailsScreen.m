@@ -28,6 +28,7 @@
 #import "PODateScreen.h"
 #import "PassedTestsScreen.h"
 #import "LayoutUtils.h"
+#import "DemandsViewController.h"
 
 @interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol, PODateScreenDelegate>
 
@@ -208,6 +209,16 @@
 
 - (IBAction) demandButtonTapped {
     
+    NSString *pr = [_run getProductNumber];
+    if ([[DataManager sharedInstance] indexOfDemandForProduct:pr] >= 0) {
+        
+        DemandsViewController *demandsVC = [DemandsViewController new];
+        demandsVC.productNumber = pr;
+        [self.navigationController pushViewController:demandsVC animated:true];
+    } else {
+        
+        [LoadingView showShortMessage:cstrf(@"No demand for %@", pr)];
+    }
 }
 
 - (IBAction) dateAssignedButtonTapped {

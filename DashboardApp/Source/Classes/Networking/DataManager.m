@@ -327,6 +327,17 @@ static DataManager *_sharedInstance = nil;
     return demandsArray;
 }
 
+- (int) indexOfDemandForProduct:(NSString*)productNumber {
+    
+    for (int i=0;i<demandsArray.count;i++) {
+        NSDictionary *d = demandsArray[i];
+        if ([d[@"Product Id"] isEqualToString:productNumber])
+            return i;
+    }
+    
+    return -1;
+}
+
 - (void)setPartsTransferList:(NSMutableArray*)partsTransferArray_ {
     partsTransferArray = partsTransferArray_;
 }
