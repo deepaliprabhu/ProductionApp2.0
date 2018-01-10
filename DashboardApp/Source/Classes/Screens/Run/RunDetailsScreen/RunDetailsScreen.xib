@@ -92,11 +92,11 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WNO-h6-Cnq">
-                            <rect key="frame" x="28" y="-1" width="103" height="62"/>
+                            <rect key="frame" x="28" y="-1" width="160" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="18"/>
                             <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="Back" image="backButtonIcon"/>
+                            <state key="normal" title="Runs" image="backButtonIcon"/>
                             <connections>
                                 <action selector="backButtonTapped" destination="-1" eventType="touchUpInside" id="8P5-aG-bbv"/>
                             </connections>
