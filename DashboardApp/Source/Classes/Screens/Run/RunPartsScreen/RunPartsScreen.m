@@ -1025,7 +1025,11 @@ typedef enum
             int needed = (int)_run.quantity;
             
             NSMutableArray *alternates = [NSMutableArray array];
-            int totalStock = [p totalStock];
+            int totalStock = 0;
+            if ([_run.location isEqualToString:@"MASON"])
+                totalStock = [p masonStock];
+            else
+                totalStock = [p puneStock];
             if (totalStock < needed) {
                 
                 for (int i=0; i<p.alternateParts.count; i++) {

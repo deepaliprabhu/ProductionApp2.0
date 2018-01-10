@@ -19,6 +19,7 @@
     _order = [[runData objectForKey:@"Order"] intValue];
     if (_order == 0)
         _order = INT_MAX;
+    _location = [runData objectForKey:@"Location"];
     _runId = [[runData objectForKey:@"Run"] intValue];
     _sequence = [[runData objectForKey:@"Sequence"] intValue];
     _quantity = [[runData objectForKey:@"Qty"] intValue];

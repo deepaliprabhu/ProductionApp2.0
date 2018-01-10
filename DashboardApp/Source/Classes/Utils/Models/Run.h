@@ -46,6 +46,7 @@
 @property NSString *status;
 @property NSString *shipping;
 @property NSString *detail;
+@property NSString *location;
 @property BOOL activated;
 @property BOOL isLocked;
 
