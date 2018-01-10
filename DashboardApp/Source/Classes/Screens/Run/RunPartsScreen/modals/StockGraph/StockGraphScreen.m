@@ -94,7 +94,7 @@
     CGRect rect = [collectionView convertRect:theAttributes.frame toView:collectionView.superview.superview];
     
     UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
-    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:true];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
 }
 
 #pragma mark - Layout

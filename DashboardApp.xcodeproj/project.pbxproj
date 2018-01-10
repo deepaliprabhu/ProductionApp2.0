@@ -120,6 +120,8 @@
 		89897E301FBF0BAC000B39EA /* PartAuditModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89897E2F1FBF0BAC000B39EA /* PartAuditModel.m */; };
 		89897E391FBF140C000B39EA /* StockGraphScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 89897E371FBF140C000B39EA /* StockGraphScreen.m */; };
 		89897E3A1FBF140C000B39EA /* StockGraphScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89897E381FBF140C000B39EA /* StockGraphScreen.xib */; };
+		89A76E4F2006A41500D7B0A9 /* AuditLogCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76E4D2006A41500D7B0A9 /* AuditLogCell.m */; };
+		89A76E502006A41500D7B0A9 /* AuditLogCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89A76E4E2006A41500D7B0A9 /* AuditLogCell.xib */; };
 		89AC0AAE1FC5A84D008CA56B /* AlternatePartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC0AAC1FC5A84D008CA56B /* AlternatePartCell.m */; };
 		89AC0AAF1FC5A84D008CA56B /* AlternatePartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89AC0AAD1FC5A84D008CA56B /* AlternatePartCell.xib */; };
 		89AC0AB31FC60E07008CA56B /* CommentsPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC0AB11FC60E07008CA56B /* CommentsPartCell.m */; };
@@ -486,6 +488,9 @@
 		89897E361FBF140C000B39EA /* StockGraphScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockGraphScreen.h; sourceTree = "<group>"; };
 		89897E371FBF140C000B39EA /* StockGraphScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StockGraphScreen.m; sourceTree = "<group>"; };
 		89897E381FBF140C000B39EA /* StockGraphScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StockGraphScreen.xib; sourceTree = "<group>"; };
+		89A76E4C2006A41500D7B0A9 /* AuditLogCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditLogCell.h; sourceTree = "<group>"; };
+		89A76E4D2006A41500D7B0A9 /* AuditLogCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditLogCell.m; sourceTree = "<group>"; };
+		89A76E4E2006A41500D7B0A9 /* AuditLogCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuditLogCell.xib; sourceTree = "<group>"; };
 		89AC0AAB1FC5A84D008CA56B /* AlternatePartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlternatePartCell.h; sourceTree = "<group>"; };
 		89AC0AAC1FC5A84D008CA56B /* AlternatePartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlternatePartCell.m; sourceTree = "<group>"; };
 		89AC0AAD1FC5A84D008CA56B /* AlternatePartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlternatePartCell.xib; sourceTree = "<group>"; };
@@ -952,9 +957,6 @@
 				89619E161FBDB4E8005A5BE7 /* PriorityRunCell.h */,
 				89619E171FBDB4E8005A5BE7 /* PriorityRunCell.m */,
 				89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */,
-				895287391FCF39EE005C46EE /* AuditActionCell.h */,
-				8952873A1FCF39EE005C46EE /* AuditActionCell.m */,
-				8952873B1FCF39EE005C46EE /* AuditActionCell.xib */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -984,6 +986,12 @@
 				895287341FCF2B33005C46EE /* StockLogScreen.h */,
 				895287351FCF2B33005C46EE /* StockLogScreen.m */,
 				895287361FCF2B33005C46EE /* StockLogScreen.xib */,
+				89A76E4C2006A41500D7B0A9 /* AuditLogCell.h */,
+				89A76E4D2006A41500D7B0A9 /* AuditLogCell.m */,
+				89A76E4E2006A41500D7B0A9 /* AuditLogCell.xib */,
+				895287391FCF39EE005C46EE /* AuditActionCell.h */,
+				8952873A1FCF39EE005C46EE /* AuditActionCell.m */,
+				8952873B1FCF39EE005C46EE /* AuditActionCell.xib */,
 				895F5F7D1FCEF75800ED3349 /* StockCell.h */,
 				895F5F7E1FCEF75800ED3349 /* StockCell.m */,
 				895F5F7F1FCEF75800ED3349 /* StockCell.xib */,
@@ -1969,6 +1977,7 @@
 				9F3144BA1F7ABFD200B9D32C /* left_arrow@2x.png in Resources */,
 				9F8AF75E1F559441008027B1 /* placeholder.png in Resources */,
 				9F8567931F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.xib in Resources */,
+				89A76E502006A41500D7B0A9 /* AuditLogCell.xib in Resources */,
 				9F252A591F4D4D9E0056DA8F /* shipmentBgImage.png in Resources */,
 				9F3144B91F7ABFD200B9D32C /* left_arrow.png in Resources */,
 				9F977EEE1F6272AE009C2B6D /* RunProcessStepsViewCell.xib in Resources */,
@@ -2036,6 +2045,7 @@
 				8919BE911FB4DD5100EE6839 /* SDWebImageDownloader.m in Sources */,
 				8954345D1FF517B900ECDDEE /* BomHistoryScreen.m in Sources */,
 				89512A1F1FE9327100BF7456 /* ProcessCell.m in Sources */,
+				89A76E4F2006A41500D7B0A9 /* AuditLogCell.m in Sources */,
 				8919BE9B1FB4DD5100EE6839 /* UIButton+WebCache.m in Sources */,
 				895F5F801FCEF75800ED3349 /* StockCell.m in Sources */,
 				9F471CF41F53DD3700B294B7 /* SSGradientView.m in Sources */,
