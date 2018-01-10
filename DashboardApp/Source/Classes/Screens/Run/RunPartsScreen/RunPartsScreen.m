@@ -672,6 +672,7 @@ typedef enum
     [self addShadowTo:_transitStockView];
     
     _lockLabel.alpha = _run.isLocked;
+    _hardToGetButton.alpha = [[[UserManager sharedInstance] loggedUser] isAdmin];
 }
 
 - (void) layoutBOM {

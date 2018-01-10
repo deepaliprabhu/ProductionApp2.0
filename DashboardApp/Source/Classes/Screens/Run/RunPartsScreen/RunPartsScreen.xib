@@ -998,7 +998,7 @@
         </view>
     </objects>
     <resources>
-        <image name="backButtonIcon" width="21" height="15"/>
+        <image name="backButtonIcon" width="36" height="10"/>
         <image name="checkmarkSelectedIcon" width="20" height="18"/>
         <image name="checkmarkUnselectedIcon" width="20" height="18"/>
         <image name="dropdownBomIcon" width="15" height="7"/>
