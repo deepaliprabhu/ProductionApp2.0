@@ -122,6 +122,8 @@
 		89897E3A1FBF140C000B39EA /* StockGraphScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89897E381FBF140C000B39EA /* StockGraphScreen.xib */; };
 		89A76E4F2006A41500D7B0A9 /* AuditLogCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76E4D2006A41500D7B0A9 /* AuditLogCell.m */; };
 		89A76E502006A41500D7B0A9 /* AuditLogCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89A76E4E2006A41500D7B0A9 /* AuditLogCell.xib */; };
+		89A76E542007A67D00D7B0A9 /* DailyLogRawCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76E522007A67D00D7B0A9 /* DailyLogRawCell.m */; };
+		89A76E552007A67D00D7B0A9 /* DailyLogRawCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89A76E532007A67D00D7B0A9 /* DailyLogRawCell.xib */; };
 		89AC0AAE1FC5A84D008CA56B /* AlternatePartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC0AAC1FC5A84D008CA56B /* AlternatePartCell.m */; };
 		89AC0AAF1FC5A84D008CA56B /* AlternatePartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89AC0AAD1FC5A84D008CA56B /* AlternatePartCell.xib */; };
 		89AC0AB31FC60E07008CA56B /* CommentsPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC0AB11FC60E07008CA56B /* CommentsPartCell.m */; };
@@ -491,6 +493,9 @@
 		89A76E4C2006A41500D7B0A9 /* AuditLogCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditLogCell.h; sourceTree = "<group>"; };
 		89A76E4D2006A41500D7B0A9 /* AuditLogCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditLogCell.m; sourceTree = "<group>"; };
 		89A76E4E2006A41500D7B0A9 /* AuditLogCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuditLogCell.xib; sourceTree = "<group>"; };
+		89A76E512007A67D00D7B0A9 /* DailyLogRawCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyLogRawCell.h; sourceTree = "<group>"; };
+		89A76E522007A67D00D7B0A9 /* DailyLogRawCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyLogRawCell.m; sourceTree = "<group>"; };
+		89A76E532007A67D00D7B0A9 /* DailyLogRawCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyLogRawCell.xib; sourceTree = "<group>"; };
 		89AC0AAB1FC5A84D008CA56B /* AlternatePartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlternatePartCell.h; sourceTree = "<group>"; };
 		89AC0AAC1FC5A84D008CA56B /* AlternatePartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlternatePartCell.m; sourceTree = "<group>"; };
 		89AC0AAD1FC5A84D008CA56B /* AlternatePartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlternatePartCell.xib; sourceTree = "<group>"; };
@@ -1139,6 +1144,9 @@
 				898574471FE9504300EAB20C /* DailyLogRawScreen.h */,
 				898574481FE9504300EAB20C /* DailyLogRawScreen.m */,
 				898574491FE9504300EAB20C /* DailyLogRawScreen.xib */,
+				89A76E512007A67D00D7B0A9 /* DailyLogRawCell.h */,
+				89A76E522007A67D00D7B0A9 /* DailyLogRawCell.m */,
+				89A76E532007A67D00D7B0A9 /* DailyLogRawCell.xib */,
 				897BA32A1FF65FF900C8DA9A /* FailedTestsScreen.h */,
 				897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */,
 				897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */,
@@ -1980,6 +1988,7 @@
 				89A76E502006A41500D7B0A9 /* AuditLogCell.xib in Resources */,
 				9F252A591F4D4D9E0056DA8F /* shipmentBgImage.png in Resources */,
 				9F3144B91F7ABFD200B9D32C /* left_arrow.png in Resources */,
+				89A76E552007A67D00D7B0A9 /* DailyLogRawCell.xib in Resources */,
 				9F977EEE1F6272AE009C2B6D /* RunProcessStepsViewCell.xib in Resources */,
 				9F7FE56A1F7B78C2005CB4DF /* ProductListViewController.xib in Resources */,
 				D227678C1FAE4B5400215D87 /* README.md in Resources */,
@@ -2160,6 +2169,7 @@
 				9F3FF6CE1F4BDF7500F52F64 /* UIFont+FontAwesome.m in Sources */,
 				8919BE9A1FB4DD5100EE6839 /* UIView+WebCacheOperation.m in Sources */,
 				89AF44801FEEEC59004D119C /* SFHFKeychainUtils.m in Sources */,
+				89A76E542007A67D00D7B0A9 /* DailyLogRawCell.m in Sources */,
 				D227678A1FAE4B5400215D87 /* AFURLSessionManager.m in Sources */,
 				9F4DE4191F558EBC0016DB03 /* MBCircularProgressBarLayer.m in Sources */,
 				895DEA2F1FF3DA54001ADAFE /* UserDetailsScreen.m in Sources */,

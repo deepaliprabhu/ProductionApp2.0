@@ -8,30 +8,52 @@
 
 #import "DailyLogRawScreen.h"
 #import "DayLogModel.h"
+#import "DailyLogRawCell.h"
 
-@interface DailyLogRawScreen ()
+@interface DailyLogRawScreen () <UITableViewDelegate, UITableViewDataSource>
 
 @end
 
 @implementation DailyLogRawScreen {
     
-    __weak IBOutlet UITextView *_textView;
+    __weak IBOutlet UITableView *_tableView;
 }
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.preferredContentSize = CGSizeMake(320, 500);
     
-    NSMutableString *str = [NSMutableString string];
-    for (DayLogModel *d in _days) {
-        
-        NSString *s = [d.data description];
-        [str appendString:s];
-        [str appendString:@"\n"];
+    CGFloat h = MIN(32+34*_days.count, 400);
+    self.preferredContentSize = CGSizeMake(1000, h);
+    
+    [_tableView reloadData];
+}
+
+#pragma mark - UITableViewDelegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _days.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 34;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *simpleTableIdentifier = @"DailyLogRawCell";
+    DailyLogRawCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    if (cell == nil) {
+        cell = [[NSBundle mainBundle] loadNibNamed:simpleTableIdentifier owner:nil options:nil][0];
     }
     
-    _textView.text = str;
+    [cell layoutWithLog:_days[indexPath.row] atIndex:(int)indexPath.row];
+    
+    return cell;
 }
 
 @end
