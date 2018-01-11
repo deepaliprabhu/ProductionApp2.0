@@ -43,6 +43,14 @@
         _weekLabel.text = @"";
     }
     _imageView.image = [UIImage imageNamed: [run isLocked] ? @"lockRunIcon" : @"unlockRunIcon"];
+    
+    NSString *process = [run getRunData][@"Inprocess"];
+    if (process.length == 0)
+        process = @"-";
+    NSString *ready = [run getRunData][@"Ready"];
+    if (ready.length == 0)
+        ready = @"-";
+    _progressLabel.text = [NSString stringWithFormat:@"%@/%@", process, ready];
 }
 
 - (Run*) getRun {

@@ -574,6 +574,7 @@
 - (void) getProcessFlow {
     
     [LoadingView showLoading:@"Loading..."];
+//    [[ProdAPI sharedInstance] getProcessFlowForRun:[_run getRunId] product:[_run getProductNumber] completion:^(BOOL success, id response) {
     [[ProdAPI sharedInstance] getProcessFlowForProduct:[_run getProductNumber] completion:^(BOOL success, id response) {
       
         if (success) {

@@ -150,7 +150,7 @@
         </view>
     </objects>
     <resources>
-        <image name="backButtonIcon" width="36" height="10"/>
+        <image name="backButtonIcon" width="21" height="15"/>
         <image name="runScheduleBg" width="357" height="668"/>
     </resources>
 </document>

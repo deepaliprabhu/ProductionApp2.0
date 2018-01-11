@@ -112,6 +112,11 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
     [self filterRunsForIndex:3];
 }
 
+- (IBAction) progressButtonTapped {
+    
+    [LoadingView showShortMessage:@"in process / completed"];
+}
+
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

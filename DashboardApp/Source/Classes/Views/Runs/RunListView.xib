@@ -61,7 +61,7 @@
                         <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="changeOrderButtonTapped" destination="-1" eventType="touchUpInside" id="iLe-bP-H6M"/>
+                        <action selector="changeOrderButtonTapped" destination="iN0-l3-epB" eventType="touchUpInside" id="8lQ-Rc-MJL"/>
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pvb-b4-EKy">
@@ -103,6 +103,19 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="Z5K-6W-KDg">
+                            <rect key="frame" x="464" y="-10" width="51" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="_______">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <state key="highlighted">
+                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="progressButtonTapped" destination="iN0-l3-epB" eventType="touchUpInside" id="ZJA-Pz-6yP"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="0.1361159336419753" colorSpace="calibratedWhite"/>
                 </view>
