@@ -98,6 +98,8 @@
 		89697BA52008B45A00C96103 /* DailyLogScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89697BA32008B45A00C96103 /* DailyLogScreen.xib */; };
 		89697BA82008D9CB00C96103 /* DailyLogHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89697BA72008D9CB00C96103 /* DailyLogHeaderView.m */; };
 		89697BAA2008D9DF00C96103 /* DailyLogHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89697BA92008D9DF00C96103 /* DailyLogHeaderView.xib */; };
+		89697BAE2008E00200C96103 /* DailyLogCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89697BAC2008E00200C96103 /* DailyLogCell.m */; };
+		89697BAF2008E00200C96103 /* DailyLogCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89697BAD2008E00200C96103 /* DailyLogCell.xib */; };
 		8970C3AF20050A51001F7680 /* RunListScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8970C3AD20050A51001F7680 /* RunListScreen.xib */; };
 		8970C3B22005618C001F7680 /* RunListScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8970C3AC20050A51001F7680 /* RunListScreen.m */; };
 		8970C3B6200561FE001F7680 /* RunScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8970C3B4200561FE001F7680 /* RunScheduleCell.m */; };
@@ -455,6 +457,9 @@
 		89697BA62008D9CB00C96103 /* DailyLogHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyLogHeaderView.h; sourceTree = "<group>"; };
 		89697BA72008D9CB00C96103 /* DailyLogHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyLogHeaderView.m; sourceTree = "<group>"; };
 		89697BA92008D9DF00C96103 /* DailyLogHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyLogHeaderView.xib; sourceTree = "<group>"; };
+		89697BAB2008E00200C96103 /* DailyLogCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyLogCell.h; sourceTree = "<group>"; };
+		89697BAC2008E00200C96103 /* DailyLogCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyLogCell.m; sourceTree = "<group>"; };
+		89697BAD2008E00200C96103 /* DailyLogCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyLogCell.xib; sourceTree = "<group>"; };
 		8970C3AB20050A51001F7680 /* RunListScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunListScreen.h; sourceTree = "<group>"; };
 		8970C3AC20050A51001F7680 /* RunListScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunListScreen.m; sourceTree = "<group>"; };
 		8970C3AD20050A51001F7680 /* RunListScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunListScreen.xib; sourceTree = "<group>"; };
@@ -1103,6 +1108,9 @@
 				89697BA62008D9CB00C96103 /* DailyLogHeaderView.h */,
 				89697BA72008D9CB00C96103 /* DailyLogHeaderView.m */,
 				89697BA92008D9DF00C96103 /* DailyLogHeaderView.xib */,
+				89697BAB2008E00200C96103 /* DailyLogCell.h */,
+				89697BAC2008E00200C96103 /* DailyLogCell.m */,
+				89697BAD2008E00200C96103 /* DailyLogCell.xib */,
 			);
 			path = DailyLog;
 			sourceTree = "<group>";
@@ -2021,6 +2029,7 @@
 				9F3144BB1F7ABFD200B9D32C /* right_arrow.png in Resources */,
 				8985744B1FE9504300EAB20C /* DailyLogRawScreen.xib in Resources */,
 				3BCDA4191FB346560021BC03 /* ProductAdminPopover.xib in Resources */,
+				89697BAF2008E00200C96103 /* DailyLogCell.xib in Resources */,
 				894EE6981FE00EF8009244A7 /* LockConfirmScreen.xib in Resources */,
 				894C5F5F1FBB147600FA4E5D /* RunPartCell.xib in Resources */,
 				8950A7281FC6C14E006C66CB /* AddCommentScreen.xib in Resources */,
@@ -2178,6 +2187,7 @@
 				9FA264661F48A32C004C882E /* TasklistViewCell.m in Sources */,
 				895DEA2A1FF3C722001ADAFE /* UIScrollView+DZNSegmentedControl.m in Sources */,
 				8961A3D61FFE39970058E353 /* ProcessDetailsScreen.m in Sources */,
+				89697BAE2008E00200C96103 /* DailyLogCell.m in Sources */,
 				9FEEE5831EEFEFA2005B5ECA /* AppDelegate.m in Sources */,
 				9F7767401F56D6E90092F603 /* LeftCollectionViewCell.m in Sources */,
 				89897E301FBF0BAC000B39EA /* PartAuditModel.m in Sources */,

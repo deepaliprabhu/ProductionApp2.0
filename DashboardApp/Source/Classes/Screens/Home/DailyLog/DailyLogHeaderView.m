@@ -8,15 +8,27 @@
 
 #import "DailyLogHeaderView.h"
 
-@implementation DailyLogHeaderView
+static NSDateFormatter *_formatter = nil;
+
+@implementation DailyLogHeaderView {
+    __weak IBOutlet UILabel *_headerLabel;
+}
+
+__CREATEVIEW(DailyLogHeaderView, @"DailyLogHeaderView", 0);
 
 + (CGFloat) height {
-    return 0;
+    return 80;
 }
 
 - (void) layoutWithDate:(NSDate*)date {
     
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _formatter = [NSDateFormatter new];
+        _formatter.dateFormat = @"dd MMM yyyy";
+    });
     
+    _headerLabel.text = [_formatter stringFromDate:date];
 }
 
 @end

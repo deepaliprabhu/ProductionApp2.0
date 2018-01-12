@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Defines.h"
 
 @interface DailyLogHeaderView : UIView
+
+__CREATEVIEWH(DailyLogHeaderView);
 
 + (CGFloat) height;
 - (void) layoutWithDate:(NSDate*)date;

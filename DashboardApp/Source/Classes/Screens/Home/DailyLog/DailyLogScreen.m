@@ -12,6 +12,7 @@
 #import "DayLogModel.h"
 #import "DataManager.h"
 #import "LoadingView.h"
+#import "DailyLogCell.h"
 
 @interface DailyLogScreen () <UITableViewDelegate, UITableViewDataSource>
 
@@ -20,6 +21,7 @@
 @implementation DailyLogScreen {
     
     __weak IBOutlet UITableView *_tableView;
+    __weak IBOutlet UILabel *_noLogsLabel;
     
     NSMutableArray *_allLogs;
     int _totalRequests;
@@ -39,6 +41,19 @@
     [self.navigationController popViewControllerAnimated:true];
 }
 
+#pragma mark - UITableViewDelegate
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *identifier = @"DailyLogCell";
+    DailyLogCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (cell == nil) {
+        cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
+    }
+    
+    return cell;
+}
+
 #pragma mark - Utils
 
 - (void) getData {
@@ -53,6 +68,8 @@
         for (Run *run in runs) {
             [self getDailyLogForRun:run];
         }
+    } else {
+        _noLogsLabel.alpha = 1;
     }
 }
 
@@ -60,9 +77,6 @@
     
     [[ProdAPI sharedInstance] getDailyLogForRun:[run getRunId] product:[run getProductNumber] completion:^(BOOL success, id response) {
         
-        _currentRequest++;
-        if (_totalRequests == _currentRequest)
-            [LoadingView removeLoading];
         if (success) {
             
             NSMutableArray *singleDays = [NSMutableArray array];
@@ -84,6 +98,13 @@
                 [_allLogs sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
                 [_tableView reloadData];
             }
+        }
+        
+        _currentRequest++;
+        if (_totalRequests == _currentRequest) {
+            [LoadingView removeLoading];
+            if (_allLogs.count == 0)
+                _noLogsLabel.alpha = 1;
         }
     }];
 }
