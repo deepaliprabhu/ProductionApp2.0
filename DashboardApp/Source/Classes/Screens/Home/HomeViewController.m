@@ -23,6 +23,7 @@
 #import "UserDetailsScreen.h"
 #import "DemandsViewController.h"
 #import "RunListScreen.h"
+#import "DailyLogScreen.h"
 
 @interface HomeViewController ()
 
@@ -231,6 +232,12 @@
 //    RunViewController *runVC = [RunViewController new];
 //    [runVC setRun:run];
 //    [self.navigationController pushViewController:runVC animated:false];
+}
+
+- (void) dailyLogSelected {
+    
+    DailyLogScreen *screen = [[DailyLogScreen alloc] init];
+    [self.navigationController pushViewController:screen animated:true];
 }
 
 - (void)selectedRunType:(int)runType {

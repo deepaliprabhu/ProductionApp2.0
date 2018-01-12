@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSString *dateCompleted;
 @property (nonatomic, strong) NSString *person;
 @property (nonatomic, strong) NSString *comments;
+@property (nonatomic, unsafe_unretained) int runId;
 
 + (DayLogModel*) objFromData:(NSDictionary*)data;
 - (int) totalWork;

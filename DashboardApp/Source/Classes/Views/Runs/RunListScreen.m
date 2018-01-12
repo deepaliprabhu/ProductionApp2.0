@@ -88,10 +88,6 @@
 
 - (void) runSelectedAtIndex:(int)runId {
     
-//    RunViewController *runVC = [RunViewController new];
-//    [runVC setRun:[[DataManager sharedInstance] getRunWithId:runId]];
-//    [self.navigationController pushViewController:runVC animated:false];
-    
     RunDetailsScreen *screen = [RunDetailsScreen new];
     screen.run = [[DataManager sharedInstance] getRunWithId:runId];
     [self.navigationController pushViewController:screen animated:true];

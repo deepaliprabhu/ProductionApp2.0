@@ -42,10 +42,10 @@
                     <rect key="frame" x="0.0" y="20" width="1024" height="61"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ongoing Runs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWU-vR-7CW">
-                            <rect key="frame" x="262" y="20" width="500" height="21"/>
+                            <rect key="frame" x="262" y="18" width="500" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="500" id="JLQ-pI-3UI"/>
-                                <constraint firstAttribute="height" constant="21" id="Xf1-L3-Hyn"/>
+                                <constraint firstAttribute="height" constant="25" id="Xf1-L3-Hyn"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="21"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -64,7 +64,7 @@
                     </subviews>
                     <color key="backgroundColor" red="0.20392156859999999" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="LWU-vR-7CW" firstAttribute="top" secondItem="PpP-yC-nO7" secondAttribute="top" constant="20" id="LeM-fq-Hes"/>
+                        <constraint firstItem="LWU-vR-7CW" firstAttribute="top" secondItem="PpP-yC-nO7" secondAttribute="top" constant="18" id="LeM-fq-Hes"/>
                         <constraint firstItem="LWU-vR-7CW" firstAttribute="centerX" secondItem="PpP-yC-nO7" secondAttribute="centerX" id="Us0-Y2-N8D"/>
                         <constraint firstAttribute="height" constant="61" id="Whs-sj-tx1"/>
                     </constraints>
@@ -150,7 +150,7 @@
         </view>
     </objects>
     <resources>
-        <image name="backButtonIcon" width="21" height="15"/>
+        <image name="backButtonIcon" width="36" height="10"/>
         <image name="runScheduleBg" width="357" height="668"/>
     </resources>
 </document>
