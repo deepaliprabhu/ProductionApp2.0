@@ -13,6 +13,7 @@
 #import "DataManager.h"
 #import "LoadingView.h"
 #import "DailyLogCell.h"
+#import "DailyLogHeaderView.h"
 
 @interface DailyLogScreen () <UITableViewDelegate, UITableViewDataSource>
 
@@ -24,6 +25,7 @@
     __weak IBOutlet UILabel *_noLogsLabel;
     
     NSMutableArray *_allLogs;
+    NSMutableArray *_days;
     int _totalRequests;
     int _currentRequest;
 }
@@ -32,6 +34,7 @@
     
     [super viewDidLoad];
     _allLogs = [NSMutableArray array];
+    _days = [NSMutableArray array];
     [self getData];
 }
 
@@ -42,6 +45,30 @@
 }
 
 #pragma mark - UITableViewDelegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return _days.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [_days[section] count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return [DailyLogHeaderView height];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+
+    DailyLogHeaderView *view = [DailyLogHeaderView createView];
+    DayLogModel *model = [_days[section] firstObject];
+    [view layoutWithDate:model.date];
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 32;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -95,7 +122,8 @@
             
             if (singleDays.count > 0) {
                 [_allLogs addObjectsFromArray:singleDays];
-                [_allLogs sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
+                [_allLogs sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:false]]];
+                [self computeDays];
                 [_tableView reloadData];
             }
         }
@@ -107,6 +135,35 @@
                 _noLogsLabel.alpha = 1;
         }
     }];
+}
+
+- (void) computeDays {
+    
+    [_days removeAllObjects];
+    [_tableView reloadData];
+    
+    NSCalendar *c = [NSCalendar currentCalendar];
+    for (DayLogModel *d in _allLogs) {
+        
+        int index = -1;
+        for (int i=0; i<_days.count; i++) {
+            DayLogModel *day = [_days[i] firstObject];
+            if ([c isDate:day.date inSameDayAsDate:d.date]) {
+                index = i;
+                break;
+            }
+        }
+        
+        if (index != -1) {
+            NSMutableArray *arr = [NSMutableArray arrayWithArray:_days[index]];
+            [arr addObject:d];
+            [_days replaceObjectAtIndex:index withObject:arr];
+        } else {
+            [_days addObject:@[d]];
+        }
+    }
+    
+    [_tableView reloadData];
 }
 
 - (BOOL) dayLogAlreadyExists:(DayLogModel*)log inArray:(NSArray*)logs {

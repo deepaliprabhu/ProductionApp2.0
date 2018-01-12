@@ -376,7 +376,6 @@
 
 + (void) setProductionStyle
 {
-
     [[UINavigationBar appearance] setTintColor:ccwhite];
     [[UINavigationBar appearance] setBarTintColor:ccolor(52, 52, 52)];
     [[UINavigationBar appearance] setTitleTextAttributes:
