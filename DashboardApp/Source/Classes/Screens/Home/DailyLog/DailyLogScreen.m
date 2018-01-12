@@ -13,11 +13,13 @@
 #import "DataManager.h"
 #import "LoadingView.h"
 
-@interface DailyLogScreen ()
+@interface DailyLogScreen () <UITableViewDelegate, UITableViewDataSource>
 
 @end
 
 @implementation DailyLogScreen {
+    
+    __weak IBOutlet UITableView *_tableView;
     
     NSMutableArray *_allLogs;
     int _totalRequests;
@@ -80,6 +82,7 @@
             if (singleDays.count > 0) {
                 [_allLogs addObjectsFromArray:singleDays];
                 [_allLogs sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
+                [_tableView reloadData];
             }
         }
     }];
