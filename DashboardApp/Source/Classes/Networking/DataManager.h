@@ -94,6 +94,8 @@ __pds(DataManagerProtocol);
 - (NSMutableArray*)getProcessStepsForProduct:(ProductModel*)product;
 - (void)setProcessStepsForProduct:(ProductModel*)product;
 - (NSMutableArray*)reorderProcesses:(NSMutableArray*)processesArray;
+- (NSString*) processNameForProcessID:(NSString*)prId;
+
 @end
 
 @protocol DataManagerProtocol <NSObject>

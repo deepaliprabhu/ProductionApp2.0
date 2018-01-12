@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DayLogModel.h"
 
 @interface DailyLogCell : UITableViewCell
+
+- (void) layoutWithLog:(DayLogModel*)log;
 
 @end

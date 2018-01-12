@@ -159,6 +159,16 @@ static DataManager *_sharedInstance = nil;
     return processArray;
 }
 
+- (NSString*) processNameForProcessID:(NSString*)prId {
+    
+    for (NSDictionary *d in commonProcessesArray) {
+        if ([d[@"processno"] isEqualToString:prId]) {
+            return d[@"processname"];
+        }
+    }
+    return nil;
+}
+
 - (void)syncRuns {
     //loop through runs in DB and update Jobs
     int count = 0;

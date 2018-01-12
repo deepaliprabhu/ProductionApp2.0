@@ -14,6 +14,8 @@
 #import "LoadingView.h"
 #import "DailyLogCell.h"
 #import "DailyLogHeaderView.h"
+#import "Constants.h"
+#import "ServerManager.h"
 
 @interface DailyLogScreen () <UITableViewDelegate, UITableViewDataSource>
 
@@ -33,12 +35,20 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commonProcessedArrived) name:kNotificationCommonProcessesReceived object:nil];
+    [[ServerManager sharedInstance] getProcessList];
     _allLogs = [NSMutableArray array];
     _days = [NSMutableArray array];
     [self getData];
 }
 
 #pragma mark - Actions
+
+- (void) commonProcessedArrived {
+    
+    [_tableView reloadData];
+}
 
 - (IBAction) backButtonTapped {
     [self.navigationController popViewControllerAnimated:true];
@@ -77,6 +87,8 @@
     if (cell == nil) {
         cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
     }
+    
+    [cell layoutWithLog:_days[indexPath.section][indexPath.row]];
     
     return cell;
 }

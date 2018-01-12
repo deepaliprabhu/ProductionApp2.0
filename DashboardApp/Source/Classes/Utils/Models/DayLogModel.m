@@ -27,6 +27,7 @@ static NSDateFormatter *_formatter = nil;
     model.good = [data[@"qtyGood"] intValue];
     model.target = [data[@"qtyTarget"] intValue];
     model.processId = data[@"stepid"];
+    model.processNo = data[@"processno"];
     model.dateAssigned = data[@"dateAssigned"];
     model.dateCompleted = data[@"dateCompleted"];
     model.person = data[@"operator"];
