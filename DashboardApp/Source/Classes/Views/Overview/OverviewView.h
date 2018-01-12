@@ -63,4 +63,5 @@ __CREATEVIEWH(OverviewView);
 - (void) demandsSelected;
 - (void) feedbacksSelected;
 - (void) processControlSelected;
+- (void) dailyLogSelected;
 @end

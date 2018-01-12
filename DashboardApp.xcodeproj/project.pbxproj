@@ -94,6 +94,8 @@
 		89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89619E181FBDB4E8005A5BE7 /* PriorityRunCell.xib */; };
 		8961A3D61FFE39970058E353 /* ProcessDetailsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8961A3D41FFE39970058E353 /* ProcessDetailsScreen.m */; };
 		8961A3D71FFE39970058E353 /* ProcessDetailsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8961A3D51FFE39970058E353 /* ProcessDetailsScreen.xib */; };
+		89697BA42008B45A00C96103 /* DailyLogScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 89697BA22008B45A00C96103 /* DailyLogScreen.m */; };
+		89697BA52008B45A00C96103 /* DailyLogScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89697BA32008B45A00C96103 /* DailyLogScreen.xib */; };
 		8970C3AF20050A51001F7680 /* RunListScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8970C3AD20050A51001F7680 /* RunListScreen.xib */; };
 		8970C3B22005618C001F7680 /* RunListScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8970C3AC20050A51001F7680 /* RunListScreen.m */; };
 		8970C3B6200561FE001F7680 /* RunScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8970C3B4200561FE001F7680 /* RunScheduleCell.m */; };
@@ -445,6 +447,9 @@
 		8961A3D31FFE39970058E353 /* ProcessDetailsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessDetailsScreen.h; sourceTree = "<group>"; };
 		8961A3D41FFE39970058E353 /* ProcessDetailsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessDetailsScreen.m; sourceTree = "<group>"; };
 		8961A3D51FFE39970058E353 /* ProcessDetailsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProcessDetailsScreen.xib; sourceTree = "<group>"; };
+		89697BA12008B45A00C96103 /* DailyLogScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyLogScreen.h; sourceTree = "<group>"; };
+		89697BA22008B45A00C96103 /* DailyLogScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyLogScreen.m; sourceTree = "<group>"; };
+		89697BA32008B45A00C96103 /* DailyLogScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyLogScreen.xib; sourceTree = "<group>"; };
 		8970C3AB20050A51001F7680 /* RunListScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunListScreen.h; sourceTree = "<group>"; };
 		8970C3AC20050A51001F7680 /* RunListScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunListScreen.m; sourceTree = "<group>"; };
 		8970C3AD20050A51001F7680 /* RunListScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunListScreen.xib; sourceTree = "<group>"; };
@@ -1084,6 +1089,16 @@
 			path = DashboardApp/Source/Libs/DZNSegmentedControl;
 			sourceTree = SOURCE_ROOT;
 		};
+		89697BA02008B44700C96103 /* DailyLog */ = {
+			isa = PBXGroup;
+			children = (
+				89697BA12008B45A00C96103 /* DailyLogScreen.h */,
+				89697BA22008B45A00C96103 /* DailyLogScreen.m */,
+				89697BA32008B45A00C96103 /* DailyLogScreen.xib */,
+			);
+			path = DailyLog;
+			sourceTree = "<group>";
+		};
 		8970C3B020051FBA001F7680 /* Comments */ = {
 			isa = PBXGroup;
 			children = (
@@ -1333,6 +1348,7 @@
 		9F40AD7B1F2F4669002C64BA /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				89697BA02008B44700C96103 /* DailyLog */,
 				9F056B291F433F32002F3B61 /* Runs */,
 				9F03A9171F4563B300A7A316 /* DemandList */,
 				9F909AAA1F4EBB3800DBFA63 /* Gantt */,
@@ -2001,6 +2017,7 @@
 				894C5F5F1FBB147600FA4E5D /* RunPartCell.xib in Resources */,
 				8950A7281FC6C14E006C66CB /* AddCommentScreen.xib in Resources */,
 				9FA5EE601FE9492F000AAFA3 /* ProcessStepsViewController.xib in Resources */,
+				89697BA52008B45A00C96103 /* DailyLogScreen.xib in Resources */,
 				9F03A9221F45667700A7A316 /* DemandListViewCell.xib in Resources */,
 				9F471CFA1F53FF4600B294B7 /* InProcessView.xib in Resources */,
 				9F7AB1A41F7D233C0013CBE1 /* check_mark@2x.png in Resources */,
@@ -2114,6 +2131,7 @@
 				895DEA2B1FF3C7C0001ADAFE /* UserManager.m in Sources */,
 				9FD12DA61F449FB400F0E0A8 /* RunPartsViewCell.m in Sources */,
 				D227678F1FAE4B5400215D87 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				89697BA42008B45A00C96103 /* DailyLogScreen.m in Sources */,
 				9FBA7FEA2003EAAE00D2713A /* DemandsViewCell.m in Sources */,
 				894F9BDE1FBCA90C00DC2C6B /* HistoryPriceCell.m in Sources */,
 				8940187B1FB5A0E4002B8AFD /* BRStreamInfo.m in Sources */,

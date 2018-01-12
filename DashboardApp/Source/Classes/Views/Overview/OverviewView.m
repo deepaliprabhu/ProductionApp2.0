@@ -118,6 +118,8 @@ __CREATEVIEW(OverviewView, @"OverviewView", 0);
     _processCountLabel.text = [NSString stringWithFormat:@"%d/%d",count,productionCount];
 }
 
+#pragma mark - Actions
+
 - (IBAction)runsPressed:(id)sender {
     [_delegate runsSelected];
 }
@@ -132,6 +134,10 @@ __CREATEVIEW(OverviewView, @"OverviewView", 0);
 
 - (IBAction)feedbacksPressed:(id)sender {
     [_delegate feedbacksSelected];
+}
+
+- (IBAction) dailyLogButtonTapped {
+    [_delegate dailyLogSelected];
 }
 
 @end

@@ -173,6 +173,8 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
     [_delegate runSelectedAtIndex:[_filteredRunsArray[indexPath.row] getRunId]];
 }
 
