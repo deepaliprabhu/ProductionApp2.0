@@ -27,6 +27,9 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="_slotView" destination="WYo-57-cE7" id="A4o-cO-5Kc"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

@@ -10,4 +10,6 @@
 
 @interface RunScheduleSlotCell : UITableViewCell
 
+- (void) layoutWithBlink:(BOOL)blink;
+
 @end

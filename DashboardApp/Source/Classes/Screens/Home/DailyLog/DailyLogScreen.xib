@@ -68,7 +68,7 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8JH-lo-kB6">
-                    <rect key="frame" x="28" y="81" width="996" height="687"/>
+                    <rect key="frame" x="0.0" y="81" width="1024" height="687"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="f8S-hh-fnm"/>
@@ -89,7 +89,7 @@
                 <constraint firstAttribute="trailing" secondItem="0ui-8U-sBk" secondAttribute="trailing" id="ENV-tj-2eF"/>
                 <constraint firstAttribute="trailing" secondItem="z0v-XJ-pvy" secondAttribute="trailing" id="Hfj-fz-Nvv"/>
                 <constraint firstItem="z0v-XJ-pvy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="L8A-yu-r7z"/>
-                <constraint firstItem="8JH-lo-kB6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="28" id="LR8-a7-bGO"/>
+                <constraint firstItem="8JH-lo-kB6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="LR8-a7-bGO"/>
                 <constraint firstItem="0ui-8U-sBk" firstAttribute="top" secondItem="z0v-XJ-pvy" secondAttribute="bottom" id="Trz-o5-QoF"/>
                 <constraint firstAttribute="bottom" secondItem="8JH-lo-kB6" secondAttribute="bottom" id="ZND-id-b9J"/>
                 <constraint firstItem="8JH-lo-kB6" firstAttribute="top" secondItem="0ui-8U-sBk" secondAttribute="bottom" id="iL3-II-tqz"/>

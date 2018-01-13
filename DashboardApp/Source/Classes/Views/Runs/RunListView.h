@@ -22,12 +22,14 @@
     IBOutlet UIImageView *_downImageView;
 }
 
+- (BOOL) selectable;
 __pd(RunListViewDelegate);
 __CREATEVIEWH(RunListView);
 
 - (void)setRunList:(NSMutableArray*)runList;
 - (Run*)getRunAtLocation:(CGPoint)location;
 - (UIView*)getDragView;
+- (void) setSelectableState:(BOOL)on;
 
 @end
 
@@ -35,5 +37,6 @@ __CREATEVIEWH(RunListView);
 
 - (void) showCommentsForRun:(Run*)run;
 - (void) runSelectedAtIndex:(int)runId;
+- (void) fillSlotWithRun:(Run*)run;
 
 @end

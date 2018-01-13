@@ -18,6 +18,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="640" height="39.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ySq-Qd-RDI">
+                        <rect key="frame" x="0.0" y="0.0" width="640" height="40"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="0.39607843139999999" green="0.81960784310000001" blue="0.2666666667" alpha="0.2970125440140845" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYa-Et-HDC">
                         <rect key="frame" x="78" y="11" width="200" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -68,6 +73,7 @@
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="_blinkView" destination="ySq-Qd-RDI" id="900-Z0-jue"/>
                 <outlet property="_imageView" destination="Gls-t7-chq" id="ksQ-ad-nng"/>
                 <outlet property="_progressLabel" destination="A3p-Tf-fNt" id="CDu-im-NVw"/>
                 <outlet property="_quantityLabel" destination="Cgj-fn-OTg" id="6kI-Nr-FDs"/>

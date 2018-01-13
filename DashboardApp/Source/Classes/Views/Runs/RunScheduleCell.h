@@ -8,8 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol RunScheduleCellProtocol;
+
 @interface RunScheduleCell : UICollectionViewCell
 
-- (void) layoutWithWeek:(NSString*)week;
+@property (nonatomic, unsafe_unretained) id <RunScheduleCellProtocol> delegate;
+
+- (void) layoutWithWeek:(int)week selectedSlotIndex:(NSIndexPath*)index selectedSlotWeek:(int)selectedWeek;
+
+@end
+
+@protocol RunScheduleCellProtocol <NSObject>
+
+- (void) slotWasSelectedAtIndex:(NSIndexPath *)index forWeek:(int)week;
 
 @end

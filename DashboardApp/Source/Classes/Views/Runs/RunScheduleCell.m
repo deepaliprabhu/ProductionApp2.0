@@ -15,15 +15,15 @@
 
 @implementation RunScheduleCell {
     __weak IBOutlet UITableView *_tableView;
-    NSString *_week;
+    int _week;
+    NSIndexPath *_selectedSlot;
+    int _selectedWeek;
 }
 
-- (void)awakeFromNib {
+- (void) layoutWithWeek:(int)week selectedSlotIndex:(NSIndexPath*)index selectedSlotWeek:(int)selectedWeek {
     
-    [super awakeFromNib];
-}
-
-- (void) layoutWithWeek:(NSString*)week {
+    _selectedSlot = index;
+    _selectedWeek = selectedWeek;
     _week = week;
     [_tableView reloadData];
 }
@@ -64,7 +64,15 @@
         l.backgroundColor = [UIColor clearColor];
         l.textColor = [UIColor whiteColor];
         l.textAlignment = NSTextAlignmentCenter;
-        l.text = _week;
+        
+        NSString *week = nil;
+        if (_week == 0)
+            week = @"Last week";
+        else if (_week == 1)
+            week = @"This week";
+        else
+            week = @"Next week";
+        l.text = week;
         l.font = [UIFont fontWithName:@"Roboto-Regular" size:13];
         [v addSubview:l];
         
@@ -86,7 +94,20 @@
         cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
     }
     
+    BOOL blink = _selectedSlot!=nil && indexPath.row==_selectedSlot.row && indexPath.section==_selectedSlot.section && _selectedWeek == _week;
+    [cell layoutWithBlink:blink];
+    
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CANCELPICKINGSLOT" object:nil];
+    
+    _selectedSlot = indexPath;
+    _selectedWeek = _week;
+    [_tableView reloadData];
+    [_delegate slotWasSelectedAtIndex:indexPath forWeek:_week];
 }
 
 @end

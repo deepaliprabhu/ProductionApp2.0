@@ -13,18 +13,25 @@
 #import "DataManager.h"
 #import "RunScheduleCell.h"
 
-@interface RunListScreen () <RunListViewDelegate>
+@interface RunListScreen () <RunListViewDelegate, RunScheduleCellProtocol>
 
 @end
 
 @implementation RunListScreen {
     
     __weak IBOutlet UICollectionView *_collectionView;
+    RunListView *_listView;
+    
+    NSIndexPath *_selectedSlotIndex;
+    int _selectedSlotWeek;
 }
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelPickingSlot) name:@"CANCELPICKINGSLOT" object:nil];
+    
     [self initLayout];
 }
 
@@ -32,6 +39,13 @@
 
 - (IBAction) backButtonTapped {
     [self.navigationController popViewControllerAnimated:true];
+}
+
+- (void) cancelPickingSlot {
+    
+    _selectedSlotIndex = nil;
+    _selectedSlotWeek = -1;
+    [_collectionView reloadData];
 }
 
 #pragma mark - Layout
@@ -42,11 +56,11 @@
     UINib *cellNib = [UINib nibWithNibName:@"RunScheduleCell" bundle:nil];
     [_collectionView registerNib:cellNib forCellWithReuseIdentifier:@"RunScheduleCell"];
     
-    RunListView *list = [RunListView createView];
-    list.frame = CGRectMake(9, 90, 635, 667);
-    list.delegate = self;
-    [list setRunList:[NSMutableArray arrayWithArray:_runsList]];
-    [self.view addSubview:list];
+    _listView = [RunListView createView];
+    _listView.frame = CGRectMake(9, 90, 635, 667);
+    _listView.delegate = self;
+    [_listView setRunList:[NSMutableArray arrayWithArray:_runsList]];
+    [self.view addSubview:_listView];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -62,17 +76,17 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     RunScheduleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RunScheduleCell" forIndexPath:indexPath];
-    
-    NSString *week = nil;
-    if (indexPath.row == 0)
-        week = @"Last week";
-    else if (indexPath.row == 1)
-        week = @"This week";
-    else
-        week = @"Next week";
-    
-    [cell layoutWithWeek:week];
+    cell.delegate = self;
+    [cell layoutWithWeek:(int)indexPath.row selectedSlotIndex:_selectedSlotIndex selectedSlotWeek:_selectedSlotWeek];
     return cell;
+}
+
+#pragma mark - RunScheduleListProtocol
+
+- (void) slotWasSelectedAtIndex:(NSIndexPath*)index forWeek:(int)week {
+    _selectedSlotWeek = week;
+    _selectedSlotIndex = index;
+    [_listView setSelectableState:true];
 }
 
 #pragma mark - RunListDelegate
@@ -91,6 +105,10 @@
     RunDetailsScreen *screen = [RunDetailsScreen new];
     screen.run = [[DataManager sharedInstance] getRunWithId:runId];
     [self.navigationController pushViewController:screen animated:true];
+}
+
+- (void) fillSlotWithRun:(Run*)run {
+    
 }
 
 @end

@@ -24,11 +24,22 @@
     
     int _currentPriorityRequest;
     int _numberOfPriorityRequests;
+    
+    BOOL _selectable;
 }
 
 #pragma mark - View lifecycle
 
 __CREATEVIEW(RunListView, @"RunListView", 0);
+
+- (void) setSelectableState:(BOOL)on {
+    _selectable = on;
+    [_tableView reloadData];
+}
+
+- (BOOL) selectable {
+    return _selectable;
+}
 
 - (void) awakeFromNib {
     
@@ -135,7 +146,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
         cell = [[NSBundle mainBundle] loadNibNamed:simpleTableIdentifier owner:nil options:nil][0];
         cell.delegate = self;
     }
-    [cell setCellData:_filteredRunsArray[indexPath.row] showType:_selectedType>1 showShipping:_selectedType==3];
+    [cell setCellData:_filteredRunsArray[indexPath.row] showType:_selectedType>1 showShipping:_selectedType==3 blinking:_selectable];
     return cell;
 }
 
@@ -175,7 +186,17 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:true];
-    [_delegate runSelectedAtIndex:[_filteredRunsArray[indexPath.row] getRunId]];
+    
+    if (_selectable) {
+        Run *r = _filteredRunsArray[indexPath.row];
+        if ([r isLocked]) {
+            [_delegate fillSlotWithRun:r];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"CANCELPICKINGSLOT" object:nil];
+        [self setSelectableState:false];
+    } else {
+        [_delegate runSelectedAtIndex:[_filteredRunsArray[indexPath.row] getRunId]];
+    }
 }
 
 #pragma mark - CellProtocol

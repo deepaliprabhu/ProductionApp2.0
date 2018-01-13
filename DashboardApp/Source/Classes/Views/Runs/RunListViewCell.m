@@ -16,13 +16,22 @@
     IBOutlet UILabel *_quantityLabel;
     IBOutlet UILabel *_progressLabel;
     IBOutlet UIImageView *_imageView;
+    IBOutlet UIView *_blinkView;
     
     Run *_run;
 }
 
-- (void) setCellData:(Run*)run showType:(BOOL)show showShipping:(BOOL)shipping {
+- (void) setCellData:(Run*)run showType:(BOOL)show showShipping:(BOOL)shipping blinking:(BOOL)blink {
     
     _run = run;
+    
+    [_blinkView.layer removeAllAnimations];
+    if (blink && [_run isLocked]) {
+        _blinkView.hidden = false;
+        [self animateBlink];
+    } else {
+        _blinkView.hidden = true;
+    }
     
     if (show) {
         if ([run getCategory] == 0) {
@@ -59,6 +68,19 @@
 
 - (IBAction) commentsButtonTapped {
     [_delegate showCommentsForRun:_run];
+}
+
+- (void) animateBlink
+{
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    [animation setFromValue:[NSNumber numberWithFloat:1.0]];
+    [animation setToValue:[NSNumber numberWithFloat:0.0]];
+    [animation setDuration:0.5f];
+    [animation setTimingFunction:[CAMediaTimingFunction
+                                  functionWithName:kCAMediaTimingFunctionLinear]];
+    [animation setAutoreverses:YES];
+    [animation setRepeatCount:20000];
+    [_blinkView.layer addAnimation:animation forKey:@"opacity"];
 }
 
 @end
