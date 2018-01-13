@@ -8,6 +8,7 @@
 
 #import "RunScheduleCell.h"
 #import "RunScheduleSlotCell.h"
+#import "LoadingView.h"
 
 @interface RunScheduleCell () <UITableViewDelegate, UITableViewDataSource>
 
@@ -102,12 +103,18 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"CANCELPICKINGSLOT" object:nil];
-    
-    _selectedSlot = indexPath;
-    _selectedWeek = _week;
-    [_tableView reloadData];
-    [_delegate slotWasSelectedAtIndex:indexPath forWeek:_week];
+    if (_week == 0) {
+        
+        [LoadingView showShortMessage:@"Last week slots cannot be modified"];
+    } else {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"CANCELPICKINGSLOT" object:nil];
+        
+        _selectedSlot = indexPath;
+        _selectedWeek = _week;
+        [_tableView reloadData];
+        [_delegate slotWasSelectedAtIndex:indexPath forWeek:_week];
+    }
 }
 
 @end

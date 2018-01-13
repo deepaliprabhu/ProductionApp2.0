@@ -12,6 +12,8 @@
 #import "RunDetailsScreen.h"
 #import "DataManager.h"
 #import "RunScheduleCell.h"
+#import "LoadingView.h"
+#import "ProdAPI.h"
 
 @interface RunListScreen () <RunListViewDelegate, RunScheduleCellProtocol>
 
@@ -109,6 +111,39 @@
 
 - (void) fillSlotWithRun:(Run*)run {
     
+    [LoadingView showLoading:@"Loading..."];
+    
+    NSDate *date = nil;
+    NSString *process = nil;
+    if (_selectedSlotWeek == 1)
+        date = [NSDate date];
+    else {
+        date = [[NSDate date] dateByAddingTimeInterval:3600*24*7];
+    }
+    
+    if (_selectedSlotIndex.section == 0)
+        process = @"Pick n Place";
+    else if (_selectedSlotIndex.section == 1)
+        process = @"Testing";
+    else if (_selectedSlotIndex.section == 2)
+        process = @"Assembly";
+    else if (_selectedSlotIndex.section == 3)
+        process = @"Inspection";
+    else
+        process = @"Packing";
+    
+    NSDateFormatter *f = [NSDateFormatter new];
+    f.dateFormat = @"yyyy-MM-dd";
+    NSString *dateString = [f stringFromDate:[NSDate date]];
+    
+    [[ProdAPI sharedInstance] scheduleRun:[run getRunId] onDate:dateString forProcess:process completion:^(BOOL success, id response) {
+       
+        if (success) {
+            [LoadingView showShortMessage:@"Waiting for backend fixes."];
+        } else {
+            [LoadingView showShortMessage:@"Error, please try again later!"];
+        }
+    }];
 }
 
 @end
