@@ -21,5 +21,6 @@
 @protocol RunScheduleCellProtocol <NSObject>
 
 - (void) slotWasSelectedAtIndex:(NSIndexPath *)index forWeek:(int)week;
+- (void) fullSlotWasSelected:(NSDictionary*)slot forWeek:(int)week;
 
 @end

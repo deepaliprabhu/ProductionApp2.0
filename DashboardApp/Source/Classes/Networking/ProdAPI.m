@@ -263,6 +263,14 @@ static ProdAPI *_sharedInstance = nil;
     [self callGETURL:url completion:block];
 }
 
+- (void) freeSlotForRun:(int)runId onDate:(NSString*)date forProcess:(NSString*)process completion:(void (^)(BOOL success, id response))block {
+    
+    NSString *by = [[[UserManager sharedInstance] loggedUser] username];
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_run_schedule&runid=%d&scheduledate=%@&process=%@&scheduler=%@&status=complete",runId, date, process, by];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
 - (void) getSlotsForRun:(int)runId completion:(void (^)(BOOL success, id response))block {
     
     NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=get_run_schedule&runid=%d",runId];

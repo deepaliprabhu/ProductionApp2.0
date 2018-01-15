@@ -15,6 +15,7 @@
 #import "LoadingView.h"
 #import "ProdAPI.h"
 #import "NSDate+Utils.h"
+#import "UIAlertView+Blocks.h"
 
 @interface RunListScreen () <RunListViewDelegate, RunScheduleCellProtocol>
 
@@ -68,6 +69,7 @@
 }
 
 - (IBAction) cancelButtonTapped {
+    
     [self cancelPickingSlot];
     [_listView setSelectableState:false];
 }
@@ -95,11 +97,46 @@
 #pragma mark - RunScheduleListProtocol
 
 - (void) slotWasSelectedAtIndex:(NSIndexPath*)index forWeek:(int)week {
+    
     _selectedSlotWeek = week;
     _selectedSlotIndex = index;
     [_listView setSelectableState:true];
     
     _cancelButton.alpha = 1;
+}
+
+- (void) fullSlotWasSelected:(NSDictionary *)slot forWeek:(int)week {
+    
+//    NSString *title = [NSString stringWithFormat:@"RUN %@", slot[@"RUNID"]];
+    NSString *message = [NSString stringWithFormat:@"Do you want to close %@ for run %@? This slot will be freed.", slot[@"PROCESS"], slot[@"RUNID"]];
+    [UIAlertView showWithTitle:nil message:message cancelButtonTitle:@"Yes" otherButtonTitles:@[@"No"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+       
+        if (buttonIndex == 0) {
+            
+            [LoadingView showLoading:@"Loading..."];
+            [[ProdAPI sharedInstance] freeSlotForRun:[slot[@"RUNID"] intValue] onDate:slot[@"SCHEDULED"] forProcess:slot[@"PROCESS"] completion:^(BOOL success, id response) {
+              
+                if (success) {
+                    [LoadingView removeLoading];
+                    [self removeSlot:slot inArray:week==1?_thisWeekSlots:_nextWeekSlots];
+                    [_collectionView reloadData];
+                } else {
+                    [LoadingView showShortMessage:@"Error, please try again later!"];
+                }
+            }];
+        }
+    }];
+}
+
+- (void) removeSlot:(NSDictionary*)slot inArray:(NSMutableArray*)arr {
+    
+    for (int i=0; i<arr.count;i++) {
+        NSDictionary *d = arr[i];
+        if ([d[@"PROCESS"] isEqualToString:slot[@"PROCESS"]] && [d[@"RUNID"] isEqualToString:slot[@"RUNID"]]) {
+            [arr removeObjectAtIndex:i];
+            break;
+        }
+    }
 }
 
 #pragma mark - RunListDelegate
@@ -122,16 +159,7 @@
 
 - (void) fillSlotWithRun:(Run*)run {
     
-    [LoadingView showLoading:@"Loading..."];
-    
-    NSDate *date = nil;
     NSString *process = nil;
-    if (_selectedSlotWeek == 1)
-        date = [NSDate date];
-    else {
-        date = [[NSDate date] dateByAddingTimeInterval:3600*24*7];
-    }
-    
     if (_selectedSlotIndex.section == 0)
         process = @"Pick n Place";
     else if (_selectedSlotIndex.section == 1)
@@ -143,14 +171,37 @@
     else
         process = @"Packing";
     
+    if ([self run:[run getRunId] forProcess:process alreadyExistsIn:_selectedSlotWeek==1?_thisWeekSlots:_nextWeekSlots]) {
+        [LoadingView showShortMessage:@"This run was already scheduled!"];
+        return;
+    }
+    
+    NSDate *date = nil;
+    if (_selectedSlotWeek == 1)
+        date = [NSDate date];
+    else {
+        date = [[NSDate date] dateByAddingTimeInterval:3600*24*7];
+    }
+    
     NSDateFormatter *f = [NSDateFormatter new];
     f.dateFormat = @"yyyy-MM-dd";
     NSString *dateString = [f stringFromDate:[NSDate date]];
     
+    int selectedWeek = _selectedSlotWeek;
+    [LoadingView showLoading:@"Loading..."];
     [[ProdAPI sharedInstance] scheduleRun:[run getRunId] onDate:dateString forProcess:process completion:^(BOOL success, id response) {
        
         if (success) {
-            [LoadingView showShortMessage:@"Waiting for backend fixes."];
+            
+            [LoadingView removeLoading];
+            
+            f.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+            NSDictionary *d = @{@"RUNID":[NSString stringWithFormat:@"%d", [run getRunId]], @"PROCESS":process, @"SCHEDULED":dateString, @"STATUS":@"running", @"DATETIME":[f stringFromDate:[NSDate date]]};
+            if (selectedWeek == 1)
+                [_thisWeekSlots addObject:d];
+            else
+                [_nextWeekSlots addObject:d];
+            [_collectionView reloadData];
         } else {
             [LoadingView showShortMessage:@"Error, please try again later!"];
         }
@@ -181,14 +232,21 @@
             if (success) {
                 if ([response isKindOfClass:[NSArray class]]) {
                     for (NSDictionary *d in response) {
-                        NSString *dateStr = d[@"SCHEDULED"];
-                        NSDate *date = [_formatter dateFromString:dateStr];
-                        if ([date isThisWeek]) {
-                            [_thisWeekSlots addObject:d];
-                        } else if ([date isNextWeek]) {
-                            [_nextWeekSlots addObject:d];
-                        } else if ([date isLastWeek]) {
-                            [_lastWeekSlots addObject:d];
+                        
+                        if ([self slot:d canBeAddedFrom:response]) {
+                            
+                            if ([d[@"STATUS"] isEqualToString:@"running"]) {
+                                
+                                NSString *dateStr = d[@"SCHEDULED"];
+                                NSDate *date = [_formatter dateFromString:dateStr];
+                                if ([date isThisWeek]) {
+                                    [_thisWeekSlots addObject:d];
+                                } else if ([date isNextWeek]) {
+                                    [_nextWeekSlots addObject:d];
+                                } else if ([date isLastWeek]) {
+                                    [_lastWeekSlots addObject:d];
+                                }
+                            }
                         }
                     }
                 }
@@ -196,6 +254,34 @@
             [_collectionView reloadData];
         }];
     }
+}
+
+- (BOOL) slot:(NSDictionary*)slot canBeAddedFrom:(NSArray*)response {
+    
+    int running = 0;
+    int complete = 0;
+    for (NSDictionary *d in response) {
+        
+        if ([d[@"RUNID"] isEqualToString:slot[@"RUNID"]] && [d[@"PROCESS"] isEqualToString:slot[@"PROCESS"]]) {
+            if ([d[@"STATUS"] isEqualToString:@"running"])
+                running++;
+            else
+                complete++;
+        }
+    }
+    
+    return running > complete;
+}
+
+- (BOOL) run:(int)runId forProcess:(NSString*)process alreadyExistsIn:(NSArray*)arr {
+    
+    for (NSDictionary *d in arr) {
+        
+        if ([d[@"RUNID"] intValue] == runId && [d[@"PROCESS"] isEqualToString:process])
+            return true;
+    }
+    
+    return false;
 }
 
 @end

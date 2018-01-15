@@ -104,11 +104,7 @@
     int r = (int)indexPath.row;
     
     BOOL blink = _selectedSlot!=nil && r==_selectedSlot.row && s==_selectedSlot.section && _selectedWeek == _week;
-    NSArray *slots = [self slotsForSection:s];
-    NSDictionary *slot = nil;
-    if (slots.count >= r+1) {
-        slot = slots[r];
-    }
+    NSDictionary *slot = [self slotAtIndex:indexPath];
     [cell layoutWithBlink:blink slot:slot];
     
     return cell;
@@ -120,12 +116,18 @@
         [LoadingView showShortMessage:@"Last week slots cannot be modified"];
     } else {
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"CANCELPICKINGSLOT" object:nil];
-        
-        _selectedSlot = indexPath;
-        _selectedWeek = _week;
-        [_tableView reloadData];
-        [_delegate slotWasSelectedAtIndex:indexPath forWeek:_week];
+        NSDictionary *slot = [self slotAtIndex:indexPath];
+        if (slot == nil) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"CANCELPICKINGSLOT" object:nil];
+            
+            _selectedSlot = indexPath;
+            _selectedWeek = _week;
+            [_tableView reloadData];
+            [_delegate slotWasSelectedAtIndex:indexPath forWeek:_week];
+        } else {
+            [_delegate fullSlotWasSelected:slot forWeek:_week];
+        }
     }
 }
 
@@ -175,6 +177,17 @@
     }
     
     return arr;
+}
+
+- (NSDictionary*) slotAtIndex:(NSIndexPath*)index {
+    
+    NSArray *slots = [self slotsForSection:(int)index.section];
+    NSDictionary *slot = nil;
+    if (slots.count >= index.row+1) {
+        slot = slots[index.row];
+    }
+    
+    return slot;
 }
 
 @end
