@@ -10,14 +10,16 @@
 
 @implementation RunScheduleSlotCell {
     __weak IBOutlet UIView *_slotView;
+    __weak IBOutlet UILabel *_slotLabel;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
 }
 
-- (void) layoutWithBlink:(BOOL)blink {
+- (void) layoutWithBlink:(BOOL)blink slot:(NSDictionary*)slot {
     
+    _slotLabel.text = slot[@"RUNID"];
     [_slotView.layer removeAllAnimations];
     if (blink) {
         [self animateBlink];

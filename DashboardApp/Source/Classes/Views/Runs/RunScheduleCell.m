@@ -15,14 +15,19 @@
 @end
 
 @implementation RunScheduleCell {
+    
     __weak IBOutlet UITableView *_tableView;
+    
+    NSArray *_slots;
+    
     int _week;
-    NSIndexPath *_selectedSlot;
     int _selectedWeek;
+    NSIndexPath *_selectedSlot;
 }
 
-- (void) layoutWithWeek:(int)week selectedSlotIndex:(NSIndexPath*)index selectedSlotWeek:(int)selectedWeek {
+- (void) layoutWithWeek:(int)week selectedSlotIndex:(NSIndexPath*)index selectedSlotWeek:(int)selectedWeek slots:(NSArray*)slots {
     
+    _slots = [slots sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"DATETIME" ascending:true]]];
     _selectedSlot = index;
     _selectedWeek = selectedWeek;
     _week = week;
@@ -95,8 +100,16 @@
         cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
     }
     
-    BOOL blink = _selectedSlot!=nil && indexPath.row==_selectedSlot.row && indexPath.section==_selectedSlot.section && _selectedWeek == _week;
-    [cell layoutWithBlink:blink];
+    int s = (int)indexPath.section;
+    int r = (int)indexPath.row;
+    
+    BOOL blink = _selectedSlot!=nil && r==_selectedSlot.row && s==_selectedSlot.section && _selectedWeek == _week;
+    NSArray *slots = [self slotsForSection:s];
+    NSDictionary *slot = nil;
+    if (slots.count >= r+1) {
+        slot = slots[r];
+    }
+    [cell layoutWithBlink:blink slot:slot];
     
     return cell;
 }
@@ -104,7 +117,6 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (_week == 0) {
-        
         [LoadingView showShortMessage:@"Last week slots cannot be modified"];
     } else {
         
@@ -115,6 +127,54 @@
         [_tableView reloadData];
         [_delegate slotWasSelectedAtIndex:indexPath forWeek:_week];
     }
+}
+
+#pragma mark - Utils
+
+- (NSArray*) slotsForSection:(int)s {
+    
+    if (s == 0)
+        return [self pickNPlaceSlots];
+    else if (s == 1)
+        return [self testingSlots];
+    else if (s == 2)
+        return [self assemblySlots];
+    else if (s == 3)
+        return [self inspectionSlots];
+    else
+        return [self packingSlots];
+}
+
+- (NSArray*) pickNPlaceSlots {
+    return [self slotsFor:@"Pick n Place"];
+}
+
+- (NSArray*) testingSlots {
+    return [self slotsFor:@"Testing"];
+}
+
+- (NSArray*) assemblySlots {
+    return [self slotsFor:@"Assembly"];
+}
+
+- (NSArray*) inspectionSlots {
+    return [self slotsFor:@"Inspection"];
+}
+
+- (NSArray*) packingSlots {
+    return [self slotsFor:@"Packing"];
+}
+
+- (NSArray*) slotsFor:(NSString*)process {
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    for (int i=0; i<_slots.count; i++) {
+        NSDictionary *d = _slots[i];
+        if ([d[@"PROCESS"] isEqualToString:process])
+            [arr addObject:d];
+    }
+    
+    return arr;
 }
 
 @end

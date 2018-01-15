@@ -50,7 +50,6 @@
 @property BOOL activated;
 @property BOOL isLocked;
 
-
 - (void)updateRunStatus:(NSString*)statusString;
 - (void)updateRunStatus:(NSString*)statusString withQty:(int)quantity;
 - (void)setRunData:(NSDictionary*)runData;

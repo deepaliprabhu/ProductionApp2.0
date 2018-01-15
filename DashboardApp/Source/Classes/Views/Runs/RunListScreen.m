@@ -14,6 +14,7 @@
 #import "RunScheduleCell.h"
 #import "LoadingView.h"
 #import "ProdAPI.h"
+#import "NSDate+Utils.h"
 
 @interface RunListScreen () <RunListViewDelegate, RunScheduleCellProtocol>
 
@@ -26,6 +27,12 @@
     
     NSIndexPath *_selectedSlotIndex;
     int _selectedSlotWeek;
+    
+    NSMutableArray *_lastWeekSlots;
+    NSMutableArray *_thisWeekSlots;
+    NSMutableArray *_nextWeekSlots;
+    
+    NSDateFormatter *_formatter;
 }
 
 - (void)viewDidLoad {
@@ -34,7 +41,15 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelPickingSlot) name:@"CANCELPICKINGSLOT" object:nil];
     
+    _formatter = [NSDateFormatter new];
+    _formatter.dateFormat = @"yyyy-MM-dd";
+    
     [self initLayout];
+    
+    _lastWeekSlots = [NSMutableArray array];
+    _thisWeekSlots = [NSMutableArray array];
+    _nextWeekSlots = [NSMutableArray array];
+    [self getSchedule];
 }
 
 #pragma mark - Actions
@@ -48,21 +63,6 @@
     _selectedSlotIndex = nil;
     _selectedSlotWeek = -1;
     [_collectionView reloadData];
-}
-
-#pragma mark - Layout
-
-- (void) initLayout {
-    
-    [_collectionView registerClass:[RunScheduleCell class] forCellWithReuseIdentifier:@"RunScheduleCell"];
-    UINib *cellNib = [UINib nibWithNibName:@"RunScheduleCell" bundle:nil];
-    [_collectionView registerNib:cellNib forCellWithReuseIdentifier:@"RunScheduleCell"];
-    
-    _listView = [RunListView createView];
-    _listView.frame = CGRectMake(9, 90, 635, 667);
-    _listView.delegate = self;
-    [_listView setRunList:[NSMutableArray arrayWithArray:_runsList]];
-    [self.view addSubview:_listView];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -79,7 +79,9 @@
     
     RunScheduleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RunScheduleCell" forIndexPath:indexPath];
     cell.delegate = self;
-    [cell layoutWithWeek:(int)indexPath.row selectedSlotIndex:_selectedSlotIndex selectedSlotWeek:_selectedSlotWeek];
+    
+    NSArray *slots = indexPath.row==0 ? _lastWeekSlots : (indexPath.row==1 ? _thisWeekSlots : _nextWeekSlots);
+    [cell layoutWithWeek:(int)indexPath.row selectedSlotIndex:_selectedSlotIndex selectedSlotWeek:_selectedSlotWeek slots:slots];
     return cell;
 }
 
@@ -144,6 +146,47 @@
             [LoadingView showShortMessage:@"Error, please try again later!"];
         }
     }];
+}
+
+#pragma mark - Layout
+
+- (void) initLayout {
+    
+    [_collectionView registerClass:[RunScheduleCell class] forCellWithReuseIdentifier:@"RunScheduleCell"];
+    UINib *cellNib = [UINib nibWithNibName:@"RunScheduleCell" bundle:nil];
+    [_collectionView registerNib:cellNib forCellWithReuseIdentifier:@"RunScheduleCell"];
+    
+    _listView = [RunListView createView];
+    _listView.frame = CGRectMake(9, 90, 635, 667);
+    _listView.delegate = self;
+    [_listView setRunList:[NSMutableArray arrayWithArray:_runsList]];
+    [self.view addSubview:_listView];
+}
+
+- (void) getSchedule {
+    
+    for (Run *r in _runsList) {
+        
+        [[ProdAPI sharedInstance] getSlotsForRun:[r getRunId] completion:^(BOOL success, id response) {
+           
+            if (success) {
+                if ([response isKindOfClass:[NSArray class]]) {
+                    for (NSDictionary *d in response) {
+                        NSString *dateStr = d[@"SCHEDULED"];
+                        NSDate *date = [_formatter dateFromString:dateStr];
+                        if ([date isThisWeek]) {
+                            [_thisWeekSlots addObject:d];
+                        } else if ([date isNextWeek]) {
+                            [_nextWeekSlots addObject:d];
+                        } else if ([date isLastWeek]) {
+                            [_lastWeekSlots addObject:d];
+                        }
+                    }
+                }
+            }
+            [_collectionView reloadData];
+        }];
+    }
 }
 
 @end

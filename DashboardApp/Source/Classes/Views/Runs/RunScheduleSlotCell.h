@@ -10,6 +10,6 @@
 
 @interface RunScheduleSlotCell : UITableViewCell
 
-- (void) layoutWithBlink:(BOOL)blink;
+- (void) layoutWithBlink:(BOOL)blink slot:(NSDictionary*)slot;
 
 @end

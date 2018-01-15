@@ -79,6 +79,7 @@
 		895287381FCF2B33005C46EE /* StockLogScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895287361FCF2B33005C46EE /* StockLogScreen.xib */; };
 		8952873C1FCF39EE005C46EE /* AuditActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8952873A1FCF39EE005C46EE /* AuditActionCell.m */; };
 		8952873D1FCF39EE005C46EE /* AuditActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8952873B1FCF39EE005C46EE /* AuditActionCell.xib */; };
+		8953D382200CCE49009CFE45 /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8953D381200CCE49009CFE45 /* NSDate+Utils.m */; };
 		8954345D1FF517B900ECDDEE /* BomHistoryScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8954345B1FF517B900ECDDEE /* BomHistoryScreen.m */; };
 		8954345E1FF517B900ECDDEE /* BomHistoryScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8954345C1FF517B900ECDDEE /* BomHistoryScreen.xib */; };
 		895DEA291FF3C722001ADAFE /* DZNSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 895DEA251FF3C722001ADAFE /* DZNSegmentedControl.m */; };
@@ -429,6 +430,8 @@
 		895287391FCF39EE005C46EE /* AuditActionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditActionCell.h; sourceTree = "<group>"; };
 		8952873A1FCF39EE005C46EE /* AuditActionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditActionCell.m; sourceTree = "<group>"; };
 		8952873B1FCF39EE005C46EE /* AuditActionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuditActionCell.xib; sourceTree = "<group>"; };
+		8953D380200CCE49009CFE45 /* NSDate+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utils.h"; sourceTree = "<group>"; };
+		8953D381200CCE49009CFE45 /* NSDate+Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utils.m"; sourceTree = "<group>"; };
 		8954345A1FF517B900ECDDEE /* BomHistoryScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BomHistoryScreen.h; sourceTree = "<group>"; };
 		8954345B1FF517B900ECDDEE /* BomHistoryScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BomHistoryScreen.m; sourceTree = "<group>"; };
 		8954345C1FF517B900ECDDEE /* BomHistoryScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BomHistoryScreen.xib; sourceTree = "<group>"; };
@@ -828,6 +831,8 @@
 				D2A44F301FAF2BBA00DF37B8 /* LoadingView.xib */,
 				8919BEA01FB4EEF100EE6839 /* UIView+Screenshot.h */,
 				8919BE9F1FB4EEF100EE6839 /* UIView+Screenshot.m */,
+				8953D380200CCE49009CFE45 /* NSDate+Utils.h */,
+				8953D381200CCE49009CFE45 /* NSDate+Utils.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2224,6 +2229,7 @@
 				9FD12D931F443DBC00F0E0A8 /* Run.m in Sources */,
 				894C5F5E1FBB147600FA4E5D /* RunPartCell.m in Sources */,
 				89854AE91FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
+				8953D382200CCE49009CFE45 /* NSDate+Utils.m in Sources */,
 				8919BE951FB4DD5100EE6839 /* SDWebImagePrefetcher.m in Sources */,
 				9F7AB1A81F7D233C0013CBE1 /* DropDownViewCell.m in Sources */,
 				895DEA291FF3C722001ADAFE /* DZNSegmentedControl.m in Sources */,

@@ -47,6 +47,7 @@
 - (void) getPassiveTestsWithCompletion:(void (^)(BOOL success, id response))block;
 - (void) markHardToGetPart:(NSString*)part completion:(void (^)(BOOL success, id response))block;
 - (void) scheduleRun:(int)runId onDate:(NSString*)date forProcess:(NSString*)process completion:(void (^)(BOOL success, id response))block;
+- (void) getSlotsForRun:(int)runId completion:(void (^)(BOOL success, id response))block;
 
 @end
 

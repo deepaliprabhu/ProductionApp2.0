@@ -14,7 +14,7 @@
 
 @property (nonatomic, unsafe_unretained) id <RunScheduleCellProtocol> delegate;
 
-- (void) layoutWithWeek:(int)week selectedSlotIndex:(NSIndexPath*)index selectedSlotWeek:(int)selectedWeek;
+- (void) layoutWithWeek:(int)week selectedSlotIndex:(NSIndexPath*)index selectedSlotWeek:(int)selectedWeek slots:(NSArray*)slots;
 
 @end
 
