@@ -23,6 +23,7 @@
 @implementation RunListScreen {
     
     __weak IBOutlet UICollectionView *_collectionView;
+    __weak IBOutlet UIButton *_cancelButton;
     RunListView *_listView;
     
     NSIndexPath *_selectedSlotIndex;
@@ -63,6 +64,12 @@
     _selectedSlotIndex = nil;
     _selectedSlotWeek = -1;
     [_collectionView reloadData];
+    _cancelButton.alpha = 0;
+}
+
+- (IBAction) cancelButtonTapped {
+    [self cancelPickingSlot];
+    [_listView setSelectableState:false];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -91,6 +98,8 @@
     _selectedSlotWeek = week;
     _selectedSlotIndex = index;
     [_listView setSelectableState:true];
+    
+    _cancelButton.alpha = 1;
 }
 
 #pragma mark - RunListDelegate

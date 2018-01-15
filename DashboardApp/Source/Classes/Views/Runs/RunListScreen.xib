@@ -22,6 +22,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RunListScreen">
             <connections>
+                <outlet property="_cancelButton" destination="efl-BR-s8Z" id="vA4-IZ-hTA"/>
                 <outlet property="_collectionView" destination="cEG-ua-3Ll" id="vky-lG-68t"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -59,6 +60,15 @@
                             <state key="normal" title="Dashboard" image="backButtonIcon"/>
                             <connections>
                                 <action selector="backButtonTapped" destination="-1" eventType="touchUpInside" id="PiG-Ae-gfH"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efl-BR-s8Z">
+                            <rect key="frame" x="847" y="-1" width="149" height="62"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="18"/>
+                            <state key="normal" title="Cancel"/>
+                            <connections>
+                                <action selector="cancelButtonTapped" destination="-1" eventType="touchUpInside" id="FhD-Gk-VW0"/>
                             </connections>
                         </button>
                     </subviews>
