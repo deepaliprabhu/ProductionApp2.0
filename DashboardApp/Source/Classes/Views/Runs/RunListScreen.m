@@ -16,6 +16,9 @@
 #import "ProdAPI.h"
 #import "NSDate+Utils.h"
 #import "UIAlertView+Blocks.h"
+#import "ServerManager.h"
+#import "DataManager.h"
+#import "Constants.h"
 
 @interface RunListScreen () <RunListViewDelegate, RunScheduleCellProtocol>
 
@@ -24,7 +27,10 @@
 @implementation RunListScreen {
     
     __weak IBOutlet UICollectionView *_collectionView;
-    __weak IBOutlet UIButton *_cancelButton;
+    __weak IBOutlet NSLayoutConstraint *_cancelButtonWidthConstraint;
+    __weak IBOutlet NSLayoutConstraint *_refreshButtonLeadingConstraint;
+    __weak IBOutlet UIView *_navView;
+    
     RunListView *_listView;
     
     NSIndexPath *_selectedSlotIndex;
@@ -42,6 +48,7 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelPickingSlot) name:@"CANCELPICKINGSLOT" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:kNotificationRunsReceived object:nil];
     
     _formatter = [NSDateFormatter new];
     _formatter.dateFormat = @"yyyy-MM-dd";
@@ -52,6 +59,10 @@
     _thisWeekSlots = [NSMutableArray array];
     _nextWeekSlots = [NSMutableArray array];
     [self getSchedule];
+}
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Actions
@@ -65,13 +76,24 @@
     _selectedSlotIndex = nil;
     _selectedSlotWeek = -1;
     [_collectionView reloadData];
-    _cancelButton.alpha = 0;
+    
+    _cancelButtonWidthConstraint.constant = 0;
+    _refreshButtonLeadingConstraint.constant = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        [_navView layoutIfNeeded];
+    }];
 }
 
 - (IBAction) cancelButtonTapped {
     
     [self cancelPickingSlot];
     [_listView setSelectableState:false];
+}
+
+- (IBAction) refreshButtonTapped {
+    
+    [LoadingView showLoading:@"Loading..."];
+    [[ServerManager sharedInstance] getRunsList];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -102,7 +124,11 @@
     _selectedSlotIndex = index;
     [_listView setSelectableState:true];
     
-    _cancelButton.alpha = 1;
+    _cancelButtonWidthConstraint.constant = 44;
+    _refreshButtonLeadingConstraint.constant = 18;
+    [UIView animateWithDuration:0.3 animations:^{
+        [_navView layoutIfNeeded];
+    }];
 }
 
 - (void) fullSlotWasSelected:(NSDictionary *)slot forWeek:(int)week {
@@ -282,6 +308,20 @@
     }
     
     return false;
+}
+
+- (void) refreshData {
+ 
+    [LoadingView removeLoading];
+    _runsList = [[DataManager sharedInstance] getRuns]; 
+    
+    [_lastWeekSlots removeAllObjects];
+    [_thisWeekSlots removeAllObjects];
+    [_nextWeekSlots removeAllObjects];
+    [_collectionView reloadData];
+    [self getSchedule];
+    
+    [_listView setRunList:[NSMutableArray arrayWithArray:_runsList]];
 }
 
 @end

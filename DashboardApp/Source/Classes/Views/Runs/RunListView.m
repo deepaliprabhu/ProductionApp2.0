@@ -54,7 +54,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)setRunList:(NSMutableArray*)runList {
+- (void) setRunList:(NSMutableArray*)runList {
     
     _runsArray = runList;
     [self initRunColors];

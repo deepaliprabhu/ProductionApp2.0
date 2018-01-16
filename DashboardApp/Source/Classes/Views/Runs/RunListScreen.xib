@@ -22,8 +22,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RunListScreen">
             <connections>
-                <outlet property="_cancelButton" destination="efl-BR-s8Z" id="vA4-IZ-hTA"/>
+                <outlet property="_cancelButtonWidthConstraint" destination="BKG-6I-rG9" id="DrB-Xp-y5S"/>
                 <outlet property="_collectionView" destination="cEG-ua-3Ll" id="vky-lG-68t"/>
+                <outlet property="_navView" destination="PpP-yC-nO7" id="XDB-WP-esM"/>
+                <outlet property="_refreshButtonLeadingConstraint" destination="DUZ-Jz-XoV" id="gm3-fr-bi5"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -62,21 +64,44 @@
                                 <action selector="backButtonTapped" destination="-1" eventType="touchUpInside" id="PiG-Ae-gfH"/>
                             </connections>
                         </button>
-                        <button opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efl-BR-s8Z">
-                            <rect key="frame" x="847" y="-1" width="149" height="62"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="18"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efl-BR-s8Z">
+                            <rect key="frame" x="996" y="10" width="0.0" height="42"/>
+                            <constraints>
+                                <constraint firstAttribute="width" id="BKG-6I-rG9"/>
+                                <constraint firstAttribute="height" constant="42" id="VWQ-N9-ASR"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
                             <state key="normal" title="Cancel"/>
                             <connections>
                                 <action selector="cancelButtonTapped" destination="-1" eventType="touchUpInside" id="FhD-Gk-VW0"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aFh-SI-4UJ">
+                            <rect key="frame" x="921" y="10" width="75" height="42"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="42" id="0RG-SA-XDa"/>
+                                <constraint firstAttribute="width" constant="75" id="tGi-ij-MoR"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
+                            <inset key="imageEdgeInsets" minX="-3" minY="0.0" maxX="10" maxY="0.0"/>
+                            <state key="normal" title="Refresh" image="refreshIcon"/>
+                            <state key="highlighted">
+                                <color key="titleColor" red="0.45098039220000002" green="0.45098039220000002" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="refreshButtonTapped" destination="-1" eventType="touchUpInside" id="Jhw-l3-nl7"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.20392156859999999" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstItem="efl-BR-s8Z" firstAttribute="leading" secondItem="aFh-SI-4UJ" secondAttribute="trailing" id="DUZ-Jz-XoV"/>
+                        <constraint firstItem="aFh-SI-4UJ" firstAttribute="top" secondItem="PpP-yC-nO7" secondAttribute="top" constant="10" id="Le9-sc-5O4"/>
                         <constraint firstItem="LWU-vR-7CW" firstAttribute="top" secondItem="PpP-yC-nO7" secondAttribute="top" constant="18" id="LeM-fq-Hes"/>
                         <constraint firstItem="LWU-vR-7CW" firstAttribute="centerX" secondItem="PpP-yC-nO7" secondAttribute="centerX" id="Us0-Y2-N8D"/>
                         <constraint firstAttribute="height" constant="61" id="Whs-sj-tx1"/>
+                        <constraint firstAttribute="trailing" secondItem="efl-BR-s8Z" secondAttribute="trailing" constant="28" id="ckX-oL-JSm"/>
+                        <constraint firstItem="efl-BR-s8Z" firstAttribute="top" secondItem="PpP-yC-nO7" secondAttribute="top" constant="10" id="zj9-Qs-iRY"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yv7-aW-Tda">
@@ -161,6 +186,7 @@
     </objects>
     <resources>
         <image name="backButtonIcon" width="36" height="10"/>
+        <image name="refreshIcon" width="19" height="13"/>
         <image name="runScheduleBg" width="357" height="668"/>
     </resources>
 </document>
