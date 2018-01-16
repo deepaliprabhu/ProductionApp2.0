@@ -9,6 +9,8 @@
 #import "PartDescriptionScreen.h"
 #import "LayoutUtils.h"
 #import "Defines.h"
+#import "LoadingView.h"
+#import "ProdAPI.h"
 
 @interface PartDescriptionScreen ()
 
@@ -17,30 +19,64 @@
 @implementation PartDescriptionScreen
 {
     __weak IBOutlet UITextView *_textView;
-    __weak IBOutlet UILabel *_noDescriptionLabel;
+    __weak IBOutlet UILabel *_packageLabel;
+    __weak IBOutlet UIButton *_changePackageButton;
 }
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     
-    if (_partDescription.length == 0) {
+    if (_part.partDescription.length == 0) {
         
-        _noDescriptionLabel.alpha = 1;
+        _textView.text = @"-";
         self.preferredContentSize = CGSizeMake(300, 100);
     }
     else {
         
-        _noDescriptionLabel.alpha = 0;
-        _textView.text = _partDescription;
+        _textView.text = _part.partDescription;
         
-        CGFloat h = [LayoutUtils heightForText:_partDescription withFont:ccFont(@"Roboto-Regular", 15) andMaxWidth:300 centerAligned:false] + 10;
-        if (h < 30)
-            h = 30;
-        else if (h > 600)
-            h = 600;
+        CGFloat h = [LayoutUtils heightForText:_part.partDescription withFont:ccFont(@"Roboto-Regular", 15) andMaxWidth:300 centerAligned:false] + 80;
+        if (h < 33)
+            h = 33;
+        else if (h > 650)
+            h = 650;
         self.preferredContentSize = CGSizeMake(300, h);
     }
+    
+    _packageLabel.text = _part.package;
+    [self layoutPackageButton];
+}
+
+#pragma mark - Actions
+
+- (IBAction) packageButtonTapped {
+ 
+    NSString *newValue = [_part.package isEqualToString:@"yes"] ? @"no" : @"yes";
+    [LoadingView showLoading:@"Loading..."];
+    [[ProdAPI sharedInstance] setNewPackageValue:newValue forPart:_part.part completion:^(BOOL success, id response) {
+       
+        if (success) {
+            
+            [LoadingView removeLoading];
+            _packageLabel.text = newValue;
+            _part.package = newValue;
+            [self layoutPackageButton];
+            [_delegate packageStatusChangeForPart];
+        } else {
+            [LoadingView showShortMessage:@"Error, please try again later."];
+        }
+    }];
+}
+
+#pragma mark - Layout
+
+- (void) layoutPackageButton {
+    
+    if ([_part.package isEqualToString:@"yes"])
+        [_changePackageButton setTitle:@"Change to 'no'" forState:UIControlStateNormal];
+    else
+        [_changePackageButton setTitle:@"Change to 'yes'" forState:UIControlStateNormal];
 }
 
 @end

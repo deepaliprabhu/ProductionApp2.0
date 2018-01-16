@@ -140,14 +140,19 @@
 
 - (IBAction) enterDataButtonTapped {
     
-    DailyLogInputScreen *screen = [[DailyLogInputScreen alloc] initWithNibName:@"DailyLogInputScreen" bundle:nil];
-    screen.delegate = self;
-    screen.process = _selectedProcess;
-    screen.dayLog = [self todayLog];
-    screen.run = _run;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
-    nav.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self presentViewController:nav animated:true completion:nil];
+    if (_run.isLocked) {
+        
+        DailyLogInputScreen *screen = [[DailyLogInputScreen alloc] initWithNibName:@"DailyLogInputScreen" bundle:nil];
+        screen.delegate = self;
+        screen.process = _selectedProcess;
+        screen.dayLog = [self todayLog];
+        screen.run = _run;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
+        nav.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentViewController:nav animated:true completion:nil];
+    } else {
+        [LoadingView showShortMessage:@"Run has to be locked!"];
+    }
 }
 
 - (IBAction) rawButtonTapped {

@@ -35,6 +35,7 @@ static NSDateFormatter *_formatter = nil;
     p.recoS2Date = [_formatter dateFromString:data[@"RECO_S2_DATE"]];
     p.color = data[@"color"];
     p.part = data[@"part"];
+    p.package = data[@"PACKAGE"];
     p.isHardToGet = [data[@"flagged"] isEqualToString:@"true"];
     
     NSString *po = data[@"po"];

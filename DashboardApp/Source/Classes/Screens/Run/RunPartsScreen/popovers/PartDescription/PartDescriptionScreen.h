@@ -7,9 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PartModel.h"
+
+@protocol PartDescriptionScreenProtocol;
 
 @interface PartDescriptionScreen : UIViewController
 
-@property (nonatomic, strong) NSString *partDescription;
+@property (nonatomic, unsafe_unretained) PartModel *part;
+@property (nonatomic, unsafe_unretained) id <PartDescriptionScreenProtocol> delegate;
+
+@end
+
+@protocol PartDescriptionScreenProtocol <NSObject>
+
+- (void) packageStatusChangeForPart;
 
 @end

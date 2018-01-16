@@ -45,7 +45,7 @@ typedef enum
     AlShortsComps
 } SelectedComps;
 
-@interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, AddCommentProtocol, PurchaseCellProtocol, PODateScreenDelegate>
+@interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, AddCommentProtocol, PurchaseCellProtocol, PODateScreenDelegate, PartDescriptionScreenProtocol>
 
 @end
 
@@ -165,7 +165,7 @@ typedef enum
 
 - (IBAction) lockButtonTapped {
     
-    if (_alShorts.count > 0) {
+    if ([self runCanBeLocked] == false) {
         [LoadingView showShortMessage:@"This run cannot be locked"];
         return;
     }
@@ -332,7 +332,8 @@ typedef enum
 - (IBAction) partTitleButtonTapped
 {
     PartDescriptionScreen *screen = [[PartDescriptionScreen alloc] initWithNibName:@"PartDescriptionScreen" bundle:nil];
-    screen.partDescription = _visiblePart.partDescription;
+    screen.delegate = self;
+    screen.part = _visiblePart;
     UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
     CGRect r = _partTitleButton.bounds;
     r.size.width = 2;
@@ -634,6 +635,14 @@ typedef enum
     }];
 }
 
+#pragma mark - PartDescriptionScreenProtocol
+
+- (void) packageStatusChangeForPart {
+    
+    if (_selectedComps == AlShortsComps)
+        [self addFooterView];
+}
+
 #pragma mark - Layout
 
 - (void) layoutButtons {
@@ -896,7 +905,7 @@ typedef enum
         [btn setTitle:@"Lock" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-        btn.backgroundColor = (_alShorts.count == 0) ? ccolor(17, 134, 117) : ccgrey;
+        btn.backgroundColor = [self runCanBeLocked] ? ccolor(17, 134, 117) : ccgrey;
         [btn addTarget:self action:@selector(lockButtonTapped) forControlEvents:UIControlEventTouchUpInside];
         
         [view addSubview:btn];
@@ -1262,6 +1271,17 @@ typedef enum
 }
 
 #pragma mark - Utils
+
+- (BOOL) runCanBeLocked {
+    
+    for (PartModel *part in _alShorts) {
+        
+        if ([part.package isEqualToString:@"yes"] == false)
+            return false;
+    }
+    
+    return true;
+}
 
 - (void) changeOrderFrom:(int)from to:(int)to {
     

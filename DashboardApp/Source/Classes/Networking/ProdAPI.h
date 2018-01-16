@@ -49,6 +49,7 @@
 - (void) scheduleRun:(int)runId onDate:(NSString*)date forProcess:(NSString*)process completion:(void (^)(BOOL success, id response))block;
 - (void) freeSlotForRun:(int)runId onDate:(NSString*)date forProcess:(NSString*)process completion:(void (^)(BOOL success, id response))block;
 - (void) getSlotsForRun:(int)runId completion:(void (^)(BOOL success, id response))block;
+- (void) setNewPackageValue:(NSString*)value forPart:(NSString*)part completion:(void (^)(BOOL success, id response))block;
 
 @end
 
