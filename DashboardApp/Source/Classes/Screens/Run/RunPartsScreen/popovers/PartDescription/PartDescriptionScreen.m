@@ -36,7 +36,7 @@
         
         _textView.text = _part.partDescription;
         
-        CGFloat h = [LayoutUtils heightForText:_part.partDescription withFont:ccFont(@"Roboto-Regular", 15) andMaxWidth:300 centerAligned:false] + 80;
+        CGFloat h = [LayoutUtils heightForText:_part.partDescription withFont:ccFont(@"Roboto-Regular", 15) andMaxWidth:300 centerAligned:false] + 130;
         if (h < 33)
             h = 33;
         else if (h > 650)
