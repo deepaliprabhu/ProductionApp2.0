@@ -203,7 +203,7 @@
     for (int i=0; i<_parts.count; i++) {
         
         PartModel *p = _parts[i];
-        if (p.alternateParts.count == 0 || [self allocatedQTYAtIndex:i] == p.shortQty)
+        if (p.alternateParts.count == 0 || [self allocatedQTYAtIndex:i] == p.shortQty || [p.package isEqualToString:@"yes"])
             c++;
     }
     return c;
@@ -229,7 +229,10 @@
         if (p.alternateParts.count > 0) {
             
             NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@(0)];
+            if ([p.package isEqualToString:@"yes"])
+                [arr addObject:@(p.shortQty)];
+            else
+                [arr addObject:@(0)];
             for (int j=0;j<p.alternateParts.count;j++)
                 [arr addObject:@(0)];
             [_chosenQuantities addObject:arr];
@@ -237,7 +240,6 @@
             [_chosenQuantities addObject:@[@(p.shortQty)]];
         }
     }
-    
 }
 
 - (int) allocatedQTYAtIndex:(int)i {
@@ -291,7 +293,7 @@
     for (int i=0; i<_runParts.count; i++) {
         
         PartModel *p = _runParts[i];
-        if (p.alternateParts.count == 0) {
+        if (p.alternateParts.count == 0 || [p.package isEqualToString:@"yes"]) {
             [_parts addObject:p];
         } else {
             [_parts insertObject:p atIndex:noOfRedParts];

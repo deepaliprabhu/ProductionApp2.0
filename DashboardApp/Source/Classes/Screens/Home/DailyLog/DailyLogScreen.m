@@ -16,6 +16,7 @@
 #import "DailyLogHeaderView.h"
 #import "Constants.h"
 #import "ServerManager.h"
+#import "NSDate+Utils.h"
 
 @interface DailyLogScreen () <UITableViewDelegate, UITableViewDataSource>
 
@@ -160,7 +161,7 @@
         int index = -1;
         for (int i=0; i<_days.count; i++) {
             DayLogModel *day = [_days[i] firstObject];
-            if ([c isDate:day.date inSameDayAsDate:d.date]) {
+            if ([c isDate:[day.date firstDateOfWeek] inSameDayAsDate:[d.date firstDateOfWeek]]) {
                 index = i;
                 break;
             }

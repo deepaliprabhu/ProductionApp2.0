@@ -7,6 +7,7 @@
 //
 
 #import "DailyLogHeaderView.h"
+#import "NSDate+Utils.h"
 
 static NSDateFormatter *_formatter = nil;
 
@@ -28,7 +29,8 @@ __CREATEVIEW(DailyLogHeaderView, @"DailyLogHeaderView", 0);
         _formatter.dateFormat = @"dd MMM yyyy";
     });
     
-    _headerLabel.text = [_formatter stringFromDate:date];
+    NSDate *d = [date firstDateOfWeek];
+    _headerLabel.text = [NSString stringWithFormat:@"Week of %@", [_formatter stringFromDate:d]]; 
 }
 
 @end
