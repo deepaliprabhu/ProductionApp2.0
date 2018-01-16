@@ -17,11 +17,33 @@
     IBOutlet UILabel *_progressLabel;
     IBOutlet UIImageView *_imageView;
     IBOutlet UIView *_blinkView;
+    IBOutlet UILabel *_commentsCountLabel;
+    IBOutlet NSLayoutConstraint *_commentsCountLabelWidthConstraint;
     
     Run *_run;
 }
 
+- (void) awakeFromNib {
+    
+    [super awakeFromNib];
+    _commentsCountLabel.layer.masksToBounds = true;
+    _commentsCountLabel.layer.cornerRadius = 7;
+}
+
 - (void) setCellData:(Run*)run showType:(BOOL)show showShipping:(BOOL)shipping blinking:(BOOL)blink {
+    
+    if ([run.last7DaysComments intValue] == 0) {
+        _commentsCountLabel.alpha = 0;
+    } else {
+        _commentsCountLabel.alpha = 1;
+        _commentsCountLabel.text = [run.last7DaysComments stringValue];
+        if (_commentsCountLabel.text.length == 1) {
+            _commentsCountLabelWidthConstraint.constant = 14;
+        } else {
+            _commentsCountLabelWidthConstraint.constant = 18;
+        }
+        [self layoutIfNeeded];
+    }
     
     _run = run;
     

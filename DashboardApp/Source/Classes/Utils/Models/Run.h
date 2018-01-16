@@ -49,6 +49,7 @@
 @property NSString *location;
 @property BOOL activated;
 @property BOOL isLocked;
+@property (nonatomic, strong) NSNumber *last7DaysComments;
 
 - (void)updateRunStatus:(NSString*)statusString;
 - (void)updateRunStatus:(NSString*)statusString withQty:(int)quantity;

@@ -13,6 +13,7 @@
 #import "ProdAPI.h"
 #import "DataManager.h"
 #import "Constants.h"
+#import "CommentModel.h"
 
 @implementation RunListView
 {
@@ -58,6 +59,8 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
     _runsArray = runList;
     [self initRunColors];
     [self pcbPressed:nil];
+    
+    [self getComments];
 }
 
 - (UIView*)getDragView {
@@ -174,7 +177,6 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
         [UIAlertView showWithTitle:nil message:@"Are you sure you want to change the order of these runs?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             
             if (buttonIndex == 1) {
-                
                 [self changeOrderFrom:(int)sourceIndexPath.row to:(int)destinationIndexPath.row];
             } else {
                 [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
@@ -350,6 +352,29 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
     [_colorsArray addObject:[UIColor colorWithRed:213.0f/255.0f green:83.0f/220.0f blue:62.0f/255.0f alpha:1.0f]];
     [_colorsArray addObject:[UIColor colorWithRed:255.0f/255.0f green:167.0f/220.0f blue:33.0f/255.0f alpha:1.0f]];
     [_colorsArray addObject:[UIColor colorWithRed:75.0f/255.0f green:79.0f/220.0f blue:74.0f/255.0f alpha:1.0f]];
+}
+
+- (void) getComments {
+ 
+    for (Run *r in _runsArray) {
+        
+        [[ProdAPI sharedInstance] getCommentsForRun:[NSString stringWithFormat:@"%d", (int)r.runId] withCompletion:^(BOOL success, id response) {
+            
+            int count = 0;
+            if (success) {
+                
+                NSDate *date = [[NSDate date] dateByAddingTimeInterval:-7*24*3600];
+                if ([response isKindOfClass:[NSArray class]]) {
+                    for (NSDictionary *d in response) {
+                        CommentModel *comment = [CommentModel objectFrom:d];
+                        if ([date compare:comment.date] == NSOrderedAscending)
+                            count++;
+                    }
+                }
+            }
+            r.last7DaysComments = @(count);
+        }];
+    }
 }
 
 @end
