@@ -473,11 +473,13 @@
         if (success) {
             if ([response isKindOfClass:[NSArray class]]) {
                 
+                NSMutableArray *arr = [NSMutableArray array];
                 for (NSDictionary *d in response) {
                     if ([d[@"Run"] intValue] == _run.runId) {
-                        [_passiveTests addObject:d];
+                        [arr addObject:d];
                     }
                 }
+                [self removeDuplicatesFrom:arr to:_passiveTests];
             }
         }
         
@@ -495,11 +497,13 @@
         if (success) {
             if ([response isKindOfClass:[NSArray class]]) {
                 
+                NSMutableArray *arr = [NSMutableArray array];
                 for (NSDictionary *d in response) {
                     if ([d[@"Run"] intValue] == _run.runId) {
-                        [_activeTests addObject:d];
+                        [arr addObject:d];
                     }
                 }
+                [self removeDuplicatesFrom:arr to:_activeTests];
             }
         }
         
@@ -741,6 +745,26 @@
     }
     
     return 0;
+}
+
+- (void) removeDuplicatesFrom:(NSMutableArray*)array to:(NSMutableArray*)toArr {
+    
+    for (NSDictionary *d1 in array) {
+        
+        BOOL shouldAdd = true;
+        for (NSDictionary *d2 in array) {
+            
+            if ([d1[@"panelId"] isEqualToString:d2[@"panelId"]] && [d1[@"pcbId"] isEqualToString:d2[@"pcbId"]]) {
+                if ([d2[@"CurrentDate"] longLongValue] > [d1[@"CurrentDate"] longLongValue]) {
+                    shouldAdd = false;
+                    break;
+                }
+            }
+        }
+        
+        if (shouldAdd)
+            [toArr addObject:d1];
+    }
 }
 
 @end
