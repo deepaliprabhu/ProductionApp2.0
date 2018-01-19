@@ -104,6 +104,21 @@ static NSDateFormatter *_formatter = nil;
         return [transit.prevQTY intValue] - [transit.qty intValue];
 }
 
+- (NSNumber*) reconciledInLast7Days {
+    
+    if (_audit == nil)
+        return nil;
+    
+    NSDate *date = [[NSDate date] dateByAddingTimeInterval:-7*24*3600];
+    for (ActionModel *action in _audit.actions) {
+        if ([action.mode isEqualToString:@"RECONCILE_PARTS"] && [date compare:action.date] == NSOrderedAscending) {
+            return @(true);
+        }
+    }
+    
+    return @(false);
+}
+
 - (ActionModel*) transitAction {
     
     return nil;

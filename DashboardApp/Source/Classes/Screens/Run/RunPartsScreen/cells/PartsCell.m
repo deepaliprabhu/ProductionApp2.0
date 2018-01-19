@@ -11,6 +11,7 @@
 
 @implementation PartsCell {
     
+    __weak IBOutlet UIView *_bgView;
     __weak IBOutlet UILabel *_nameLabel;
     __weak IBOutlet UILabel *_priceLabel;
     __weak IBOutlet UILabel *_stockLabel;
@@ -84,6 +85,12 @@
         _priceLabel.text = @"-$";
     
     _vendorLabel.textColor = c;
+    
+    NSNumber *b = [m reconciledInLast7Days];
+    if (b == nil)
+        _bgView.alpha = 0;
+    else
+        _bgView.alpha = !b;
 }
 
 - (void) layoutWithPart:(PartModel*)m {
@@ -109,6 +116,12 @@
     
     _vendorLabel.textColor = ccolor(119, 119, 119);
     _stockLabel.text = [NSString stringWithFormat:@"%d", [m totalStock]];
+    
+    NSNumber *b = [m reconciledInLast7Days];
+    if (b == nil)
+        _bgView.alpha = 0;
+    else
+        _bgView.alpha = !b;
 }
 
 @end

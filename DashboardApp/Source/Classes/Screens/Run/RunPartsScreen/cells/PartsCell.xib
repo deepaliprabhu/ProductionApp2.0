@@ -23,6 +23,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="360" height="31.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMv-fw-oUq">
+                        <rect key="frame" x="0.0" y="0.0" width="360" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="0.87949218750000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLi-dS-Zte">
                         <rect key="frame" x="21" y="5" width="75" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -78,6 +83,7 @@
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="_bgView" destination="VMv-fw-oUq" id="oT4-QC-LMK"/>
                 <outlet property="_nameLabel" destination="YLi-dS-Zte" id="Y6S-oQ-Rba"/>
                 <outlet property="_poSpinner" destination="gms-XA-9YR" id="TBe-Dq-gYw"/>
                 <outlet property="_priceLabel" destination="GQw-qX-FEg" id="zuR-oc-65O"/>

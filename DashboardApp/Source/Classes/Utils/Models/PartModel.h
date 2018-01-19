@@ -47,6 +47,7 @@
 - (int) masonStock;
 - (int) openPOQty;
 - (ActionModel*) transitAction;
+- (NSNumber*) reconciledInLast7Days;
 
 - (void) getHistory;
 - (void) getPurchases;
