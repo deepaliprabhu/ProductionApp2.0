@@ -107,6 +107,8 @@
 		8970C3B7200561FE001F7680 /* RunScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8970C3B5200561FE001F7680 /* RunScheduleCell.xib */; };
 		8970C3BB20056A55001F7680 /* RunScheduleSlotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8970C3B920056A55001F7680 /* RunScheduleSlotCell.m */; };
 		8970C3BC20056A55001F7680 /* RunScheduleSlotCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8970C3BA20056A55001F7680 /* RunScheduleSlotCell.xib */; };
+		8973399B20151EF100776C39 /* PartsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8973399920151EF100776C39 /* PartsScreen.m */; };
+		8973399C20151EF100776C39 /* PartsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8973399A20151EF100776C39 /* PartsScreen.xib */; };
 		897BA32D1FF65FF900C8DA9A /* FailedTestsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */; };
 		897BA32E1FF65FF900C8DA9A /* FailedTestsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */; };
 		897BA3371FF662C300C8DA9A /* FailReasonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA3351FF662C300C8DA9A /* FailReasonCell.m */; };
@@ -472,6 +474,9 @@
 		8970C3B820056A55001F7680 /* RunScheduleSlotCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunScheduleSlotCell.h; sourceTree = "<group>"; };
 		8970C3B920056A55001F7680 /* RunScheduleSlotCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunScheduleSlotCell.m; sourceTree = "<group>"; };
 		8970C3BA20056A55001F7680 /* RunScheduleSlotCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunScheduleSlotCell.xib; sourceTree = "<group>"; };
+		8973399820151EF100776C39 /* PartsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartsScreen.h; sourceTree = "<group>"; };
+		8973399920151EF100776C39 /* PartsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartsScreen.m; sourceTree = "<group>"; };
+		8973399A20151EF100776C39 /* PartsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartsScreen.xib; sourceTree = "<group>"; };
 		897BA32A1FF65FF900C8DA9A /* FailedTestsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FailedTestsScreen.h; sourceTree = "<group>"; };
 		897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FailedTestsScreen.m; sourceTree = "<group>"; };
 		897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailedTestsScreen.xib; sourceTree = "<group>"; };
@@ -1152,6 +1157,16 @@
 			name = RunsList;
 			sourceTree = "<group>";
 		};
+		8973399720151EC800776C39 /* Parts */ = {
+			isa = PBXGroup;
+			children = (
+				8973399820151EF100776C39 /* PartsScreen.h */,
+				8973399920151EF100776C39 /* PartsScreen.m */,
+				8973399A20151EF100776C39 /* PartsScreen.xib */,
+			);
+			path = Parts;
+			sourceTree = "<group>";
+		};
 		89854ADA1FB97B3A00C6E38D /* GridView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1369,6 +1384,7 @@
 		9F40AD7B1F2F4669002C64BA /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				8973399720151EC800776C39 /* Parts */,
 				89697BA02008B44700C96103 /* DailyLog */,
 				9F056B291F433F32002F3B61 /* Runs */,
 				9F03A9171F4563B300A7A316 /* DemandList */,
@@ -2045,6 +2061,7 @@
 				9F7AB1A41F7D233C0013CBE1 /* check_mark@2x.png in Resources */,
 				9F40AD801F2F469A002C64BA /* HomeViewController.xib in Resources */,
 				897BA32E1FF65FF900C8DA9A /* FailedTestsScreen.xib in Resources */,
+				8973399C20151EF100776C39 /* PartsScreen.xib in Resources */,
 				9F7AB1A51F7D233C0013CBE1 /* done@2x.png in Resources */,
 				9F056B341F433F8E002F3B61 /* RunListView.xib in Resources */,
 				894EE6A31FE0262F009244A7 /* LockConfirmationCell.xib in Resources */,
@@ -2168,6 +2185,7 @@
 				8919BEA11FB4EEF200EE6839 /* UIView+Screenshot.m in Sources */,
 				894018791FB5A0E4002B8AFD /* BRRequestDelete.m in Sources */,
 				9FE99C281FBD4E65006B58DE /* FeedbackListViewCell.m in Sources */,
+				8973399B20151EF100776C39 /* PartsScreen.m in Sources */,
 				9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */,
 				9F7FE5691F7B78C2005CB4DF /* ProductListViewController.m in Sources */,
 				895F5F7A1FCEF17500ED3349 /* GridView.m in Sources */,

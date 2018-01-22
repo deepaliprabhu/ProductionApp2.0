@@ -140,4 +140,8 @@ __CREATEVIEW(OverviewView, @"OverviewView", 0);
     [_delegate dailyLogSelected];
 }
 
+- (IBAction) partsButtonTapped {
+    [_delegate partsButtonTapped];
+}
+
 @end

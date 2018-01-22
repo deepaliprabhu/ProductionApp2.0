@@ -64,4 +64,5 @@ __CREATEVIEWH(OverviewView);
 - (void) feedbacksSelected;
 - (void) processControlSelected;
 - (void) dailyLogSelected;
+- (void) partsButtonTapped;
 @end

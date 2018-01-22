@@ -24,6 +24,7 @@
 #import "DemandsViewController.h"
 #import "RunListScreen.h"
 #import "DailyLogScreen.h"
+#import "PartsScreen.h"
 
 @interface HomeViewController ()
 
@@ -237,6 +238,12 @@
 - (void) dailyLogSelected {
     
     DailyLogScreen *screen = [[DailyLogScreen alloc] init];
+    [self.navigationController pushViewController:screen animated:true];
+}
+
+- (void) partsButtonTapped {
+    
+    PartsScreen *screen = [[PartsScreen alloc] init];
     [self.navigationController pushViewController:screen animated:true];
 }
 
