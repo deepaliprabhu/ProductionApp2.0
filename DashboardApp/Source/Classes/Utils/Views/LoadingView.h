@@ -18,5 +18,6 @@
 + (void) showShortMessage:(NSString*)text withYOffset:(float)yOffset;
 + (void) removeLoading;
 + (void) runSpinAnimationOnView:(UIView*)view duration:(CGFloat)duration rotations:(CGFloat)rotations;
++ (void) changeTitle:(NSString*)text;
 
 @end

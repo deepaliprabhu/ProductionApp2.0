@@ -1,19 +1,18 @@
 //
-//  AlternatePartCell.m
+//  AlternateShortsCell.m
 //  DashboardApp
 //
-//  Created by Andrei Ghidoarca on 22/11/2017.
-//  Copyright © 2017 Deepali Prabhu. All rights reserved.
+//  Created by Andrei Ghidoarca on 22/01/2018.
+//  Copyright © 2018 Deepali Prabhu. All rights reserved.
 //
 
-#import "AlternatePartCell.h"
+#import "AlternateShortsCell.h"
 #import "Defines.h"
 
-@implementation AlternatePartCell
-{
+@implementation AlternateShortsCell {
+    
     __weak IBOutlet UILabel *_nameLabel;
     __weak IBOutlet UILabel *_priceLabel;
-    __weak IBOutlet UILabel *_stockLabel;
     __weak IBOutlet UILabel *_vendorLabel;
     __weak IBOutlet UILabel *_recoLabel;
     __weak IBOutlet UILabel *_quantityLabel;
@@ -24,32 +23,19 @@
     __weak IBOutlet UIActivityIndicatorView *_poSpinner;
 }
 
-- (void) layoutWithPart:(PartModel*)part isLast:(BOOL)last
-{
-    _redFlagImageView.alpha = part.isHardToGet;
-    
-    _nameLabel.text = [NSString stringWithFormat:@"%@", part.part];
-    _vendorLabel.text = @"-";
-    _quantityLabel.text = @"-";
-    [self layoutStockForPart:part];
-    [self layoutPriceForPart:part];
-    
-    _bottomConstraintSeparatorView.constant = last?8:0;
-    [self layoutIfNeeded];
-}
-
 - (void) layoutWithShort:(PartModel*)part isLast:(BOOL)last
 {
     _redFlagImageView.alpha = part.isHardToGet;
- 
+    
     int days = [part daysSinceLastReconciliation];
     if (days < 0)
         _recoLabel.text = @"-";
     else
         _recoLabel.text = [NSString stringWithFormat:@"%dd", days];
     _nameLabel.text = [NSString stringWithFormat:@"%@", part.part];
+    
     _quantityLabel.text = @"-";
-    [self layoutStockForPart:part];
+    
     [self layoutPriceForPart:part];
     [self layoutPOForPart:part];
     
@@ -100,14 +86,6 @@
         }
     }
     _vendorLabel.textColor = c;
-}
-
-- (void) layoutStockForPart:(PartModel*)m {
-    
-    if (m.audit != nil)
-        _stockLabel.text = [NSString stringWithFormat: @"%d", [m totalStock]];
-    else
-        _stockLabel.text = @"-";
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -45,6 +45,10 @@
 		8942B8C61FEC293C003D9B8A /* LoginScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8942B8C41FEC293C003D9B8A /* LoginScreen.xib */; };
 		8942B8CE1FEC3908003D9B8A /* SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8CC1FEC3908003D9B8A /* SplashScreen.m */; };
 		8942B8CF1FEC3908003D9B8A /* SplashScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8942B8CD1FEC3908003D9B8A /* SplashScreen.xib */; };
+		8944E49220167BEE004A08AF /* ShortsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944E49020167BEE004A08AF /* ShortsCell.m */; };
+		8944E49320167BEE004A08AF /* ShortsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8944E49120167BEE004A08AF /* ShortsCell.xib */; };
+		8944E49720167D25004A08AF /* AlternateShortsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944E49520167D25004A08AF /* AlternateShortsCell.m */; };
+		8944E49820167D25004A08AF /* AlternateShortsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8944E49620167D25004A08AF /* AlternateShortsCell.xib */; };
 		894B6F051FCD994100E271B1 /* PartDescriptionScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */; };
 		894B6F061FCD994100E271B1 /* PartDescriptionScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */; };
 		894B6F0C1FCDAD7600E271B1 /* PODateScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F0A1FCDAD7600E271B1 /* PODateScreen.m */; };
@@ -380,6 +384,12 @@
 		8942B8CB1FEC3908003D9B8A /* SplashScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplashScreen.h; sourceTree = "<group>"; };
 		8942B8CC1FEC3908003D9B8A /* SplashScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SplashScreen.m; sourceTree = "<group>"; };
 		8942B8CD1FEC3908003D9B8A /* SplashScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashScreen.xib; sourceTree = "<group>"; };
+		8944E48F20167BEE004A08AF /* ShortsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShortsCell.h; sourceTree = "<group>"; };
+		8944E49020167BEE004A08AF /* ShortsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShortsCell.m; sourceTree = "<group>"; };
+		8944E49120167BEE004A08AF /* ShortsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShortsCell.xib; sourceTree = "<group>"; };
+		8944E49420167D25004A08AF /* AlternateShortsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlternateShortsCell.h; sourceTree = "<group>"; };
+		8944E49520167D25004A08AF /* AlternateShortsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlternateShortsCell.m; sourceTree = "<group>"; };
+		8944E49620167D25004A08AF /* AlternateShortsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlternateShortsCell.xib; sourceTree = "<group>"; };
 		894B6F021FCD994100E271B1 /* PartDescriptionScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartDescriptionScreen.h; sourceTree = "<group>"; };
 		894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartDescriptionScreen.m; sourceTree = "<group>"; };
 		894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartDescriptionScreen.xib; sourceTree = "<group>"; };
@@ -1183,6 +1193,12 @@
 				8973399820151EF100776C39 /* PartsScreen.h */,
 				8973399920151EF100776C39 /* PartsScreen.m */,
 				8973399A20151EF100776C39 /* PartsScreen.xib */,
+				8944E48F20167BEE004A08AF /* ShortsCell.h */,
+				8944E49020167BEE004A08AF /* ShortsCell.m */,
+				8944E49120167BEE004A08AF /* ShortsCell.xib */,
+				8944E49420167D25004A08AF /* AlternateShortsCell.h */,
+				8944E49520167D25004A08AF /* AlternateShortsCell.m */,
+				8944E49620167D25004A08AF /* AlternateShortsCell.xib */,
 			);
 			path = Parts;
 			sourceTree = "<group>";
@@ -2034,6 +2050,7 @@
 				894B6F121FCDCBB700E271B1 /* RunCommentsScreen.xib in Resources */,
 				9FEEE58E1EEFEFA2005B5ECA /* LaunchScreen.storyboard in Resources */,
 				9F471D141F542B9300B294B7 /* RoadBlocksView.xib in Resources */,
+				8944E49820167D25004A08AF /* AlternateShortsCell.xib in Resources */,
 				9FBA7FE62003E5E400D2713A /* DemandsViewController.xib in Resources */,
 				895023F11FE149EC008A1165 /* ReconcileScreen.xib in Resources */,
 				9F252A5D1F4D50000056DA8F /* feedbackBgImage.png in Resources */,
@@ -2044,6 +2061,7 @@
 				9FA264611F48A1BD004C882E /* TasklistView.xib in Resources */,
 				9FEEE58B1EEFEFA2005B5ECA /* Assets.xcassets in Resources */,
 				9F7AB1A61F7D233C0013CBE1 /* drop_down@2x.png in Resources */,
+				8944E49320167BEE004A08AF /* ShortsCell.xib in Resources */,
 				8970C3AF20050A51001F7680 /* RunListScreen.xib in Resources */,
 				D283865B1FB23CA800BB304C /* Roboto-Medium.ttf in Resources */,
 				894B6F0D1FCDAD7600E271B1 /* PODateScreen.xib in Resources */,
@@ -2144,6 +2162,7 @@
 				89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */,
 				9F8567901F73DDB10067ABE1 /* OperatorEntryView.m in Sources */,
 				8952873C1FCF39EE005C46EE /* AuditActionCell.m in Sources */,
+				8944E49720167D25004A08AF /* AlternateShortsCell.m in Sources */,
 				9FD12D8F1F443CEF00F0E0A8 /* DataManager.m in Sources */,
 				8919BE961FB4DD5100EE6839 /* SDImageCache.m in Sources */,
 				9F85678E1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.m in Sources */,
@@ -2283,6 +2302,7 @@
 				8919BE971FB4DD5100EE6839 /* SDWebImageDownloaderOperation.m in Sources */,
 				9F471D081F541F7700B294B7 /* ToDoView.m in Sources */,
 				9FBA7FE52003E5E400D2713A /* DemandsViewController.m in Sources */,
+				8944E49220167BEE004A08AF /* ShortsCell.m in Sources */,
 				9FE99C371FBF242D006B58DE /* FeedbackListViewController.m in Sources */,
 				3BCDA4181FB346560021BC03 /* ProductAdminPopover.m in Sources */,
 				9FA5EE5F1FE9492F000AAFA3 /* ProcessStepsViewController.m in Sources */,

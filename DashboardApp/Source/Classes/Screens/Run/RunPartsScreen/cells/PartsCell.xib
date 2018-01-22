@@ -17,14 +17,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="PartsCell" id="KGk-i7-Jjw" customClass="PartsCell">
-            <rect key="frame" x="0.0" y="0.0" width="360" height="32"/>
+            <rect key="frame" x="0.0" y="0.0" width="410" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="360" height="31.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="410" height="31.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMv-fw-oUq">
-                        <rect key="frame" x="0.0" y="0.0" width="360" height="32"/>
+                        <rect key="frame" x="0.0" y="0.0" width="410" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="0.87949218750000002" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -67,6 +67,13 @@
                         <rect key="frame" x="167" y="5" width="20" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </activityIndicatorView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYJ-Sf-7gh">
+                        <rect key="frame" x="365" y="5" width="39" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                        <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="gms-XA-9YR">
                         <rect key="frame" x="304" y="5" width="20" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -89,6 +96,7 @@
                 <outlet property="_priceLabel" destination="GQw-qX-FEg" id="zuR-oc-65O"/>
                 <outlet property="_priceSpinner" destination="1cW-Au-nmx" id="Vej-od-dvE"/>
                 <outlet property="_quantityLabel" destination="W43-q7-yDK" id="5CU-zv-BEA"/>
+                <outlet property="_recoLabel" destination="fYJ-Sf-7gh" id="95z-vE-kbb"/>
                 <outlet property="_redFlagImageView" destination="VOG-0u-7xc" id="stt-nA-LMo"/>
                 <outlet property="_separatorView" destination="l0I-WD-byE" id="6Zf-XW-tvT"/>
                 <outlet property="_stockLabel" destination="IFz-tO-Fqc" id="Dtc-Qt-bsX"/>

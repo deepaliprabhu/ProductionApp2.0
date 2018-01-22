@@ -12,7 +12,10 @@
 
 static NSDateFormatter *_formatter = nil;
 
-@implementation PartModel
+@implementation PartModel {
+    
+    NSNumber *_daysSinceLastReconciliation;
+}
 
 + (PartModel*) partFrom:(NSDictionary*)data
 {
@@ -117,6 +120,26 @@ static NSDateFormatter *_formatter = nil;
     }
     
     return @(false);
+}
+
+- (int) daysSinceLastReconciliation {
+    
+    if (_daysSinceLastReconciliation == nil) {
+        
+        for (int i=0; i<_audit.actions.count; i++) {
+            ActionModel *action = _audit.actions[i];
+            if ([action.mode isEqualToString:@"RECONCILE_PARTS"]) {
+                NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:action.date toDate:[NSDate date] options:0];
+                _daysSinceLastReconciliation = @([components day]);
+                return [_daysSinceLastReconciliation intValue];
+            }
+        }
+        
+        _daysSinceLastReconciliation = @(-1);
+        return -1;
+    } else {
+        return [_daysSinceLastReconciliation intValue];
+    }
 }
 
 - (ActionModel*) transitAction {

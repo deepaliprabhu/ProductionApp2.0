@@ -52,6 +52,11 @@
     [self showShortMessage:text withTime:1];
 }
 
++ (void) changeTitle:(cstr)text
+{
+    [[LoadingView sharedComponent] changeTitle:text];
+}
+
 + (void) removeLoading
 {
     [[LoadingView sharedComponent] removeFromScreen];
@@ -241,6 +246,11 @@
     }
     
     [self removeFromSuperview];
+}
+
+- (void) changeTitle:(cstr)text
+{
+    _textLabel.text = text;
 }
 
 - (void) removeFromScreenWithFade

@@ -48,6 +48,7 @@
 - (int) openPOQty;
 - (ActionModel*) transitAction;
 - (NSNumber*) reconciledInLast7Days;
+- (int) daysSinceLastReconciliation;
 
 - (void) getHistory;
 - (void) getPurchases;
