@@ -829,8 +829,11 @@ typedef enum
         _runTotalQTY.text = @"";
     else {
         int t = 0;
-        for (RunModel* m in runs) {
-            t += [m.qty intValue];
+        for (id run in runs) {
+            if ([run isKindOfClass:[RunModel class]])
+                t += [[run qty] intValue];
+            else
+                t += [run getQuantity];
         }
         _runTotalQTY.text = [NSString stringWithFormat:@"QTY (%d)", t];
     }
