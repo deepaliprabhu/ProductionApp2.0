@@ -639,6 +639,7 @@ typedef enum
 
 - (void) packageStatusChangeForPart {
     
+    [_componentsTable reloadData];
     if (_selectedComps == AlShortsComps)
         [self addFooterView];
 }

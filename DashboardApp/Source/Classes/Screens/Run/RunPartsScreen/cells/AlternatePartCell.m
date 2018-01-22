@@ -26,6 +26,12 @@
 
 - (void) layoutWithPart:(PartModel*)part isLast:(BOOL)last
 {
+    if ([part.package isEqualToString:@"yes"]) {
+        [self layoutAlpha:0.3];
+    } else {
+        [self layoutAlpha:1];
+    }
+    
     _redFlagImageView.alpha = part.isHardToGet;
     
     _nameLabel.text = [NSString stringWithFormat:@"%@", part.part];
@@ -40,6 +46,12 @@
 
 - (void) layoutWithShort:(PartModel*)part isLast:(BOOL)last
 {
+    if ([part.package isEqualToString:@"yes"]) {
+        [self layoutAlpha:0.3];
+    } else {
+        [self layoutAlpha:1];
+    }
+    
     _redFlagImageView.alpha = part.isHardToGet;
  
     int days = [part daysSinceLastReconciliation];
@@ -126,6 +138,15 @@
     if (highlighted){
         _separatorView.backgroundColor = color;
     }
+}
+
+- (void) layoutAlpha:(float)alpha {
+    
+    _nameLabel.alpha = alpha;
+    _quantityLabel.alpha = alpha;
+    _priceLabel.alpha = alpha;
+    _stockLabel.alpha = alpha;
+    _vendorLabel.alpha = alpha;
 }
 
 @end

@@ -44,6 +44,12 @@
 
 - (void) layoutWithShort:(PartModel*)m {
     
+    if ([m.package isEqualToString:@"yes"]) {
+        [self layoutAlpha:0.3];
+    } else {
+        [self layoutAlpha:1];
+    }
+    
     _redFlagImageView.alpha = m.isHardToGet;
     
     UIColor *c = ccolor(100, 100, 100);
@@ -96,6 +102,12 @@
 
 - (void) layoutWithPart:(PartModel*)m {
     
+    if ([m.package isEqualToString:@"yes"]) {
+        [self layoutAlpha:0.3];
+    } else {
+        [self layoutAlpha:1];
+    }
+    
     _redFlagImageView.alpha = m.isHardToGet;
     _separatorView.alpha = (m.alternateParts.count > 0);
     _nameLabel.text = m.part;
@@ -142,6 +154,15 @@
             _recoLabel.textColor = ccolor(233, 46, 40);
         }
     }
+}
+
+- (void) layoutAlpha:(float)alpha {
+    
+    _nameLabel.alpha = alpha;
+    _quantityLabel.alpha = alpha;
+    _priceLabel.alpha = alpha;
+    _stockLabel.alpha = alpha;
+    _vendorLabel.alpha = alpha;
 }
 
 @end

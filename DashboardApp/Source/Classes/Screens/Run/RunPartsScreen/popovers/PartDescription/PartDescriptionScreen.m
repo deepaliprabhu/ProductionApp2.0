@@ -74,9 +74,9 @@
 - (void) layoutPackageButton {
     
     if ([_part.package isEqualToString:@"yes"])
-        [_changePackageButton setTitle:@"Change to 'no'" forState:UIControlStateNormal];
+        [_changePackageButton setTitle:@"To include part change to 'no'" forState:UIControlStateNormal];
     else
-        [_changePackageButton setTitle:@"Change to 'yes'" forState:UIControlStateNormal];
+        [_changePackageButton setTitle:@"To ignore part change to 'yes'" forState:UIControlStateNormal];
 }
 
 @end
