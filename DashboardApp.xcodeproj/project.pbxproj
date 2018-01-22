@@ -928,6 +928,26 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		8944E48D2015DC2E004A08AF /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9F40AD7C1F2F469A002C64BA /* HomeViewController.h */,
+				9F40AD7D1F2F469A002C64BA /* HomeViewController.m */,
+				9F40AD7E1F2F469A002C64BA /* HomeViewController.xib */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		8944E48E2015DC37004A08AF /* UserDetails */ = {
+			isa = PBXGroup;
+			children = (
+				895DEA2C1FF3DA54001ADAFE /* UserDetailsScreen.h */,
+				895DEA2D1FF3DA54001ADAFE /* UserDetailsScreen.m */,
+				895DEA2E1FF3DA54001ADAFE /* UserDetailsScreen.xib */,
+			);
+			path = UserDetails;
+			sourceTree = "<group>";
+		};
 		894B6F071FCDAD3100E271B1 /* popovers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1381,9 +1401,10 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		9F40AD7B1F2F4669002C64BA /* Home */ = {
+		9F40AD7B1F2F4669002C64BA /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				8944E48D2015DC2E004A08AF /* Home */,
 				8973399720151EC800776C39 /* Parts */,
 				89697BA02008B44700C96103 /* DailyLog */,
 				9F056B291F433F32002F3B61 /* Runs */,
@@ -1394,14 +1415,9 @@
 				9F471D0C1F542B9300B294B7 /* RoadBlocks */,
 				9F471CF51F53FF2000B294B7 /* InProcess */,
 				9F471D011F541F7700B294B7 /* ToDo */,
-				9F40AD7C1F2F469A002C64BA /* HomeViewController.h */,
-				9F40AD7D1F2F469A002C64BA /* HomeViewController.m */,
-				9F40AD7E1F2F469A002C64BA /* HomeViewController.xib */,
-				895DEA2C1FF3DA54001ADAFE /* UserDetailsScreen.h */,
-				895DEA2D1FF3DA54001ADAFE /* UserDetailsScreen.m */,
-				895DEA2E1FF3DA54001ADAFE /* UserDetailsScreen.xib */,
+				8944E48E2015DC37004A08AF /* UserDetails */,
 			);
-			path = Home;
+			path = Dashboard;
 			sourceTree = "<group>";
 		};
 		9F471CEB1F53DD3700B294B7 /* SSToolKit */ = {
@@ -1819,7 +1835,7 @@
 				9FEEE5811EEFEFA2005B5ECA /* AppDelegate.h */,
 				9FEEE5821EEFEFA2005B5ECA /* AppDelegate.m */,
 				8942B8C11FEC292F003D9B8A /* Auth */,
-				9F40AD7B1F2F4669002C64BA /* Home */,
+				9F40AD7B1F2F4669002C64BA /* Dashboard */,
 				9FE99C1F1FBD4E65006B58DE /* Feedback */,
 				9F7FE5651F7B789E005CB4DF /* ProcessControl */,
 				9FD12D9C1F4473A600F0E0A8 /* Run */,
