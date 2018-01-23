@@ -143,6 +143,19 @@
                                 <action selector="backButtonTapped" destination="-1" eventType="touchUpInside" id="PLI-CW-AAn"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3n4-AY-lML">
+                            <rect key="frame" x="921" y="10" width="75" height="42"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="75" id="Zai-eH-NjR"/>
+                                <constraint firstAttribute="height" constant="42" id="pBV-5i-pU3"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
+                            <inset key="imageEdgeInsets" minX="-3" minY="0.0" maxX="10" maxY="0.0"/>
+                            <state key="normal" title="Refresh" image="refreshIcon"/>
+                            <state key="highlighted">
+                                <color key="titleColor" red="0.45098039220000002" green="0.45098039220000002" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.20392156859999999" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -151,6 +164,8 @@
                         <constraint firstItem="yZe-Is-jEv" firstAttribute="top" secondItem="Xtb-nx-Hfd" secondAttribute="top" constant="20" id="6xj-Ps-1vE"/>
                         <constraint firstItem="dHN-1c-w3Q" firstAttribute="top" secondItem="Xtb-nx-Hfd" secondAttribute="top" constant="25" id="Hl5-6Q-SO0"/>
                         <constraint firstItem="yZe-Is-jEv" firstAttribute="centerX" secondItem="Xtb-nx-Hfd" secondAttribute="centerX" id="WzX-xg-BMX"/>
+                        <constraint firstAttribute="trailing" secondItem="3n4-AY-lML" secondAttribute="trailing" constant="28" id="XX8-x8-MyR"/>
+                        <constraint firstItem="3n4-AY-lML" firstAttribute="top" secondItem="Xtb-nx-Hfd" secondAttribute="top" constant="10" id="jcX-Lw-MWi"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WMi-Tj-HQM">
@@ -1003,6 +1018,7 @@
         <image name="checkmarkUnselectedIcon" width="20" height="18"/>
         <image name="dropdownBomIcon" width="15" height="7"/>
         <image name="dropdownPriceIcon" width="15" height="7"/>
+        <image name="refreshIcon" width="19" height="13"/>
         <image name="searchPartsIcon" width="14" height="15"/>
     </resources>
 </document>

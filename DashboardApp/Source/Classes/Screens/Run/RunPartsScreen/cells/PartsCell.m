@@ -119,7 +119,7 @@
     if (m.qty.length == 0)
         _quantityLabel.text = @"-";
     else
-        _quantityLabel.text = m.qty;
+        _quantityLabel.text = [NSString stringWithFormat:@"%d", m.shortQty];
     
     _quantityLabel.textColor = ccolor(119, 119, 119);
     if (m.pricePerUnit != nil)

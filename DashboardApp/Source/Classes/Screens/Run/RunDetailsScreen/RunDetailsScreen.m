@@ -93,6 +93,8 @@
     NSMutableArray *_filteredDays;
     NSMutableArray *_passiveTests;
     NSMutableArray *_activeTests;
+    NSMutableArray *_premoldTests;
+    NSMutableArray *_postmoldTests;
     int _maxDayLogValue;
     
     ProcessModel *_selectedProcess;
@@ -463,6 +465,10 @@
 
 #pragma mark - Utils
 
+- (void) getMoldingTests {
+    
+}
+
 - (void) getPassiveTests {
  
     [_testsSpinner startAnimating];
@@ -709,8 +715,8 @@
 - (void) getTargets {
     
     for (ProcessModel *p in _processes) {
-        int target = [self getTodayTargetForProcess:p];
-        p.qtyTarget = [NSString stringWithFormat:@"%d", target];
+//        int target = [self getTodayTargetForProcess:p];
+//        p.qtyTarget = [NSString stringWithFormat:@"%d", target];
         p.processed = [self getProcessedForProcess:p];
     }
     

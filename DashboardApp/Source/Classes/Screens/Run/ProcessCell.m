@@ -20,7 +20,7 @@
 - (void) layoutWith:(ProcessModel*)process {
     
     _titleLabel.text = process.processName;
-    _qtyLabel.text = process.qtyTarget;
+//    _qtyLabel.text = process.qtyTarget;
     _processedLabel.text = [NSString stringWithFormat:@"%d", process.processed];
 }
 
