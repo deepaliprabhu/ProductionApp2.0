@@ -561,7 +561,7 @@
             if (index == 2)
                 [filteredArray addObject:p];
         }
-        else if ([[p.name lowercaseString] containsString:@"grillville"])
+        else if ([[p.name lowercaseString] containsString:@"grillville"] || [[p.group lowercaseString] isEqualToString:@"grillville"])
         {
             if (index == 3)
                 [filteredArray addObject:p];

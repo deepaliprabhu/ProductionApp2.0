@@ -19,6 +19,7 @@
     p.status = data[@"Status"];
     p.name = data[@"Name"];
     p.photo = data[@"Images"];
+    p.group = data[@"Group"];
     p.processSteps = [[NSMutableArray alloc] init];
     
     NSString *order = data[@"Order"];

@@ -51,8 +51,6 @@ typedef enum
 
 @implementation RunPartsScreen
 {
-    __unsafe_unretained IBOutlet UIButton *_refreshButton;
-    
     __unsafe_unretained IBOutlet UIActivityIndicatorView *_shortsSpinner;
     __unsafe_unretained IBOutlet UIView *_detailsHolderView;
     __unsafe_unretained IBOutlet UILabel *_seeDetailsLabel;
@@ -164,10 +162,6 @@ typedef enum
 }
 
 #pragma mark - Actions
-
-- (IBAction) refreshButtonTapped {
-    
-}
 
 - (IBAction) lockButtonTapped {
     
@@ -701,8 +695,7 @@ typedef enum
     
     _lockLabel.alpha = _run.isLocked;
     _hardToGetButton.alpha = [[[UserManager sharedInstance] loggedUser] isAdmin];
-    
-    _refreshButton.alpha = !_run.isLocked;
+
 }
 
 - (void) layoutBOM {
