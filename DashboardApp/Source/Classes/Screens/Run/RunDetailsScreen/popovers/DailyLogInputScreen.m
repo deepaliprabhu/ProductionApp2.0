@@ -82,6 +82,27 @@
 
 #pragma mark - UITextFieldDelegate
 
+- (void) textFieldDidBeginEditing:(UITextField *)textField {
+    
+    if ([textField.text isEqualToString:@"0"])
+        textField.text = @"";
+}
+
+- (void) textFieldDidEndEditing:(UITextField *)textField {
+    
+    int processed = [_targetTextField.text intValue];
+    if (processed > 0) {
+        
+        int good = [_goodTextField.text intValue];
+        int reworked = [_reworkTextField.text intValue];
+        _rejectTextField.text = [NSString stringWithFormat:@"%d", processed-good-reworked]; 
+    }
+    
+    if (textField.text.length == 0) {
+        textField.text = @"0";
+    }
+}
+
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
     
     [textField resignFirstResponder];

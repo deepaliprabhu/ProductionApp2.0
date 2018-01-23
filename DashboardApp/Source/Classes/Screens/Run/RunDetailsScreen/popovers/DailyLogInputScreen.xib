@@ -59,6 +59,11 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eep-ia-d4H">
+                            <rect key="frame" x="0.0" y="173" width="540" height="39"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.91457403273809512" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="enter quantity" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sip-cJ-3J4">
                             <rect key="frame" x="104" y="106" width="122" height="19"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -79,10 +84,10 @@
                                 <outlet property="delegate" destination="-1" id="YFg-ds-gLW"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="enter quantity" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JLf-sC-Adr">
+                        <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="enter quantity" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JLf-sC-Adr">
                             <rect key="frame" x="104" y="182" width="122" height="19"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="textColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.41176470590000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" red="0.87058823529999996" green="0.0" blue="0.027450980390000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="16"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             <connections>
