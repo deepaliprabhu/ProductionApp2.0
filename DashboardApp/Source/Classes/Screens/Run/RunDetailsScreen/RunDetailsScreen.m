@@ -41,11 +41,13 @@
     __weak IBOutlet UILabel *_runNameLabel;
     __weak IBOutlet UILabel *_productNameLabel;
 
-    __weak IBOutlet UIView *_yearsHolderView;
+    __weak IBOutlet UIView *_currentYearHolderView;
     __weak IBOutlet UILabel *_currentYearTitleLabel;
     __weak IBOutlet UILabel *_currentYearValueLabel;
+    __weak IBOutlet UIView *_lastYearHolderView;
     __weak IBOutlet UILabel *_lastYearTitleLabel;
     __weak IBOutlet UILabel *_lastYearValueLabel;
+    __weak IBOutlet UIView *_2YearsAgoHolderView;
     __weak IBOutlet UILabel *_2YearsAgoTitleLabel;
     __weak IBOutlet UILabel *_2YearsAgoValueLabel;
     
@@ -361,10 +363,19 @@
     
     _titleLabel.text = cstrf(@"[%@] RUN %d", [_run getCategory]==0?@"PCB":@"ASSM", [_run getRunId]);
     
-    _yearsHolderView.layer.borderColor = ccolor(190, 190, 190).CGColor;
-    _yearsHolderView.layer.borderWidth = 1;
+    [self layoutYearView:_currentYearHolderView];
+    [self layoutYearView:_lastYearHolderView];
+    [self layoutYearView:_2YearsAgoHolderView];
     
     [self fillYears];
+}
+
+- (void) layoutYearView:(UIView*)view {
+ 
+    view.layer.borderColor = ccolor(204, 204, 204).CGColor;
+    view.layer.borderWidth = 1;
+    view.layer.masksToBounds = true;
+    view.layer.cornerRadius = 6;
 }
 
 - (void) layoutProcessTitle {
