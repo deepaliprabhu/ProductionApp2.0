@@ -433,7 +433,7 @@
     } else {
         _testsView.alpha = 0;
         [UIView animateWithDuration:0.3 animations:^{
-            _detailsHolderViewHeightConstraint.constant = 220;
+            _detailsHolderViewHeightConstraint.constant = 260;
             [self.view layoutIfNeeded];
         }];
     }
@@ -451,7 +451,7 @@
     
     _testsView.alpha = 1;
     [UIView animateWithDuration:0.3 animations:^{
-        _detailsHolderViewHeightConstraint.constant = 240;
+        _detailsHolderViewHeightConstraint.constant = 290;
         [self.view layoutIfNeeded];
     }];
     
