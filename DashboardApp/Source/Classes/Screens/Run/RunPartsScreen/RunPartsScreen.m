@@ -51,6 +51,8 @@ typedef enum
 
 @implementation RunPartsScreen
 {
+    __unsafe_unretained IBOutlet UIButton *_refreshButton;
+    
     __unsafe_unretained IBOutlet UIActivityIndicatorView *_shortsSpinner;
     __unsafe_unretained IBOutlet UIView *_detailsHolderView;
     __unsafe_unretained IBOutlet UILabel *_seeDetailsLabel;
@@ -162,6 +164,10 @@ typedef enum
 }
 
 #pragma mark - Actions
+
+- (IBAction) refreshButtonTapped {
+    
+}
 
 - (IBAction) lockButtonTapped {
     
@@ -637,11 +643,23 @@ typedef enum
 
 #pragma mark - PartDescriptionScreenProtocol
 
-- (void) packageStatusChangeForPart {
+- (void) packageStatusChangeForPart:(PartModel *)part {
+
+    for (PartModel *p in _parts) {
+        if ([p.part isEqualToString:part.part])
+            p.package = part.package;
+    }
     
+    for (PartModel *p in _shorts) {
+        if ([p.part isEqualToString:part.part])
+            p.package = part.package;
+    }
+    
+    [_alShorts removeAllObjects];
     [_componentsTable reloadData];
-    if (_selectedComps == AlShortsComps)
-        [self addFooterView];
+    if (_selectedComps == AlShortsComps) {
+        [self alShortButtonTapped];
+    }
 }
 
 #pragma mark - Layout
@@ -683,6 +701,8 @@ typedef enum
     
     _lockLabel.alpha = _run.isLocked;
     _hardToGetButton.alpha = [[[UserManager sharedInstance] loggedUser] isAdmin];
+    
+    _refreshButton.alpha = !_run.isLocked;
 }
 
 - (void) layoutBOM {
@@ -1034,6 +1054,9 @@ typedef enum
     {
         _alShorts = [NSMutableArray array];
         for (PartModel *p in _shorts) {
+            
+            if ([p.package isEqualToString:@"yes"])
+                continue;
             
             int needed = (int)_run.quantity;
             

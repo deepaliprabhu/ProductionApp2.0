@@ -20,6 +20,6 @@
 
 @protocol PartDescriptionScreenProtocol <NSObject>
 
-- (void) packageStatusChangeForPart;
+- (void) packageStatusChangeForPart:(PartModel*)part;
 
 @end
