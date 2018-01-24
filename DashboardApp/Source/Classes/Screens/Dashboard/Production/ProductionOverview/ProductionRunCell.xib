@@ -9,6 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Roboto-Light.ttf">
+            <string>Roboto-Light</string>
+        </array>
         <array key="Roboto-Regular.ttf">
             <string>Roboto-Regular</string>
         </array>
@@ -47,6 +50,13 @@
                         <rect key="frame" x="568" y="14" width="14" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1b-Lj-Wkl">
+                        <rect key="frame" x="14" y="8" width="57" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="KIH-iY-d29" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="BZ5-Aq-UdB"/>
@@ -54,6 +64,9 @@
                     <constraint firstAttribute="bottom" secondItem="KIH-iY-d29" secondAttribute="bottom" id="iPS-bV-KvF"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="_runLabel" destination="b1b-Lj-Wkl" id="OkJ-pM-3ln"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

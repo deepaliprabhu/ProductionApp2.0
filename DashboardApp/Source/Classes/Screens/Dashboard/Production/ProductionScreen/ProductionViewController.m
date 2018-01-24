@@ -15,8 +15,9 @@
 #import "ProductionOverview.h"
 #import "LayoutUtils.h"
 #import "RunDetailsScreen.h"
+#import "ProductionTargetView.h"
 
-@interface ProductionViewController () <UITableViewDelegate, UITableViewDataSource, ProductionOverviewProtocol>
+@interface ProductionViewController () <UITableViewDelegate, UITableViewDataSource, ProductionOverviewProtocol, ProductionTargetViewProtocol>
 
 @end
 
@@ -35,6 +36,7 @@
     NSMutableArray *_operators;
     
     ProductionOverview *_flowView1;
+    ProductionTargetView *_flowView2;
 }
 
 - (void)viewDidLoad {
@@ -105,10 +107,36 @@
     return cell;
 }
 
+#pragma mark - ProductionTargetViewProtocol
+
+- (void) goBackFromTargetView {
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        _flowView2.alpha = 0;
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            _flowView1.alpha = 1;
+        }];
+    }];
+}
+
 #pragma mark - ProductionOverviewProcotol
 
 - (void) goToTargets {
     
+    if (_flowView2 == nil)
+        [self addFlowView2];
+    _flowView2.alpha = 0;
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        _flowView1.alpha = 0;
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            _flowView2.alpha = 1;
+        }];
+    }];
 }
 
 - (void) showDetailsForRun:(Run*)run {
@@ -155,6 +183,17 @@
     [self.view addSubview:_flowView1];
     [LayoutUtils addLeadingConstraintFromView:_flowView1 toView:self.view constant:356];
     [LayoutUtils addTopConstraintFromView:_flowView1 toView:self.view constant:81];
+}
+
+- (void) addFlowView2 {
+    
+    _flowView2 = [ProductionTargetView createView];
+    _flowView2.delegate = self;
+    _flowView2.translatesAutoresizingMaskIntoConstraints = false;
+    [LayoutUtils addContraintWidth:668 andHeight:687 forView:_flowView2];
+    [self.view addSubview:_flowView2];
+    [LayoutUtils addLeadingConstraintFromView:_flowView2 toView:self.view constant:356];
+    [LayoutUtils addTopConstraintFromView:_flowView2 toView:self.view constant:81];
 }
 
 #pragma mark - Utils

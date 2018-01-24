@@ -59,6 +59,8 @@
 		894704AE201944FD007364F0 /* ProductionRunCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894704AC201944FD007364F0 /* ProductionRunCell.xib */; };
 		894704B22019458A007364F0 /* ProductionProcessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894704B020194589007364F0 /* ProductionProcessCell.m */; };
 		894704B32019458A007364F0 /* ProductionProcessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894704B12019458A007364F0 /* ProductionProcessCell.xib */; };
+		894704B720194E1C007364F0 /* ProductionTargetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 894704B620194E1B007364F0 /* ProductionTargetView.m */; };
+		894704B920194E22007364F0 /* ProductionTargetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894704B820194E22007364F0 /* ProductionTargetView.xib */; };
 		894B6F051FCD994100E271B1 /* PartDescriptionScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */; };
 		894B6F061FCD994100E271B1 /* PartDescriptionScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */; };
 		894B6F0C1FCDAD7600E271B1 /* PODateScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F0A1FCDAD7600E271B1 /* PODateScreen.m */; };
@@ -415,6 +417,9 @@
 		894704AF20194589007364F0 /* ProductionProcessCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductionProcessCell.h; sourceTree = "<group>"; };
 		894704B020194589007364F0 /* ProductionProcessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductionProcessCell.m; sourceTree = "<group>"; };
 		894704B12019458A007364F0 /* ProductionProcessCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductionProcessCell.xib; sourceTree = "<group>"; };
+		894704B520194E1B007364F0 /* ProductionTargetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductionTargetView.h; sourceTree = "<group>"; };
+		894704B620194E1B007364F0 /* ProductionTargetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductionTargetView.m; sourceTree = "<group>"; };
+		894704B820194E22007364F0 /* ProductionTargetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductionTargetView.xib; sourceTree = "<group>"; };
 		894B6F021FCD994100E271B1 /* PartDescriptionScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartDescriptionScreen.h; sourceTree = "<group>"; };
 		894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartDescriptionScreen.m; sourceTree = "<group>"; };
 		894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartDescriptionScreen.xib; sourceTree = "<group>"; };
@@ -988,6 +993,7 @@
 			children = (
 				894704A9201944E0007364F0 /* ProductionScreen */,
 				894704A8201944D1007364F0 /* ProductionOverview */,
+				894704B420194E0B007364F0 /* ProductionTarget */,
 			);
 			path = Production;
 			sourceTree = "<group>";
@@ -1019,6 +1025,16 @@
 				894704A020192F16007364F0 /* OperatorCell.xib */,
 			);
 			path = ProductionScreen;
+			sourceTree = "<group>";
+		};
+		894704B420194E0B007364F0 /* ProductionTarget */ = {
+			isa = PBXGroup;
+			children = (
+				894704B520194E1B007364F0 /* ProductionTargetView.h */,
+				894704B620194E1B007364F0 /* ProductionTargetView.m */,
+				894704B820194E22007364F0 /* ProductionTargetView.xib */,
+			);
+			path = ProductionTarget;
 			sourceTree = "<group>";
 		};
 		894B6F071FCDAD3100E271B1 /* popovers */ = {
@@ -2192,6 +2208,7 @@
 				9F85678F1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.xib in Resources */,
 				89037EA51FE7C4DF00242005 /* RunDetailsScreen.xib in Resources */,
 				D28386541FB2285600BB304C /* RunPartsScreen.xib in Resources */,
+				894704B920194E22007364F0 /* ProductionTargetView.xib in Resources */,
 				8970C3B7200561FE001F7680 /* RunScheduleCell.xib in Resources */,
 				9F3FF6D61F4BF1F800F52F64 /* FontAwesome.ttf in Resources */,
 				89697BAA2008D9DF00C96103 /* DailyLogHeaderView.xib in Resources */,
@@ -2296,6 +2313,7 @@
 				9F7FE5691F7B78C2005CB4DF /* ProductListViewController.m in Sources */,
 				895F5F7A1FCEF17500ED3349 /* GridView.m in Sources */,
 				894B6F0C1FCDAD7600E271B1 /* PODateScreen.m in Sources */,
+				894704B720194E1C007364F0 /* ProductionTargetView.m in Sources */,
 				8970C3B22005618C001F7680 /* RunListScreen.m in Sources */,
 				9F471CFF1F54003300B294B7 /* InProcessViewCell.m in Sources */,
 				D2A44F2D1FAF1FD400DF37B8 /* ProductModel.m in Sources */,

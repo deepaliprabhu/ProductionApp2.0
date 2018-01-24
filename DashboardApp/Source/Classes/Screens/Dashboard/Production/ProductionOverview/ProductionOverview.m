@@ -31,7 +31,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     [super awakeFromNib];
     
     _targetButton.layer.masksToBounds = true;
-    _targetButton.layer.cornerRadius  = 6;
+    _targetButton.layer.cornerRadius  = 7;
     _targetButton.layer.borderWidth   = 1;
     _targetButton.layer.borderColor   = ccolor(102, 102, 102).CGColor;
     
