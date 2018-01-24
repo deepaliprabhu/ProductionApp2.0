@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Run.h"
 
 @protocol ProductionRunCellProtocol;
 
@@ -14,8 +15,12 @@
 
 @property (nonatomic, unsafe_unretained) id <ProductionRunCellProtocol> delegate;
 
+- (void) layoutWithRun:(Run*)r;
+
 @end
 
 @protocol ProductionRunCellProtocol <NSObject>
+
+- (void) showDetailsForRun:(Run*)run;
 
 @end

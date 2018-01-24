@@ -23,5 +23,6 @@ __CREATEVIEWH(ProductionOverview)
 @protocol ProductionOverviewProtocol <NSObject>
 
 - (void) goToTargets;
+- (void) showDetailsForRun:(Run*)r;
 
 @end

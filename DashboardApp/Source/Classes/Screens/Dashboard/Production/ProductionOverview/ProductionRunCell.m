@@ -8,10 +8,19 @@
 
 #import "ProductionRunCell.h"
 
-@implementation ProductionRunCell
+@implementation ProductionRunCell {
+    __weak IBOutlet UILabel *_runLabel;
+    __unsafe_unretained Run *_run;
+}
+
+- (void) layoutWithRun:(Run*)r {
+    
+    _run = r;
+    _runLabel.text = [NSString stringWithFormat:@"%d", [r getRunId]];
+}
 
 - (IBAction) viewButtonTapped {
-    
+    [_delegate showDetailsForRun:_run];
 }
 
 @end

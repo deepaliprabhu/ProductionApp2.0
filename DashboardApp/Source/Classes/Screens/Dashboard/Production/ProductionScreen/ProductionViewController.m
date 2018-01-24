@@ -14,6 +14,7 @@
 #import "OperatorCell.h"
 #import "ProductionOverview.h"
 #import "LayoutUtils.h"
+#import "RunDetailsScreen.h"
 
 @interface ProductionViewController () <UITableViewDelegate, UITableViewDataSource, ProductionOverviewProtocol>
 
@@ -108,6 +109,13 @@
 
 - (void) goToTargets {
     
+}
+
+- (void) showDetailsForRun:(Run*)run {
+
+    RunDetailsScreen *screen = [RunDetailsScreen new];
+    screen.run = run;
+    [self.navigationController pushViewController:screen animated:true];
 }
 
 #pragma mark - Layout

@@ -9,6 +9,10 @@
 #import "ProductionOverview.h"
 #import "Defines.h"
 #import "ProductionProcessCell.h"
+#import "DataManager.h"
+#import "Run.h"
+#import "ProdAPI.h"
+#import "NSDate+Utils.h"
 
 @implementation ProductionOverview {
     
@@ -30,6 +34,8 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     _targetButton.layer.cornerRadius  = 6;
     _targetButton.layer.borderWidth   = 1;
     _targetButton.layer.borderColor   = ccolor(102, 102, 102).CGColor;
+    
+    [self computeRuns];
 }
 
 #pragma mark - Actions
@@ -68,7 +74,10 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
             cell.delegate = self;
         }
         
+        [cell layoutWithRun:_runs[indexPath.row]];
+        
         return cell;
+        
     } else {
         
         static NSString *identifier2 = @"ProductionProcessCell";
@@ -81,11 +90,47 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     }
 }
 
+#pragma mark - CellProtocol
+
+- (void) showDetailsForRun:(Run*)run {
+    [_delegate showDetailsForRun:run];
+}
+
 #pragma mark - Utils
 
-- (void) getRuns {
+- (void) computeRuns {
     
+    _runs = [NSMutableArray array];
     
+    NSDateFormatter *f = [NSDateFormatter new];
+    f = [NSDateFormatter new];
+    f.dateFormat = @"yyyy-MM-dd";
+    
+    NSArray *runs = [[DataManager sharedInstance] getRuns];
+    for (Run *r in runs) {
+        
+        [[ProdAPI sharedInstance] getSlotsForRun:[r getRunId] completion:^(BOOL success, id response) {
+            
+            if (success) {
+                if ([response isKindOfClass:[NSArray class]]) {
+                    for (NSDictionary *d in response) {
+                        
+                        if ([d[@"STATUS"] isEqualToString:@"running"]) {
+                            
+                            NSString *dateStr = d[@"SCHEDULED"];
+                            NSDate *date = [f dateFromString:dateStr];
+                            if ([date isThisWeek]) {
+                                [_runs addObject:r];
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            [_runsTable reloadData];
+        }];
+    }
 }
 
 @end
