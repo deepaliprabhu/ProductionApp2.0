@@ -12,8 +12,10 @@
 #import "ProdAPI.h"
 #import "UserModel.h"
 #import "OperatorCell.h"
+#import "ProductionOverview.h"
+#import "LayoutUtils.h"
 
-@interface ProductionViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ProductionViewController () <UITableViewDelegate, UITableViewDataSource, ProductionOverviewProtocol>
 
 @end
 
@@ -30,6 +32,8 @@
     
     NSArray *_selectionConstants;
     NSMutableArray *_operators;
+    
+    ProductionOverview *_flowView1;
 }
 
 - (void)viewDidLoad {
@@ -100,6 +104,11 @@
     return cell;
 }
 
+#pragma mark - ProductionOverviewProcotol
+
+- (void) goToTargets {
+    
+}
 
 #pragma mark - Layout
 
@@ -116,6 +125,8 @@
     
     NSString *y = [[f stringFromDate: [date dateByAddingTimeInterval:-24*3600]] uppercaseString];
     [_yesterdayButton setTitle:y forState:UIControlStateNormal];
+    
+    [self addFlowView1];
 }
 
 - (void) changeSelectionTo:(int)index {
@@ -125,6 +136,17 @@
     [UIView animateWithDuration:0.3 animations:^{
         [self.view layoutIfNeeded];
     }];
+}
+
+- (void) addFlowView1 {
+    
+    _flowView1 = [ProductionOverview createView];
+    _flowView1.delegate = self;
+    _flowView1.translatesAutoresizingMaskIntoConstraints = false;
+    [LayoutUtils addContraintWidth:668 andHeight:687 forView:_flowView1];
+    [self.view addSubview:_flowView1];
+    [LayoutUtils addLeadingConstraintFromView:_flowView1 toView:self.view constant:356];
+    [LayoutUtils addTopConstraintFromView:_flowView1 toView:self.view constant:81];
 }
 
 #pragma mark - Utils
