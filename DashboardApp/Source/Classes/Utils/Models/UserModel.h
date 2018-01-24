@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString *role;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) NSString *points;
+@property (nonatomic, unsafe_unretained) int secondsBusy;
 
 + (UserModel*) objectFromData:(NSDictionary*)data;
 - (BOOL) isAdmin;
