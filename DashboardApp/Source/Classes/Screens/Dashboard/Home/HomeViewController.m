@@ -25,6 +25,7 @@
 #import "RunListScreen.h"
 #import "DailyLogScreen.h"
 #import "PartsScreen.h"
+#import "ProductionViewController.h"
 
 @interface HomeViewController ()
 
@@ -143,6 +144,12 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) productionSelected {
+    
+    ProductionViewController *screen = [[ProductionViewController alloc] initWithNibName:@"ProductionViewController" bundle:nil];
+    [self.navigationController pushViewController:screen animated:true];
 }
 
 // OverviewViewDelegate methods

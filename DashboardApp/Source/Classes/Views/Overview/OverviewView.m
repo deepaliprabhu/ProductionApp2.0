@@ -120,6 +120,10 @@ __CREATEVIEW(OverviewView, @"OverviewView", 0);
 
 #pragma mark - Actions
 
+- (IBAction) productionButtonTapped {
+    [_delegate productionSelected];
+}
+
 - (IBAction)runsPressed:(id)sender {
     [_delegate runsSelected];
 }

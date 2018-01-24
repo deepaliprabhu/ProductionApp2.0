@@ -49,6 +49,10 @@
 		8944E49320167BEE004A08AF /* ShortsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8944E49120167BEE004A08AF /* ShortsCell.xib */; };
 		8944E49720167D25004A08AF /* AlternateShortsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944E49520167D25004A08AF /* AlternateShortsCell.m */; };
 		8944E49820167D25004A08AF /* AlternateShortsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8944E49620167D25004A08AF /* AlternateShortsCell.xib */; };
+		8947049C20191BCC007364F0 /* ProductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8947049A20191BCC007364F0 /* ProductionViewController.m */; };
+		8947049D20191BCC007364F0 /* ProductionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8947049B20191BCC007364F0 /* ProductionViewController.xib */; };
+		894704A120192F16007364F0 /* OperatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8947049F20192F16007364F0 /* OperatorCell.m */; };
+		894704A220192F16007364F0 /* OperatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894704A020192F16007364F0 /* OperatorCell.xib */; };
 		894B6F051FCD994100E271B1 /* PartDescriptionScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */; };
 		894B6F061FCD994100E271B1 /* PartDescriptionScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */; };
 		894B6F0C1FCDAD7600E271B1 /* PODateScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F0A1FCDAD7600E271B1 /* PODateScreen.m */; };
@@ -390,6 +394,12 @@
 		8944E49420167D25004A08AF /* AlternateShortsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlternateShortsCell.h; sourceTree = "<group>"; };
 		8944E49520167D25004A08AF /* AlternateShortsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlternateShortsCell.m; sourceTree = "<group>"; };
 		8944E49620167D25004A08AF /* AlternateShortsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlternateShortsCell.xib; sourceTree = "<group>"; };
+		8947049920191BCC007364F0 /* ProductionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductionViewController.h; sourceTree = "<group>"; };
+		8947049A20191BCC007364F0 /* ProductionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductionViewController.m; sourceTree = "<group>"; };
+		8947049B20191BCC007364F0 /* ProductionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductionViewController.xib; sourceTree = "<group>"; };
+		8947049E20192F16007364F0 /* OperatorCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorCell.h; sourceTree = "<group>"; };
+		8947049F20192F16007364F0 /* OperatorCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OperatorCell.m; sourceTree = "<group>"; };
+		894704A020192F16007364F0 /* OperatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OperatorCell.xib; sourceTree = "<group>"; };
 		894B6F021FCD994100E271B1 /* PartDescriptionScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartDescriptionScreen.h; sourceTree = "<group>"; };
 		894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartDescriptionScreen.m; sourceTree = "<group>"; };
 		894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartDescriptionScreen.xib; sourceTree = "<group>"; };
@@ -958,6 +968,19 @@
 			path = UserDetails;
 			sourceTree = "<group>";
 		};
+		8947049820191BAD007364F0 /* Production */ = {
+			isa = PBXGroup;
+			children = (
+				8947049920191BCC007364F0 /* ProductionViewController.h */,
+				8947049A20191BCC007364F0 /* ProductionViewController.m */,
+				8947049B20191BCC007364F0 /* ProductionViewController.xib */,
+				8947049E20192F16007364F0 /* OperatorCell.h */,
+				8947049F20192F16007364F0 /* OperatorCell.m */,
+				894704A020192F16007364F0 /* OperatorCell.xib */,
+			);
+			path = Production;
+			sourceTree = "<group>";
+		};
 		894B6F071FCDAD3100E271B1 /* popovers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1424,6 +1447,7 @@
 				8973399720151EC800776C39 /* Parts */,
 				89697BA02008B44700C96103 /* DailyLog */,
 				9F056B291F433F32002F3B61 /* Runs */,
+				8947049820191BAD007364F0 /* Production */,
 				9F03A9171F4563B300A7A316 /* DemandList */,
 				9F909AAA1F4EBB3800DBFA63 /* Gantt */,
 				9FD12D7C1F43FD2800F0E0A8 /* Overview */,
@@ -2063,6 +2087,7 @@
 				9F7AB1A61F7D233C0013CBE1 /* drop_down@2x.png in Resources */,
 				8944E49320167BEE004A08AF /* ShortsCell.xib in Resources */,
 				8970C3AF20050A51001F7680 /* RunListScreen.xib in Resources */,
+				894704A220192F16007364F0 /* OperatorCell.xib in Resources */,
 				D283865B1FB23CA800BB304C /* Roboto-Medium.ttf in Resources */,
 				894B6F0D1FCDAD7600E271B1 /* PODateScreen.xib in Resources */,
 				D2A44F321FAF2BBA00DF37B8 /* LoadingView.xib in Resources */,
@@ -2087,6 +2112,7 @@
 				89697BAF2008E00200C96103 /* DailyLogCell.xib in Resources */,
 				894EE6981FE00EF8009244A7 /* LockConfirmScreen.xib in Resources */,
 				894C5F5F1FBB147600FA4E5D /* RunPartCell.xib in Resources */,
+				8947049D20191BCC007364F0 /* ProductionViewController.xib in Resources */,
 				8950A7281FC6C14E006C66CB /* AddCommentScreen.xib in Resources */,
 				9FA5EE601FE9492F000AAFA3 /* ProcessStepsViewController.xib in Resources */,
 				89697BA52008B45A00C96103 /* DailyLogScreen.xib in Resources */,
@@ -2199,6 +2225,7 @@
 				9F7FE56E1F7B8DD8005CB4DF /* ProductGroupView.m in Sources */,
 				9FD12D9A1F44707A00F0E0A8 /* MIBadgeButton.m in Sources */,
 				D283865F1FB2476C00BB304C /* PartModel.m in Sources */,
+				8947049C20191BCC007364F0 /* ProductionViewController.m in Sources */,
 				9FD12D9B1F44707A00F0E0A8 /* MIBadgeLabel.m in Sources */,
 				D22767941FAE4B5400215D87 /* UIRefreshControl+AFNetworking.m in Sources */,
 				9F3144B81F7ABFD200B9D32C /* CKCalendarView.m in Sources */,
@@ -2241,6 +2268,7 @@
 				89897E391FBF140C000B39EA /* StockGraphScreen.m in Sources */,
 				894F9BD91FBCA0BC00DC2C6B /* PartHistoryScreen.m in Sources */,
 				9F471D151F542B9300B294B7 /* RoadBlocksViewCell.m in Sources */,
+				894704A120192F16007364F0 /* OperatorCell.m in Sources */,
 				9F977EF21F62FFD8009C2B6D /* CommoProcessesViewCell.m in Sources */,
 				9FA264661F48A32C004C882E /* TasklistViewCell.m in Sources */,
 				895DEA2A1FF3C722001ADAFE /* UIScrollView+DZNSegmentedControl.m in Sources */,

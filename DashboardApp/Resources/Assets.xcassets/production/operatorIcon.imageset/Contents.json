@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "logDataButton.png",
+      "filename" : "operatorIcon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "logDataButton@2x.png",
+      "filename" : "operatorIcon@2x.png",
       "scale" : "2x"
     },
     {

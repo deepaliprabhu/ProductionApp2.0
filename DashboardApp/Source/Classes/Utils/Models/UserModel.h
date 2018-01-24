@@ -20,5 +20,7 @@
 
 + (UserModel*) objectFromData:(NSDictionary*)data;
 - (BOOL) isAdmin;
+- (BOOL) isOperator;
+
 
 @end
