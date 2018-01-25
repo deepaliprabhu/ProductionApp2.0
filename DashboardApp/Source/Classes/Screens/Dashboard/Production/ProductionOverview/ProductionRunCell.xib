@@ -57,6 +57,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOu-Wa-csF">
+                        <rect key="frame" x="119" y="8" width="110" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="KIH-iY-d29" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="BZ5-Aq-UdB"/>
@@ -65,6 +72,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="_processLabel" destination="LOu-Wa-csF" id="fbI-Nm-82S"/>
                 <outlet property="_runLabel" destination="b1b-Lj-Wkl" id="OkJ-pM-3ln"/>
             </connections>
         </tableViewCell>

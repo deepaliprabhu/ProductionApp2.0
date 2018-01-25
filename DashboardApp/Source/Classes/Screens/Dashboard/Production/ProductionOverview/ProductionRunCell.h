@@ -15,12 +15,12 @@
 
 @property (nonatomic, unsafe_unretained) id <ProductionRunCellProtocol> delegate;
 
-- (void) layoutWithRun:(Run*)r;
+- (void) layoutWithData:(NSDictionary*)dict;
 
 @end
 
 @protocol ProductionRunCellProtocol <NSObject>
 
-- (void) showDetailsForRun:(Run*)run;
+- (void) showDetailsForRunId:(int)runId;
 
 @end

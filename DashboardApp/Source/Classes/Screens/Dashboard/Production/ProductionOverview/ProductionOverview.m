@@ -13,6 +13,9 @@
 #import "Run.h"
 #import "ProdAPI.h"
 #import "NSDate+Utils.h"
+#import "ProcessModel.h"
+#import "DayLogModel.h"
+#import "Constants.h"
 
 @implementation ProductionOverview {
     
@@ -22,6 +25,7 @@
     
     NSMutableArray *_processes;
     NSMutableArray *_runs;
+    NSMutableArray *_processesForThisWeek;
 }
 
 __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
@@ -30,12 +34,22 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     
     [super awakeFromNib];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(computeRuns) name:kNotificationCommonProcessesReceived object:nil];;
+    
     _targetButton.layer.masksToBounds = true;
     _targetButton.layer.cornerRadius  = 7;
     _targetButton.layer.borderWidth   = 1;
     _targetButton.layer.borderColor   = ccolor(102, 102, 102).CGColor;
     
-    [self computeRuns];
+    if ([[[DataManager sharedInstance] getCommonProcesses] count] == 0) {
+        [[ServerManager sharedInstance] getProcessList];
+    } else {
+        [self computeRuns];
+    }
+}
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Actions
@@ -53,7 +67,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (tableView == _runsTable) {
-        return _runs.count;
+        return _processesForThisWeek.count;
     } else {
         return _processes.count;
     }
@@ -74,7 +88,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
             cell.delegate = self;
         }
         
-        [cell layoutWithRun:_runs[indexPath.row]];
+        [cell layoutWithData:_processesForThisWeek[indexPath.row]];
         
         return cell;
         
@@ -92,8 +106,9 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
 
 #pragma mark - CellProtocol
 
-- (void) showDetailsForRun:(Run*)run {
-    [_delegate showDetailsForRun:run];
+- (void) showDetailsForRunId:(int)runId {
+    Run *r = [[DataManager sharedInstance] getRunWithId:runId];
+    [_delegate showDetailsForRun:r];
 }
 
 #pragma mark - Utils
@@ -106,11 +121,13 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     f = [NSDateFormatter new];
     f.dateFormat = @"yyyy-MM-dd";
     
+    __block int currentRequest = 0;
     NSArray *runs = [[DataManager sharedInstance] getRuns];
     for (Run *r in runs) {
         
         [[ProdAPI sharedInstance] getSlotsForRun:[r getRunId] completion:^(BOOL success, id response) {
             
+            currentRequest++;
             if (success) {
                 if ([response isKindOfClass:[NSArray class]]) {
                     for (NSDictionary *d in response) {
@@ -128,9 +145,114 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
                 }
             }
             
-            [_runsTable reloadData];
+            if (currentRequest == runs.count) {
+                [self getProcesses];
+            }
         }];
     }
+}
+
+- (void) getProcesses {
+    
+    __block int currentRequests = 0;
+    for (Run *r in _runs) {
+        
+        [[ProdAPI sharedInstance] getProcessFlowForProduct:[r getProductNumber] completion:^(BOOL success, id response) {
+            
+            currentRequests++;
+            if (success) {
+                
+                NSMutableArray *pr = [NSMutableArray array];
+                NSArray *processes = [response firstObject][@"processes"];
+                for (int i=0; i<processes.count;i++) {
+                    
+                    NSDictionary *processData = processes[i];
+                    NSDictionary *commonProcess = [[DataManager sharedInstance] getProcessForNo:processData[@"processno"]];
+                    ProcessModel *model = [ProcessModel objectFromProcess:processData andCommon:commonProcess];
+                    [pr addObject:model];
+                    
+                    if ([r getCategory] == 0 && [commonProcess[@"processname"] isEqualToString:@"Passive Test"])
+                        break;
+                }
+                
+                r.processes = pr;
+            }
+            
+            if (currentRequests == _runs.count) {
+                [self getDailyLog];
+            }
+        }];
+    }
+}
+
+- (void) getDailyLog {
+    
+    __block int currentRequests = 0;
+    for (Run *r in _runs) {
+        
+        [[ProdAPI sharedInstance] getDailyLogForRun:[r getRunId] product:[r getProductNumber] completion:^(BOOL success, id response) {
+            
+            currentRequests++;
+            if (success) {
+                
+                NSMutableArray *daysArr = [NSMutableArray array];
+                NSArray *days = [response firstObject][@"processes"];
+                days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
+                for (int i=0; i<days.count; i++) {
+                    
+                    NSDictionary *dict = days[i];
+                    if ([dict[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == true)
+                        continue;
+                    
+                    DayLogModel *d = [DayLogModel objFromData:dict];
+                    if ([self dayLogAlreadyExists:d inArr:daysArr] == false)
+                        [daysArr addObject:d];
+                }
+                [daysArr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
+                r.days = daysArr;
+            }
+            
+            if (currentRequests == _runs.count) {
+                [self getRunningProcesses];
+            }
+        }];
+    }
+}
+
+- (void) getRunningProcesses {
+    
+    _processesForThisWeek = [NSMutableArray array];
+    for (Run *r in _runs) {
+        
+        for (ProcessModel *p in r.processes) {
+            
+            int t = 0;
+            for (DayLogModel *d in r.days) {
+                if (d.processId == p.stepId) {
+                    t += d.reject + d.rework + d.good;
+                }
+            }
+            
+            if (t < [r quantity]) {
+             
+                NSDictionary *d = @{@"run": @(r.runId), @"process": p.processName?p.processName:@""};
+                [_processesForThisWeek addObject:d];
+            }
+        }
+    }
+    
+    [_runsTable reloadData];
+}
+
+- (BOOL) dayLogAlreadyExists:(DayLogModel*)log inArr:(NSArray*)arr {
+    
+    NSCalendar *c = [NSCalendar currentCalendar];
+    for (DayLogModel *d in arr) {
+        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processId isEqualToString:log.processId])
+            return true;
+    }
+    
+    return false;
 }
 
 @end

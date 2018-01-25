@@ -50,6 +50,8 @@
 @property BOOL activated;
 @property BOOL isLocked;
 @property (nonatomic, strong) NSNumber *last7DaysComments;
+@property (nonatomic, strong) NSArray *processes;
+@property (nonatomic, strong) NSArray *days;
 
 - (void)updateRunStatus:(NSString*)statusString;
 - (void)updateRunStatus:(NSString*)statusString withQty:(int)quantity;

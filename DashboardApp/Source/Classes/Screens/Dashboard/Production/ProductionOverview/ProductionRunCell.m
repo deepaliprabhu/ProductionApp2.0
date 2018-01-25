@@ -10,17 +10,20 @@
 
 @implementation ProductionRunCell {
     __weak IBOutlet UILabel *_runLabel;
-    __unsafe_unretained Run *_run;
+    __weak IBOutlet UILabel *_processLabel;
+
+    int _runId;
 }
 
-- (void) layoutWithRun:(Run*)r {
+- (void) layoutWithData:(NSDictionary*)dict {
     
-    _run = r;
-    _runLabel.text = [NSString stringWithFormat:@"%d", [r getRunId]];
+    _runId = [dict[@"run"] intValue];
+    _runLabel.text = [NSString stringWithFormat:@"%d", _runId];
+    _processLabel.text = dict[@"process"];
 }
 
 - (IBAction) viewButtonTapped {
-    [_delegate showDetailsForRun:_run];
+    [_delegate showDetailsForRunId:_runId];
 }
 
 @end
