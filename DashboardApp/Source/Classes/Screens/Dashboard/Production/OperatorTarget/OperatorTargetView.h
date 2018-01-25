@@ -17,6 +17,8 @@
 
 __CREATEVIEWH(OperatorTargetView)
 
+- (void) reloadData;
+
 @end
 
 @protocol OperatorTargetViewProtocol <NSObject>

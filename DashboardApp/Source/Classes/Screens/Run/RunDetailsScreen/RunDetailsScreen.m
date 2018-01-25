@@ -466,14 +466,10 @@
     _reworkTestsLabel.text = @"N/A";
 }
 
-#pragma mark - Utils
-
-- (void) getMoldingTests {
-    
-}
+#pragma mark - Services
 
 - (void) getPassiveTests {
- 
+    
     [_testsSpinner startAnimating];
     [[ProdAPI sharedInstance] getPassiveTestsWithCompletion:^(BOOL success, id response) {
         
@@ -520,6 +516,132 @@
     }];
 }
 
+- (void) getMoldingTests {
+    
+}
+
+- (void) getSales {
+    
+    [[ProdAPI sharedInstance] getSalesPerYearFor:[_run getProductNumber] completion:^(BOOL success, id response) {
+        
+        if (success) {
+            
+            if ([response isKindOfClass:[NSArray class]]) {
+                
+                NSDictionary *d = [response firstObject];
+                if ([d[@"Current Yr Sold"] length] == 0)
+                    _currentYearValueLabel.text = @"-";
+                else
+                    _currentYearValueLabel.text = d[@"Current Yr Sold"];
+                
+                if ([d[@"Previous Yr Sold"] length] == 0)
+                    _lastYearValueLabel.text = @"-";
+                else
+                    _lastYearValueLabel.text = d[@"Previous Yr Sold"];
+                
+                if ([d[@"Current Yr Sold"] length] == 0)
+                    _2YearsAgoValueLabel.text = @"-";
+                else
+                    _2YearsAgoValueLabel.text = d[@"Previous To Previous Yr Sold"];
+            }
+            
+        } else {
+            
+        }
+    }];
+}
+
+- (void) getProcessFlow {
+    
+    [LoadingView showLoading:@"Loading..."];
+    //    [[ProdAPI sharedInstance] getProcessFlowForRun:[_run getRunId] product:[_run getProductNumber] completion:^(BOOL success, id response) {
+    [[ProdAPI sharedInstance] getProcessFlowForProduct:[_run getProductNumber] completion:^(BOOL success, id response) {
+        
+        if (success) {
+            
+            [LoadingView removeLoading];
+            _processes = [NSMutableArray array];
+            NSArray *processes = [response firstObject][@"processes"];
+            for (int i=0; i<processes.count;i++) {
+                
+                NSDictionary *processData = processes[i];
+                NSDictionary *commonProcess = [[DataManager sharedInstance] getProcessForNo:processData[@"processno"]];
+                ProcessModel *model = [ProcessModel objectFromProcess:processData andCommon:commonProcess];
+                [_processes addObject:model];
+                
+                if ([_run getCategory] == 0 && [commonProcess[@"processname"] isEqualToString:@"Passive Test"])
+                    break;
+            }
+            
+            [_processes sortUsingComparator:^NSComparisonResult(ProcessModel *obj1, ProcessModel *obj2) {
+                
+                int i1 = [[obj1.processNo stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue];
+                int i2 = [[obj2.processNo stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue];
+                if (i1<i2)
+                    return NSOrderedAscending;
+                else
+                    return NSOrderedDescending;
+            }];
+            
+            [_tableView reloadData];
+            if (_processes.count > 0) {
+                _selectedProcess = _processes[0];
+                [self layoutSelectedProcess];
+                [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:false scrollPosition:UITableViewScrollPositionTop];
+            }
+            
+            _noProcessesLabel.alpha = _processes.count == 0 ? 1 : 0;
+            
+        } else {
+            [LoadingView showShortMessage:@"Error, please try again later!"];
+        }
+        
+        [self getDailyLog];
+    }];
+}
+
+- (void) getDailyLog {
+    
+    [_dailyLogSpinner startAnimating];
+    [[ProdAPI sharedInstance] getDailyLogForRun:[_run getRunId] product:[_run getProductNumber] completion:^(BOOL success, id response) {
+        
+        [_dailyLogSpinner stopAnimating];
+        if (success) {
+            
+            _days = [NSMutableArray array];
+            NSArray *days = [response firstObject][@"processes"];
+            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
+            for (int i=0; i<days.count; i++) {
+                
+                NSDictionary *dict = days[i];
+                if ([dict[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == true)
+                    continue;
+                
+                DayLogModel *d = [DayLogModel objFromData:dict];
+                if ([self dayLogAlreadyExists:d] == false)
+                    [_days addObject:d];
+            }
+            [_days sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
+            _rawDataButton.alpha = _days.count == 0 ? 0 : 1;
+            [self getTargets];
+            [self layoutDailyLogForProcess:_selectedProcess];
+        }
+    }];
+}
+
+#pragma mark - Utils
+
+- (BOOL) dayLogAlreadyExists:(DayLogModel*)log {
+    
+    NSCalendar *c = [NSCalendar currentCalendar];
+    for (DayLogModel *d in _days) {
+        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processId isEqualToString:log.processId])
+            return true;
+    }
+    
+    return false;
+}
+
 - (DayLogModel*) todayLog {
     
     NSCalendar *c = [NSCalendar currentCalendar];
@@ -556,115 +678,6 @@
     _2YearsAgoTitleLabel.text = cstrf(@"%d", y-2);
     
     [self getSales];
-}
-
-- (void) getSales {
-    
-    [[ProdAPI sharedInstance] getSalesPerYearFor:[_run getProductNumber] completion:^(BOOL success, id response) {
-       
-        if (success) {
-            
-            if ([response isKindOfClass:[NSArray class]]) {
-                
-                NSDictionary *d = [response firstObject];
-                if ([d[@"Current Yr Sold"] length] == 0)
-                    _currentYearValueLabel.text = @"-";
-                else
-                    _currentYearValueLabel.text = d[@"Current Yr Sold"];
-                
-                if ([d[@"Previous Yr Sold"] length] == 0)
-                    _lastYearValueLabel.text = @"-";
-                else
-                    _lastYearValueLabel.text = d[@"Previous Yr Sold"];
-                
-                if ([d[@"Current Yr Sold"] length] == 0)
-                    _2YearsAgoValueLabel.text = @"-";
-                else
-                    _2YearsAgoValueLabel.text = d[@"Previous To Previous Yr Sold"];
-            }
-            
-        } else {
-            
-        }
-    }];
-}
-
-- (void) getProcessFlow {
-    
-    [LoadingView showLoading:@"Loading..."];
-//    [[ProdAPI sharedInstance] getProcessFlowForRun:[_run getRunId] product:[_run getProductNumber] completion:^(BOOL success, id response) {
-    [[ProdAPI sharedInstance] getProcessFlowForProduct:[_run getProductNumber] completion:^(BOOL success, id response) {
-      
-        if (success) {
-            
-            [LoadingView removeLoading];
-            _processes = [NSMutableArray array];
-            NSArray *processes = [response firstObject][@"processes"];
-            for (int i=0; i<processes.count;i++) {
-                
-                NSDictionary *processData = processes[i];
-                NSDictionary *commonProcess = [[DataManager sharedInstance] getProcessForNo:processData[@"processno"]];
-                ProcessModel *model = [ProcessModel objectFromProcess:processData andCommon:commonProcess];
-                [_processes addObject:model];
-                
-                if ([_run getCategory] == 0 && [commonProcess[@"processname"] isEqualToString:@"Passive Test"])
-                    break;
-            }
-            [_tableView reloadData];
-            if (_processes.count > 0) {
-                _selectedProcess = _processes[0];
-                [self layoutSelectedProcess];
-                [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:false scrollPosition:UITableViewScrollPositionTop];
-            }
-        
-            _noProcessesLabel.alpha = _processes.count == 0 ? 1 : 0;
-            
-        } else {
-            [LoadingView showShortMessage:@"Error, please try again later!"];
-        }
-        
-        [self getDailyLog];
-    }];
-}
-
-- (void) getDailyLog {
-    
-    [_dailyLogSpinner startAnimating];
-    [[ProdAPI sharedInstance] getDailyLogForRun:[_run getRunId] product:[_run getProductNumber] completion:^(BOOL success, id response) {
-       
-        [_dailyLogSpinner stopAnimating];
-        if (success) {
-            
-            _days = [NSMutableArray array];
-            NSArray *days = [response firstObject][@"processes"];
-            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
-            for (int i=0; i<days.count; i++) {
-                
-                NSDictionary *dict = days[i];
-                if ([dict[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == true)
-                    continue;
-                
-                DayLogModel *d = [DayLogModel objFromData:dict];
-                if ([self dayLogAlreadyExists:d] == false)
-                    [_days addObject:d];
-            }
-            [_days sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
-            _rawDataButton.alpha = _days.count == 0 ? 0 : 1;
-            [self getTargets];
-            [self layoutDailyLogForProcess:_selectedProcess];
-        }
-    }];
-}
-
-- (BOOL) dayLogAlreadyExists:(DayLogModel*)log {
-    
-    NSCalendar *c = [NSCalendar currentCalendar];
-    for (DayLogModel *d in _days) {
-        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processId isEqualToString:log.processId])
-            return true;
-    }
-    
-    return false;
 }
 
 - (DayLogModel*) dayForProcess:(NSString*)process {

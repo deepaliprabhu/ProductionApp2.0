@@ -8,14 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "Defines.h"
+#import "ProcessEditableCell.h"
 
 @protocol ProductionTargetViewProtocol;
 
-@interface ProductionTargetView : UIView
+@interface ProductionTargetView : UIView <UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource, ProcessEditableCellProtocol>
 
 @property (nonatomic, unsafe_unretained) id <ProductionTargetViewProtocol> delegate;
 
 __CREATEVIEWH(ProductionTargetView)
+
+- (void) reloadData;
 
 @end
 

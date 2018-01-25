@@ -52,6 +52,17 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void) reloadData {
+    
+    [_processes removeAllObjects];
+    [_runs removeAllObjects];
+    [_processesForThisWeek removeAllObjects];
+    [_runsTable reloadData];
+    [_processesTable reloadData];
+    
+    [self computeRuns];
+}
+
 #pragma mark - Actions
 
 - (IBAction) targetButtonTapped {

@@ -40,6 +40,10 @@
 		894018811FB5A0E4002B8AFD /* BRRequestListDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018771FB5A0E4002B8AFD /* BRRequestListDirectory.m */; };
 		894018821FB5A0E4002B8AFD /* BRRequestCreateDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018781FB5A0E4002B8AFD /* BRRequestCreateDirectory.m */; };
 		8940188A1FB5EFAC002B8AFD /* PurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018891FB5EFAC002B8AFD /* PurchaseModel.m */; };
+		8940A2C0201A6B6A000CE83B /* RunTargetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8940A2BE201A6B6A000CE83B /* RunTargetCell.m */; };
+		8940A2C1201A6B6A000CE83B /* RunTargetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8940A2BF201A6B6A000CE83B /* RunTargetCell.xib */; };
+		8940A2C5201A75B5000CE83B /* ProcessEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8940A2C3201A75B5000CE83B /* ProcessEditableCell.m */; };
+		8940A2C6201A75B5000CE83B /* ProcessEditableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8940A2C4201A75B5000CE83B /* ProcessEditableCell.xib */; };
 		8942B8BC1FEC2705003D9B8A /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8BB1FEC2705003D9B8A /* UserModel.m */; };
 		8942B8C51FEC293C003D9B8A /* LoginScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8C31FEC293C003D9B8A /* LoginScreen.m */; };
 		8942B8C61FEC293C003D9B8A /* LoginScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8942B8C41FEC293C003D9B8A /* LoginScreen.xib */; };
@@ -388,6 +392,12 @@
 		894018781FB5A0E4002B8AFD /* BRRequestCreateDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRequestCreateDirectory.m; sourceTree = "<group>"; };
 		894018881FB5EFAC002B8AFD /* PurchaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PurchaseModel.h; sourceTree = "<group>"; };
 		894018891FB5EFAC002B8AFD /* PurchaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PurchaseModel.m; sourceTree = "<group>"; };
+		8940A2BD201A6B6A000CE83B /* RunTargetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunTargetCell.h; sourceTree = "<group>"; };
+		8940A2BE201A6B6A000CE83B /* RunTargetCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunTargetCell.m; sourceTree = "<group>"; };
+		8940A2BF201A6B6A000CE83B /* RunTargetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunTargetCell.xib; sourceTree = "<group>"; };
+		8940A2C2201A75B5000CE83B /* ProcessEditableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessEditableCell.h; sourceTree = "<group>"; };
+		8940A2C3201A75B5000CE83B /* ProcessEditableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessEditableCell.m; sourceTree = "<group>"; };
+		8940A2C4201A75B5000CE83B /* ProcessEditableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProcessEditableCell.xib; sourceTree = "<group>"; };
 		8942B8BA1FEC2705003D9B8A /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		8942B8BB1FEC2705003D9B8A /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		8942B8BE1FEC289D003D9B8A /* UserManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
@@ -1039,6 +1049,12 @@
 				894704B520194E1B007364F0 /* ProductionTargetView.h */,
 				894704B620194E1B007364F0 /* ProductionTargetView.m */,
 				894704B820194E22007364F0 /* ProductionTargetView.xib */,
+				8940A2BD201A6B6A000CE83B /* RunTargetCell.h */,
+				8940A2BE201A6B6A000CE83B /* RunTargetCell.m */,
+				8940A2BF201A6B6A000CE83B /* RunTargetCell.xib */,
+				8940A2C2201A75B5000CE83B /* ProcessEditableCell.h */,
+				8940A2C3201A75B5000CE83B /* ProcessEditableCell.m */,
+				8940A2C4201A75B5000CE83B /* ProcessEditableCell.xib */,
 			);
 			path = ProductionTarget;
 			sourceTree = "<group>";
@@ -2126,12 +2142,14 @@
 				898574561FE9645100EAB20C /* DailyLogInputScreen.xib in Resources */,
 				9F471D091F541F7700B294B7 /* ToDoView.xib in Resources */,
 				9FD12DA11F4473B900F0E0A8 /* RunViewController.xib in Resources */,
+				8940A2C1201A6B6A000CE83B /* RunTargetCell.xib in Resources */,
 				9FE99C291FBD4E65006B58DE /* FeedbackListViewCell.xib in Resources */,
 				8961A3D71FFE39970058E353 /* ProcessDetailsScreen.xib in Resources */,
 				89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */,
 				9FE99C271FBD4E65006B58DE /* FeedbackListView.xib in Resources */,
 				9FBA7FEB2003EAAE00D2713A /* DemandsViewCell.xib in Resources */,
 				9F71C43E1FC1582900550F86 /* downArrow.png in Resources */,
+				8940A2C6201A75B5000CE83B /* ProcessEditableCell.xib in Resources */,
 				895F5F7C1FCEF17D00ED3349 /* GridView.xib in Resources */,
 				9F056B281F433469002F3B61 /* Icon.png in Resources */,
 				D283865C1FB23CA800BB304C /* Roboto-Regular.ttf in Resources */,
@@ -2262,6 +2280,7 @@
 				89854AEA1FB97B3A00C6E38D /* UIView+GMGridViewAdditions.m in Sources */,
 				D22767991FAE4B8000215D87 /* Reachability.m in Sources */,
 				9FD12D8E1F443CEF00F0E0A8 /* ConnectionManager.m in Sources */,
+				8940A2C5201A75B5000CE83B /* ProcessEditableCell.m in Sources */,
 				89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */,
 				9F8567901F73DDB10067ABE1 /* OperatorEntryView.m in Sources */,
 				8952873C1FCF39EE005C46EE /* AuditActionCell.m in Sources */,
@@ -2334,6 +2353,7 @@
 				8970C3B22005618C001F7680 /* RunListScreen.m in Sources */,
 				9F471CFF1F54003300B294B7 /* InProcessViewCell.m in Sources */,
 				D2A44F2D1FAF1FD400DF37B8 /* ProductModel.m in Sources */,
+				8940A2C0201A6B6A000CE83B /* RunTargetCell.m in Sources */,
 				894C5F5A1FBB0ED300FA4E5D /* RunModel.m in Sources */,
 				9F909AAD1F4EBB4E00DBFA63 /* GanttView.m in Sources */,
 				D22767911FAE4B5400215D87 /* UIButton+AFNetworking.m in Sources */,

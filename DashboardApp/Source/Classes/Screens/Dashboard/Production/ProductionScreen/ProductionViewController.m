@@ -113,8 +113,11 @@
     
     if (_flowView3.alpha == 0) {
         
-        if (_flowView3 == nil)
+        BOOL firstLoad = false;
+        if (_flowView3 == nil) {
             [self addFlowView3];
+            firstLoad = true;
+        }
         _flowView3.alpha = 0;
         
         [UIView animateWithDuration:0.2 animations:^{
@@ -127,6 +130,8 @@
             
             [UIView animateWithDuration:0.2 animations:^{
                 _flowView3.alpha = 1;
+                if (firstLoad == false)
+                    [_flowView3 reloadData];
             }];
         }];
     }
@@ -144,6 +149,7 @@
         
         [UIView animateWithDuration:0.2 animations:^{
             _flowView1.alpha = 1;
+            [_flowView1 reloadData];
         }];
     }];
 }
@@ -158,6 +164,7 @@
         
         [UIView animateWithDuration:0.2 animations:^{
             _flowView1.alpha = 1;
+            [_flowView1 reloadData];
         }];
     }];
 }
@@ -166,8 +173,11 @@
 
 - (void) goToTargets {
     
-    if (_flowView2 == nil)
+    BOOL firstLoad = false;
+    if (_flowView2 == nil) {
         [self addFlowView2];
+        firstLoad = true;
+    }
     _flowView2.alpha = 0;
     
     [UIView animateWithDuration:0.2 animations:^{
@@ -176,6 +186,8 @@
         
         [UIView animateWithDuration:0.2 animations:^{
             _flowView2.alpha = 1;
+            if (firstLoad == false)
+                [_flowView2 reloadData];
         }];
     }];
 }

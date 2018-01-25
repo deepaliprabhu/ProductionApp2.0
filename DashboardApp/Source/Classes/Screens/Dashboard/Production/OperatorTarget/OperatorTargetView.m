@@ -17,6 +17,10 @@
     return view;
 }
 
+- (void) reloadData {
+    
+}
+
 #pragma mark - Actions
 
 - (IBAction) backButtonTapped {

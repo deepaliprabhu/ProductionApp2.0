@@ -18,6 +18,8 @@
 
 __CREATEVIEWH(ProductionOverview)
 
+- (void) reloadData;
+
 @end
 
 @protocol ProductionOverviewProtocol <NSObject>
