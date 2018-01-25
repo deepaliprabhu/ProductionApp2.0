@@ -61,6 +61,8 @@
 		894704B32019458A007364F0 /* ProductionProcessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894704B12019458A007364F0 /* ProductionProcessCell.xib */; };
 		894704B720194E1C007364F0 /* ProductionTargetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 894704B620194E1B007364F0 /* ProductionTargetView.m */; };
 		894704B920194E22007364F0 /* ProductionTargetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894704B820194E22007364F0 /* ProductionTargetView.xib */; };
+		894704BC2019533F007364F0 /* OperatorTargetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894704BB2019533F007364F0 /* OperatorTargetView.xib */; };
+		894704BF2019535F007364F0 /* OperatorTargetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 894704BE2019535F007364F0 /* OperatorTargetView.m */; };
 		894B6F051FCD994100E271B1 /* PartDescriptionScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */; };
 		894B6F061FCD994100E271B1 /* PartDescriptionScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */; };
 		894B6F0C1FCDAD7600E271B1 /* PODateScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F0A1FCDAD7600E271B1 /* PODateScreen.m */; };
@@ -420,6 +422,9 @@
 		894704B520194E1B007364F0 /* ProductionTargetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductionTargetView.h; sourceTree = "<group>"; };
 		894704B620194E1B007364F0 /* ProductionTargetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductionTargetView.m; sourceTree = "<group>"; };
 		894704B820194E22007364F0 /* ProductionTargetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductionTargetView.xib; sourceTree = "<group>"; };
+		894704BB2019533F007364F0 /* OperatorTargetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OperatorTargetView.xib; sourceTree = "<group>"; };
+		894704BD2019535F007364F0 /* OperatorTargetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorTargetView.h; sourceTree = "<group>"; };
+		894704BE2019535F007364F0 /* OperatorTargetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OperatorTargetView.m; sourceTree = "<group>"; };
 		894B6F021FCD994100E271B1 /* PartDescriptionScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartDescriptionScreen.h; sourceTree = "<group>"; };
 		894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartDescriptionScreen.m; sourceTree = "<group>"; };
 		894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartDescriptionScreen.xib; sourceTree = "<group>"; };
@@ -994,6 +999,7 @@
 				894704A9201944E0007364F0 /* ProductionScreen */,
 				894704A8201944D1007364F0 /* ProductionOverview */,
 				894704B420194E0B007364F0 /* ProductionTarget */,
+				894704BA20195332007364F0 /* OperatorTarget */,
 			);
 			path = Production;
 			sourceTree = "<group>";
@@ -1035,6 +1041,16 @@
 				894704B820194E22007364F0 /* ProductionTargetView.xib */,
 			);
 			path = ProductionTarget;
+			sourceTree = "<group>";
+		};
+		894704BA20195332007364F0 /* OperatorTarget */ = {
+			isa = PBXGroup;
+			children = (
+				894704BD2019535F007364F0 /* OperatorTargetView.h */,
+				894704BE2019535F007364F0 /* OperatorTargetView.m */,
+				894704BB2019533F007364F0 /* OperatorTargetView.xib */,
+			);
+			path = OperatorTarget;
 			sourceTree = "<group>";
 		};
 		894B6F071FCDAD3100E271B1 /* popovers */ = {
@@ -2217,6 +2233,7 @@
 				894F9BDF1FBCA90C00DC2C6B /* HistoryPriceCell.xib in Resources */,
 				8952873D1FCF39EE005C46EE /* AuditActionCell.xib in Resources */,
 				9FB1BEAF1F514343008D179E /* CollectionViewCell.xib in Resources */,
+				894704BC2019533F007364F0 /* OperatorTargetView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2326,6 +2343,7 @@
 				895023F01FE149EC008A1165 /* ReconcileScreen.m in Sources */,
 				9FE99C311FBD70F8006B58DE /* FeedbackDetailView.m in Sources */,
 				D22767881FAE4B5400215D87 /* AFURLRequestSerialization.m in Sources */,
+				894704BF2019535F007364F0 /* OperatorTargetView.m in Sources */,
 				8919BE8F1FB4DD5100EE6839 /* SDWebImageDecoder.m in Sources */,
 				89897E391FBF140C000B39EA /* StockGraphScreen.m in Sources */,
 				894F9BD91FBCA0BC00DC2C6B /* PartHistoryScreen.m in Sources */,

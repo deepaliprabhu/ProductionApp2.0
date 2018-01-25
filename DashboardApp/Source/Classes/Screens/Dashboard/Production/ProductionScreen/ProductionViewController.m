@@ -16,8 +16,9 @@
 #import "LayoutUtils.h"
 #import "RunDetailsScreen.h"
 #import "ProductionTargetView.h"
+#import "OperatorTargetView.h"
 
-@interface ProductionViewController () <UITableViewDelegate, UITableViewDataSource, ProductionOverviewProtocol, ProductionTargetViewProtocol>
+@interface ProductionViewController () <UITableViewDelegate, UITableViewDataSource, ProductionOverviewProtocol, ProductionTargetViewProtocol, OperatorTargetViewProtocol>
 
 @end
 
@@ -37,6 +38,7 @@
     
     ProductionOverview *_flowView1;
     ProductionTargetView *_flowView2;
+    OperatorTargetView *_flowView3;
 }
 
 - (void)viewDidLoad {
@@ -105,6 +107,45 @@
     [cell layoutWithPerson:_operators[indexPath.row]];
     
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (_flowView3.alpha == 0) {
+        
+        if (_flowView3 == nil)
+            [self addFlowView3];
+        _flowView3.alpha = 0;
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            
+            if (_flowView1.alpha == 1)
+                _flowView1.alpha = 0;
+            else
+                _flowView2.alpha = 0;
+        } completion:^(BOOL finished) {
+            
+            [UIView animateWithDuration:0.2 animations:^{
+                _flowView3.alpha = 1;
+            }];
+        }];
+    }
+}
+
+#pragma mark - OperatorTargetViewProtocol
+
+- (void) goBackFromOperatorView {
+    
+    [_operatorsTable reloadData];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        _flowView3.alpha = 0;
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            _flowView1.alpha = 1;
+        }];
+    }];
 }
 
 #pragma mark - ProductionTargetViewProtocol
@@ -194,6 +235,17 @@
     [self.view addSubview:_flowView2];
     [LayoutUtils addLeadingConstraintFromView:_flowView2 toView:self.view constant:356];
     [LayoutUtils addTopConstraintFromView:_flowView2 toView:self.view constant:81];
+}
+
+- (void) addFlowView3 {
+    
+    _flowView3 = [OperatorTargetView createView];
+    _flowView3.delegate = self;
+    _flowView3.translatesAutoresizingMaskIntoConstraints = false;
+    [LayoutUtils addContraintWidth:668 andHeight:687 forView:_flowView3];
+    [self.view addSubview:_flowView3];
+    [LayoutUtils addLeadingConstraintFromView:_flowView3 toView:self.view constant:356];
+    [LayoutUtils addTopConstraintFromView:_flowView3 toView:self.view constant:81];
 }
 
 #pragma mark - Utils
