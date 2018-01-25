@@ -29,6 +29,7 @@
 #import "PassedTestsScreen.h"
 #import "LayoutUtils.h"
 #import "DemandsViewController.h"
+#import "UIView+Screenshot.h"
 
 @interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol, PODateScreenDelegate>
 
@@ -63,9 +64,6 @@
     __weak IBOutlet UILabel *_processTitleLabel;
     __weak IBOutlet UIButton *_processTitleButton;
     __weak IBOutlet NSLayoutConstraint *_processTitleButtonWidthConstraint;
-    __weak IBOutlet UILabel *_personLabel;
-    __weak IBOutlet UILabel *_dateAssignedLabel;
-    __weak IBOutlet UILabel *_dateCompletedLabel;
     __weak IBOutlet UILabel *_qtyReworkLabel;
     __weak IBOutlet UILabel *_qtyRejectedLabel;
     __weak IBOutlet UILabel *_qtyGoodLabel;
@@ -147,13 +145,12 @@
     if (_run.isLocked) {
         
         DailyLogInputScreen *screen = [[DailyLogInputScreen alloc] initWithNibName:@"DailyLogInputScreen" bundle:nil];
+        screen.image = [self.view screenshot];
         screen.delegate = self;
         screen.process = _selectedProcess;
         screen.dayLog = [self todayLog];
         screen.run = _run;
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
-        nav.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self presentViewController:nav animated:true completion:nil];
+        [self presentViewController:screen animated:true completion:nil];
     } else {
         [LoadingView showShortMessage:@"Run has to be locked!"];
     }
@@ -161,8 +158,14 @@
 
 - (IBAction) rawButtonTapped {
  
+    NSMutableArray *days = [NSMutableArray array];
+    for (DayLogModel *day in _days) {
+        if ([day.processNo isEqualToString:_selectedProcess.processNo])
+            [days addObject:day];
+    }
+    
     DailyLogRawScreen *screen = [[DailyLogRawScreen alloc] initWithNibName:@"DailyLogRawScreen" bundle:nil];
-    screen.days = _days;
+    screen.days = days;
     UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
     CGRect rect = [_dailyLogHolderView convertRect:_rawDataButton.bounds toView:self.view];
     [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:true];
@@ -230,25 +233,25 @@
     }
 }
 
-- (IBAction) dateAssignedButtonTapped {
-    
-    PODateScreen *screen = [[PODateScreen alloc] initWithNibName:@"PODateScreen" bundle:nil];
-    //    screen.purchase = _visiblePart.purchases[index];
-        screen.delegate = self;
-    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
-    CGRect rect = [_detailsHolderView convertRect:_dateAssignedLabel.frame toView:self.view];
-    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
-}
-
-- (IBAction) dateCompletedButtonTapped {
-    
-    PODateScreen *screen = [[PODateScreen alloc] initWithNibName:@"PODateScreen" bundle:nil];
-//    screen.purchase = _visiblePart.purchases[index];
-    screen.delegate = self;
-    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
-    CGRect rect = [_detailsHolderView convertRect:_dateCompletedLabel.frame toView:self.view];
-    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
-}
+//- (IBAction) dateAssignedButtonTapped {
+//
+//    PODateScreen *screen = [[PODateScreen alloc] initWithNibName:@"PODateScreen" bundle:nil];
+//    //    screen.purchase = _visiblePart.purchases[index];
+//        screen.delegate = self;
+//    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+//    CGRect rect = [_detailsHolderView convertRect:_dateAssignedLabel.frame toView:self.view];
+//    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
+//}
+//
+//- (IBAction) dateCompletedButtonTapped {
+//
+//    PODateScreen *screen = [[PODateScreen alloc] initWithNibName:@"PODateScreen" bundle:nil];
+////    screen.purchase = _visiblePart.purchases[index];
+//    screen.delegate = self;
+//    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+//    CGRect rect = [_detailsHolderView convertRect:_dateCompletedLabel.frame toView:self.view];
+//    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
+//}
 
 #pragma mark - UICollectionViewDelegate
 
@@ -390,16 +393,6 @@
     [self.view layoutIfNeeded];
 }
 
-- (void) layoutProcessDetails {
- 
-    DayLogModel *d = [self dayForProcess:_selectedProcess.stepId];
-    if (d != nil) {
-        _dateAssignedLabel.text = [d.dateAssigned nonEmptyValue];
-        _dateCompletedLabel.text = [d.dateCompleted nonEmptyValue];
-        _personLabel.text = [d.person nonEmptyValue];
-    }
-}
-
 - (void) layoutSelectedProcess {
     
     if (_selectedProcess == nil) {
@@ -414,7 +407,6 @@
     [self layoutProcessTitle];
     if (_days.count > 0)
         [self layoutQuantitiesForProcess:_selectedProcess.stepId];
-    [self layoutProcessDetails];
     
     if ([_selectedProcess.processName isEqualToString:@"Passive Test"]) {
         
@@ -433,7 +425,7 @@
     } else {
         _testsView.alpha = 0;
         [UIView animateWithDuration:0.3 animations:^{
-            _detailsHolderViewHeightConstraint.constant = 260;
+            _detailsHolderViewHeightConstraint.constant = 230;
             [self.view layoutIfNeeded];
         }];
     }
@@ -451,13 +443,13 @@
     
     _testsView.alpha = 1;
     [UIView animateWithDuration:0.3 animations:^{
-        _detailsHolderViewHeightConstraint.constant = 290;
+        _detailsHolderViewHeightConstraint.constant = 260;
         [self.view layoutIfNeeded];
     }];
     
     int pass = 0;
     int fail = 0;
-    int rework = 0;
+//    int rework = 0;
     for (NSDictionary *d in tests) {
         
         if ([d[@"passed"] isEqualToString:@"false"])
@@ -465,13 +457,13 @@
         else
             pass++;
         
-        if ([d[@"reworked"] isEqualToString:@"true"])
-            rework++;
+//        if ([d[@"reworked"] isEqualToString:@"true"])
+//            rework++;
     }
     
     _passedTestsLabel.text = [NSString stringWithFormat:@"%d", pass];
     _failedTestsLabel.text = [NSString stringWithFormat:@"%d", fail];
-    _reworkTestsLabel.text = [NSString stringWithFormat:@"%d", rework];
+    _reworkTestsLabel.text = @"N/A";
 }
 
 #pragma mark - Utils
@@ -742,7 +734,8 @@
     int t = 0;
     for (DayLogModel *d in _days) {
         if (d.processId == p.stepId) {
-            t += d.reject + d.rework + d.good;
+            t += d.target;
+//            t += d.reject + d.rework + d.good;
         }
     }
     

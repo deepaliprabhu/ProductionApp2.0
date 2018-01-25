@@ -20,11 +20,14 @@
 
 @implementation DailyLogInputScreen {
     
+    __weak IBOutlet UIImageView *_backgroundImageView;
+    
+    __weak IBOutlet UILabel *_titleLabel;
+    
     __weak IBOutlet UITextField *_targetTextField;
     __weak IBOutlet UITextField *_goodTextField;
     __weak IBOutlet UITextField *_rejectTextField;
     __weak IBOutlet UITextField *_reworkTextField;
-    __weak IBOutlet UITextField *_dateTextField;
     __weak IBOutlet UITextView *_commentsTextView;
 }
 
@@ -36,12 +39,11 @@
 
 #pragma mark - Actions
 
-- (void) cancelButtonTapped {
-    
+- (IBAction) cancelButtonTapped {
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
-- (void) saveButtonTapped {
+- (IBAction) saveButtonTapped {
  
     int good = [_goodTextField.text intValue];
     int reject = [_rejectTextField.text intValue];
@@ -82,6 +84,17 @@
 
 #pragma mark - UITextFieldDelegate
 
+- (BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
+    
+    int processed = [_targetTextField.text intValue];
+    if (processed == 0 && textField != _targetTextField) {
+        [LoadingView showShortMessage:@"Insert processed first"];
+        return false;
+    }
+    else
+        return true;
+}
+
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
     
     if ([textField.text isEqualToString:@"0"])
@@ -90,16 +103,29 @@
 
 - (void) textFieldDidEndEditing:(UITextField *)textField {
     
-    int processed = [_targetTextField.text intValue];
-    if (processed > 0) {
-        
-        int good = [_goodTextField.text intValue];
-        int reworked = [_reworkTextField.text intValue];
-        _rejectTextField.text = [NSString stringWithFormat:@"%d", processed-good-reworked]; 
-    }
-    
     if (textField.text.length == 0) {
         textField.text = @"0";
+    }
+    
+    int processed = [_targetTextField.text intValue];
+    int good = [_goodTextField.text intValue];
+    int reworked = [_reworkTextField.text intValue];
+    
+    if (good + reworked <= processed) {
+        _rejectTextField.text = [NSString stringWithFormat:@"%d", processed-good-reworked];
+    } else {
+     
+        [LoadingView showShortMessage:@"Invalid input"];
+        if (textField == _targetTextField) {
+            [self fillDayLog];
+        } else {
+            textField.text = @"0";
+            
+            int processed = [_targetTextField.text intValue];
+            int good = [_goodTextField.text intValue];
+            int reworked = [_reworkTextField.text intValue];
+            _rejectTextField.text = [NSString stringWithFormat:@"%d", processed-good-reworked];
+        }
     }
 }
 
@@ -131,29 +157,33 @@
 
 - (void) initLayout {
     
-    self.title = _process.processName;
+    _backgroundImageView.image = _image;
     
-//    NSDateFormatter *f = [NSDateFormatter new];
-//    f.dateFormat = @"dd MMM yyyy";
-//    _dateTextField.text = [f stringFromDate:[NSDate date]];
-    _dateTextField.text = @"today";
+    NSDateFormatter *f = [NSDateFormatter new];
+    f.dateFormat = @"dd/MM/yyyy";
     
-    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
-    self.navigationItem.leftBarButtonItem = left;
-    
-    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped)];
-    self.navigationItem.rightBarButtonItem = right;
-    
+    _titleLabel.text = [NSString stringWithFormat:@"%@ - %@", _process.processName, [f stringFromDate:[NSDate date]]];
     _commentsTextView.text = kTextViewPlaceholder;
+    [self fillDayLog];
+    
+    if (_dayLog.comments.length > 0)
+        _commentsTextView.text = _dayLog.comments;
+}
+
+- (void) fillDayLog {
+    
     if (_dayLog != nil) {
         
         _targetTextField.text = [NSString stringWithFormat:@"%d", _dayLog.target];
         _rejectTextField.text = [NSString stringWithFormat:@"%d", _dayLog.reject];
         _reworkTextField.text = [NSString stringWithFormat:@"%d", _dayLog.rework];
         _goodTextField.text = [NSString stringWithFormat:@"%d", _dayLog.good];
-        
-        if (_dayLog.comments.length > 0)
-            _commentsTextView.text = _dayLog.comments;
+    } else {
+    
+        _targetTextField.text = @"0";
+        _rejectTextField.text = @"0";
+        _reworkTextField.text = @"0";
+        _goodTextField.text = @"0";
     }
 }
 

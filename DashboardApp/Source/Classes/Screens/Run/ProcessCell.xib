@@ -28,15 +28,8 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JwU-4M-EXt">
-                        <rect key="frame" x="315" y="0.0" width="48" height="29"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
-                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wU-Xh-jZX">
-                        <rect key="frame" x="32" y="0.0" width="345" height="29"/>
+                        <rect key="frame" x="71" y="0.0" width="309" height="29"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="16"/>
                         <nil key="textColor"/>
@@ -49,6 +42,13 @@
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JwU-4M-EXt">
+                        <rect key="frame" x="32" y="0.0" width="28" height="29"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="16"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="selectionShape" translatesAutoresizingMaskIntoConstraints="NO" id="Ne2-wW-CYf">
                         <rect key="frame" x="511" y="0.0" width="13" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -57,8 +57,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="_bgView" destination="qbF-Zw-uXn" id="pUp-gx-jQ9"/>
+                <outlet property="_processNoLabel" destination="JwU-4M-EXt" id="LPc-W0-Udj"/>
                 <outlet property="_processedLabel" destination="beK-bw-TY6" id="M9J-eJ-egh"/>
-                <outlet property="_qtyLabel" destination="JwU-4M-EXt" id="bwi-3t-qi0"/>
                 <outlet property="_shapeView" destination="Ne2-wW-CYf" id="a7k-up-Psl"/>
                 <outlet property="_titleLabel" destination="8wU-Xh-jZX" id="yYo-Xw-dcO"/>
             </connections>

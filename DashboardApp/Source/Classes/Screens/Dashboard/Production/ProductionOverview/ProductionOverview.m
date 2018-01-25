@@ -229,7 +229,8 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
             int t = 0;
             for (DayLogModel *d in r.days) {
                 if (d.processId == p.stepId) {
-                    t += d.reject + d.rework + d.good;
+                    t += d.target;
+//                    t += d.reject + d.rework + d.good;
                 }
             }
             

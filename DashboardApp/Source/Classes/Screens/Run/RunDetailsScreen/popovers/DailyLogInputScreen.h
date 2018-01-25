@@ -15,6 +15,7 @@
 
 @interface DailyLogInputScreen : UIViewController
 
+@property (nonatomic, strong) UIImage *image;
 @property (nonatomic, unsafe_unretained) ProcessModel *process;
 @property (nonatomic, unsafe_unretained) DayLogModel *dayLog;
 @property (nonatomic, unsafe_unretained) Run *run;

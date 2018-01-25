@@ -10,6 +10,6 @@
 
 @interface DailyLogRawScreen : UIViewController
 
-@property (nonatomic, unsafe_unretained) NSArray *days;
+@property (nonatomic, strong) NSArray *days;
 
 @end
