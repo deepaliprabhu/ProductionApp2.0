@@ -85,7 +85,7 @@
         cell.delegate = self;
     }
     
-    NSArray *arr = _runs[_selectedRunIndex][@"run"][@"processes"];
+    NSArray *arr = _runs[_selectedRunIndex][@"processes"];
     [cell layoutWithProcess:arr[indexPath.row]];
     
     return cell;
