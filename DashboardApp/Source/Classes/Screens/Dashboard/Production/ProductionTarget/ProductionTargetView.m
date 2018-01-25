@@ -44,6 +44,7 @@
 
 - (void) reloadData {
     
+    _selectedRunIndex = 0;
     [_runs removeAllObjects];
     [_runsCollection reloadData];
     [_processesTable reloadData];
@@ -84,8 +85,8 @@
         cell.delegate = self;
     }
     
-    Run *r = _runs[_selectedRunIndex][@"run"];
-    [cell layoutWithProcess:r.processes[indexPath.row]];
+    NSArray *arr = _runs[_selectedRunIndex][@"run"][@"processes"];
+    [cell layoutWithProcess:arr[indexPath.row]];
     
     return cell;
 }
