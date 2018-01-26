@@ -14,10 +14,16 @@
 {
     ProductModel *p = [ProductModel new];
     p.productID = data[@"Product Id"];
+    p.pcbProductID = @"--";
     p.productNumber = data[@"Product Number"];
     p.productStatus = data[@"Product Status"];
     p.status = data[@"Status"];
     p.name = data[@"Name"];
+    if ([data[@"last version"] isEqualToString:@""]) {
+        p.processCntrlId = @"DRAFT";
+    }
+    else
+        p.processCntrlId = [NSString stringWithFormat:@"%@-PC1-%@",data[@"Product Number"],data[@"last version"]];
     p.photo = data[@"Images"];
     p.group = data[@"Group"];
     p.processSteps = [[NSMutableArray alloc] init];

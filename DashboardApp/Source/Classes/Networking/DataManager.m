@@ -249,9 +249,23 @@ static DataManager *_sharedInstance = nil;
     count++;
     
     if (count > 0) {
-        jsonString = [NSString stringWithFormat:@"&process_ctrl_id=%@&process_ctrl_name=%@&originator=%@&approver=%@&comments=%@&timestamp=%@&description=%@&productid=%@&versionid=%@&status=%@&count=%lu&json=%@",processData[@"process_ctrl_id"], processData[@"process_ctrl_name"], processData[@"Originator"], processData[@"Approver"],processData[@"Comments"], processData[@"Timestamp"], processData[@"Description"],processData[@"ProductId"],processData[@"VersionId"],processData[@"Status"],(unsigned long)processesArray.count,jsonString];
+        jsonString = [NSString stringWithFormat:@"&process_ctrl_id=%@&process_ctrl_name=%@&originator=%@&approver=%@&comments=%@&timestamp=%@&description=%@&productid=%@&pcb_productid=%@&versionid=%@&status=%@&count=%lu&json=%@",processData[@"process_ctrl_id"], processData[@"process_ctrl_name"], processData[@"Originator"], processData[@"Approver"],processData[@"Comments"], processData[@"Timestamp"], processData[@"Description"],processData[@"ProductId"], processData[@"PCBProductId"],processData[@"VersionId"],processData[@"Status"],(unsigned long)processesArray.count,jsonString];
         [__ServerManager setDelegate:self];
         [__ServerManager addProcessFlowWithJsonString:jsonString];
+    }
+    NSLog(@"json string = %@",jsonString);
+}
+
+- (void)updateProcesses:(NSMutableArray*)processesArray withProcessData:(NSMutableDictionary*)processData {
+    int count = 0;
+    NSString *jsonString = @"";
+    jsonString = [jsonString stringByAppendingString:[self jsonString:processesArray WithPrettyPrint:false]];
+    count++;
+    
+    if (count > 0) {
+        jsonString = [NSString stringWithFormat:@"&process_ctrl_id=%@&process_ctrl_name=%@&originator=%@&approver=%@&comments=%@&timestamp=%@&description=%@&productid=%@&pcb_productid=%@&versionid=%@&status=%@&count=%lu&json=%@",processData[@"process_ctrl_id"], processData[@"process_ctrl_name"], processData[@"Originator"], processData[@"Approver"],processData[@"Comments"], processData[@"Timestamp"], processData[@"Description"],processData[@"ProductId"], processData[@"PCBProductId"],processData[@"VersionId"],processData[@"Status"],(unsigned long)processesArray.count,jsonString];
+        [__ServerManager setDelegate:self];
+        [__ServerManager updateProcessFlowWithJsonString:jsonString];
     }
     NSLog(@"json string = %@",jsonString);
 }

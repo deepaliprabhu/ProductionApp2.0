@@ -35,6 +35,8 @@
     filteredIndexArray = [[NSMutableArray alloc] init];
     alteredProcessesArray = [[NSMutableArray alloc] init];
     deletedProcessArray = [[NSMutableArray alloc] init];
+    processStatus = @"Draft";
+    pcbProductId = @"";
     
     productGroupsArray = [NSMutableArray arrayWithObjects:@"Waiting", @"Sentinel", @"Inspector", @"GrillVille", @"Misc.",nil];
     
@@ -113,11 +115,11 @@
     
     [_puneApprovalButton setTitle:@"Submit Pune" forState:UIControlStateNormal];
     [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
-    [_masonApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
+    [_lausanneApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
     
     stationsArray = [NSMutableArray arrayWithObjects:@"S1-Store Activities",@"S2-Material Issue", @"S3-Contract Manufacturing",@"S4-Misc Activities",@"S5-Inspection & Testing", @"S6-Soldering", @"S7-Moulding", @"S8-Machanical Assembly", @"S9-Final Inspection", @"S10-Product Packaging", @"S11-Case Packaging",@"S12-Dispatch",nil];
     
-    operatorArray = [NSMutableArray arrayWithObjects:@"Govind", @"Archana",@"Arvind",@"Pranali", @"Raman", @"Lalu", @"Venkatesh", @"Sadashiv", @"Sonali",nil];
+    operatorArray = [NSMutableArray arrayWithObjects:@"Govind", @"Archana",@"Arvind",@"Pranali", @"Raman", @"Lalu", @"Venkatesh", @"Sadashiv", @"Sonali", @"Abhijith",nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -172,6 +174,7 @@
     [self selectedSegment:waitingControl];
     [waitingControl setSelectedSegmentIndex:0 animated:false];
     [self selectedSegment:waitingControl];
+    [self filterPCBProducts];
 }
 
 - (void) initProcesses {
@@ -250,15 +253,20 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     selectedIndex = indexPath.row;
+    [dropDown hideDropDown:_pcbProductIdButton];
+    dropDown = nil;
+
     if ([tableView isEqual:_productListTableView]) {
         _productDetailView.hidden = false;
+        [_pcbProductIdButton setTitle:@"Select PCB" forState:UIControlStateNormal];
         [_puneApprovalButton setTitle:@"Submit Pune" forState:UIControlStateNormal];
         [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
-        [_masonApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
+        [_lausanneApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
         _puneApprovalButton.backgroundColor = [UIColor grayColor];
         _masonApprovalButton.backgroundColor = [UIColor grayColor];
         _lausanneApprovalButton.backgroundColor = [UIColor grayColor];
         selectedProduct = filteredProductsArray[indexPath.row];
+        _processNoLabel.text = selectedProduct.processCntrlId;
         [self loadProductProcessFlow:filteredProductsArray[indexPath.row]];
     }
     if ([tableView isEqual:_commonProcessListTableView]) {
@@ -308,6 +316,9 @@
         processStepsArray = [product getProcessSteps];
         [_processListTableView reloadData];
         [self setUpCommonProcessTable];
+        if (![product.pcbProductID isEqualToString:@""]) {
+            pcbProductId = product.pcbProductID;
+        }
         [self setupForStatus:product.status];
         NSLog(@"product status = %@",product.productStatus);
     }
@@ -366,6 +377,7 @@
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=addProcess&processno=%@&processname=%@&desc=%@&wi=%@&stationid=%@&op1=%@&op2=%@&op3=%@&time=%@",processData[@"processno"], [self urlEncodeUsingEncoding:processData[@"processname"]],@"",[self urlEncodeUsingEncoding:processData[@"workinstructions"]], processData[@"stationid"], processData[@"op1"], processData[@"op2"], processData[@"op3"], processData[@"time"]] withTag:2];
+    
 }
 
 
@@ -385,6 +397,10 @@
         //return;
     }
     
+    if (tag == 2) {
+        [__ServerManager getProcessList];
+    }
+    
     if ([json isKindOfClass:[NSArray class]]){
         NSLog(@"json Array = %@",json);
         if (json.count > 0) {
@@ -394,9 +410,14 @@
             processStepsArray=[jsonProcessesArray mutableCopy];
             processCntrlId = jsonDict[@"process_ctrl_id"];
             processStatus = jsonDict[@"status"];
+            pcbProductId = jsonDict[@"pcb_productid"];
+            if (![pcbProductId isEqualToString:@""]) {
+                [_pcbProductIdButton setTitle:pcbProductId forState:UIControlStateNormal];
+            }
             [self setupForStatus:jsonDict[@"status"]];
             NSLog(@"processes Array=%@",processStepsArray);
             [selectedProduct setProcessSteps:processStepsArray];
+            selectedProduct.pcbProductID = pcbProductId;
             [_processListTableView reloadData];
         }
     }
@@ -408,10 +429,10 @@
 }
 
 - (void)setupForStatus:(NSString*)status {
-    _processNoLabel.text = [NSString stringWithFormat:@"%@ (DRAFT)", processCntrlId];
+   // _processNoLabel.text = [NSString stringWithFormat:@"%@ (DRAFT)", processCntrlId];
 
     if ([status isEqualToString:@"OPEN"]||[status isEqualToString:@"Draft"]||[status isEqualToString:@"Open"]) {
-        _processNoLabel.text = [NSString stringWithFormat:@"%@ (DRAFT)", processCntrlId];
+       // _processNoLabel.text = [NSString stringWithFormat:@"%@ (DRAFT)", processCntrlId];
         [_puneApprovalButton setTitle:@"Submit Pune" forState:UIControlStateNormal];
         [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
         [_lausanneApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
@@ -447,7 +468,7 @@
         [_lausanneApprovalButton setUserInteractionEnabled:true];
     }
     else if([status isEqualToString:@"Lausanne Approved"]) {
-        _processNoLabel.text = [NSString stringWithFormat:@"%@", processCntrlId];
+       // _processNoLabel.text = [NSString stringWithFormat:@"%@", processCntrlId];
         _processNoTF.textColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
         [_puneApprovalButton setTitle:@"Pune Approved" forState:UIControlStateNormal];
         [_masonApprovalButton setTitle:@"Mason Approved" forState:UIControlStateNormal];
@@ -539,7 +560,12 @@
         for (int i=0; i < productsArray.count; ++i) {
             ProductModel *product = productsArray[i];
             if ([product.status isEqualToString:@"OPEN"]||[product.status isEqualToString:@"Draft"]||[product.status isEqualToString:@"Open"]||[product.status isEqualToString:@"Pune Approved"]||[product.status isEqualToString:@"Mason Approved"]) {
-                [filteredArray addObject:product];
+                if (!screenIsForAdmin&&([product.productStatus isEqualToString:@"InActive"])) {
+                    //[filteredArray addObject:product];
+                }
+                else {
+                    [filteredArray addObject:product];
+                }
             }
         }
         filteredArray = [self filteredWaitingArray:filteredArray];
@@ -663,6 +689,11 @@
 }
 
 - (IBAction)saveEditPressed:(id)sender {
+    if (alteredIndexArray.count > 0) {
+        if ([processStatus isEqualToString:@"Draft"]) {
+            [_puneApprovalButton setUserInteractionEnabled:true];
+        }
+    }
     [_editProcessFlowView removeFromSuperview];
     indexArray = alteredIndexArray;
     filteredIndexArray = indexArray;
@@ -729,8 +760,13 @@
     [self.navigationController.view hideActivityViewWithAfterDelay:3];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",selectedProduct.productID,@"ProductId",@"1.0", @"VersionId", processStatus, @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
-    [__DataManager syncProcesses:processStepsArray withProcessData:processData];
+    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",selectedProduct.productID,@"ProductId", pcbProductId, @"PCBProductId",@"1.0", @"VersionId", processStatus, @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
+    if (processCntrlId) {
+        [__DataManager updateProcesses:processStepsArray withProcessData:processData];
+    }
+    else {
+        [__DataManager syncProcesses:processStepsArray withProcessData:processData];
+    }
     
     //delete removed processes
     for (int i=0; i < deletedProcessArray.count; ++i) {
@@ -838,8 +874,8 @@
         NSMutableDictionary *lastProcess = commonProcessStepsArray[commonProcessStepsArray.count-1];
         int processNo = [[lastProcess[@"processno"] stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue]+1;
         [processData setObject:_processNoTF.text forKey:@"processno"];
-        NSString *wiString = @"- Open the Run as per demand.\n- Check the CRM stock as per RUN quantity.\n- Order the parts shown short in the CRM from the vendor as per PCB BOM.\n- Put tentative Run start and finish date based on product task time.\n- Publish/forecast  information to concerned.\n- Follow up on daily basis to ensure or review Run forecast.\n";
-        [processData setObject:wiString forKey:@"workinstructions"];
+        NSString *wiString = @"- Take the Active Test Rig and Connect to the PC by using male female connector.\n- Take the assembled PCB EZ-1000-000x Rev D and load the PCB in the fixture.\n- Open the firmware folder, select 'Gourmet Check Dual BT' file and Run this firmware in to the PCB.\n- If during runtime any errors are found, note the particular error onto a sticky note and place the PCB into the rework bin.\n- If no errors were found during the run time after completion, place the PCB into the 'Goods OK' bin.\n";
+       // [processData setObject:wiString forKey:@"workinstructions"];
         [self addProcessToList:processData];
     }
     else {
@@ -849,6 +885,7 @@
         [processData setObject:_operator2Button.titleLabel.text forKey:@"op2"];
         [processData setObject:_operator3Button.titleLabel.text forKey:@"op3"];
         [processData setObject:_processNameTF.text forKey:@"processname"];
+        [processData setObject:_processNoTF.text forKey:@"processno"];
         [processData setObject:_timeTF.text forKey:@"time"];
         [commonProcessStepsArray replaceObjectAtIndex:selectedIndex withObject:processData];
         [__DataManager updateProcessAtIndex:selectedIndex process:processData];
@@ -892,8 +929,11 @@
     if (dropDown.tag == 1) {
         selectedStation = index;
     }
-    else {
+    else if(dropDown.tag == 2){
         selectedOperatorIndex = index;
+    }
+    else {
+        pcbProductId = pcbProductsArray[index];
     }
 }
 
@@ -917,7 +957,7 @@
     if (![processData[@"op3"] isEqualToString:@""]) {
         [_operator3Button setTitle:processData[@"op3"] forState:UIControlStateNormal];
     }
-    
+    _processNoTF.text = processData[@"processno"];
     _processNameTF.text = processData[@"processname"];
     _timeTF.text = processData[@"time"];
     backgroundDimmingView.hidden = false;
@@ -929,7 +969,7 @@
 }
 
 - (IBAction)deleteCommonProcess:(id)sender {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Are you sure you want to delete this process?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"Cancel", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Delete Option is disabled for now. Please contact Arthur/Deepali for deleting processes." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
     alertView.tag = 0;
     [alertView show];
 }
@@ -963,6 +1003,46 @@
     }
     filteredCommonProcessStepsArray = filteredArray;
     [_commonProcessListTableView reloadData];
+}
+
+- (void)filterPCBProducts {
+    pcbProductsArray = [[NSMutableArray alloc] init];
+    for (int i=0; i<productsArray.count; ++i) {
+        ProductModel *product = productsArray[i];
+        if ([product.name containsString:@"PCB"]) {
+            [pcbProductsArray addObject:product.productNumber];
+        }
+    }
+}
+
+- (IBAction)selectPCBPressed:(id)sender {
+    if(dropDown == nil) {
+        CGFloat f = 220;
+        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :pcbProductsArray :nil :@"down"];
+        dropDown.backgroundColor = [UIColor whiteColor];
+        dropDown.tag = 3;
+        dropDown.delegate = self;
+    }
+    else {
+        [dropDown hideDropDown:sender];
+        dropDown = nil;
+    }
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    
+   /* if ([touch.view isKindOfClass:[UIView class]]) {
+        [dropDown hideDropDown:_pcbProductIdButton];
+        dropDown = nil;
+    }
+    
+    if ([touch.view isKindOfClass:[UITableView class]]) {
+        [dropDown hideDropDown:_pcbProductIdButton];
+        dropDown = nil;
+    }*/
+    [dropDown hideDropDown:_pcbProductIdButton];
+    dropDown = nil;
 }
 /*
 #pragma mark - Navigation

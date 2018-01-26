@@ -85,6 +85,7 @@ __pds(DataManagerProtocol);
 - (void)updateProcessAtIndex:(int)index process:(NSMutableDictionary*)processData;
 - (void)syncCommonProcesses;
 - (void)syncProcesses:(NSMutableArray*)processesArray withProcessData:(NSMutableDictionary*)processData;
+- (void)updateProcesses:(NSMutableArray*)processesArray withProcessData:(NSMutableDictionary*)processData;
 - (void)syncRunProcesses:(NSMutableArray*)processesArray withProcessData:(NSMutableDictionary*)processData;
 - (void)updateRunProcesses:(NSMutableArray*)processesArray withProcessData:(NSMutableDictionary*)processData;
 - (void)setProductsArray:(NSMutableArray*)productsArray_;
