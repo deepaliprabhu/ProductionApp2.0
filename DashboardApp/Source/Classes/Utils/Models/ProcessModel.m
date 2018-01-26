@@ -45,7 +45,7 @@
 }
 
 - (BOOL) isPostMoldingTests {
-    return [_processName isEqualToString:@""];
+    return [_processName isEqualToString:@"Post molding Probe Testing"];
 }
 
 @end
