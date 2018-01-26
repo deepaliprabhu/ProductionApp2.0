@@ -37,6 +37,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hM6-wS-35T">
+                        <rect key="frame" x="364" y="8" width="72" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cellSeparatorAsset" translatesAutoresizingMaskIntoConstraints="NO" id="kzc-J6-wp3">
                         <rect key="frame" x="0.0" y="41" width="594" height="1"/>
                         <constraints>
@@ -52,6 +59,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="_processLabel" destination="LjC-uB-5em" id="oIf-jX-4IG"/>
+                <outlet property="_timeLabel" destination="hM6-wS-35T" id="rcm-2F-j5h"/>
             </connections>
         </tableViewCell>
     </objects>
