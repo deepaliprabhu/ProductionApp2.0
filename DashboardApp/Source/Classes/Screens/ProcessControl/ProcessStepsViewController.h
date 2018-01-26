@@ -26,6 +26,7 @@
     IBOutlet UIButton *_puneApprovalButton;
     IBOutlet UIButton *_masonApprovalButton;
     IBOutlet UIButton *_lausanneApprovalButton;
+    IBOutlet UIButton *_pcbProductIdButton;
     IBOutlet UILabel *_productNameLabel;
     IBOutlet UILabel *_productIdLabel;
     IBOutlet UILabel *_processNoLabel;
@@ -78,6 +79,7 @@
     NSMutableArray *stationsArray;
     NSMutableArray *operatorArray;
     NSMutableArray *waitingArray;
+    NSMutableArray *pcbProductsArray;
     
     BOOL screenIsForAdmin;
     
@@ -85,6 +87,7 @@
     
     NSString *processCntrlId;
     NSString *processStatus;
+    NSString *pcbProductId;
     UIPopoverController *_adminPopover;
     
     int selectedStation;

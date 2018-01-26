@@ -1534,6 +1534,7 @@
 				9FF0A6181F7E447C006486AA /* ProductProcessStepsView.h */,
 				9FF0A6191F7E447C006486AA /* ProductProcessStepsView.m */,
 				9FF0A61A1F7E447C006486AA /* ProductProcessStepsView.xib */,
+				9F9B53A31F5FC2EF008D6C67 /* ProcessFlowView */,
 				9FA5EE5C1FE9492F000AAFA3 /* ProcessStepsViewController.h */,
 				9FA5EE5D1FE9492F000AAFA3 /* ProcessStepsViewController.m */,
 				9FA5EE5E1FE9492F000AAFA3 /* ProcessStepsViewController.xib */,
@@ -1690,7 +1691,6 @@
 			children = (
 				89512A1B1FE9321600BF7456 /* RunDetailsScreen */,
 				D283864F1FB2283300BB304C /* RunPartsScreen */,
-				9F9B53A31F5FC2EF008D6C67 /* ProcessFlowView */,
 				9F8567841F73DDB10067ABE1 /* OperatorEntry */,
 			);
 			path = Run;

@@ -40,6 +40,7 @@ __pds(ServerProtocol);
 - (void)getProcessList;
 - (void)updateCommonProcessesWithJsonString:(NSString*)jsonString;
 - (void)addProcessFlowWithJsonString:(NSString*)jsonString;
+- (void)updateProcessFlowWithJsonString:(NSString*)jsonString;
 - (void)addRunProcessFlowWithJsonString:(NSString*)jsonString;
 - (void)updateRunProcessFlowWithJsonString:(NSString*)jsonString;
 - (void)getProcessesForProductNumber:(NSString*)productNumber;
