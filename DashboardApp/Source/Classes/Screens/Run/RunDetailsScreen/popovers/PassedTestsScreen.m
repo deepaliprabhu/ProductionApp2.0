@@ -74,8 +74,8 @@
     
     for (NSDictionary *d in _passedTests) {
         
-        NSString *l = d[@"Location"];
-        NSString *t = d[@"Tester"];
+        NSString *l = d[@"Location"] ? d[@"Location"]: @"";
+        NSString *t = d[@"Tester"] ? d[@"Tester"] : d[@"tester"];
         if ([_testers indexOfObject:t] == NSNotFound)
             [_testers addObject:t];
         if ([_locations indexOfObject:l] == NSNotFound)

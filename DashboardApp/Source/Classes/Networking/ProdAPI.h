@@ -51,6 +51,8 @@
 - (void) getSlotsForRun:(int)runId completion:(void (^)(BOOL success, id response))block;
 - (void) setNewPackageValue:(NSString*)value forPart:(NSString*)part completion:(void (^)(BOOL success, id response))block;
 - (void) getPersonsWithCompletion:(void (^)(BOOL success, id response))block;
+- (void) getPreTestsWithCompletion:(void (^)(BOOL success, id response))block;
+- (void) getPostTestsWithCompletion:(void (^)(BOOL success, id response))block;
 
 @end
 

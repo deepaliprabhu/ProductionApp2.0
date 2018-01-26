@@ -173,10 +173,17 @@
 
 - (IBAction) passedTestsButtonTapped {
     
+    NSArray *tests = [self selectedTests];
     NSMutableArray *arr = [NSMutableArray array];
-    for (NSDictionary *dict in _passiveTests) {
-        if ([dict[@"passed"] isEqualToString:@"true"])
-            [arr addObject:dict];
+    for (NSDictionary *dict in tests) {
+        
+        if (dict[@"passed"]) {
+            if ([dict[@"passed"] isEqualToString:@"true"])
+                [arr addObject:dict];
+        } else {
+            if ([dict[@"OverallTestBool"] isEqualToString:@"True"])
+                [arr addObject:dict];
+        }
     }
     
     PassedTestsScreen *screen = [[PassedTestsScreen alloc] initWithNibName:@"PassedTestsScreen" bundle:nil];
@@ -188,10 +195,16 @@
 
 - (IBAction) failedTestsButtonTapped {
     
+    NSArray *tests = [self selectedTests];
     NSMutableArray *arr = [NSMutableArray array];
-    for (NSDictionary *dict in _passiveTests) {
-        if ([dict[@"passed"] isEqualToString:@"false"])
-            [arr addObject:dict];
+    for (NSDictionary *dict in tests) {
+        if (dict[@"passed"]) {
+            if ([dict[@"passed"] isEqualToString:@"false"])
+                [arr addObject:dict];
+        } else {
+            if ([dict[@"OverallTestBool"] isEqualToString:@"False"])
+                [arr addObject:dict];
+        }
     }
     
     FailedTestsScreen *screen = [[FailedTestsScreen alloc] initWithNibName:@"FailedTestsScreen" bundle:nil];
@@ -408,19 +421,36 @@
     if (_days.count > 0)
         [self layoutQuantitiesForProcess:_selectedProcess.stepId];
     
-    if ([_selectedProcess.processName isEqualToString:@"Passive Test"]) {
+    _passedTestsLabel.text = @"";
+    _failedTestsLabel.text = @"";
+    _reworkTestsLabel.text = @"";
+    if ([_selectedProcess isPassiveTests]) {
         
         if (_passiveTests == nil) {
             [self getPassiveTests];
         } else {
             [self layoutPassiveTests];
         }
-    } else if ([_selectedProcess.processName isEqualToString:@"Active Test"]) {
+    } else if ([_selectedProcess isActiveTests]) {
         
         if (_activeTests == nil) {
             [self getActiveTests];
         } else {
             [self layoutActiveTests];
+        }
+    } else if ([_selectedProcess isPreMoldingTests]) {
+        
+        if (_premoldTests == nil) {
+            [self getPreMoldingTests];
+        } else {
+            [self layoutPreMoldingTests];
+        }
+    } else if ([_selectedProcess isPostMoldingTests]) {
+        
+        if (_postmoldTests == nil) {
+            [self getPostMoldingTests];
+        } else {
+            [self layoutPostMoldingTests];
         }
     } else {
         _testsView.alpha = 0;
@@ -441,29 +471,67 @@
 
 - (void) layoutTests:(NSArray*)tests {
     
-    _testsView.alpha = 1;
-    [UIView animateWithDuration:0.3 animations:^{
-        _detailsHolderViewHeightConstraint.constant = 260;
-        [self.view layoutIfNeeded];
-    }];
+    [self layoutTests];
     
     int pass = 0;
     int fail = 0;
-//    int rework = 0;
+    for (NSDictionary *d in tests) {
+        
+        if (d[@"passed"]) {
+            
+            if ([d[@"passed"] isEqualToString:@"false"])
+                fail++;
+            else
+                pass++;
+        } else {
+            if ([d[@"OverallTestBool"] isEqualToString:@"False"])
+                fail++;
+            else
+                pass++;
+        }
+    }
+    
+    _passedTestsLabel.text = [NSString stringWithFormat:@"%d", pass];
+    _failedTestsLabel.text = [NSString stringWithFormat:@"%d", fail];
+    _reworkTestsLabel.text = @"N/A";
+}
+
+- (void) layoutPreMoldingTests {
+    
+    [self layoutTests];
+    [self layoutMoldingTests:_premoldTests];
+}
+
+- (void) layoutPostMoldingTests {
+    
+    [self layoutTests];
+    [self layoutMoldingTests:_postmoldTests];
+}
+
+- (void) layoutMoldingTests:(NSArray*)tests {
+    
+    int pass = 0;
+    int fail = 0;
     for (NSDictionary *d in tests) {
         
         if ([d[@"passed"] isEqualToString:@"false"])
             fail++;
         else
             pass++;
-        
-//        if ([d[@"reworked"] isEqualToString:@"true"])
-//            rework++;
     }
     
     _passedTestsLabel.text = [NSString stringWithFormat:@"%d", pass];
     _failedTestsLabel.text = [NSString stringWithFormat:@"%d", fail];
     _reworkTestsLabel.text = @"N/A";
+}
+
+- (void) layoutTests {
+    
+    _testsView.alpha = 1;
+    [UIView animateWithDuration:0.3 animations:^{
+        _detailsHolderViewHeightConstraint.constant = 260;
+        [self.view layoutIfNeeded];
+    }];
 }
 
 #pragma mark - Services
@@ -516,8 +584,46 @@
     }];
 }
 
-- (void) getMoldingTests {
+- (void) getPreMoldingTests {
+ 
+    [_testsSpinner startAnimating];
+    [[ProdAPI sharedInstance] getPreTestsWithCompletion:^(BOOL success, id response) {
+       
+        [_testsSpinner stopAnimating];
+        _premoldTests = [NSMutableArray array];
+        if (success) {
+            if ([response isKindOfClass:[NSArray class]]) {
+                for (NSDictionary *d in response) {
+                    if ([d[@"run"] intValue] == _run.runId) {
+                        [_premoldTests addObject:d];
+                    }
+                }
+            }
+        }
+        
+        [self layoutPreMoldingTests];
+    }];
+}
+
+- (void) getPostMoldingTests {
     
+    [_testsSpinner startAnimating];
+    [[ProdAPI sharedInstance] getPostTestsWithCompletion:^(BOOL success, id response) {
+        
+        [_testsSpinner stopAnimating];
+        _postmoldTests = [NSMutableArray array];
+        if (success) {
+            if ([response isKindOfClass:[NSArray class]]) {
+                for (NSDictionary *d in response) {
+                    if ([d[@"run"] intValue] == _run.runId) {
+                        [_postmoldTests addObject:d];
+                    }
+                }
+            }
+        }
+        
+        [self layoutPostMoldingTests];
+    }];
 }
 
 - (void) getSales {
@@ -788,6 +894,21 @@
         if (shouldAdd)
             [toArr addObject:d1];
     }
+}
+
+- (NSArray*) selectedTests {
+    
+    NSArray *tests = nil;
+    if ([_selectedProcess isActiveTests])
+        tests = _activeTests;
+    else if ([_selectedProcess isPassiveTests])
+        tests = _passiveTests;
+    else if ([_selectedProcess isPreMoldingTests])
+        tests = _premoldTests;
+    else
+        tests = _postmoldTests;
+    
+    return tests;
 }
 
 @end
