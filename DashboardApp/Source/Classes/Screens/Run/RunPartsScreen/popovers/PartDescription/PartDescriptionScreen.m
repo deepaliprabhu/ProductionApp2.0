@@ -62,7 +62,7 @@
             _packageLabel.text = newValue;
             _part.package = newValue;
             [self layoutPackageButton];
-            [_delegate packageStatusChangeForPart];
+            [_delegate packageStatusChangeForPart:_part];
         } else {
             [LoadingView showShortMessage:@"Error, please try again later."];
         }

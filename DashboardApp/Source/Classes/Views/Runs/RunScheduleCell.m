@@ -98,6 +98,7 @@
     RunScheduleSlotCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
         cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
+        cell.backgroundColor = [UIColor clearColor];
     }
     
     int s = (int)indexPath.section;

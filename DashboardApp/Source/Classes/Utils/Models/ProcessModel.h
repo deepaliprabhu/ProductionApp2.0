@@ -29,4 +29,9 @@
 
 + (ProcessModel*) objectFromProcess:(NSDictionary*)pr andCommon:(NSDictionary*)common;
 
+- (BOOL) isPassiveTests;
+- (BOOL) isActiveTests;
+- (BOOL) isPreMoldingTests;
+- (BOOL) isPostMoldingTests;
+
 @end

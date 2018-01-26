@@ -51,6 +51,10 @@
     [self getParts];
 }
 
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Actions
 
 - (void) updatePartHistory {
@@ -158,7 +162,7 @@
     
     if (_totalRunRequests > 0) {
         
-        [LoadingView showLoading:[NSString stringWithFormat: @"Loading 0/%d", _totalRunRequests]];
+        [LoadingView showLoading:[NSString stringWithFormat: @"Loading runs\n0/%d", _totalRunRequests]];
         for (Run *run in runs) {
             
             if (run.isLocked == false) {

@@ -29,6 +29,7 @@
 #import "PassedTestsScreen.h"
 #import "LayoutUtils.h"
 #import "DemandsViewController.h"
+#import "UIView+Screenshot.h"
 
 @interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol, PODateScreenDelegate>
 
@@ -41,11 +42,13 @@
     __weak IBOutlet UILabel *_runNameLabel;
     __weak IBOutlet UILabel *_productNameLabel;
 
-    __weak IBOutlet UIView *_yearsHolderView;
+    __weak IBOutlet UIView *_currentYearHolderView;
     __weak IBOutlet UILabel *_currentYearTitleLabel;
     __weak IBOutlet UILabel *_currentYearValueLabel;
+    __weak IBOutlet UIView *_lastYearHolderView;
     __weak IBOutlet UILabel *_lastYearTitleLabel;
     __weak IBOutlet UILabel *_lastYearValueLabel;
+    __weak IBOutlet UIView *_2YearsAgoHolderView;
     __weak IBOutlet UILabel *_2YearsAgoTitleLabel;
     __weak IBOutlet UILabel *_2YearsAgoValueLabel;
     
@@ -61,9 +64,6 @@
     __weak IBOutlet UILabel *_processTitleLabel;
     __weak IBOutlet UIButton *_processTitleButton;
     __weak IBOutlet NSLayoutConstraint *_processTitleButtonWidthConstraint;
-    __weak IBOutlet UILabel *_personLabel;
-    __weak IBOutlet UILabel *_dateAssignedLabel;
-    __weak IBOutlet UILabel *_dateCompletedLabel;
     __weak IBOutlet UILabel *_qtyReworkLabel;
     __weak IBOutlet UILabel *_qtyRejectedLabel;
     __weak IBOutlet UILabel *_qtyGoodLabel;
@@ -93,6 +93,8 @@
     NSMutableArray *_filteredDays;
     NSMutableArray *_passiveTests;
     NSMutableArray *_activeTests;
+    NSMutableArray *_premoldTests;
+    NSMutableArray *_postmoldTests;
     int _maxDayLogValue;
     
     ProcessModel *_selectedProcess;
@@ -143,13 +145,12 @@
     if (_run.isLocked) {
         
         DailyLogInputScreen *screen = [[DailyLogInputScreen alloc] initWithNibName:@"DailyLogInputScreen" bundle:nil];
+        screen.image = [self.view screenshot];
         screen.delegate = self;
         screen.process = _selectedProcess;
         screen.dayLog = [self todayLog];
         screen.run = _run;
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
-        nav.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self presentViewController:nav animated:true completion:nil];
+        [self presentViewController:screen animated:true completion:nil];
     } else {
         [LoadingView showShortMessage:@"Run has to be locked!"];
     }
@@ -157,8 +158,14 @@
 
 - (IBAction) rawButtonTapped {
  
+    NSMutableArray *days = [NSMutableArray array];
+    for (DayLogModel *day in _days) {
+        if ([day.processNo isEqualToString:_selectedProcess.processNo])
+            [days addObject:day];
+    }
+    
     DailyLogRawScreen *screen = [[DailyLogRawScreen alloc] initWithNibName:@"DailyLogRawScreen" bundle:nil];
-    screen.days = _days;
+    screen.days = days;
     UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
     CGRect rect = [_dailyLogHolderView convertRect:_rawDataButton.bounds toView:self.view];
     [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:true];
@@ -166,10 +173,17 @@
 
 - (IBAction) passedTestsButtonTapped {
     
+    NSArray *tests = [self selectedTests];
     NSMutableArray *arr = [NSMutableArray array];
-    for (NSDictionary *dict in _passiveTests) {
-        if ([dict[@"passed"] isEqualToString:@"true"])
-            [arr addObject:dict];
+    for (NSDictionary *dict in tests) {
+        
+        if (dict[@"passed"]) {
+            if ([dict[@"passed"] isEqualToString:@"true"])
+                [arr addObject:dict];
+        } else {
+            if ([dict[@"OverallTestBool"] isEqualToString:@"True"])
+                [arr addObject:dict];
+        }
     }
     
     PassedTestsScreen *screen = [[PassedTestsScreen alloc] initWithNibName:@"PassedTestsScreen" bundle:nil];
@@ -181,10 +195,16 @@
 
 - (IBAction) failedTestsButtonTapped {
     
+    NSArray *tests = [self selectedTests];
     NSMutableArray *arr = [NSMutableArray array];
-    for (NSDictionary *dict in _passiveTests) {
-        if ([dict[@"passed"] isEqualToString:@"false"])
-            [arr addObject:dict];
+    for (NSDictionary *dict in tests) {
+        if (dict[@"passed"]) {
+            if ([dict[@"passed"] isEqualToString:@"false"])
+                [arr addObject:dict];
+        } else {
+            if ([dict[@"OverallTestBool"] isEqualToString:@"False"])
+                [arr addObject:dict];
+        }
     }
     
     FailedTestsScreen *screen = [[FailedTestsScreen alloc] initWithNibName:@"FailedTestsScreen" bundle:nil];
@@ -226,25 +246,25 @@
     }
 }
 
-- (IBAction) dateAssignedButtonTapped {
-    
-    PODateScreen *screen = [[PODateScreen alloc] initWithNibName:@"PODateScreen" bundle:nil];
-    //    screen.purchase = _visiblePart.purchases[index];
-        screen.delegate = self;
-    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
-    CGRect rect = [_detailsHolderView convertRect:_dateAssignedLabel.frame toView:self.view];
-    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
-}
-
-- (IBAction) dateCompletedButtonTapped {
-    
-    PODateScreen *screen = [[PODateScreen alloc] initWithNibName:@"PODateScreen" bundle:nil];
-//    screen.purchase = _visiblePart.purchases[index];
-    screen.delegate = self;
-    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
-    CGRect rect = [_detailsHolderView convertRect:_dateCompletedLabel.frame toView:self.view];
-    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
-}
+//- (IBAction) dateAssignedButtonTapped {
+//
+//    PODateScreen *screen = [[PODateScreen alloc] initWithNibName:@"PODateScreen" bundle:nil];
+//    //    screen.purchase = _visiblePart.purchases[index];
+//        screen.delegate = self;
+//    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+//    CGRect rect = [_detailsHolderView convertRect:_dateAssignedLabel.frame toView:self.view];
+//    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
+//}
+//
+//- (IBAction) dateCompletedButtonTapped {
+//
+//    PODateScreen *screen = [[PODateScreen alloc] initWithNibName:@"PODateScreen" bundle:nil];
+////    screen.purchase = _visiblePart.purchases[index];
+//    screen.delegate = self;
+//    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+//    CGRect rect = [_detailsHolderView convertRect:_dateCompletedLabel.frame toView:self.view];
+//    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
+//}
 
 #pragma mark - UICollectionViewDelegate
 
@@ -359,10 +379,19 @@
     
     _titleLabel.text = cstrf(@"[%@] RUN %d", [_run getCategory]==0?@"PCB":@"ASSM", [_run getRunId]);
     
-    _yearsHolderView.layer.borderColor = ccolor(190, 190, 190).CGColor;
-    _yearsHolderView.layer.borderWidth = 1;
+    [self layoutYearView:_currentYearHolderView];
+    [self layoutYearView:_lastYearHolderView];
+    [self layoutYearView:_2YearsAgoHolderView];
     
     [self fillYears];
+}
+
+- (void) layoutYearView:(UIView*)view {
+ 
+    view.layer.borderColor = ccolor(204, 204, 204).CGColor;
+    view.layer.borderWidth = 1;
+    view.layer.masksToBounds = true;
+    view.layer.cornerRadius = 6;
 }
 
 - (void) layoutProcessTitle {
@@ -375,16 +404,6 @@
     UIFont *f = [UIFont fontWithName:@"Roboto-Light" size:20];
     _processTitleButtonWidthConstraint.constant = [LayoutUtils widthForText:title withFont:f];
     [self.view layoutIfNeeded];
-}
-
-- (void) layoutProcessDetails {
- 
-    DayLogModel *d = [self dayForProcess:_selectedProcess.stepId];
-    if (d != nil) {
-        _dateAssignedLabel.text = [d.dateAssigned nonEmptyValue];
-        _dateCompletedLabel.text = [d.dateCompleted nonEmptyValue];
-        _personLabel.text = [d.person nonEmptyValue];
-    }
 }
 
 - (void) layoutSelectedProcess {
@@ -401,26 +420,42 @@
     [self layoutProcessTitle];
     if (_days.count > 0)
         [self layoutQuantitiesForProcess:_selectedProcess.stepId];
-    [self layoutProcessDetails];
     
-    if ([_selectedProcess.processName isEqualToString:@"Passive Test"]) {
+    _passedTestsLabel.text = @"";
+    _failedTestsLabel.text = @"";
+    _reworkTestsLabel.text = @"";
+    if ([_selectedProcess isPassiveTests]) {
         
         if (_passiveTests == nil) {
             [self getPassiveTests];
         } else {
             [self layoutPassiveTests];
         }
-    } else if ([_selectedProcess.processName isEqualToString:@"Active Test"]) {
+    } else if ([_selectedProcess isActiveTests]) {
         
         if (_activeTests == nil) {
             [self getActiveTests];
         } else {
             [self layoutActiveTests];
         }
+    } else if ([_selectedProcess isPreMoldingTests]) {
+        
+        if (_premoldTests == nil) {
+            [self getPreMoldingTests];
+        } else {
+            [self layoutPreMoldingTests];
+        }
+    } else if ([_selectedProcess isPostMoldingTests]) {
+        
+        if (_postmoldTests == nil) {
+            [self getPostMoldingTests];
+        } else {
+            [self layoutPostMoldingTests];
+        }
     } else {
         _testsView.alpha = 0;
         [UIView animateWithDuration:0.3 animations:^{
-            _detailsHolderViewHeightConstraint.constant = 220;
+            _detailsHolderViewHeightConstraint.constant = 230;
             [self.view layoutIfNeeded];
         }];
     }
@@ -436,35 +471,73 @@
 
 - (void) layoutTests:(NSArray*)tests {
     
-    _testsView.alpha = 1;
-    [UIView animateWithDuration:0.3 animations:^{
-        _detailsHolderViewHeightConstraint.constant = 240;
-        [self.view layoutIfNeeded];
-    }];
+    [self layoutTests];
     
     int pass = 0;
     int fail = 0;
-    int rework = 0;
+    for (NSDictionary *d in tests) {
+        
+        if (d[@"passed"]) {
+            
+            if ([d[@"passed"] isEqualToString:@"false"])
+                fail++;
+            else
+                pass++;
+        } else {
+            if ([d[@"OverallTestBool"] isEqualToString:@"False"])
+                fail++;
+            else
+                pass++;
+        }
+    }
+    
+    _passedTestsLabel.text = [NSString stringWithFormat:@"%d", pass];
+    _failedTestsLabel.text = [NSString stringWithFormat:@"%d", fail];
+    _reworkTestsLabel.text = @"N/A";
+}
+
+- (void) layoutPreMoldingTests {
+    
+    [self layoutTests];
+    [self layoutMoldingTests:_premoldTests];
+}
+
+- (void) layoutPostMoldingTests {
+    
+    [self layoutTests];
+    [self layoutMoldingTests:_postmoldTests];
+}
+
+- (void) layoutMoldingTests:(NSArray*)tests {
+    
+    int pass = 0;
+    int fail = 0;
     for (NSDictionary *d in tests) {
         
         if ([d[@"passed"] isEqualToString:@"false"])
             fail++;
         else
             pass++;
-        
-        if ([d[@"reworked"] isEqualToString:@"true"])
-            rework++;
     }
     
     _passedTestsLabel.text = [NSString stringWithFormat:@"%d", pass];
     _failedTestsLabel.text = [NSString stringWithFormat:@"%d", fail];
-    _reworkTestsLabel.text = [NSString stringWithFormat:@"%d", rework];
+    _reworkTestsLabel.text = @"N/A";
 }
 
-#pragma mark - Utils
+- (void) layoutTests {
+    
+    _testsView.alpha = 1;
+    [UIView animateWithDuration:0.3 animations:^{
+        _detailsHolderViewHeightConstraint.constant = 260;
+        [self.view layoutIfNeeded];
+    }];
+}
+
+#pragma mark - Services
 
 - (void) getPassiveTests {
- 
+    
     [_testsSpinner startAnimating];
     [[ProdAPI sharedInstance] getPassiveTestsWithCompletion:^(BOOL success, id response) {
         
@@ -511,6 +584,170 @@
     }];
 }
 
+- (void) getPreMoldingTests {
+ 
+    [_testsSpinner startAnimating];
+    [[ProdAPI sharedInstance] getPreTestsWithCompletion:^(BOOL success, id response) {
+       
+        [_testsSpinner stopAnimating];
+        _premoldTests = [NSMutableArray array];
+        if (success) {
+            if ([response isKindOfClass:[NSArray class]]) {
+                for (NSDictionary *d in response) {
+                    if ([d[@"run"] intValue] == _run.runId) {
+                        [_premoldTests addObject:d];
+                    }
+                }
+            }
+        }
+        
+        [self layoutPreMoldingTests];
+    }];
+}
+
+- (void) getPostMoldingTests {
+    
+    [_testsSpinner startAnimating];
+    [[ProdAPI sharedInstance] getPostTestsWithCompletion:^(BOOL success, id response) {
+        
+        [_testsSpinner stopAnimating];
+        _postmoldTests = [NSMutableArray array];
+        if (success) {
+            if ([response isKindOfClass:[NSArray class]]) {
+                for (NSDictionary *d in response) {
+                    if ([d[@"run"] intValue] == _run.runId) {
+                        [_postmoldTests addObject:d];
+                    }
+                }
+            }
+        }
+        
+        [self layoutPostMoldingTests];
+    }];
+}
+
+- (void) getSales {
+    
+    [[ProdAPI sharedInstance] getSalesPerYearFor:[_run getProductNumber] completion:^(BOOL success, id response) {
+        
+        if (success) {
+            
+            if ([response isKindOfClass:[NSArray class]]) {
+                
+                NSDictionary *d = [response firstObject];
+                if ([d[@"Current Yr Sold"] length] == 0)
+                    _currentYearValueLabel.text = @"-";
+                else
+                    _currentYearValueLabel.text = d[@"Current Yr Sold"];
+                
+                if ([d[@"Previous Yr Sold"] length] == 0)
+                    _lastYearValueLabel.text = @"-";
+                else
+                    _lastYearValueLabel.text = d[@"Previous Yr Sold"];
+                
+                if ([d[@"Current Yr Sold"] length] == 0)
+                    _2YearsAgoValueLabel.text = @"-";
+                else
+                    _2YearsAgoValueLabel.text = d[@"Previous To Previous Yr Sold"];
+            }
+            
+        } else {
+            
+        }
+    }];
+}
+
+- (void) getProcessFlow {
+    
+    [LoadingView showLoading:@"Loading..."];
+    //    [[ProdAPI sharedInstance] getProcessFlowForRun:[_run getRunId] product:[_run getProductNumber] completion:^(BOOL success, id response) {
+    [[ProdAPI sharedInstance] getProcessFlowForProduct:[_run getProductNumber] completion:^(BOOL success, id response) {
+        
+        if (success) {
+            
+            [LoadingView removeLoading];
+            _processes = [NSMutableArray array];
+            NSArray *processes = [response firstObject][@"processes"];
+            for (int i=0; i<processes.count;i++) {
+                
+                NSDictionary *processData = processes[i];
+                NSDictionary *commonProcess = [[DataManager sharedInstance] getProcessForNo:processData[@"processno"]];
+                ProcessModel *model = [ProcessModel objectFromProcess:processData andCommon:commonProcess];
+                [_processes addObject:model];
+                
+                if ([_run getCategory] == 0 && [commonProcess[@"processname"] isEqualToString:@"Passive Test"])
+                    break;
+            }
+            
+            [_processes sortUsingComparator:^NSComparisonResult(ProcessModel *obj1, ProcessModel *obj2) {
+                
+                int i1 = [[obj1.processNo stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue];
+                int i2 = [[obj2.processNo stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue];
+                if (i1<i2)
+                    return NSOrderedAscending;
+                else
+                    return NSOrderedDescending;
+            }];
+            
+            [_tableView reloadData];
+            if (_processes.count > 0) {
+                _selectedProcess = _processes[0];
+                [self layoutSelectedProcess];
+                [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:false scrollPosition:UITableViewScrollPositionTop];
+            }
+            
+            _noProcessesLabel.alpha = _processes.count == 0 ? 1 : 0;
+            
+        } else {
+            [LoadingView showShortMessage:@"Error, please try again later!"];
+        }
+        
+        [self getDailyLog];
+    }];
+}
+
+- (void) getDailyLog {
+    
+    [_dailyLogSpinner startAnimating];
+    [[ProdAPI sharedInstance] getDailyLogForRun:[_run getRunId] product:[_run getProductNumber] completion:^(BOOL success, id response) {
+        
+        [_dailyLogSpinner stopAnimating];
+        if (success) {
+            
+            _days = [NSMutableArray array];
+            NSArray *days = [response firstObject][@"processes"];
+            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
+            for (int i=0; i<days.count; i++) {
+                
+                NSDictionary *dict = days[i];
+                if ([dict[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == true)
+                    continue;
+                
+                DayLogModel *d = [DayLogModel objFromData:dict];
+                if ([self dayLogAlreadyExists:d] == false)
+                    [_days addObject:d];
+            }
+            [_days sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
+            _rawDataButton.alpha = _days.count == 0 ? 0 : 1;
+            [self getTargets];
+            [self layoutDailyLogForProcess:_selectedProcess];
+        }
+    }];
+}
+
+#pragma mark - Utils
+
+- (BOOL) dayLogAlreadyExists:(DayLogModel*)log {
+    
+    NSCalendar *c = [NSCalendar currentCalendar];
+    for (DayLogModel *d in _days) {
+        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processId isEqualToString:log.processId])
+            return true;
+    }
+    
+    return false;
+}
+
 - (DayLogModel*) todayLog {
     
     NSCalendar *c = [NSCalendar currentCalendar];
@@ -547,115 +784,6 @@
     _2YearsAgoTitleLabel.text = cstrf(@"%d", y-2);
     
     [self getSales];
-}
-
-- (void) getSales {
-    
-    [[ProdAPI sharedInstance] getSalesPerYearFor:[_run getProductNumber] completion:^(BOOL success, id response) {
-       
-        if (success) {
-            
-            if ([response isKindOfClass:[NSArray class]]) {
-                
-                NSDictionary *d = [response firstObject];
-                if ([d[@"Current Yr Sold"] length] == 0)
-                    _currentYearValueLabel.text = @"-";
-                else
-                    _currentYearValueLabel.text = d[@"Current Yr Sold"];
-                
-                if ([d[@"Previous Yr Sold"] length] == 0)
-                    _lastYearValueLabel.text = @"-";
-                else
-                    _lastYearValueLabel.text = d[@"Previous Yr Sold"];
-                
-                if ([d[@"Current Yr Sold"] length] == 0)
-                    _2YearsAgoValueLabel.text = @"-";
-                else
-                    _2YearsAgoValueLabel.text = d[@"Previous To Previous Yr Sold"];
-            }
-            
-        } else {
-            
-        }
-    }];
-}
-
-- (void) getProcessFlow {
-    
-    [LoadingView showLoading:@"Loading..."];
-//    [[ProdAPI sharedInstance] getProcessFlowForRun:[_run getRunId] product:[_run getProductNumber] completion:^(BOOL success, id response) {
-    [[ProdAPI sharedInstance] getProcessFlowForProduct:[_run getProductNumber] completion:^(BOOL success, id response) {
-      
-        if (success) {
-            
-            [LoadingView removeLoading];
-            _processes = [NSMutableArray array];
-            NSArray *processes = [response firstObject][@"processes"];
-            for (int i=0; i<processes.count;i++) {
-                
-                NSDictionary *processData = processes[i];
-                NSDictionary *commonProcess = [[DataManager sharedInstance] getProcessForNo:processData[@"processno"]];
-                ProcessModel *model = [ProcessModel objectFromProcess:processData andCommon:commonProcess];
-                [_processes addObject:model];
-                
-                if ([_run getCategory] == 0 && [commonProcess[@"processname"] isEqualToString:@"Passive Test"])
-                    break;
-            }
-            [_tableView reloadData];
-            if (_processes.count > 0) {
-                _selectedProcess = _processes[0];
-                [self layoutSelectedProcess];
-                [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:false scrollPosition:UITableViewScrollPositionTop];
-            }
-        
-            _noProcessesLabel.alpha = _processes.count == 0 ? 1 : 0;
-            
-        } else {
-            [LoadingView showShortMessage:@"Error, please try again later!"];
-        }
-        
-        [self getDailyLog];
-    }];
-}
-
-- (void) getDailyLog {
-    
-    [_dailyLogSpinner startAnimating];
-    [[ProdAPI sharedInstance] getDailyLogForRun:[_run getRunId] product:[_run getProductNumber] completion:^(BOOL success, id response) {
-       
-        [_dailyLogSpinner stopAnimating];
-        if (success) {
-            
-            _days = [NSMutableArray array];
-            NSArray *days = [response firstObject][@"processes"];
-            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
-            for (int i=0; i<days.count; i++) {
-                
-                NSDictionary *dict = days[i];
-                if ([dict[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == true)
-                    continue;
-                
-                DayLogModel *d = [DayLogModel objFromData:dict];
-                if ([self dayLogAlreadyExists:d] == false)
-                    [_days addObject:d];
-            }
-            [_days sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
-            _rawDataButton.alpha = _days.count == 0 ? 0 : 1;
-            [self getTargets];
-            [self layoutDailyLogForProcess:_selectedProcess];
-        }
-    }];
-}
-
-- (BOOL) dayLogAlreadyExists:(DayLogModel*)log {
-    
-    NSCalendar *c = [NSCalendar currentCalendar];
-    for (DayLogModel *d in _days) {
-        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processId isEqualToString:log.processId])
-            return true;
-    }
-    
-    return false;
 }
 
 - (DayLogModel*) dayForProcess:(NSString*)process {
@@ -709,8 +837,8 @@
 - (void) getTargets {
     
     for (ProcessModel *p in _processes) {
-        int target = [self getTodayTargetForProcess:p];
-        p.qtyTarget = [NSString stringWithFormat:@"%d", target];
+//        int target = [self getTodayTargetForProcess:p];
+//        p.qtyTarget = [NSString stringWithFormat:@"%d", target];
         p.processed = [self getProcessedForProcess:p];
     }
     
@@ -725,7 +853,8 @@
     int t = 0;
     for (DayLogModel *d in _days) {
         if (d.processId == p.stepId) {
-            t += d.reject + d.rework + d.good;
+            t += d.target;
+//            t += d.reject + d.rework + d.good;
         }
     }
     
@@ -765,6 +894,21 @@
         if (shouldAdd)
             [toArr addObject:d1];
     }
+}
+
+- (NSArray*) selectedTests {
+    
+    NSArray *tests = nil;
+    if ([_selectedProcess isActiveTests])
+        tests = _activeTests;
+    else if ([_selectedProcess isPassiveTests])
+        tests = _passiveTests;
+    else if ([_selectedProcess isPreMoldingTests])
+        tests = _premoldTests;
+    else
+        tests = _postmoldTests;
+    
+    return tests;
 }
 
 @end

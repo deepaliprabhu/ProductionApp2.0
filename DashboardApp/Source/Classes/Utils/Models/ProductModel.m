@@ -25,6 +25,7 @@
     else
         p.processCntrlId = [NSString stringWithFormat:@"%@-PC1-%@",data[@"Product Number"],data[@"last version"]];
     p.photo = data[@"Images"];
+    p.group = data[@"Group"];
     p.processSteps = [[NSMutableArray alloc] init];
     
     NSString *order = data[@"Order"];

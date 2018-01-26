@@ -285,6 +285,27 @@ static ProdAPI *_sharedInstance = nil;
     [self callGETURL:url completion:block];
 }
 
+- (void) getPersonsWithCompletion:(void (^)(BOOL success, id response))block {
+    
+    NSString *url = @"http://www.aginova.info/aginova/json/processes.php?call=get_user_list";
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
+- (void) getPreTestsWithCompletion:(void (^)(BOOL success, id response))block {
+    
+    NSString *url = @"http://www.aginova.info/aginova/json/processes.php?call=get_pre_sensor_data";
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
+- (void) getPostTestsWithCompletion:(void (^)(BOOL success, id response))block {
+    
+    NSString *url = @"http://www.aginova.info/aginova/json/processes.php?call=get_post_sensor_data";
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
 #pragma mark - Factory
 
 - (void) callPOST:(NSString*)url parameters:(NSDictionary*)params completion:(void (^)(BOOL success, id response))block

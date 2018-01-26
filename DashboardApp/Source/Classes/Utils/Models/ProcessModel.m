@@ -32,4 +32,20 @@
     return model;
 }
 
+- (BOOL) isPassiveTests {
+    return [_processName isEqualToString:@"Passive Test"];
+}
+
+- (BOOL) isActiveTests {
+    return [_processName isEqualToString:@"Active Test"];
+}
+
+- (BOOL) isPreMoldingTests {
+    return [_processName isEqualToString:@"Pre Mold Probe Testing"];
+}
+
+- (BOOL) isPostMoldingTests {
+    return [_processName isEqualToString:@""];
+}
+
 @end

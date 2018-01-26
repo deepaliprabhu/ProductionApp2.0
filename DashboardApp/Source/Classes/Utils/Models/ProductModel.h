@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *productNumber;
 @property (nonatomic, strong) NSString *productStatus;
 @property (nonatomic, strong) NSString *status;
+@property (nonatomic, strong) NSString *group;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *photo;
 @property (nonatomic, strong) NSString *processCntrlId;;

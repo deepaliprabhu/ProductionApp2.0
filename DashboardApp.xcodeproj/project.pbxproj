@@ -40,6 +40,10 @@
 		894018811FB5A0E4002B8AFD /* BRRequestListDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018771FB5A0E4002B8AFD /* BRRequestListDirectory.m */; };
 		894018821FB5A0E4002B8AFD /* BRRequestCreateDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018781FB5A0E4002B8AFD /* BRRequestCreateDirectory.m */; };
 		8940188A1FB5EFAC002B8AFD /* PurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018891FB5EFAC002B8AFD /* PurchaseModel.m */; };
+		8940A2C0201A6B6A000CE83B /* RunTargetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8940A2BE201A6B6A000CE83B /* RunTargetCell.m */; };
+		8940A2C1201A6B6A000CE83B /* RunTargetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8940A2BF201A6B6A000CE83B /* RunTargetCell.xib */; };
+		8940A2C5201A75B5000CE83B /* ProcessEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8940A2C3201A75B5000CE83B /* ProcessEditableCell.m */; };
+		8940A2C6201A75B5000CE83B /* ProcessEditableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8940A2C4201A75B5000CE83B /* ProcessEditableCell.xib */; };
 		8942B8BC1FEC2705003D9B8A /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8BB1FEC2705003D9B8A /* UserModel.m */; };
 		8942B8C51FEC293C003D9B8A /* LoginScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8C31FEC293C003D9B8A /* LoginScreen.m */; };
 		8942B8C61FEC293C003D9B8A /* LoginScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8942B8C41FEC293C003D9B8A /* LoginScreen.xib */; };
@@ -49,6 +53,20 @@
 		8944E49320167BEE004A08AF /* ShortsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8944E49120167BEE004A08AF /* ShortsCell.xib */; };
 		8944E49720167D25004A08AF /* AlternateShortsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944E49520167D25004A08AF /* AlternateShortsCell.m */; };
 		8944E49820167D25004A08AF /* AlternateShortsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8944E49620167D25004A08AF /* AlternateShortsCell.xib */; };
+		8947049C20191BCC007364F0 /* ProductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8947049A20191BCC007364F0 /* ProductionViewController.m */; };
+		8947049D20191BCC007364F0 /* ProductionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8947049B20191BCC007364F0 /* ProductionViewController.xib */; };
+		894704A120192F16007364F0 /* OperatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8947049F20192F16007364F0 /* OperatorCell.m */; };
+		894704A220192F16007364F0 /* OperatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894704A020192F16007364F0 /* OperatorCell.xib */; };
+		894704A520193D0C007364F0 /* ProductionOverview.m in Sources */ = {isa = PBXBuildFile; fileRef = 894704A420193D0C007364F0 /* ProductionOverview.m */; };
+		894704A720193D12007364F0 /* ProductionOverview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894704A620193D12007364F0 /* ProductionOverview.xib */; };
+		894704AD201944FD007364F0 /* ProductionRunCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894704AB201944FD007364F0 /* ProductionRunCell.m */; };
+		894704AE201944FD007364F0 /* ProductionRunCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894704AC201944FD007364F0 /* ProductionRunCell.xib */; };
+		894704B22019458A007364F0 /* ProductionProcessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894704B020194589007364F0 /* ProductionProcessCell.m */; };
+		894704B32019458A007364F0 /* ProductionProcessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894704B12019458A007364F0 /* ProductionProcessCell.xib */; };
+		894704B720194E1C007364F0 /* ProductionTargetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 894704B620194E1B007364F0 /* ProductionTargetView.m */; };
+		894704B920194E22007364F0 /* ProductionTargetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894704B820194E22007364F0 /* ProductionTargetView.xib */; };
+		894704BC2019533F007364F0 /* OperatorTargetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894704BB2019533F007364F0 /* OperatorTargetView.xib */; };
+		894704BF2019535F007364F0 /* OperatorTargetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 894704BE2019535F007364F0 /* OperatorTargetView.m */; };
 		894B6F051FCD994100E271B1 /* PartDescriptionScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */; };
 		894B6F061FCD994100E271B1 /* PartDescriptionScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */; };
 		894B6F0C1FCDAD7600E271B1 /* PODateScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F0A1FCDAD7600E271B1 /* PODateScreen.m */; };
@@ -374,6 +392,12 @@
 		894018781FB5A0E4002B8AFD /* BRRequestCreateDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRequestCreateDirectory.m; sourceTree = "<group>"; };
 		894018881FB5EFAC002B8AFD /* PurchaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PurchaseModel.h; sourceTree = "<group>"; };
 		894018891FB5EFAC002B8AFD /* PurchaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PurchaseModel.m; sourceTree = "<group>"; };
+		8940A2BD201A6B6A000CE83B /* RunTargetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunTargetCell.h; sourceTree = "<group>"; };
+		8940A2BE201A6B6A000CE83B /* RunTargetCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunTargetCell.m; sourceTree = "<group>"; };
+		8940A2BF201A6B6A000CE83B /* RunTargetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunTargetCell.xib; sourceTree = "<group>"; };
+		8940A2C2201A75B5000CE83B /* ProcessEditableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessEditableCell.h; sourceTree = "<group>"; };
+		8940A2C3201A75B5000CE83B /* ProcessEditableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessEditableCell.m; sourceTree = "<group>"; };
+		8940A2C4201A75B5000CE83B /* ProcessEditableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProcessEditableCell.xib; sourceTree = "<group>"; };
 		8942B8BA1FEC2705003D9B8A /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		8942B8BB1FEC2705003D9B8A /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		8942B8BE1FEC289D003D9B8A /* UserManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
@@ -390,6 +414,27 @@
 		8944E49420167D25004A08AF /* AlternateShortsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlternateShortsCell.h; sourceTree = "<group>"; };
 		8944E49520167D25004A08AF /* AlternateShortsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlternateShortsCell.m; sourceTree = "<group>"; };
 		8944E49620167D25004A08AF /* AlternateShortsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlternateShortsCell.xib; sourceTree = "<group>"; };
+		8947049920191BCC007364F0 /* ProductionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductionViewController.h; sourceTree = "<group>"; };
+		8947049A20191BCC007364F0 /* ProductionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductionViewController.m; sourceTree = "<group>"; };
+		8947049B20191BCC007364F0 /* ProductionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductionViewController.xib; sourceTree = "<group>"; };
+		8947049E20192F16007364F0 /* OperatorCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorCell.h; sourceTree = "<group>"; };
+		8947049F20192F16007364F0 /* OperatorCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OperatorCell.m; sourceTree = "<group>"; };
+		894704A020192F16007364F0 /* OperatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OperatorCell.xib; sourceTree = "<group>"; };
+		894704A320193D0C007364F0 /* ProductionOverview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductionOverview.h; sourceTree = "<group>"; };
+		894704A420193D0C007364F0 /* ProductionOverview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductionOverview.m; sourceTree = "<group>"; };
+		894704A620193D12007364F0 /* ProductionOverview.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductionOverview.xib; sourceTree = "<group>"; };
+		894704AA201944FD007364F0 /* ProductionRunCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductionRunCell.h; sourceTree = "<group>"; };
+		894704AB201944FD007364F0 /* ProductionRunCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductionRunCell.m; sourceTree = "<group>"; };
+		894704AC201944FD007364F0 /* ProductionRunCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductionRunCell.xib; sourceTree = "<group>"; };
+		894704AF20194589007364F0 /* ProductionProcessCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductionProcessCell.h; sourceTree = "<group>"; };
+		894704B020194589007364F0 /* ProductionProcessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductionProcessCell.m; sourceTree = "<group>"; };
+		894704B12019458A007364F0 /* ProductionProcessCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductionProcessCell.xib; sourceTree = "<group>"; };
+		894704B520194E1B007364F0 /* ProductionTargetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductionTargetView.h; sourceTree = "<group>"; };
+		894704B620194E1B007364F0 /* ProductionTargetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductionTargetView.m; sourceTree = "<group>"; };
+		894704B820194E22007364F0 /* ProductionTargetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductionTargetView.xib; sourceTree = "<group>"; };
+		894704BB2019533F007364F0 /* OperatorTargetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OperatorTargetView.xib; sourceTree = "<group>"; };
+		894704BD2019535F007364F0 /* OperatorTargetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorTargetView.h; sourceTree = "<group>"; };
+		894704BE2019535F007364F0 /* OperatorTargetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OperatorTargetView.m; sourceTree = "<group>"; };
 		894B6F021FCD994100E271B1 /* PartDescriptionScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartDescriptionScreen.h; sourceTree = "<group>"; };
 		894B6F031FCD994100E271B1 /* PartDescriptionScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartDescriptionScreen.m; sourceTree = "<group>"; };
 		894B6F041FCD994100E271B1 /* PartDescriptionScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartDescriptionScreen.xib; sourceTree = "<group>"; };
@@ -958,6 +1003,72 @@
 			path = UserDetails;
 			sourceTree = "<group>";
 		};
+		8947049820191BAD007364F0 /* Production */ = {
+			isa = PBXGroup;
+			children = (
+				894704A9201944E0007364F0 /* ProductionScreen */,
+				894704A8201944D1007364F0 /* ProductionOverview */,
+				894704B420194E0B007364F0 /* ProductionTarget */,
+				894704BA20195332007364F0 /* OperatorTarget */,
+			);
+			path = Production;
+			sourceTree = "<group>";
+		};
+		894704A8201944D1007364F0 /* ProductionOverview */ = {
+			isa = PBXGroup;
+			children = (
+				894704A320193D0C007364F0 /* ProductionOverview.h */,
+				894704A420193D0C007364F0 /* ProductionOverview.m */,
+				894704A620193D12007364F0 /* ProductionOverview.xib */,
+				894704AF20194589007364F0 /* ProductionProcessCell.h */,
+				894704B020194589007364F0 /* ProductionProcessCell.m */,
+				894704B12019458A007364F0 /* ProductionProcessCell.xib */,
+				894704AA201944FD007364F0 /* ProductionRunCell.h */,
+				894704AB201944FD007364F0 /* ProductionRunCell.m */,
+				894704AC201944FD007364F0 /* ProductionRunCell.xib */,
+			);
+			path = ProductionOverview;
+			sourceTree = "<group>";
+		};
+		894704A9201944E0007364F0 /* ProductionScreen */ = {
+			isa = PBXGroup;
+			children = (
+				8947049920191BCC007364F0 /* ProductionViewController.h */,
+				8947049A20191BCC007364F0 /* ProductionViewController.m */,
+				8947049B20191BCC007364F0 /* ProductionViewController.xib */,
+				8947049E20192F16007364F0 /* OperatorCell.h */,
+				8947049F20192F16007364F0 /* OperatorCell.m */,
+				894704A020192F16007364F0 /* OperatorCell.xib */,
+			);
+			path = ProductionScreen;
+			sourceTree = "<group>";
+		};
+		894704B420194E0B007364F0 /* ProductionTarget */ = {
+			isa = PBXGroup;
+			children = (
+				894704B520194E1B007364F0 /* ProductionTargetView.h */,
+				894704B620194E1B007364F0 /* ProductionTargetView.m */,
+				894704B820194E22007364F0 /* ProductionTargetView.xib */,
+				8940A2BD201A6B6A000CE83B /* RunTargetCell.h */,
+				8940A2BE201A6B6A000CE83B /* RunTargetCell.m */,
+				8940A2BF201A6B6A000CE83B /* RunTargetCell.xib */,
+				8940A2C2201A75B5000CE83B /* ProcessEditableCell.h */,
+				8940A2C3201A75B5000CE83B /* ProcessEditableCell.m */,
+				8940A2C4201A75B5000CE83B /* ProcessEditableCell.xib */,
+			);
+			path = ProductionTarget;
+			sourceTree = "<group>";
+		};
+		894704BA20195332007364F0 /* OperatorTarget */ = {
+			isa = PBXGroup;
+			children = (
+				894704BD2019535F007364F0 /* OperatorTargetView.h */,
+				894704BE2019535F007364F0 /* OperatorTargetView.m */,
+				894704BB2019533F007364F0 /* OperatorTargetView.xib */,
+			);
+			path = OperatorTarget;
+			sourceTree = "<group>";
+		};
 		894B6F071FCDAD3100E271B1 /* popovers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1424,6 +1535,7 @@
 				8973399720151EC800776C39 /* Parts */,
 				89697BA02008B44700C96103 /* DailyLog */,
 				9F056B291F433F32002F3B61 /* Runs */,
+				8947049820191BAD007364F0 /* Production */,
 				9F03A9171F4563B300A7A316 /* DemandList */,
 				9F909AAA1F4EBB3800DBFA63 /* Gantt */,
 				9FD12D7C1F43FD2800F0E0A8 /* Overview */,
@@ -2030,12 +2142,14 @@
 				898574561FE9645100EAB20C /* DailyLogInputScreen.xib in Resources */,
 				9F471D091F541F7700B294B7 /* ToDoView.xib in Resources */,
 				9FD12DA11F4473B900F0E0A8 /* RunViewController.xib in Resources */,
+				8940A2C1201A6B6A000CE83B /* RunTargetCell.xib in Resources */,
 				9FE99C291FBD4E65006B58DE /* FeedbackListViewCell.xib in Resources */,
 				8961A3D71FFE39970058E353 /* ProcessDetailsScreen.xib in Resources */,
 				89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */,
 				9FE99C271FBD4E65006B58DE /* FeedbackListView.xib in Resources */,
 				9FBA7FEB2003EAAE00D2713A /* DemandsViewCell.xib in Resources */,
 				9F71C43E1FC1582900550F86 /* downArrow.png in Resources */,
+				8940A2C6201A75B5000CE83B /* ProcessEditableCell.xib in Resources */,
 				895F5F7C1FCEF17D00ED3349 /* GridView.xib in Resources */,
 				9F056B281F433469002F3B61 /* Icon.png in Resources */,
 				D283865C1FB23CA800BB304C /* Roboto-Regular.ttf in Resources */,
@@ -2063,16 +2177,19 @@
 				9F7AB1A61F7D233C0013CBE1 /* drop_down@2x.png in Resources */,
 				8944E49320167BEE004A08AF /* ShortsCell.xib in Resources */,
 				8970C3AF20050A51001F7680 /* RunListScreen.xib in Resources */,
+				894704A220192F16007364F0 /* OperatorCell.xib in Resources */,
 				D283865B1FB23CA800BB304C /* Roboto-Medium.ttf in Resources */,
 				894B6F0D1FCDAD7600E271B1 /* PODateScreen.xib in Resources */,
 				D2A44F321FAF2BBA00DF37B8 /* LoadingView.xib in Resources */,
 				8970C3BC20056A55001F7680 /* RunScheduleSlotCell.xib in Resources */,
 				3B649A881FB3236400B8DC78 /* PartsCell.xib in Resources */,
+				894704A720193D12007364F0 /* ProductionOverview.xib in Resources */,
 				D28386561FB23B5E00BB304C /* Roboto-Bold.ttf in Resources */,
 				9F3144BA1F7ABFD200B9D32C /* left_arrow@2x.png in Resources */,
 				9F8AF75E1F559441008027B1 /* placeholder.png in Resources */,
 				9F8567931F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.xib in Resources */,
 				89A76E502006A41500D7B0A9 /* AuditLogCell.xib in Resources */,
+				894704AE201944FD007364F0 /* ProductionRunCell.xib in Resources */,
 				9F252A591F4D4D9E0056DA8F /* shipmentBgImage.png in Resources */,
 				9F3144B91F7ABFD200B9D32C /* left_arrow.png in Resources */,
 				89A76E552007A67D00D7B0A9 /* DailyLogRawCell.xib in Resources */,
@@ -2087,7 +2204,9 @@
 				89697BAF2008E00200C96103 /* DailyLogCell.xib in Resources */,
 				894EE6981FE00EF8009244A7 /* LockConfirmScreen.xib in Resources */,
 				894C5F5F1FBB147600FA4E5D /* RunPartCell.xib in Resources */,
+				8947049D20191BCC007364F0 /* ProductionViewController.xib in Resources */,
 				8950A7281FC6C14E006C66CB /* AddCommentScreen.xib in Resources */,
+				894704B32019458A007364F0 /* ProductionProcessCell.xib in Resources */,
 				9FA5EE601FE9492F000AAFA3 /* ProcessStepsViewController.xib in Resources */,
 				89697BA52008B45A00C96103 /* DailyLogScreen.xib in Resources */,
 				9F03A9221F45667700A7A316 /* DemandListViewCell.xib in Resources */,
@@ -2123,6 +2242,7 @@
 				9F85678F1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.xib in Resources */,
 				89037EA51FE7C4DF00242005 /* RunDetailsScreen.xib in Resources */,
 				D28386541FB2285600BB304C /* RunPartsScreen.xib in Resources */,
+				894704B920194E22007364F0 /* ProductionTargetView.xib in Resources */,
 				8970C3B7200561FE001F7680 /* RunScheduleCell.xib in Resources */,
 				9F3FF6D61F4BF1F800F52F64 /* FontAwesome.ttf in Resources */,
 				89697BAA2008D9DF00C96103 /* DailyLogHeaderView.xib in Resources */,
@@ -2131,6 +2251,7 @@
 				894F9BDF1FBCA90C00DC2C6B /* HistoryPriceCell.xib in Resources */,
 				8952873D1FCF39EE005C46EE /* AuditActionCell.xib in Resources */,
 				9FB1BEAF1F514343008D179E /* CollectionViewCell.xib in Resources */,
+				894704BC2019533F007364F0 /* OperatorTargetView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2159,6 +2280,7 @@
 				89854AEA1FB97B3A00C6E38D /* UIView+GMGridViewAdditions.m in Sources */,
 				D22767991FAE4B8000215D87 /* Reachability.m in Sources */,
 				9FD12D8E1F443CEF00F0E0A8 /* ConnectionManager.m in Sources */,
+				8940A2C5201A75B5000CE83B /* ProcessEditableCell.m in Sources */,
 				89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */,
 				9F8567901F73DDB10067ABE1 /* OperatorEntryView.m in Sources */,
 				8952873C1FCF39EE005C46EE /* AuditActionCell.m in Sources */,
@@ -2171,6 +2293,7 @@
 				9F471D131F542B9300B294B7 /* RoadBlocksView.m in Sources */,
 				89037EA41FE7C4DF00242005 /* RunDetailsScreen.m in Sources */,
 				8919BE901FB4DD5100EE6839 /* UIImageView+HighlightedWebCache.m in Sources */,
+				894704B22019458A007364F0 /* ProductionProcessCell.m in Sources */,
 				8942B8CE1FEC3908003D9B8A /* SplashScreen.m in Sources */,
 				3B649A871FB3236400B8DC78 /* PartsCell.m in Sources */,
 				9FD12D861F443A3700F0E0A8 /* RunListViewCell.m in Sources */,
@@ -2199,6 +2322,7 @@
 				9F7FE56E1F7B8DD8005CB4DF /* ProductGroupView.m in Sources */,
 				9FD12D9A1F44707A00F0E0A8 /* MIBadgeButton.m in Sources */,
 				D283865F1FB2476C00BB304C /* PartModel.m in Sources */,
+				8947049C20191BCC007364F0 /* ProductionViewController.m in Sources */,
 				9FD12D9B1F44707A00F0E0A8 /* MIBadgeLabel.m in Sources */,
 				D22767941FAE4B5400215D87 /* UIRefreshControl+AFNetworking.m in Sources */,
 				9F3144B81F7ABFD200B9D32C /* CKCalendarView.m in Sources */,
@@ -2225,9 +2349,11 @@
 				9F7FE5691F7B78C2005CB4DF /* ProductListViewController.m in Sources */,
 				895F5F7A1FCEF17500ED3349 /* GridView.m in Sources */,
 				894B6F0C1FCDAD7600E271B1 /* PODateScreen.m in Sources */,
+				894704B720194E1C007364F0 /* ProductionTargetView.m in Sources */,
 				8970C3B22005618C001F7680 /* RunListScreen.m in Sources */,
 				9F471CFF1F54003300B294B7 /* InProcessViewCell.m in Sources */,
 				D2A44F2D1FAF1FD400DF37B8 /* ProductModel.m in Sources */,
+				8940A2C0201A6B6A000CE83B /* RunTargetCell.m in Sources */,
 				894C5F5A1FBB0ED300FA4E5D /* RunModel.m in Sources */,
 				9F909AAD1F4EBB4E00DBFA63 /* GanttView.m in Sources */,
 				D22767911FAE4B5400215D87 /* UIButton+AFNetworking.m in Sources */,
@@ -2237,10 +2363,12 @@
 				895023F01FE149EC008A1165 /* ReconcileScreen.m in Sources */,
 				9FE99C311FBD70F8006B58DE /* FeedbackDetailView.m in Sources */,
 				D22767881FAE4B5400215D87 /* AFURLRequestSerialization.m in Sources */,
+				894704BF2019535F007364F0 /* OperatorTargetView.m in Sources */,
 				8919BE8F1FB4DD5100EE6839 /* SDWebImageDecoder.m in Sources */,
 				89897E391FBF140C000B39EA /* StockGraphScreen.m in Sources */,
 				894F9BD91FBCA0BC00DC2C6B /* PartHistoryScreen.m in Sources */,
 				9F471D151F542B9300B294B7 /* RoadBlocksViewCell.m in Sources */,
+				894704A120192F16007364F0 /* OperatorCell.m in Sources */,
 				9F977EF21F62FFD8009C2B6D /* CommoProcessesViewCell.m in Sources */,
 				9FA264661F48A32C004C882E /* TasklistViewCell.m in Sources */,
 				895DEA2A1FF3C722001ADAFE /* UIScrollView+DZNSegmentedControl.m in Sources */,
@@ -2253,9 +2381,11 @@
 				D227678D1FAE4B5400215D87 /* AFAutoPurgingImageCache.m in Sources */,
 				D22767851FAE4B5400215D87 /* AFHTTPSessionManager.m in Sources */,
 				89512A1A1FE926A800BF7456 /* ProcessModel.m in Sources */,
+				894704A520193D0C007364F0 /* ProductionOverview.m in Sources */,
 				89854AE71FB97B3A00C6E38D /* GMGridView.m in Sources */,
 				9FC2B0E41F792502008B7F42 /* UIView+RNActivityView.m in Sources */,
 				D227678E1FAE4B5400215D87 /* AFImageDownloader.m in Sources */,
+				894704AD201944FD007364F0 /* ProductionRunCell.m in Sources */,
 				9F03A9211F45667700A7A316 /* DemandListViewCell.m in Sources */,
 				8919BE941FB4DD5100EE6839 /* SDWebImageCompat.m in Sources */,
 				9FC2B0E31F792502008B7F42 /* RNActivityView.m in Sources */,
