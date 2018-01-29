@@ -16,6 +16,7 @@
 #import "UIImageView+WebCache.h"
 #import "ConnectionManager.h"
 #import "UIView+RNActivityView.h"
+#import "UIAlertView+Blocks.h"
 
 
 @interface ProcessStepsViewController ()
@@ -27,6 +28,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    _processListTableView.editing = true;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification
+                                               object:nil];
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     productsArray = [[NSMutableArray alloc] init];
     processStepsArray = [[NSMutableArray alloc] init];
@@ -251,6 +262,42 @@
     return nil;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView isEqual:_processListTableView]) {
+        return true;
+    }
+    return true;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleNone;
+}
+
+- (BOOL)tableView:(UITableView *)tableview shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return true;
+}
+
+- (void) tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+   // [_processListTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    if (sourceIndexPath.row != destinationIndexPath.row) {
+        
+        [UIAlertView showWithTitle:nil message:@"Are you sure you want to change the order of these Steps?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            
+            if (buttonIndex == 1) {
+                [self changeOrderFrom:(int)sourceIndexPath.row to:(int)destinationIndexPath.row];
+            } else {
+                [_processListTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+            }
+        }];
+    }
+}
+
+
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     selectedIndex = indexPath.row;
     [dropDown hideDropDown:_pcbProductIdButton];
@@ -280,6 +327,31 @@
         [self setUpWorkInstructionsForString:selectedProcessData[@"workinstructions"]];
         [self showProcessInfoViewWithData:selectedProcessData];
     }
+}
+
+- (void) changeOrderFrom:(int)from to:(int)to {
+    
+    NSMutableDictionary *r = processStepsArray[from];
+    if (from < to) {
+        [processStepsArray insertObject:r atIndex:to+1];
+        [processStepsArray removeObjectAtIndex:from];
+    } else {
+        [processStepsArray insertObject:r atIndex:to];
+        [processStepsArray removeObjectAtIndex:from+1];
+    }
+    [self updateStepIds];
+    //[_processListTableView reloadData];
+}
+
+- (void)updateStepIds {
+    for (int i=0; i < processStepsArray.count; ++i) {
+         NSMutableDictionary *processStepData = [processStepsArray[i] mutableCopy];
+        [processStepData setObject:[NSString stringWithFormat:@"%d",i+1] forKey:@"stepid"];
+        NSLog(@"replaced stepid = %@",processStepData[@"stepid"]);
+        [processStepsArray replaceObjectAtIndex:i withObject:processStepData];
+    }
+    processStepsArray = [__DataManager reorderProcessSteps:processStepsArray];
+    [_processListTableView reloadData];
 }
 
 - (IBAction) adminSwitchTapped {
@@ -416,6 +488,7 @@
             }
             [self setupForStatus:jsonDict[@"status"]];
             NSLog(@"processes Array=%@",processStepsArray);
+            processStepsArray = [__DataManager reorderProcessSteps:processStepsArray];
             [selectedProduct setProcessSteps:processStepsArray];
             selectedProduct.pcbProductID = pcbProductId;
             [_processListTableView reloadData];
@@ -756,6 +829,8 @@
 }
 
 - (IBAction)submitForApprovalPressed:(id)sender {
+    [self updateStepIds];
+    
     [self.navigationController.view showActivityViewWithLabel:@"Saving process changes"];
     [self.navigationController.view hideActivityViewWithAfterDelay:3];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -1043,6 +1118,17 @@
     }*/
     [dropDown hideDropDown:_pcbProductIdButton];
     dropDown = nil;
+}
+
+- (void)keyboardDidShow: (NSNotification *) notif{
+    self.view.transform = CGAffineTransformMakeTranslation(0, -220);
+}
+
+- (void)keyboardDidHide: (NSNotification *) notif{
+    if (self.view.frame.origin.y < 0) {
+        self.view.transform = CGAffineTransformMakeTranslation(0, 0);
+    }
+    
 }
 /*
 #pragma mark - Navigation

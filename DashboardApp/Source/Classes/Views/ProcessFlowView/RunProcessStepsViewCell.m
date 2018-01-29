@@ -31,16 +31,20 @@
 }
 
 - (void)setCellData:(NSMutableDictionary *)cellData index:(int)index_{
+    processData = cellData;
     index = index_;
     NSMutableDictionary *processData = [__DataManager getProcessForNo:cellData[@"processno"]];
     _titleLabel.text = [NSString stringWithFormat:@"%@-%@",processData[@"processno"],[processData[@"processname"] uppercaseString]];
-    _stationLabel.text = processData[@"stationid"];
+    _stationLabel.text = cellData[@"stepid"];
 }
 
 - (IBAction)crossButtonPressed:(id)sender {
     [_delegate crossButtonPressedAtIndex:index];
 }
 
+- (NSMutableDictionary*)getProcessData {
+    return processData;
+}
 
 
 @end

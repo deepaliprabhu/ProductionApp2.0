@@ -15,12 +15,12 @@
     IBOutlet UILabel *_stationLabel;
     IBOutlet UIButton *_crossButton;
     IBOutlet UIButton *_tickButton;
-    
+    NSMutableDictionary *processData;
     int index;
 }
 __pd(RunProcessStepsViewCellDelegate);
 - (void)setCellData:(NSMutableDictionary *)cellData index:(int)index_;
-
+- (NSMutableDictionary*)getProcessData;
 @end
 
 @protocol RunProcessStepsViewCellDelegate <NSObject>

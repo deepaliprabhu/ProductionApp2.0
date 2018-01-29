@@ -452,6 +452,23 @@ static DataManager *_sharedInstance = nil;
     return processesArray;
 }
 
+- (NSMutableArray*)reorderProcessSteps:(NSMutableArray*)processesArray {
+    for (int i=0; i < processesArray.count-1; ++i) {
+        for (int j=i+1; j < processesArray.count; ++j) {
+            NSMutableDictionary *processDatai = processesArray[i];
+            NSMutableDictionary *processDataj = processesArray[j];
+            int processNoi = [processDatai[@"stepid"] intValue];
+            int processNoj = [processDataj[@"stepid"] intValue];
+            if (processNoi>processNoj) {
+                NSMutableDictionary *tempDict = processDatai;
+                processesArray[i] = processesArray[j];
+                processesArray[j] = tempDict;
+            }
+        }
+    }
+    return processesArray;
+}
+
 - (NSMutableArray*)getCommonProcesses {
     return commonProcessesArray;
 }
