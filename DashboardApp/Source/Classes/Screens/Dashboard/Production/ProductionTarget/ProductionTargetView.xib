@@ -99,6 +99,10 @@
                         <outlet property="delegate" destination="iN0-l3-epB" id="Zjw-IQ-usJ"/>
                     </connections>
                 </tableView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Zvt-YG-767">
+                    <rect key="frame" x="318" y="202" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -107,6 +111,7 @@
             <connections>
                 <outlet property="_processesTable" destination="iK2-m6-Rmn" id="Icd-6Q-uNr"/>
                 <outlet property="_runsCollection" destination="lyR-7g-hbD" id="y8p-7R-vK8"/>
+                <outlet property="_spinner" destination="Zvt-YG-767" id="8pw-cU-Br0"/>
             </connections>
             <point key="canvasLocation" x="27" y="52.5"/>
         </view>

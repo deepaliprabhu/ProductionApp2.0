@@ -8,7 +8,6 @@
 
 #import "ProductionOverview.h"
 #import "Defines.h"
-#import "ProductionProcessCell.h"
 #import "DataManager.h"
 #import "Run.h"
 #import "ProdAPI.h"
@@ -20,10 +19,9 @@
 @implementation ProductionOverview {
     
     __weak IBOutlet UIButton *_targetButton;
-    __weak IBOutlet UITableView *_runsTable;
     __weak IBOutlet UITableView *_processesTable;
+    __weak IBOutlet UIActivityIndicatorView *_spinner;
     
-    NSMutableArray *_processes;
     NSMutableArray *_runs;
     NSMutableArray *_processesForThisWeek;
 }
@@ -41,6 +39,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     _targetButton.layer.borderWidth   = 1;
     _targetButton.layer.borderColor   = ccolor(102, 102, 102).CGColor;
     
+    [_spinner startAnimating];
     if ([[[DataManager sharedInstance] getCommonProcesses] count] == 0) {
         [[ServerManager sharedInstance] getProcessList];
     } else {
@@ -54,10 +53,10 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
 
 - (void) reloadData {
     
-    [_processes removeAllObjects];
+    [_spinner startAnimating];
+    
     [_runs removeAllObjects];
     [_processesForThisWeek removeAllObjects];
-    [_runsTable reloadData];
     [_processesTable reloadData];
     
     [self computeRuns];
@@ -76,12 +75,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    if (tableView == _runsTable) {
-        return _processesForThisWeek.count;
-    } else {
-        return _processes.count;
-    }
+    return _processesForThisWeek.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -90,29 +84,16 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (tableView == _runsTable) {
-        
-        static NSString *identifier = @"ProductionRunCell";
-        ProductionRunCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        if (cell == nil) {
-            cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
-            cell.delegate = self;
-        }
-        
-        [cell layoutWithData:_processesForThisWeek[indexPath.row]];
-        
-        return cell;
-        
-    } else {
-        
-        static NSString *identifier2 = @"ProductionProcessCell";
-        ProductionProcessCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier2];
-        if (cell == nil) {
-            cell = [[NSBundle mainBundle] loadNibNamed:identifier2 owner:nil options:nil][0];
-        }
-        
-        return cell;
+    static NSString *identifier2 = @"ProductionProcessCell";
+    ProductionProcessCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier2];
+    if (cell == nil) {
+        cell = [[NSBundle mainBundle] loadNibNamed:identifier2 owner:nil options:nil][0];
+        cell.delegate = self;
     }
+    
+    [cell layoutWithData:_processesForThisWeek[indexPath.row]];
+    
+    return cell;
 }
 
 #pragma mark - CellProtocol
@@ -232,28 +213,41 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
 
 - (void) getRunningProcesses {
     
+    NSDate *today = [NSDate date];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    
     _processesForThisWeek = [NSMutableArray array];
     for (Run *r in _runs) {
         
         for (ProcessModel *p in r.processes) {
             
+            NSString *pers = nil;
+            NSNumber *g = nil;
             int t = 0;
             for (DayLogModel *d in r.days) {
                 if (d.processId == p.stepId) {
                     t += d.target;
-//                    t += d.reject + d.rework + d.good;
+                    
+                    if ([cal isDate:d.date inSameDayAsDate:today]) {
+                        g = @(d.goal);
+                        pers = d.person;
+                    }
                 }
             }
-            
+
             if (t < [r quantity]) {
              
-                NSDictionary *d = @{@"run": @(r.runId), @"process": p.processName?p.processName:@""};
+                NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
+                NSString *goal = g == nil ? @"-" : [g stringValue];
+                NSString *person = (pers == nil || pers.length == 0)? @"-" : pers;
+                NSDictionary *d = @{@"run": @(r.runId), @"process": p.processName?p.processName:@"", @"status":status, @"target": goal, @"person": person};
                 [_processesForThisWeek addObject:d];
             }
         }
     }
     
-    [_runsTable reloadData];
+    [_spinner stopAnimating];
+    [_processesTable reloadData];
 }
 
 - (BOOL) dayLogAlreadyExists:(DayLogModel*)log inArr:(NSArray*)arr {

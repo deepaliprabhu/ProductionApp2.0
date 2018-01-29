@@ -18,6 +18,7 @@
     
     __weak IBOutlet UICollectionView *_runsCollection;
     __weak IBOutlet UITableView *_processesTable;
+    __weak IBOutlet UIActivityIndicatorView *_spinner;
     
     NSMutableArray *_runs;
     
@@ -39,10 +40,13 @@
     UINib *cellNib = [UINib nibWithNibName:@"RunTargetCell" bundle:nil];
     [_runsCollection registerNib:cellNib forCellWithReuseIdentifier:@"RunTargetCell"];
     
+    [_spinner startAnimating];
     [self computeRuns];
 }
 
 - (void) reloadData {
+    
+    [_spinner startAnimating];
     
     _selectedRunIndex = 0;
     [_runs removeAllObjects];
@@ -162,9 +166,11 @@
     Run *r = _runs[_selectedRunIndex][@"run"];
     NSArray *pr = _runs[_selectedRunIndex][@"processes"];
     if (pr.count) {
+        [_spinner stopAnimating];
         [_processesTable reloadData];
     } else {
         
+        [_spinner startAnimating];
         [[ProdAPI sharedInstance] getProcessFlowForProduct:[r getProductNumber] completion:^(BOOL success, id response) {
             
             if (success) {
@@ -233,6 +239,7 @@
     
     [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"processes": processesForSelectedRun}];
     [_processesTable reloadData];
+    [_spinner stopAnimating];
 }
 
 #pragma mark - Utils
