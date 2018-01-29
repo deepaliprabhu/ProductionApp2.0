@@ -24,6 +24,7 @@
     IBOutlet UIButton *_photoButton;
     IBOutlet UIButton *_shippingButton;
     IBOutlet UITextView *_notesTextView;
+    
 }
 __pd(DemandListViewCellDelegate);
 - (void)setCellData:(NSMutableDictionary*)cellData;
