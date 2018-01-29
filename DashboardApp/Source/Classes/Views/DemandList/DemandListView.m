@@ -10,6 +10,7 @@
 #import "DemandListViewCell.h"
 #import "UIView+RNActivityView.h"
 #import "ConnectionManager.h"
+#import "DataManager.h"
 
 
 @implementation DemandListView
@@ -21,6 +22,8 @@ __CREATEVIEW(DemandListView, @"DemandListView", 0);
     
     shippingOptionsArray = [@[@"--", @"Next Week", @"Shipped", @"Pick a date"] mutableCopy];
     //self.layer.cornerRadius = 8.0;
+    demandsArray = [__DataManager getDemandList];
+    [_tableView reloadData];
 }
 
 - (void)setDemandList:(NSMutableArray*)demandList {
@@ -37,7 +40,7 @@ __CREATEVIEW(DemandListView, @"DemandListView", 0);
 */
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 120.0f;
+    return 55.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -59,7 +62,8 @@ __CREATEVIEW(DemandListView, @"DemandListView", 0);
     selectedIndex = indexPath.row;
     selectedDemand = demandsArray[indexPath.row];
     _titleLabel.text = selectedDemand[@"Product"];
-    [self showShippingDetailView];
+   // [self showShippingDetailView];
+    [_delegate showDetailForDemand:selectedDemand];
 }
 
 - (IBAction)closePressed:(id)sender {

@@ -43,4 +43,5 @@ __CREATEVIEWH(DemandListView);
 
 @protocol DemandListViewDelegate <NSObject>
 - (void) closeSelected;
+- (void) showDetailForDemand:(NSMutableDictionary*)demandData;
 @end
