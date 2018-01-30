@@ -681,8 +681,8 @@
             
             [_processes sortUsingComparator:^NSComparisonResult(ProcessModel *obj1, ProcessModel *obj2) {
                 
-                int i1 = [[obj1.processNo stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue];
-                int i2 = [[obj2.processNo stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue];
+                int i1 = [obj1.stepId intValue];
+                int i2 = [obj2.stepId intValue];
                 if (i1<i2)
                     return NSOrderedAscending;
                 else

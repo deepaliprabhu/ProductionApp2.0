@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ProductionProcessCellProtocol;
+
 @interface ProductionProcessCell : UITableViewCell
+
+@property (nonatomic, unsafe_unretained) id <ProductionProcessCellProtocol> delegate;
+
+- (void) layoutWithData:(NSDictionary*)dict;
+
+@end
+
+@protocol ProductionProcessCellProtocol <NSObject>
+
+- (void) showDetailsForRunId:(int)runId;
 
 @end

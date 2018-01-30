@@ -26,10 +26,9 @@ static NSDateFormatter *_formatter = nil;
     model.rework = [data[@"qtyRework"] intValue];
     model.good = [data[@"qtyGood"] intValue];
     model.target = [data[@"qtyTarget"] intValue];
+    model.goal = [data[@"qtyGoal"] intValue];
     model.processId = data[@"stepid"];
     model.processNo = data[@"processno"];
-    model.dateAssigned = data[@"dateAssigned"];
-    model.dateCompleted = data[@"dateCompleted"];
     model.person = data[@"operator"];
     model.comments = data[@"comments"];
 

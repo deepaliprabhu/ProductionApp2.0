@@ -13,11 +13,13 @@
 #import "RunTargetCell.h"
 #import "ProcessModel.h"
 #import "DayLogModel.h"
+#import "OperatorsPickerScreen.h"
 
 @implementation ProductionTargetView {
     
     __weak IBOutlet UICollectionView *_runsCollection;
     __weak IBOutlet UITableView *_processesTable;
+    __weak IBOutlet UIActivityIndicatorView *_spinner;
     
     NSMutableArray *_runs;
     
@@ -39,10 +41,13 @@
     UINib *cellNib = [UINib nibWithNibName:@"RunTargetCell" bundle:nil];
     [_runsCollection registerNib:cellNib forCellWithReuseIdentifier:@"RunTargetCell"];
     
+    [_spinner startAnimating];
     [self computeRuns];
 }
 
 - (void) reloadData {
+    
+    [_spinner startAnimating];
     
     _selectedRunIndex = 0;
     [_runs removeAllObjects];
@@ -86,7 +91,7 @@
     }
     
     NSArray *arr = _runs[_selectedRunIndex][@"processes"];
-    [cell layoutWithProcess:arr[indexPath.row]];
+    [cell layoutWithData:arr[indexPath.row] atRow:indexPath.row];
     
     return cell;
 }
@@ -116,6 +121,19 @@
     _selectedRunIndex = (int)indexPath.row;
     [_runsCollection reloadData];
     [self getProcessesForSelectedRun];
+}
+
+#pragma mark - CellProtocol
+
+- (void) showOperatorsForRow:(int)row rect:(CGRect)rect {
+    
+    OperatorsPickerScreen *screen = [[OperatorsPickerScreen alloc] init];
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:rect inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
+}
+
+- (void) showTargetInputForRow:(int)row rect:(CGRect)rect {
+    
 }
 
 #pragma mark - Services
@@ -162,9 +180,11 @@
     Run *r = _runs[_selectedRunIndex][@"run"];
     NSArray *pr = _runs[_selectedRunIndex][@"processes"];
     if (pr.count) {
+        [_spinner stopAnimating];
         [_processesTable reloadData];
     } else {
         
+        [_spinner startAnimating];
         [[ProdAPI sharedInstance] getProcessFlowForProduct:[r getProductNumber] completion:^(BOOL success, id response) {
             
             if (success) {
@@ -216,23 +236,39 @@
 
 - (void) getRunningProcessesFrom:(NSArray*)processes andDays:(NSArray*)days {
     
+    NSDate *today = [NSDate date];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    
     Run *r = _runs[_selectedRunIndex][@"run"];
     NSMutableArray *processesForSelectedRun = [NSMutableArray array];
     for (ProcessModel *p in processes) {
         
+        NSString *pers = nil;
+        NSNumber *g = nil;
         int t = 0;
         for (DayLogModel *d in days) {
             if (d.processId == p.stepId) {
                 t += d.target;
+                
+                if ([cal isDate:d.date inSameDayAsDate:today]) {
+                    g = @(d.goal);
+                    pers = d.person;
+                }
             }
         }
         
-        if (t < [r quantity])
-            [processesForSelectedRun addObject:p];
+        if (t < [r quantity]) {
+            NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
+            NSString *goal = g == nil ? @"-" : [g stringValue];
+            NSString *person = (pers == nil || pers.length == 0)? @"-" : pers;
+            NSDictionary *d = @{@"process": p.processName?p.processName:@"", @"status":status, @"target": goal, @"person": person, @"processingTime":p.processingTime};
+            [processesForSelectedRun addObject:d];
+        }
     }
     
     [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"processes": processesForSelectedRun}];
     [_processesTable reloadData];
+    [_spinner stopAnimating];
 }
 
 #pragma mark - Utils

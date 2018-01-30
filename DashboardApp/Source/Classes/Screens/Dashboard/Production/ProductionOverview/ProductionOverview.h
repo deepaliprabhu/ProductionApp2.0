@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Defines.h"
-#import "ProductionRunCell.h"
+#import "ProductionProcessCell.h"
+#import "Run.h"
 
 @protocol ProductionOverviewProtocol;
 
-@interface ProductionOverview : UIView <UITableViewDelegate, UITableViewDataSource, ProductionRunCellProtocol>
+@interface ProductionOverview : UIView <UITableViewDelegate, UITableViewDataSource, ProductionProcessCellProtocol>
 
 @property (nonatomic, unsafe_unretained) id <ProductionOverviewProtocol> delegate;
 

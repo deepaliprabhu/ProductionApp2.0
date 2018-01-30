@@ -15,10 +15,13 @@
 
 @property (nonatomic, unsafe_unretained) id <ProcessEditableCellProtocol> delegate;
 
-- (void) layoutWithProcess:(ProcessModel*)process;
+- (void) layoutWithData:(NSDictionary*)dict atRow:(int)row;
 
 @end
 
 @protocol ProcessEditableCellProtocol <NSObject>
+
+- (void) showOperatorsForRow:(int)row rect:(CGRect)rect;
+- (void) showTargetInputForRow:(int)row rect:(CGRect)rect;
 
 @end

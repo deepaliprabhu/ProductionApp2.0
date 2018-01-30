@@ -16,10 +16,9 @@
 @property (nonatomic, unsafe_unretained) int reject;
 @property (nonatomic, unsafe_unretained) int good;
 @property (nonatomic, unsafe_unretained) int target;
+@property (nonatomic, unsafe_unretained) int goal;
 @property (nonatomic, strong) NSString *processId;
 @property (nonatomic, strong) NSString *processNo;
-@property (nonatomic, strong) NSString *dateAssigned;
-@property (nonatomic, strong) NSString *dateCompleted;
 @property (nonatomic, strong) NSString *person;
 @property (nonatomic, strong) NSString *comments;
 @property (nonatomic, unsafe_unretained) int runId;

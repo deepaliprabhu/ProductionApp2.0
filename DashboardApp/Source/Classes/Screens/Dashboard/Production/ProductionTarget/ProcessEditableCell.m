@@ -15,12 +15,22 @@
     __weak IBOutlet UILabel *_statusLabel;
     __weak IBOutlet UILabel *_timeLabel;
     __weak IBOutlet UILabel *_operatorLabel;
+    
+    __weak IBOutlet NSLayoutConstraint *_targetButtonConstraint;
+    __weak IBOutlet NSLayoutConstraint *_operatorButtonConstraint;
+    
+    int _row;
 }
 
-- (void) layoutWithProcess:(ProcessModel*)process {
+- (void) layoutWithData:(NSDictionary*)dict atRow:(int)row {
     
-    _processLabel.text = process.processName;
-    _timeLabel.text = [self timeForSeconds:[process.processingTime intValue]];
+    _row = row;
+    
+    _statusLabel.text = dict[@"status"];
+    _targetLabel.text = dict[@"target"];
+    _operatorLabel.text = dict[@"person"];
+    _processLabel.text = dict[@"process"];
+    _timeLabel.text = [self timeForSeconds:[dict[@"processingTime"] intValue]];
 }
 
 - (NSString*) timeForSeconds:(int)time {
@@ -38,6 +48,20 @@
             return [NSString stringWithFormat:@"%dh %dm", h, min];
         }
     }
+}
+
+#pragma mark - Actions
+
+- (IBAction) targetButtonTapped {
+    
+    CGRect r = [self convertRect:_targetLabel.frame toView:self.superview.superview];
+    [_delegate showTargetInputForRow:_row rect:r];
+}
+
+- (IBAction) operatorButtonTapped {
+    
+    CGRect r = [self convertRect:_operatorLabel.frame toView:self.superview.superview.superview];
+    [_delegate showOperatorsForRow:_row rect:r];
 }
 
 @end
