@@ -17,6 +17,8 @@
 #import "RunDetailsScreen.h"
 #import "ProductionTargetView.h"
 #import "OperatorTargetView.h"
+#import "DataManager.h"
+#import "NSDate+Utils.h"
 
 @interface ProductionViewController () <UITableViewDelegate, UITableViewDataSource, ProductionOverviewProtocol, ProductionTargetViewProtocol, OperatorTargetViewProtocol>
 
@@ -39,6 +41,9 @@
     ProductionOverview *_flowView1;
     ProductionTargetView *_flowView2;
     OperatorTargetView *_flowView3;
+    
+    NSMutableArray *_runs;
+    NSMutableDictionary *_operatorsSchedule;
 }
 
 - (void)viewDidLoad {
@@ -104,7 +109,8 @@
         cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
     }
     
-    [cell layoutWithPerson:_operators[indexPath.row]];
+    UserModel *user = _operators[indexPath.row];
+    [cell layoutWithPerson:user time:[_operatorsSchedule[user.name] intValue]];
     
     return cell;
 }
@@ -292,11 +298,152 @@
             
             [_operators sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:true]]];
             [_operatorsTable reloadData];
+            [self computeRuns];
             
         } else {
             [LoadingView showShortMessage:@"Error, please try again later!"];
         }
     }];
+}
+
+- (void) computeRuns {
+    
+    _runs = [NSMutableArray array];
+    
+    NSDateFormatter *f = [NSDateFormatter new];
+    f = [NSDateFormatter new];
+    f.dateFormat = @"yyyy-MM-dd";
+    
+    __block int currentRequest = 0;
+    NSArray *runs = [[DataManager sharedInstance] getRuns];
+    for (Run *r in runs) {
+        
+        [[ProdAPI sharedInstance] getSlotsForRun:[r getRunId] completion:^(BOOL success, id response) {
+            
+            currentRequest++;
+            if (success) {
+                if ([response isKindOfClass:[NSArray class]]) {
+                    for (NSDictionary *d in response) {
+                        
+                        if ([d[@"STATUS"] isEqualToString:@"running"]) {
+                            
+                            NSString *dateStr = d[@"SCHEDULED"];
+                            NSDate *date = [f dateFromString:dateStr];
+                            if ([date isThisWeek]) {
+                                [_runs addObject:r];
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if (currentRequest == runs.count) {
+                [self getProcesses];
+            }
+        }];
+    }
+}
+
+- (void) getProcesses {
+    
+    __block int currentRequests = 0;
+    for (Run *r in _runs) {
+        
+        [[ProdAPI sharedInstance] getProcessFlowForProduct:[r getProductNumber] completion:^(BOOL success, id response) {
+            
+            currentRequests++;
+            if (success) {
+                
+                NSMutableArray *pr = [NSMutableArray array];
+                NSArray *processes = [response firstObject][@"processes"];
+                for (int i=0; i<processes.count;i++) {
+                    
+                    NSDictionary *processData = processes[i];
+                    NSDictionary *commonProcess = [[DataManager sharedInstance] getProcessForNo:processData[@"processno"]];
+                    ProcessModel *model = [ProcessModel objectFromProcess:processData andCommon:commonProcess];
+                    [pr addObject:model];
+                    
+                    if ([r getCategory] == 0 && [commonProcess[@"processname"] isEqualToString:@"Passive Test"])
+                        break;
+                }
+                
+                r.processes = pr;
+            }
+            
+            if (currentRequests == _runs.count) {
+                [self getDailyLog];
+            }
+        }];
+    }
+}
+
+- (void) getDailyLog {
+    
+    __block int currentRequests = 0;
+    for (Run *r in _runs) {
+        
+        [[ProdAPI sharedInstance] getDailyLogForRun:[r getRunId] product:[r getProductNumber] completion:^(BOOL success, id response) {
+            
+            currentRequests++;
+            if (success) {
+                
+                NSMutableArray *daysArr = [NSMutableArray array];
+                NSArray *days = [response firstObject][@"processes"];
+                days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
+                for (int i=0; i<days.count; i++) {
+                    
+                    NSDictionary *dict = days[i];
+                    if ([dict[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == true)
+                        continue;
+                    
+                    DayLogModel *d = [DayLogModel objFromData:dict];
+                    if ([self dayLogAlreadyExists:d inArr:daysArr] == false)
+                        [daysArr addObject:d];
+                }
+                [daysArr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
+                r.days = daysArr;
+            }
+            
+            if (currentRequests == _runs.count) {
+                [self getRunningProcesses];
+            }
+        }];
+    }
+}
+
+- (void) getRunningProcesses {
+    
+    NSDate *today = [NSDate date];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    
+    _operatorsSchedule = [NSMutableDictionary dictionary];
+    for (Run *r in _runs) {
+        for (ProcessModel *p in r.processes) {
+            for (DayLogModel *d in r.days) {
+                if ((d.processId == p.stepId) && [cal isDate:d.date inSameDayAsDate:today] && (d.person.length > 0)) {
+                    int time = [p.processingTime intValue]*d.goal;
+                    if (_operatorsSchedule[d.person] == nil)
+                        _operatorsSchedule[d.person] = @(time);
+                    else
+                        _operatorsSchedule[d.person] = @([_operatorsSchedule[d.person] intValue]+time);
+                }
+            }
+        }
+    }
+    
+    [_operatorsTable reloadData];
+}
+
+- (BOOL) dayLogAlreadyExists:(DayLogModel*)log inArr:(NSArray*)arr {
+    
+    NSCalendar *c = [NSCalendar currentCalendar];
+    for (DayLogModel *d in arr) {
+        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processId isEqualToString:log.processId])
+            return true;
+    }
+    
+    return false;
 }
 
 @end

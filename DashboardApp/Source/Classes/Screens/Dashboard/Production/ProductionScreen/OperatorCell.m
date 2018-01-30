@@ -14,7 +14,7 @@
     __weak IBOutlet UIView *_scheduleHolderView;
 }
 
-- (void) layoutWithPerson:(UserModel*)user {
+- (void) layoutWithPerson:(UserModel*)user time:(int)time {
     
     _operatorLabel.text = user.name;
     
@@ -22,11 +22,10 @@
         
         UIView *v = [_scheduleHolderView viewWithTag:i];
         int s = (i+1)*30*60;
-        if (user.secondsBusy < s || (i==0 && s==0)) {
-            v.backgroundColor = ccolor(204, 204, 204);
-        } else {
+        if ((time >= s && time > 0) || (i==0 && time>0))
             v.backgroundColor = ccolor(51, 204, 51);
-        }
+        else
+            v.backgroundColor = ccolor(204, 204, 204);
     }
 }
 
