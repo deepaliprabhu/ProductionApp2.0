@@ -380,6 +380,7 @@
     }
     _productNameLabel.text = product.name;
     _productIdLabel.text = product.productNumber;
+    [_pcbProductIdButton setTitle:product.pcbProductID forState:UIControlStateNormal];
     if ([product photoURL] == nil)
         [_productImageView setImage:[UIImage imageNamed:@"placeholder.png"]];
     else
