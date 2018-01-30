@@ -18,7 +18,8 @@
 @property (nonatomic, strong) NSString *group;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *photo;
-@property (nonatomic, strong) NSString *processCntrlId;;
+@property (nonatomic, strong) NSString *processCntrlId;
+@property (nonatomic, strong) NSString *processCntrlAlias;;
 @property (nonatomic, strong) NSMutableArray *processSteps;
 @property (nonatomic, unsafe_unretained) int order;
 

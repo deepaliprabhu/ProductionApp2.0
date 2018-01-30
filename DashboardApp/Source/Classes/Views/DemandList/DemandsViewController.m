@@ -157,16 +157,22 @@
         NSArray *components = [runString componentsSeparatedByString:@","];
         runsArray = [components mutableCopy];
     }
-    if(dropDown == nil) {
-        CGFloat f = 235;
-        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :runsArray :nil :@"down"];
-        dropDown.tag = 2;
-        dropDown.backgroundColor = [UIColor grayColor];
-        dropDown.delegate = self;
+    if (runsArray.count > 0) {
+        if(dropDown == nil) {
+            CGFloat f = 235;
+            dropDown = [[NIDropDown alloc]showDropDown:sender :&f :runsArray :nil :@"down"];
+            dropDown.tag = 2;
+            dropDown.backgroundColor = [UIColor grayColor];
+            dropDown.delegate = self;
+        }
+        else {
+            [dropDown hideDropDown:sender];
+            dropDown = nil;
+        }
     }
     else {
-        [dropDown hideDropDown:sender];
-        dropDown = nil;
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"No Runs associated with this Demand" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+        [alertView show];
     }
 }
 
