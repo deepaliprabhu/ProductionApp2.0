@@ -24,6 +24,7 @@
     }
     else
         p.processCntrlId = [NSString stringWithFormat:@"%@-PC1-%@",data[@"Product Number"],data[@"last version"]];
+    p.processCntrlAlias = data[@"process_ctrl_id_alias"];
     p.photo = data[@"Images"];
     p.group = data[@"Group"];
     p.processSteps = [[NSMutableArray alloc] init];

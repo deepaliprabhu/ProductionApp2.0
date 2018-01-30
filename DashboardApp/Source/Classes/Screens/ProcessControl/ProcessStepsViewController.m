@@ -313,7 +313,12 @@
         _masonApprovalButton.backgroundColor = [UIColor grayColor];
         _lausanneApprovalButton.backgroundColor = [UIColor grayColor];
         selectedProduct = filteredProductsArray[indexPath.row];
-        _processNoLabel.text = selectedProduct.processCntrlId;
+        if([selectedProduct.processCntrlAlias isEqualToString:@""]) {
+            [_processCntrlIdButton setTitle:selectedProduct.processCntrlId forState:UIControlStateNormal];
+        }
+        else {
+            [_processCntrlIdButton setTitle:selectedProduct.processCntrlAlias forState:UIControlStateNormal];
+        }
         [self loadProductProcessFlow:filteredProductsArray[indexPath.row]];
     }
     if ([tableView isEqual:_commonProcessListTableView]) {
@@ -375,6 +380,7 @@
     }
     _productNameLabel.text = product.name;
     _productIdLabel.text = product.productNumber;
+    [_pcbProductIdButton setTitle:product.pcbProductID forState:UIControlStateNormal];
     if ([product photoURL] == nil)
         [_productImageView setImage:[UIImage imageNamed:@"placeholder.png"]];
     else
@@ -835,8 +841,8 @@
     [self.navigationController.view hideActivityViewWithAfterDelay:3];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",selectedProduct.productID,@"ProductId", pcbProductId, @"PCBProductId",@"1.0", @"VersionId", processStatus, @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
-    if (processCntrlId) {
+    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",selectedProduct.processCntrlAlias,@"alias",selectedProduct.productID,@"ProductId", pcbProductId, @"PCBProductId",@"1.0", @"VersionId", processStatus, @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
+    if (![selectedProduct.processCntrlId isEqualToString:@"Draft"]) {
         [__DataManager updateProcesses:processStepsArray withProcessData:processData];
     }
     else {
@@ -1101,6 +1107,32 @@
     else {
         [dropDown hideDropDown:sender];
         dropDown = nil;
+    }
+}
+
+- (IBAction)processCntrlIdButtonPressed:(id)sender {
+    _aliasTF.text = @"";
+    _processCntrlIdLabel.text = selectedProduct.processCntrlId;
+    _aliasView.frame = CGRectMake(self.view.frame.size.width/2-_aliasView.frame.size.width/2, self.view.frame.size.height/2-_aliasView.frame.size.height/2, _aliasView.frame.size.width, _aliasView.frame.size.height);
+    [self.view addSubview:_aliasView];
+    backgroundDimmingView.hidden = false;
+}
+
+- (IBAction)cancelAliasPressed:(id)sender {
+    [_aliasView removeFromSuperview];
+    backgroundDimmingView.hidden = true;
+}
+
+- (IBAction)saveAliasPressed:(id)sender {
+    if (![_aliasTF.text isEqualToString:@""]) {
+        [_processCntrlIdButton setTitle:_aliasTF.text forState:UIControlStateNormal];
+        [_aliasView removeFromSuperview];
+        backgroundDimmingView.hidden = true;
+        [selectedProduct setProcessCntrlAlias:_aliasTF.text];
+    }
+    else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Please enter a valid alias name." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [alertView show];
     }
 }
 

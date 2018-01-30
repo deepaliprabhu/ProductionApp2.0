@@ -27,6 +27,7 @@
     IBOutlet UIButton *_masonApprovalButton;
     IBOutlet UIButton *_lausanneApprovalButton;
     IBOutlet UIButton *_pcbProductIdButton;
+    IBOutlet UIButton *_processCntrlIdButton;
     IBOutlet UILabel *_productNameLabel;
     IBOutlet UILabel *_productIdLabel;
     IBOutlet UILabel *_processNoLabel;
@@ -57,6 +58,10 @@
     IBOutlet UITextField *_processNameTF;
     IBOutlet UITextField *_timeTF;
     
+    IBOutlet UIView *_aliasView;
+    IBOutlet UILabel *_processCntrlIdLabel;
+    IBOutlet UITextField *_aliasTF;
+    
     UIView *backgroundDimmingView;
     
     DZNSegmentedControl *control;
@@ -86,6 +91,7 @@
     ProductModel *selectedProduct;
     
     NSString *processCntrlId;
+    NSString *processCntrlIdAlias;
     NSString *processStatus;
     NSString *pcbProductId;
     UIPopoverController *_adminPopover;
