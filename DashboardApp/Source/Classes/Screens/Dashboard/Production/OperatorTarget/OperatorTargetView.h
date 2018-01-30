@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Defines.h"
 #import "OperatorTargetCell.h"
+#import "UserModel.h"
 
 @protocol OperatorTargetViewProtocol;
 
 @interface OperatorTargetView : UIView <UITableViewDelegate, UITableViewDataSource, OperatorTargetCellProtocol>
 
+@property (nonatomic, strong) UserModel *user;
 @property (nonatomic, unsafe_unretained) id <OperatorTargetViewProtocol> delegate;
 
 __CREATEVIEWH(OperatorTargetView)

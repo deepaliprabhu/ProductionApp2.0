@@ -111,29 +111,39 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (_flowView3.alpha == 0) {
+    UserModel *user = _operators[indexPath.row];
+    
+    if (_flowView3.alpha == 0 || [_flowView3.user.username isEqualToString:user.username] == false) {
         
-        BOOL firstLoad = false;
-        if (_flowView3 == nil) {
-            [self addFlowView3];
-            firstLoad = true;
-        }
-        _flowView3.alpha = 0;
-        
-        [UIView animateWithDuration:0.2 animations:^{
+        if (_flowView3.alpha == 1) {
             
-            if (_flowView1.alpha == 1)
-                _flowView1.alpha = 0;
-            else
-                _flowView2.alpha = 0;
-        } completion:^(BOOL finished) {
+            _flowView3.user = user;
+            [_flowView3 reloadData];
+        } else {
+            
+            BOOL firstLoad = false;
+            if (_flowView3 == nil) {
+                [self addFlowView3];
+                firstLoad = true;
+            }
+            _flowView3.user = user;
+            _flowView3.alpha = 0;
             
             [UIView animateWithDuration:0.2 animations:^{
-                _flowView3.alpha = 1;
-                if (firstLoad == false)
-                    [_flowView3 reloadData];
+                
+                if (_flowView1.alpha == 1)
+                    _flowView1.alpha = 0;
+                else
+                    _flowView2.alpha = 0;
+            } completion:^(BOOL finished) {
+                
+                [UIView animateWithDuration:0.2 animations:^{
+                    _flowView3.alpha = 1;
+                    if (firstLoad == false)
+                        [_flowView3 reloadData];
+                }];
             }];
-        }];
+        }
     }
 }
 

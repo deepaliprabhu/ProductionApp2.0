@@ -14,6 +14,8 @@
 
 @property (nonatomic, unsafe_unretained) id <OperatorTargetCellProtocol> delegate;
 
+- (void) layoutWithData:(NSDictionary*)dict atRow:(int)row;
+
 @end
 
 @protocol OperatorTargetCellProtocol <NSObject>
