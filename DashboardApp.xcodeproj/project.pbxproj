@@ -135,6 +135,8 @@
 		897BA32E1FF65FF900C8DA9A /* FailedTestsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */; };
 		897BA3371FF662C300C8DA9A /* FailReasonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA3351FF662C300C8DA9A /* FailReasonCell.m */; };
 		897BA3381FF662C300C8DA9A /* FailReasonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA3361FF662C300C8DA9A /* FailReasonCell.xib */; };
+		89815E19201FEE610021ADA2 /* OperatorsPickerScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 89815E17201FEE610021ADA2 /* OperatorsPickerScreen.m */; };
+		89815E1A201FEE610021ADA2 /* OperatorsPickerScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89815E18201FEE610021ADA2 /* OperatorsPickerScreen.xib */; };
 		89854AE71FB97B3A00C6E38D /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADB1FB97B3A00C6E38D /* GMGridView.m */; };
 		89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADF1FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m */; };
 		89854AE91FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854AE01FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m */; };
@@ -538,6 +540,9 @@
 		897BA3341FF662C300C8DA9A /* FailReasonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FailReasonCell.h; sourceTree = "<group>"; };
 		897BA3351FF662C300C8DA9A /* FailReasonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FailReasonCell.m; sourceTree = "<group>"; };
 		897BA3361FF662C300C8DA9A /* FailReasonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailReasonCell.xib; sourceTree = "<group>"; };
+		89815E16201FEE610021ADA2 /* OperatorsPickerScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorsPickerScreen.h; sourceTree = "<group>"; };
+		89815E17201FEE610021ADA2 /* OperatorsPickerScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OperatorsPickerScreen.m; sourceTree = "<group>"; };
+		89815E18201FEE610021ADA2 /* OperatorsPickerScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OperatorsPickerScreen.xib; sourceTree = "<group>"; };
 		89854ADB1FB97B3A00C6E38D /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
 		89854ADC1FB97B3A00C6E38D /* GMGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridViewCell.h; sourceTree = "<group>"; };
 		89854ADD1FB97B3A00C6E38D /* GMGridViewCell+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridViewCell+Extended.h"; sourceTree = "<group>"; };
@@ -1055,6 +1060,9 @@
 				8940A2C2201A75B5000CE83B /* ProcessEditableCell.h */,
 				8940A2C3201A75B5000CE83B /* ProcessEditableCell.m */,
 				8940A2C4201A75B5000CE83B /* ProcessEditableCell.xib */,
+				89815E16201FEE610021ADA2 /* OperatorsPickerScreen.h */,
+				89815E17201FEE610021ADA2 /* OperatorsPickerScreen.m */,
+				89815E18201FEE610021ADA2 /* OperatorsPickerScreen.xib */,
 			);
 			path = ProductionTarget;
 			sourceTree = "<group>";
@@ -2244,6 +2252,7 @@
 				D28386541FB2285600BB304C /* RunPartsScreen.xib in Resources */,
 				894704B920194E22007364F0 /* ProductionTargetView.xib in Resources */,
 				8970C3B7200561FE001F7680 /* RunScheduleCell.xib in Resources */,
+				89815E1A201FEE610021ADA2 /* OperatorsPickerScreen.xib in Resources */,
 				9F3FF6D61F4BF1F800F52F64 /* FontAwesome.ttf in Resources */,
 				89697BAA2008D9DF00C96103 /* DailyLogHeaderView.xib in Resources */,
 				9F7FE5701F7B8DEE005CB4DF /* ProductGroupView.xib in Resources */,
@@ -2341,6 +2350,7 @@
 				894018811FB5A0E4002B8AFD /* BRRequestListDirectory.m in Sources */,
 				8919BE931FB4DD5100EE6839 /* UIImage+MultiFormat.m in Sources */,
 				8919BE9E1FB4E47D00EE6839 /* LayoutUtils.m in Sources */,
+				89815E19201FEE610021ADA2 /* OperatorsPickerScreen.m in Sources */,
 				8919BEA11FB4EEF200EE6839 /* UIView+Screenshot.m in Sources */,
 				894018791FB5A0E4002B8AFD /* BRRequestDelete.m in Sources */,
 				9FE99C281FBD4E65006B58DE /* FeedbackListViewCell.m in Sources */,

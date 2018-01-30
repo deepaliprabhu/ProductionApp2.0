@@ -13,6 +13,7 @@
 #import "RunTargetCell.h"
 #import "ProcessModel.h"
 #import "DayLogModel.h"
+#import "OperatorsPickerScreen.h"
 
 @implementation ProductionTargetView {
     
@@ -90,7 +91,7 @@
     }
     
     NSArray *arr = _runs[_selectedRunIndex][@"processes"];
-    [cell layoutWithProcess:arr[indexPath.row]];
+    [cell layoutWithData:arr[indexPath.row] atRow:indexPath.row];
     
     return cell;
 }
@@ -120,6 +121,19 @@
     _selectedRunIndex = (int)indexPath.row;
     [_runsCollection reloadData];
     [self getProcessesForSelectedRun];
+}
+
+#pragma mark - CellProtocol
+
+- (void) showOperatorsForRow:(int)row rect:(CGRect)rect {
+    
+    OperatorsPickerScreen *screen = [[OperatorsPickerScreen alloc] init];
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:rect inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
+}
+
+- (void) showTargetInputForRow:(int)row rect:(CGRect)rect {
+    
 }
 
 #pragma mark - Services
@@ -222,19 +236,34 @@
 
 - (void) getRunningProcessesFrom:(NSArray*)processes andDays:(NSArray*)days {
     
+    NSDate *today = [NSDate date];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    
     Run *r = _runs[_selectedRunIndex][@"run"];
     NSMutableArray *processesForSelectedRun = [NSMutableArray array];
     for (ProcessModel *p in processes) {
         
+        NSString *pers = nil;
+        NSNumber *g = nil;
         int t = 0;
         for (DayLogModel *d in days) {
             if (d.processId == p.stepId) {
                 t += d.target;
+                
+                if ([cal isDate:d.date inSameDayAsDate:today]) {
+                    g = @(d.goal);
+                    pers = d.person;
+                }
             }
         }
         
-        if (t < [r quantity])
-            [processesForSelectedRun addObject:p];
+        if (t < [r quantity]) {
+            NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
+            NSString *goal = g == nil ? @"-" : [g stringValue];
+            NSString *person = (pers == nil || pers.length == 0)? @"-" : pers;
+            NSDictionary *d = @{@"process": p.processName?p.processName:@"", @"status":status, @"target": goal, @"person": person, @"processingTime":p.processingTime};
+            [processesForSelectedRun addObject:d];
+        }
     }
     
     [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"processes": processesForSelectedRun}];
