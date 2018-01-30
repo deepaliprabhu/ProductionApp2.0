@@ -841,7 +841,7 @@
     [self.navigationController.view hideActivityViewWithAfterDelay:3];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",[self urlEncodeUsingEncoding:selectedProduct.processCntrlAlias],@"process_ctrl_id_alias",selectedProduct.productID,@"ProductId", pcbProductId, @"PCBProductId",@"1.0", @"VersionId", processStatus, @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
+    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",selectedProduct.processCntrlAlias,@"alias",selectedProduct.productID,@"ProductId", pcbProductId, @"PCBProductId",@"1.0", @"VersionId", processStatus, @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
     if (![selectedProduct.processCntrlId isEqualToString:@"Draft"]) {
         [__DataManager updateProcesses:processStepsArray withProcessData:processData];
     }
@@ -1111,6 +1111,7 @@
 }
 
 - (IBAction)processCntrlIdButtonPressed:(id)sender {
+    _aliasTF.text = @"";
     _processCntrlIdLabel.text = selectedProduct.processCntrlId;
     _aliasView.frame = CGRectMake(self.view.frame.size.width/2-_aliasView.frame.size.width/2, self.view.frame.size.height/2-_aliasView.frame.size.height/2, _aliasView.frame.size.width, _aliasView.frame.size.height);
     [self.view addSubview:_aliasView];
