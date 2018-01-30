@@ -23,74 +23,107 @@
                 <rect key="frame" x="0.0" y="0.0" width="592" height="41.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LjC-uB-5em">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LjC-uB-5em">
                         <rect key="frame" x="10" y="8" width="165" height="26"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="165" id="WA9-wp-FPb"/>
+                            <constraint firstAttribute="height" constant="26" id="WeJ-MO-XiX"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hnS-Gm-zs8">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hnS-Gm-zs8">
                         <rect key="frame" x="183" y="8" width="92" height="26"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="26" id="8cE-KY-xCE"/>
+                            <constraint firstAttribute="width" constant="92" id="YSe-oa-3jo"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cb4-vj-oHE">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cb4-vj-oHE">
                         <rect key="frame" x="283" y="8" width="50" height="26"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="2uT-xk-iH2"/>
+                            <constraint firstAttribute="height" constant="26" id="jTB-xj-JVt"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hM6-wS-35T">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lOV-OY-Q7n">
+                        <rect key="frame" x="283" y="0.0" width="50" height="42"/>
+                        <state key="normal" image="disclosureAsset"/>
+                        <connections>
+                            <action selector="targetButtonTapped" destination="KGk-i7-Jjw" eventType="touchUpInside" id="yob-ql-Zq5"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hM6-wS-35T">
                         <rect key="frame" x="364" y="8" width="72" height="26"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="72" id="1z1-FW-AYv"/>
+                            <constraint firstAttribute="height" constant="26" id="qe9-Of-dKR"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JhR-yK-WhK">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JhR-yK-WhK">
                         <rect key="frame" x="446" y="8" width="117" height="26"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="117" id="71j-QX-YqA"/>
+                            <constraint firstAttribute="height" constant="26" id="XXI-wW-sQt"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iF-kI-Y3c">
+                        <rect key="frame" x="446" y="0.0" width="117" height="42"/>
+                        <state key="normal" image="disclosureAsset"/>
+                        <connections>
+                            <action selector="operatorButtonTapped" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Wi9-Iq-klZ"/>
+                        </connections>
+                    </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cellSeparatorAsset" translatesAutoresizingMaskIntoConstraints="NO" id="kzc-J6-wp3">
                         <rect key="frame" x="0.0" y="41" width="594" height="1"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="j2J-kd-W19"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iF-kI-Y3c">
-                        <rect key="frame" x="446" y="0.0" width="117" height="42"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <state key="normal" image="disclosureAsset"/>
-                        <connections>
-                            <action selector="operatorButtonTapped" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Wi9-Iq-klZ"/>
-                        </connections>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lOV-OY-Q7n">
-                        <rect key="frame" x="283" y="0.0" width="50" height="42"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <state key="normal" image="disclosureAsset"/>
-                        <connections>
-                            <action selector="targetButtonTapped" destination="KGk-i7-Jjw" eventType="touchUpInside" id="yob-ql-Zq5"/>
-                        </connections>
-                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="cb4-vj-oHE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="04a-5u-CSz"/>
+                    <constraint firstItem="lOV-OY-Q7n" firstAttribute="centerY" secondItem="cb4-vj-oHE" secondAttribute="centerY" id="0UH-P4-LzC"/>
+                    <constraint firstItem="JhR-yK-WhK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="9Td-a2-OyH"/>
+                    <constraint firstItem="lOV-OY-Q7n" firstAttribute="width" secondItem="cb4-vj-oHE" secondAttribute="width" id="B4h-Wp-1Oo"/>
+                    <constraint firstItem="hnS-Gm-zs8" firstAttribute="leading" secondItem="LjC-uB-5em" secondAttribute="trailing" constant="8" id="KCg-qQ-vme"/>
+                    <constraint firstItem="8iF-kI-Y3c" firstAttribute="height" secondItem="JhR-yK-WhK" secondAttribute="height" constant="16" id="KTC-Sr-dKJ"/>
+                    <constraint firstItem="8iF-kI-Y3c" firstAttribute="centerX" secondItem="JhR-yK-WhK" secondAttribute="centerX" id="Q3X-dn-I6C"/>
+                    <constraint firstItem="8iF-kI-Y3c" firstAttribute="width" secondItem="JhR-yK-WhK" secondAttribute="width" id="RMj-Xv-04X"/>
+                    <constraint firstItem="JhR-yK-WhK" firstAttribute="leading" secondItem="hM6-wS-35T" secondAttribute="trailing" constant="10" id="SHd-2W-t2B"/>
+                    <constraint firstItem="cb4-vj-oHE" firstAttribute="leading" secondItem="hnS-Gm-zs8" secondAttribute="trailing" constant="8" id="TEo-PL-WmQ"/>
+                    <constraint firstItem="lOV-OY-Q7n" firstAttribute="centerX" secondItem="cb4-vj-oHE" secondAttribute="centerX" id="V5d-Od-aHn"/>
+                    <constraint firstItem="LjC-uB-5em" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="VWm-1O-Oap"/>
+                    <constraint firstItem="hnS-Gm-zs8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="W1o-NQ-bY2"/>
+                    <constraint firstItem="hM6-wS-35T" firstAttribute="leading" secondItem="cb4-vj-oHE" secondAttribute="trailing" constant="31" id="ZhD-PR-L7a"/>
+                    <constraint firstItem="hM6-wS-35T" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="kC7-vf-iNq"/>
                     <constraint firstItem="kzc-J6-wp3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="o8K-BJ-bQd"/>
                     <constraint firstAttribute="bottom" secondItem="kzc-J6-wp3" secondAttribute="bottom" id="oVX-26-UUL"/>
                     <constraint firstAttribute="trailing" secondItem="kzc-J6-wp3" secondAttribute="trailing" constant="-2" id="ogS-ii-p90"/>
+                    <constraint firstItem="8iF-kI-Y3c" firstAttribute="centerY" secondItem="JhR-yK-WhK" secondAttribute="centerY" id="qde-Sd-OII"/>
+                    <constraint firstItem="LjC-uB-5em" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="uEw-e3-Zd0"/>
+                    <constraint firstItem="lOV-OY-Q7n" firstAttribute="height" secondItem="cb4-vj-oHE" secondAttribute="height" constant="16" id="vyd-fK-tFc"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="_operatorButtonConstraint" destination="Q3X-dn-I6C" id="3sM-My-SUm"/>
                 <outlet property="_operatorLabel" destination="JhR-yK-WhK" id="0i9-JQ-O4A"/>
                 <outlet property="_processLabel" destination="LjC-uB-5em" id="oIf-jX-4IG"/>
                 <outlet property="_statusLabel" destination="hnS-Gm-zs8" id="cJb-z7-ffj"/>
+                <outlet property="_targetButtonConstraint" destination="V5d-Od-aHn" id="rSG-Sf-qAc"/>
                 <outlet property="_targetLabel" destination="cb4-vj-oHE" id="nhD-gg-HNg"/>
                 <outlet property="_timeLabel" destination="hM6-wS-35T" id="rcm-2F-j5h"/>
             </connections>

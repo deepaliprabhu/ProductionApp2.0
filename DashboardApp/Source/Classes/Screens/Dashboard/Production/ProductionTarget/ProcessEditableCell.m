@@ -8,6 +8,10 @@
 
 #import "ProcessEditableCell.h"
 #import "DayLogModel.h"
+#import "LayoutUtils.h"
+#import "Defines.h"
+
+static UIFont *_font = nil;
 
 @implementation ProcessEditableCell {
     
@@ -23,23 +27,41 @@
     int _row;
 }
 
+- (void) awakeFromNib {
+    [super awakeFromNib];
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _font = ccFont(@"Roboto-Light", 17);
+    });
+}
+
 - (void) layoutWithData:(NSDictionary*)dict atRow:(int)row {
     
     _row = row;
     
     _statusLabel.text = dict[@"status"];
     
-    
     DayLogModel *d = dict[@"dayModel"];
     NSString *goal = d.goal == 0 ? @"-" : [NSString stringWithFormat: @"%d", d.goal];
     _targetLabel.text = goal;
+    float w = [LayoutUtils widthForText:goal withFont:_font];
+    if (w>50)
+        w=50;
+    _targetButtonConstraint.constant = w/2 + 12;
     
     NSString *person = (d.person == nil || d.person.length == 0)? @"-" : d.person;
     _operatorLabel.text = person;
+    w = [LayoutUtils widthForText:person withFont:_font];
+    if (w>117)
+        w=117;
+    _operatorButtonConstraint.constant = w/2 + 12;
     
     ProcessModel * p = dict[@"process"];
     _processLabel.text = p.processName;
     _timeLabel.text = [self timeForSeconds:[dict[@"processingTime"] intValue]];
+    
+    [self layoutIfNeeded];
 }
 
 - (NSString*) timeForSeconds:(int)time {
