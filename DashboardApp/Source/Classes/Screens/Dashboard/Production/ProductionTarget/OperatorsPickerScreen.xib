@@ -11,14 +11,34 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OperatorsPickerScreen">
             <connections>
+                <outlet property="_tableView" destination="eWZ-Zk-eV6" id="wbg-K9-XWF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="352"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eWZ-Zk-eV6">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="352"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="OHJ-oU-Yg1"/>
+                        <outlet property="delegate" destination="-1" id="WZ3-2V-dYb"/>
+                    </connections>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="eWZ-Zk-eV6" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="0hj-ge-xdD"/>
+                <constraint firstAttribute="trailing" secondItem="eWZ-Zk-eV6" secondAttribute="trailing" id="8rW-m1-1pG"/>
+                <constraint firstAttribute="bottom" secondItem="eWZ-Zk-eV6" secondAttribute="bottom" id="WEB-Id-Vi5"/>
+                <constraint firstItem="eWZ-Zk-eV6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kUq-C4-ySH"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
 </document>

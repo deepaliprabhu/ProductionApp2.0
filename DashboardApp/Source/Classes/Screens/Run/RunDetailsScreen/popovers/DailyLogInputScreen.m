@@ -60,6 +60,7 @@
     log[@"qtyGood"] = [NSString stringWithFormat:@"%d", good];
     log[@"qtyRework"] = [NSString stringWithFormat:@"%d", rework];
     log[@"qtyReject"] = [NSString stringWithFormat:@"%d", reject];
+    log[@"qtyGoal"] = [NSString stringWithFormat:@"%d", _dayLog.goal];
     
     NSString *json = [NSString stringWithFormat:@"[%@]" ,[ProdAPI jsonString:log]];
     [LoadingView showLoading:@"Loading..."];

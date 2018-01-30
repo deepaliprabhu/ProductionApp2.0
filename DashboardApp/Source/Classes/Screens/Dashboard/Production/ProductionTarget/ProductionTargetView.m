@@ -13,7 +13,7 @@
 #import "RunTargetCell.h"
 #import "ProcessModel.h"
 #import "DayLogModel.h"
-#import "OperatorsPickerScreen.h"
+#import "LoadingView.h"
 
 @implementation ProductionTargetView {
     
@@ -24,6 +24,7 @@
     NSMutableArray *_runs;
     
     int _selectedRunIndex;
+    int _selectedProcess;
 }
 
 + (ProductionTargetView*) createView
@@ -91,7 +92,7 @@
     }
     
     NSArray *arr = _runs[_selectedRunIndex][@"processes"];
-    [cell layoutWithData:arr[indexPath.row] atRow:indexPath.row];
+    [cell layoutWithData:arr[indexPath.row] atRow:(int)indexPath.row];
     
     return cell;
 }
@@ -123,17 +124,93 @@
     [self getProcessesForSelectedRun];
 }
 
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == 0) {
+        
+        int target = [[alertView textFieldAtIndex:0].text intValue];
+        if (target > 0) {
+            [self targetChangedTo:target];
+        }
+    }
+}
+
 #pragma mark - CellProtocol
 
 - (void) showOperatorsForRow:(int)row rect:(CGRect)rect {
     
+    _selectedProcess = row;
+    
     OperatorsPickerScreen *screen = [[OperatorsPickerScreen alloc] init];
+    screen.delegate = self;
+    screen.operators = _operators;
     UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
     [popover presentPopoverFromRect:rect inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
 - (void) showTargetInputForRow:(int)row rect:(CGRect)rect {
     
+    _selectedProcess = row;
+    
+    NSMutableArray *processes = [NSMutableArray arrayWithArray:_runs[_selectedRunIndex][@"processes"]];
+    NSDictionary *dict = processes[_selectedProcess];
+    ProcessModel *p = dict[@"process"];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:p.processName message:@"Insert a target value for this process:" delegate:self cancelButtonTitle:@"Save" otherButtonTitles:@"Cancel", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+}
+
+#pragma mark - OperatorProtocol
+
+- (void) targetChangedTo:(int)newTarget {
+    
+    NSMutableArray *processes = [NSMutableArray arrayWithArray:_runs[_selectedRunIndex][@"processes"]];
+    NSDictionary *dict = processes[_selectedProcess];
+    
+    DayLogModel *day = [DayLogModel new];
+    if ([dict[@"dayModel"] isKindOfClass:[DayLogModel class]]) {
+        DayLogModel *temp = dict[@"dayModel"];
+        day.target = temp.target;
+        day.rework = temp.rework;
+        day.reject = temp.reject;
+        day.goal   = temp.good;
+        day.person = temp.person;
+        day.comments = temp.comments;
+    }
+    day.goal   = newTarget;
+    ProcessModel *p = dict[@"process"];
+    day.processNo = p.processNo;
+    day.processId = p.stepId;
+    
+    [self saveNew:day];
+}
+
+- (void) operatorChangedTo:(UserModel*)person {
+    
+    NSMutableArray *processes = [NSMutableArray arrayWithArray:_runs[_selectedRunIndex][@"processes"]];
+    NSDictionary *dict = processes[_selectedProcess];
+    if ([dict[@"person"] isEqualToString:person.name] == false) {
+        
+        DayLogModel *day = [DayLogModel new];
+        if ([dict[@"dayModel"] isKindOfClass:[DayLogModel class]]) {
+            DayLogModel *temp = dict[@"dayModel"];
+            day.target = temp.target;
+            day.rework = temp.rework;
+            day.reject = temp.reject;
+            day.goal   = temp.goal;
+            day.goal   = temp.good;
+            day.comments = temp.comments;
+        }
+        day.person = person.name;
+        ProcessModel *p = dict[@"process"];
+        day.processNo = p.processNo;
+        day.processId = p.stepId;
+        
+        [self saveNew:day];
+    }
 }
 
 #pragma mark - Services
@@ -243,25 +320,23 @@
     NSMutableArray *processesForSelectedRun = [NSMutableArray array];
     for (ProcessModel *p in processes) {
         
-        NSString *pers = nil;
-        NSNumber *g = nil;
+        DayLogModel *dayModel = nil;
         int t = 0;
         for (DayLogModel *d in days) {
             if (d.processId == p.stepId) {
                 t += d.target;
                 
                 if ([cal isDate:d.date inSameDayAsDate:today]) {
-                    g = @(d.goal);
-                    pers = d.person;
+                    dayModel = d;
                 }
             }
         }
         
         if (t < [r quantity]) {
             NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
-            NSString *goal = g == nil ? @"-" : [g stringValue];
-            NSString *person = (pers == nil || pers.length == 0)? @"-" : pers;
-            NSDictionary *d = @{@"process": p.processName?p.processName:@"", @"status":status, @"target": goal, @"person": person, @"processingTime":p.processingTime};
+            NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"process": p, @"status":status, @"processingTime":p.processingTime}];
+            if (dayModel)
+                d[@"dayModel"] = dayModel;
             [processesForSelectedRun addObject:d];
         }
     }
@@ -282,6 +357,32 @@
     }
     
     return false;
+}
+
+- (void) saveNew:(DayLogModel*)day {
+    
+    NSMutableArray *processes = [NSMutableArray arrayWithArray:_runs[_selectedRunIndex][@"processes"]];
+    NSDictionary *dict = processes[_selectedProcess];
+    
+    NSString *json = [NSString stringWithFormat:@"[%@]" ,[ProdAPI jsonString:[day params]]];
+    [LoadingView showLoading:@"Loading..."];
+    Run *r = _runs[_selectedRunIndex][@"run"];
+    [[ProdAPI sharedInstance] addDailyLog:json forRunFlow:[r getRunFlowId] completion:^(BOOL success, id response) {
+        
+        if (success) {
+            [LoadingView removeLoading];
+            
+            NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+            newDict[@"dayModel"] = day;
+            [processes replaceObjectAtIndex:_selectedProcess withObject:newDict];
+            
+            [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"processes": processes}];
+            [_processesTable reloadData];
+            
+        } else {
+            [LoadingView showShortMessage:@"Error, please try again later!"];
+        }
+    }];
 }
 
 @end

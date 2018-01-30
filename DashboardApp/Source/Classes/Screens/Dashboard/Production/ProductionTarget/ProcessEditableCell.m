@@ -7,6 +7,7 @@
 //
 
 #import "ProcessEditableCell.h"
+#import "DayLogModel.h"
 
 @implementation ProcessEditableCell {
     
@@ -27,9 +28,17 @@
     _row = row;
     
     _statusLabel.text = dict[@"status"];
-    _targetLabel.text = dict[@"target"];
-    _operatorLabel.text = dict[@"person"];
-    _processLabel.text = dict[@"process"];
+    
+    
+    DayLogModel *d = dict[@"dayModel"];
+    NSString *goal = d.goal == 0 ? @"-" : [NSString stringWithFormat: @"%d", d.goal];
+    _targetLabel.text = goal;
+    
+    NSString *person = (d.person == nil || d.person.length == 0)? @"-" : d.person;
+    _operatorLabel.text = person;
+    
+    ProcessModel * p = dict[@"process"];
+    _processLabel.text = p.processName;
     _timeLabel.text = [self timeForSeconds:[dict[@"processingTime"] intValue]];
 }
 

@@ -242,6 +242,7 @@
     
     _flowView2 = [ProductionTargetView createView];
     _flowView2.delegate = self;
+    _flowView2.operators = _operators;
     _flowView2.translatesAutoresizingMaskIntoConstraints = false;
     [LayoutUtils addContraintWidth:668 andHeight:687 forView:_flowView2];
     [self.view addSubview:_flowView2];

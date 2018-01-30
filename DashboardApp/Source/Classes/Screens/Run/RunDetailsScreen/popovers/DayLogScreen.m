@@ -20,18 +20,20 @@
     __weak IBOutlet UITextField *_rejectField;
     __weak IBOutlet UITextField *_targetField;
     __weak IBOutlet UITextField *_operatorField;
+    __weak IBOutlet UITextField *_goalField;
     __weak IBOutlet UITextView *_commentsField;
 }
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.preferredContentSize = CGSizeMake(295, 328);
+    self.preferredContentSize = CGSizeMake(295, 366);
     
     _goodField.text = [NSString stringWithFormat:@"%d", _log.good];
     _reworkField.text = [NSString stringWithFormat:@"%d", _log.rework];
     _rejectField.text = [NSString stringWithFormat:@"%d", _log.reject];
     _targetField.text = [NSString stringWithFormat:@"%d", _log.target];
+    _goalField.text = [NSString stringWithFormat:@"%d", _log.goal];
     _commentsField.text = _log.comments;
     _operatorField.text = _log.person;
     

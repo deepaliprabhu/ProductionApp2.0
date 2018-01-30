@@ -23,7 +23,6 @@
     UINavigationController *_nav;
 }
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [UINavigationController setProductionStyle];

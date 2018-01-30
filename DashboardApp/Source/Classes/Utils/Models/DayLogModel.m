@@ -43,4 +43,21 @@ static NSDateFormatter *_formatter = nil;
     return _reject + _rework + _good;
 }
 
+- (NSDictionary *)params {
+    
+    NSMutableDictionary *log = [NSMutableDictionary dictionary];
+    log[@"stepid"] = _processId;
+    log[@"processno"] = _processNo;
+    log[@"operator"] = _person;
+    log[@"comments"] = _comments;
+    log[@"status"] = @"tmp";
+    log[@"qtyTarget"] = [NSString stringWithFormat:@"%d", _target];
+    log[@"qtyGood"] = [NSString stringWithFormat:@"%d", _good];
+    log[@"qtyRework"] = [NSString stringWithFormat:@"%d", _rework];
+    log[@"qtyReject"] = [NSString stringWithFormat:@"%d", _reject];
+    log[@"qtyGoal"] = [NSString stringWithFormat:@"%d", _goal];
+    
+    return log;
+}
+
 @end

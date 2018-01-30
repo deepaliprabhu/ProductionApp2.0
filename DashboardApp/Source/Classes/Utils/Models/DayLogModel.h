@@ -25,5 +25,6 @@
 
 + (DayLogModel*) objFromData:(NSDictionary*)data;
 - (int) totalWork;
+- (NSDictionary*) params;
 
 @end
