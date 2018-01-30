@@ -123,6 +123,8 @@
 		89697BAA2008D9DF00C96103 /* DailyLogHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89697BA92008D9DF00C96103 /* DailyLogHeaderView.xib */; };
 		89697BAE2008E00200C96103 /* DailyLogCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89697BAC2008E00200C96103 /* DailyLogCell.m */; };
 		89697BAF2008E00200C96103 /* DailyLogCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89697BAD2008E00200C96103 /* DailyLogCell.xib */; };
+		896A60BB20209CD2001785F0 /* OperatorTargetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 896A60B920209CD2001785F0 /* OperatorTargetCell.m */; };
+		896A60BC20209CD2001785F0 /* OperatorTargetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 896A60BA20209CD2001785F0 /* OperatorTargetCell.xib */; };
 		8970C3AF20050A51001F7680 /* RunListScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8970C3AD20050A51001F7680 /* RunListScreen.xib */; };
 		8970C3B22005618C001F7680 /* RunListScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8970C3AC20050A51001F7680 /* RunListScreen.m */; };
 		8970C3B6200561FE001F7680 /* RunScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8970C3B4200561FE001F7680 /* RunScheduleCell.m */; };
@@ -522,6 +524,9 @@
 		89697BAB2008E00200C96103 /* DailyLogCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyLogCell.h; sourceTree = "<group>"; };
 		89697BAC2008E00200C96103 /* DailyLogCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyLogCell.m; sourceTree = "<group>"; };
 		89697BAD2008E00200C96103 /* DailyLogCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyLogCell.xib; sourceTree = "<group>"; };
+		896A60B820209CD2001785F0 /* OperatorTargetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorTargetCell.h; sourceTree = "<group>"; };
+		896A60B920209CD2001785F0 /* OperatorTargetCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OperatorTargetCell.m; sourceTree = "<group>"; };
+		896A60BA20209CD2001785F0 /* OperatorTargetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OperatorTargetCell.xib; sourceTree = "<group>"; };
 		8970C3AB20050A51001F7680 /* RunListScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunListScreen.h; sourceTree = "<group>"; };
 		8970C3AC20050A51001F7680 /* RunListScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunListScreen.m; sourceTree = "<group>"; };
 		8970C3AD20050A51001F7680 /* RunListScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunListScreen.xib; sourceTree = "<group>"; };
@@ -1073,6 +1078,9 @@
 				894704BD2019535F007364F0 /* OperatorTargetView.h */,
 				894704BE2019535F007364F0 /* OperatorTargetView.m */,
 				894704BB2019533F007364F0 /* OperatorTargetView.xib */,
+				896A60B820209CD2001785F0 /* OperatorTargetCell.h */,
+				896A60B920209CD2001785F0 /* OperatorTargetCell.m */,
+				896A60BA20209CD2001785F0 /* OperatorTargetCell.xib */,
 			);
 			path = OperatorTarget;
 			sourceTree = "<group>";
@@ -2172,6 +2180,7 @@
 				894B6F121FCDCBB700E271B1 /* RunCommentsScreen.xib in Resources */,
 				9FEEE58E1EEFEFA2005B5ECA /* LaunchScreen.storyboard in Resources */,
 				9F471D141F542B9300B294B7 /* RoadBlocksView.xib in Resources */,
+				896A60BC20209CD2001785F0 /* OperatorTargetCell.xib in Resources */,
 				8944E49820167D25004A08AF /* AlternateShortsCell.xib in Resources */,
 				9FBA7FE62003E5E400D2713A /* DemandsViewController.xib in Resources */,
 				895023F11FE149EC008A1165 /* ReconcileScreen.xib in Resources */,
@@ -2304,6 +2313,7 @@
 				8919BE901FB4DD5100EE6839 /* UIImageView+HighlightedWebCache.m in Sources */,
 				894704B22019458A007364F0 /* ProductionProcessCell.m in Sources */,
 				8942B8CE1FEC3908003D9B8A /* SplashScreen.m in Sources */,
+				896A60BB20209CD2001785F0 /* OperatorTargetCell.m in Sources */,
 				3B649A871FB3236400B8DC78 /* PartsCell.m in Sources */,
 				9FD12D861F443A3700F0E0A8 /* RunListViewCell.m in Sources */,
 				D28A35671FB046FC00AE6B51 /* UIAlertView+Blocks.m in Sources */,

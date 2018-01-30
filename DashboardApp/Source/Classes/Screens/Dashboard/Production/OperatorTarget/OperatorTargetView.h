@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Defines.h"
+#import "OperatorTargetCell.h"
 
 @protocol OperatorTargetViewProtocol;
 
-@interface OperatorTargetView : UIView
+@interface OperatorTargetView : UIView <UITableViewDelegate, UITableViewDataSource, OperatorTargetCellProtocol>
 
 @property (nonatomic, unsafe_unretained) id <OperatorTargetViewProtocol> delegate;
 
