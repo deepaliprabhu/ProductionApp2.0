@@ -185,6 +185,12 @@
     }];
 }
 
+- (void) newTargeWasSet {
+    
+    [_operatorsSchedule removeAllObjects];
+    [self computeRuns];
+}
+
 #pragma mark - ProductionOverviewProcotol
 
 - (void) goToTargets {

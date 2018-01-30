@@ -27,5 +27,6 @@ __CREATEVIEWH(ProductionTargetView)
 @protocol ProductionTargetViewProtocol <NSObject>
 
 - (void) goBackFromTargetView;
+- (void) newTargeWasSet;
 
 @end

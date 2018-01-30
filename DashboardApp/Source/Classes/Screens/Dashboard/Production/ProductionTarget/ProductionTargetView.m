@@ -186,6 +186,7 @@
     day.processId = p.stepId;
     
     [self saveNew:day];
+    [_delegate newTargeWasSet];
 }
 
 - (void) operatorChangedTo:(UserModel*)person {
