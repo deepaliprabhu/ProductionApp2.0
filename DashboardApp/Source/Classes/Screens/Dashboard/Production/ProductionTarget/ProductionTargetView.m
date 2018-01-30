@@ -190,9 +190,11 @@
 
 - (void) operatorChangedTo:(UserModel*)person {
     
+    NSString *personName = person ? person.name : @"";
+    
     NSMutableArray *processes = [NSMutableArray arrayWithArray:_runs[_selectedRunIndex][@"processes"]];
     NSDictionary *dict = processes[_selectedProcess];
-    if ([dict[@"person"] isEqualToString:person.name] == false) {
+    if ([dict[@"person"] isEqualToString:personName] == false) {
         
         DayLogModel *day = [DayLogModel new];
         if ([dict[@"dayModel"] isKindOfClass:[DayLogModel class]]) {
@@ -204,7 +206,7 @@
             day.goal   = temp.good;
             day.comments = temp.comments;
         }
-        day.person = person.name;
+        day.person = personName;
         ProcessModel *p = dict[@"process"];
         day.processNo = p.processNo;
         day.processId = p.stepId;

@@ -10,13 +10,15 @@
 #import "Defines.h"
 #import "OperatorTargetCell.h"
 #import "UserModel.h"
+#import "DailyLogInputScreen.h"
 
 @protocol OperatorTargetViewProtocol;
 
-@interface OperatorTargetView : UIView <UITableViewDelegate, UITableViewDataSource, OperatorTargetCellProtocol>
+@interface OperatorTargetView : UIView <UITableViewDelegate, UITableViewDataSource, OperatorTargetCellProtocol, DailyLogInputProtocol>
 
 @property (nonatomic, strong) UserModel *user;
 @property (nonatomic, unsafe_unretained) id <OperatorTargetViewProtocol> delegate;
+@property (nonatomic, unsafe_unretained) UIViewController *parent;
 
 __CREATEVIEWH(OperatorTargetView)
 

@@ -264,6 +264,7 @@
     
     _flowView3 = [OperatorTargetView createView];
     _flowView3.delegate = self;
+    _flowView3.parent = self;
     _flowView3.translatesAutoresizingMaskIntoConstraints = false;
     [LayoutUtils addContraintWidth:668 andHeight:687 forView:_flowView3];
     [self.view addSubview:_flowView3];

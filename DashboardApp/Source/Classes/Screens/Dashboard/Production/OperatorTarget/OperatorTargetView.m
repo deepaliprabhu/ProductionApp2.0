@@ -12,6 +12,7 @@
 #import "NSDate+Utils.h"
 #import "ProcessModel.h"
 #import "DayLogModel.h"
+#import "UIView+Screenshot.h"
 
 @implementation OperatorTargetView {
     
@@ -21,6 +22,8 @@
     
     NSMutableArray *_runs;
     NSMutableArray *_processesForSelectedDay;
+    
+    int _selectedProcess;
 }
 
 + (OperatorTargetView*) createView
@@ -88,6 +91,47 @@
 
 - (void) inputLogAt:(int)index {
     
+    _selectedProcess = index;
+    NSDictionary *data = _processesForSelectedDay[index];
+    
+    DailyLogInputScreen *screen = [[DailyLogInputScreen alloc] initWithNibName:@"DailyLogInputScreen" bundle:nil];
+    screen.image = [self.superview screenshot];
+    screen.delegate = self;
+    screen.process = data[@"process"];
+    screen.dayLog = data[@"dayModel"];
+    screen.run = data[@"run"];
+    [_parent presentViewController:screen animated:true completion:nil];
+}
+
+#pragma mark - DayLogInputProtocol
+
+- (void) newLogAdded:(NSDictionary *)data {
+    
+}
+
+- (void) updateLog:(NSDictionary *)data {
+ 
+    DayLogModel *day = [DayLogModel objFromData:data];
+    
+    NSDictionary *dict = _processesForSelectedDay[_selectedProcess];
+    Run *run = dict[@"run"];
+    for (Run *r in _runs) {
+        
+        if ([r getRunId] == [run getRunId]) {
+            
+            NSMutableArray *arr = [NSMutableArray arrayWithArray:r.days];
+            for (int i=0;i<arr.count;i++) {
+                DayLogModel *d = arr[i];
+                if ([d.processId isEqualToString:day.processId] && [d.processNo isEqualToString:day.processNo]) {
+                    [arr replaceObjectAtIndex:i withObject:day];
+                    break;
+                }
+            }
+            r.days = arr;
+            [self getRunningProcesses];
+            break;
+        }
+    }
 }
 
 #pragma mark - Utils
@@ -204,6 +248,7 @@
     NSCalendar *cal = [NSCalendar currentCalendar];
     
     _processesForSelectedDay = [NSMutableArray array];
+    [_tableView reloadData];
     for (Run *r in _runs) {
         
         for (ProcessModel *p in r.processes) {

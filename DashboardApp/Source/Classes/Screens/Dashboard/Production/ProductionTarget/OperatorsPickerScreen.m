@@ -20,7 +20,7 @@
     
     [super viewDidLoad];
     
-    float h = MIN(_operators.count*44, 616);
+    float h = MIN((_operators.count+1)*44, 616);
     self.preferredContentSize = CGSizeMake(320, h);
 }
 
@@ -31,7 +31,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _operators.count;
+    return _operators.count+1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -42,15 +42,22 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
-    UserModel *u = _operators[indexPath.row];
-    cell.textLabel.text = u.name;
+    if (indexPath.row == 0)
+        cell.textLabel.text = @"None";
+    else {
+        UserModel *u = _operators[indexPath.row-1];
+        cell.textLabel.text = u.name;
+    }
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
  
-    [_delegate operatorChangedTo:_operators[indexPath.row]];
+    if (indexPath.row == 0)
+        [_delegate operatorChangedTo:nil];
+    else
+        [_delegate operatorChangedTo:_operators[indexPath.row-1]];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
