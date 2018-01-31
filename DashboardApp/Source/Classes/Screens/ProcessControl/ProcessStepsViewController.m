@@ -28,7 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    _processListTableView.editing = true;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification
@@ -1037,6 +1036,7 @@
     }
     else {
         pcbProductId = pcbProductsArray[index];
+        selectedProduct.pcbProductID = pcbProductId;
     }
 }
 
