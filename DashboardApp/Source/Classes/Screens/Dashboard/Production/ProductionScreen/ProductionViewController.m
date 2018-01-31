@@ -206,6 +206,12 @@
     [self computeRuns];
 }
 
+- (void) newProcessTimeWasSet {
+    
+    [_operatorsSchedule removeAllObjects];
+    [self computeRuns];
+}
+
 #pragma mark - ProductionOverviewProcotol
 
 - (void) goToTargets {

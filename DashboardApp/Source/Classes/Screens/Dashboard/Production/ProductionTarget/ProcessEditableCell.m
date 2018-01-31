@@ -23,6 +23,7 @@ static UIFont *_font = nil;
     
     __weak IBOutlet NSLayoutConstraint *_targetButtonConstraint;
     __weak IBOutlet NSLayoutConstraint *_operatorButtonConstraint;
+    __weak IBOutlet NSLayoutConstraint *_processTimeButtonConstraint;
     
     int _row;
 }
@@ -59,7 +60,13 @@ static UIFont *_font = nil;
     
     ProcessModel * p = dict[@"process"];
     _processLabel.text = p.processName;
-    _timeLabel.text = [self timeForSeconds:[dict[@"processingTime"] intValue]];
+    
+    NSString *time = [self timeForSeconds:[p.processingTime intValue]];
+    _timeLabel.text = time;
+    w = [LayoutUtils widthForText:time withFont:_font];
+    if (w>72)
+        w=72;
+    _processTimeButtonConstraint.constant = w/2 + 12;
     
     [self layoutIfNeeded];
 }
@@ -93,6 +100,10 @@ static UIFont *_font = nil;
     
     CGRect r = [self convertRect:_operatorLabel.frame toView:self.superview.superview.superview];
     [_delegate showOperatorsForRow:_row rect:r];
+}
+
+- (IBAction) processTimeButtonTapped {
+    [_delegate showProcessTimeInputForRow:_row];
 }
 
 @end

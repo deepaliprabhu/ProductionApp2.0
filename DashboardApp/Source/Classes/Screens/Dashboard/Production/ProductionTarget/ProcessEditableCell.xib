@@ -87,6 +87,13 @@
                             <action selector="operatorButtonTapped" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Wi9-Iq-klZ"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F7u-aD-La3">
+                        <rect key="frame" x="364" y="0.0" width="72" height="42"/>
+                        <state key="normal" image="disclosureAsset"/>
+                        <connections>
+                            <action selector="processTimeButtonTapped" destination="KGk-i7-Jjw" eventType="touchUpInside" id="CUh-bB-eor"/>
+                        </connections>
+                    </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cellSeparatorAsset" translatesAutoresizingMaskIntoConstraints="NO" id="kzc-J6-wp3">
                         <rect key="frame" x="0.0" y="41" width="594" height="1"/>
                         <constraints>
@@ -97,11 +104,14 @@
                 <constraints>
                     <constraint firstItem="cb4-vj-oHE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="04a-5u-CSz"/>
                     <constraint firstItem="lOV-OY-Q7n" firstAttribute="centerY" secondItem="cb4-vj-oHE" secondAttribute="centerY" id="0UH-P4-LzC"/>
+                    <constraint firstItem="F7u-aD-La3" firstAttribute="height" secondItem="hM6-wS-35T" secondAttribute="height" constant="16" id="7ca-g0-aFS"/>
                     <constraint firstItem="JhR-yK-WhK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="9Td-a2-OyH"/>
                     <constraint firstItem="lOV-OY-Q7n" firstAttribute="width" secondItem="cb4-vj-oHE" secondAttribute="width" id="B4h-Wp-1Oo"/>
                     <constraint firstItem="hnS-Gm-zs8" firstAttribute="leading" secondItem="LjC-uB-5em" secondAttribute="trailing" constant="8" id="KCg-qQ-vme"/>
                     <constraint firstItem="8iF-kI-Y3c" firstAttribute="height" secondItem="JhR-yK-WhK" secondAttribute="height" constant="16" id="KTC-Sr-dKJ"/>
+                    <constraint firstItem="F7u-aD-La3" firstAttribute="width" secondItem="hM6-wS-35T" secondAttribute="width" id="OhV-is-L9K"/>
                     <constraint firstItem="8iF-kI-Y3c" firstAttribute="centerX" secondItem="JhR-yK-WhK" secondAttribute="centerX" id="Q3X-dn-I6C"/>
+                    <constraint firstItem="F7u-aD-La3" firstAttribute="centerY" secondItem="hM6-wS-35T" secondAttribute="centerY" id="R6l-oE-Nj7"/>
                     <constraint firstItem="8iF-kI-Y3c" firstAttribute="width" secondItem="JhR-yK-WhK" secondAttribute="width" id="RMj-Xv-04X"/>
                     <constraint firstItem="JhR-yK-WhK" firstAttribute="leading" secondItem="hM6-wS-35T" secondAttribute="trailing" constant="10" id="SHd-2W-t2B"/>
                     <constraint firstItem="cb4-vj-oHE" firstAttribute="leading" secondItem="hnS-Gm-zs8" secondAttribute="trailing" constant="8" id="TEo-PL-WmQ"/>
@@ -116,12 +126,14 @@
                     <constraint firstItem="8iF-kI-Y3c" firstAttribute="centerY" secondItem="JhR-yK-WhK" secondAttribute="centerY" id="qde-Sd-OII"/>
                     <constraint firstItem="LjC-uB-5em" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="uEw-e3-Zd0"/>
                     <constraint firstItem="lOV-OY-Q7n" firstAttribute="height" secondItem="cb4-vj-oHE" secondAttribute="height" constant="16" id="vyd-fK-tFc"/>
+                    <constraint firstItem="F7u-aD-La3" firstAttribute="centerX" secondItem="hM6-wS-35T" secondAttribute="centerX" id="xj0-4V-mVk"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="_operatorButtonConstraint" destination="Q3X-dn-I6C" id="3sM-My-SUm"/>
                 <outlet property="_operatorLabel" destination="JhR-yK-WhK" id="0i9-JQ-O4A"/>
                 <outlet property="_processLabel" destination="LjC-uB-5em" id="oIf-jX-4IG"/>
+                <outlet property="_processTimeButtonConstraint" destination="xj0-4V-mVk" id="QUP-kX-af1"/>
                 <outlet property="_statusLabel" destination="hnS-Gm-zs8" id="cJb-z7-ffj"/>
                 <outlet property="_targetButtonConstraint" destination="V5d-Od-aHn" id="rSG-Sf-qAc"/>
                 <outlet property="_targetLabel" destination="cb4-vj-oHE" id="nhD-gg-HNg"/>

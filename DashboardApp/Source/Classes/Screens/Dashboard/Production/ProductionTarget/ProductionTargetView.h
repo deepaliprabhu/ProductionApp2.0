@@ -28,5 +28,6 @@ __CREATEVIEWH(ProductionTargetView)
 
 - (void) goBackFromTargetView;
 - (void) newTargeWasSet;
+- (void) newProcessTimeWasSet;
 
 @end

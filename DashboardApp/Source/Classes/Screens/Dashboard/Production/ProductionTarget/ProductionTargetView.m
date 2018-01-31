@@ -129,15 +129,33 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if (buttonIndex == 0) {
-        
+    
         int target = [[alertView textFieldAtIndex:0].text intValue];
         if (target >= 0) {
-            [self targetChangedTo:target];
+            if (alertView.tag == 1) {
+                [self processTimeChangedTo:target];
+            } else {
+                [self targetChangedTo:target];
+            }
         }
     }
 }
 
 #pragma mark - CellProtocol
+
+- (void) showProcessTimeInputForRow:(int)row {
+    
+    _selectedProcess = row;
+    
+    NSMutableArray *localProcesses = [NSMutableArray arrayWithArray:_runs[_selectedRunIndex][@"processes"]];
+    NSDictionary *data = localProcesses[_selectedProcess];
+    ProcessModel *p = data[@"process"];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:p.processName message:@"Insert processing time for this process(seconds):" delegate:self cancelButtonTitle:@"Save" otherButtonTitles:@"Cancel", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alert.tag = 1;
+    [alert show];
+}
 
 - (void) showOperatorsForRow:(int)row rect:(CGRect)rect {
     
@@ -164,6 +182,46 @@
 }
 
 #pragma mark - OperatorProtocol
+
+- (void) processTimeChangedTo:(int)seconds {
+ 
+    NSMutableArray *localProcesses = [NSMutableArray arrayWithArray:_runs[_selectedRunIndex][@"processes"]];
+    NSDictionary *data = localProcesses[_selectedProcess];
+    ProcessModel *p = data[@"process"];
+    
+    NSArray *processes = [__DataManager getCommonProcesses];
+    NSDictionary *dict = nil;
+    int index = -1;
+    for (int i=0; i<processes.count; i++) {
+        NSDictionary *d = processes[i];
+        if ([d[@"processno"] isEqualToString:p.processNo]) {
+            dict = d;
+            index = i;
+            break;
+        }
+    }
+    
+    if (dict != nil) {
+        
+        NSString *secondsString = [NSString stringWithFormat:@"%d", seconds];
+        NSMutableDictionary *processData = [NSMutableDictionary dictionaryWithDictionary:dict];
+        [processData setObject:secondsString forKey:@"time"];
+        
+        [__DataManager updateProcessAtIndex:index process:processData];
+        [__DataManager syncCommonProcesses];
+        
+        p.processingTime = secondsString;
+        
+        Run *r = _runs[_selectedRunIndex][@"run"];
+        NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:data];
+        newDict[@"process"] = p;
+        [localProcesses replaceObjectAtIndex:_selectedProcess withObject:newDict];
+        [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"processes": localProcesses}];
+        [_processesTable reloadData];
+        
+        [_delegate newProcessTimeWasSet];
+    }
+}
 
 - (void) targetChangedTo:(int)newTarget {
     
@@ -337,7 +395,7 @@
         
         if (t < [r quantity]) {
             NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
-            NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"process": p, @"status":status, @"processingTime":p.processingTime}];
+            NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"process": p, @"status":status}];
             if (dayModel)
                 d[@"dayModel"] = dayModel;
             [processesForSelectedRun addObject:d];
