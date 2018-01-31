@@ -28,7 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    _processListTableView.editing = true;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification
@@ -305,6 +304,9 @@
 
     if ([tableView isEqual:_productListTableView]) {
         _productDetailView.hidden = false;
+        _changeOrderButton.hidden = true;
+        [_changeOrderButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [_processListTableView setEditing:false];
         [_pcbProductIdButton setTitle:@"Select PCB" forState:UIControlStateNormal];
         [_puneApprovalButton setTitle:@"Submit Pune" forState:UIControlStateNormal];
         [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
@@ -332,6 +334,18 @@
         [self setUpWorkInstructionsForString:selectedProcessData[@"workinstructions"]];
         [self showProcessInfoViewWithData:selectedProcessData];
     }
+}
+
+- (IBAction)changeOrderPressed:(UIButton*)sender {
+    if (_processListTableView.isEditing) {
+        [_processListTableView setEditing:false];
+        [_changeOrderButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    }
+    else {
+        [_processListTableView setEditing:true];
+        [_changeOrderButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    }
+    [_processListTableView reloadData];
 }
 
 - (void) changeOrderFrom:(int)from to:(int)to {
@@ -380,7 +394,11 @@
     }
     _productNameLabel.text = product.name;
     _productIdLabel.text = product.productNumber;
-    [_pcbProductIdButton setTitle:product.pcbProductID forState:UIControlStateNormal];
+    
+    if (![product.pcbProductID isEqualToString:@"--"]&&![product.pcbProductID isEqualToString:@""]) {
+        [_pcbProductIdButton setTitle:product.pcbProductID forState:UIControlStateNormal];
+    }
+    
     if ([product photoURL] == nil)
         [_productImageView setImage:[UIImage imageNamed:@"placeholder.png"]];
     else
@@ -390,7 +408,9 @@
             //[_spinner stopAnimating];
         }];
     }
+    
     if ([product getProcessSteps].count > 0) {
+        _changeOrderButton.hidden = false;
         processStepsArray = [product getProcessSteps];
         [_processListTableView reloadData];
         [self setUpCommonProcessTable];
@@ -398,7 +418,7 @@
             pcbProductId = product.pcbProductID;
         }
         [self setupForStatus:product.status];
-        NSLog(@"product status = %@",product.productStatus);
+        NSLog(@"product status = %@",product.status);
     }
     else {
         [self getProcessFlowForProduct:product];
@@ -482,6 +502,7 @@
     if ([json isKindOfClass:[NSArray class]]){
         NSLog(@"json Array = %@",json);
         if (json.count > 0) {
+            _changeOrderButton.hidden = false;
             NSDictionary *jsonDict = json[0];
             NSMutableArray* jsonProcessesArray = jsonDict[@"processes"];
             NSLog(@"json processes array=%@",jsonProcessesArray);
@@ -510,7 +531,7 @@
 - (void)setupForStatus:(NSString*)status {
    // _processNoLabel.text = [NSString stringWithFormat:@"%@ (DRAFT)", processCntrlId];
 
-    if ([status isEqualToString:@"OPEN"]||[status isEqualToString:@"Draft"]||[status isEqualToString:@"Open"]) {
+    if ([status isEqualToString:@"OPEN"]||[status isEqualToString:@"Draft"]||[status isEqualToString:@"Open"]||[status isEqualToString:@"archive"]) {
        // _processNoLabel.text = [NSString stringWithFormat:@"%@ (DRAFT)", processCntrlId];
         [_puneApprovalButton setTitle:@"Submit Pune" forState:UIControlStateNormal];
         [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
@@ -1015,6 +1036,7 @@
     }
     else {
         pcbProductId = pcbProductsArray[index];
+        selectedProduct.pcbProductID = pcbProductId;
     }
 }
 
