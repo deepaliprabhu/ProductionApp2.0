@@ -111,6 +111,8 @@
 
 - (void) updateLog:(NSDictionary *)data {
  
+    [_delegate newInputLogSet];
+    
     DayLogModel *day = [DayLogModel objFromData:data];
     
     NSDictionary *dict = _processesForSelectedDay[_selectedProcess];

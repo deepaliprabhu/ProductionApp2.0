@@ -15,6 +15,7 @@
 #import "ProcessModel.h"
 #import "DayLogModel.h"
 #import "Constants.h"
+#import "UserManager.h"
 
 @implementation ProductionOverview {
     
@@ -45,6 +46,8 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     } else {
         [self computeRuns];
     }
+    
+    _targetButton.alpha = [[[UserManager sharedInstance] loggedUser] isAdmin];
 }
 
 - (void) dealloc {

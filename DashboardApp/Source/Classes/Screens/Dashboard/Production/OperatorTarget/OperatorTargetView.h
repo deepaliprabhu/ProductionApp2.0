@@ -29,5 +29,6 @@ __CREATEVIEWH(OperatorTargetView)
 @protocol OperatorTargetViewProtocol <NSObject>
 
 - (void) goBackFromOperatorView;
+- (void) newInputLogSet;
 
 @end

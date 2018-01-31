@@ -44,9 +44,13 @@
     
     NSMutableArray *_runs;
     NSMutableDictionary *_operatorsSchedule;
+    
+    int _selectedOperator;
 }
 
 - (void)viewDidLoad {
+    
+    _selectedOperator = -1;
     
     [super viewDidLoad];
     [self initLayout];
@@ -110,12 +114,16 @@
     }
     
     UserModel *user = _operators[indexPath.row];
-    [cell layoutWithPerson:user time:[_operatorsSchedule[user.name] intValue]];
+    NSArray *times = _operatorsSchedule[user.name];
+    [cell layoutWithPerson:user time:[times[0] intValue] completed:[times[1] intValue] selected:_selectedOperator==indexPath.row];
     
     return cell;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    _selectedOperator = (int)indexPath.row;
+    [tableView reloadData];
     
     UserModel *user = _operators[indexPath.row];
     
@@ -157,6 +165,7 @@
 
 - (void) goBackFromOperatorView {
     
+    _selectedOperator = -1;
     [_operatorsTable reloadData];
     
     [UIView animateWithDuration:0.2 animations:^{
@@ -168,6 +177,12 @@
             [_flowView1 reloadData];
         }];
     }];
+}
+
+- (void) newInputLogSet {
+    
+    [_operatorsSchedule removeAllObjects];
+    [self computeRuns];
 }
 
 #pragma mark - ProductionTargetViewProtocol
@@ -429,10 +444,14 @@
             for (DayLogModel *d in r.days) {
                 if ((d.processId == p.stepId) && [cal isDate:d.date inSameDayAsDate:today] && (d.person.length > 0)) {
                     int time = [p.processingTime intValue]*d.goal;
+                    int proc = [p.processingTime intValue]*d.target;
                     if (_operatorsSchedule[d.person] == nil)
-                        _operatorsSchedule[d.person] = @(time);
+                        _operatorsSchedule[d.person] = @[@(time), @(proc)];
                     else
-                        _operatorsSchedule[d.person] = @([_operatorsSchedule[d.person] intValue]+time);
+                    {
+                        NSArray *times = _operatorsSchedule[d.person];
+                        _operatorsSchedule[d.person] = @[@([times[0] intValue]+time), @([times[1] intValue]+proc)]; 
+                    }
                 }
             }
         }

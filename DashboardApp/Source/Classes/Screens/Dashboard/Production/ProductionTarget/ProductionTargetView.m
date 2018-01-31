@@ -131,7 +131,7 @@
     if (buttonIndex == 0) {
         
         int target = [[alertView textFieldAtIndex:0].text intValue];
-        if (target > 0) {
+        if (target >= 0) {
             [self targetChangedTo:target];
         }
     }
