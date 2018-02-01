@@ -26,18 +26,28 @@
                         <constraint firstAttribute="height" constant="20" id="2JA-AJ-VOn"/>
                     </constraints>
                 </view>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eiG-kM-ffy">
-                    <rect key="frame" x="502" y="374" width="20" height="20"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bgViewAsset" translatesAutoresizingMaskIntoConstraints="NO" id="Uj8-N9-TFJ">
+                    <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                </imageView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="eiG-kM-ffy">
+                    <rect key="frame" x="494" y="190.5" width="37" height="37"/>
                 </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="0.95123898659999995" green="0.96497924199999996" blue="0.97589627950000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="Uj8-N9-TFJ" firstAttribute="top" secondItem="cM5-7f-QE1" secondAttribute="bottom" id="4Sw-nH-1uw"/>
                 <constraint firstAttribute="trailing" secondItem="cM5-7f-QE1" secondAttribute="trailing" id="Af7-HC-Bm5"/>
                 <constraint firstItem="cM5-7f-QE1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="FqW-n0-6IX"/>
-                <constraint firstItem="eiG-kM-ffy" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Usy-ca-DEG"/>
+                <constraint firstItem="Uj8-N9-TFJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ONa-DD-Ziw"/>
+                <constraint firstItem="eiG-kM-ffy" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-175" id="Usy-ca-DEG"/>
                 <constraint firstItem="cM5-7f-QE1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lOz-Rc-BiV"/>
                 <constraint firstItem="eiG-kM-ffy" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ssT-Pv-QG5"/>
+                <constraint firstAttribute="trailing" secondItem="Uj8-N9-TFJ" secondAttribute="trailing" id="t90-NV-3UI"/>
+                <constraint firstAttribute="bottom" secondItem="Uj8-N9-TFJ" secondAttribute="bottom" id="zEB-dW-G5c"/>
             </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="bgViewAsset" width="1024" height="747"/>
+    </resources>
 </document>
