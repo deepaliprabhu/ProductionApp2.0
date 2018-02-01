@@ -46,6 +46,8 @@
     NSMutableDictionary *_operatorsSchedule;
     
     int _selectedOperator;
+    
+    NSDate *_selectedDate;
 }
 
 - (void)viewDidLoad {
@@ -67,16 +69,19 @@
 
 - (IBAction) todayButtonTapped {
     
+    _selectedDate = [NSDate date];
     [self changeSelectionTo:0];
 }
 
 - (IBAction) yesterdayButtonTapped {
     
+    _selectedDate = [[NSDate date] dateByAddingTimeInterval:-3600*24];
     [self changeSelectionTo:1];
 }
 
 - (IBAction) tomorrowButtonTapped {
     
+    _selectedDate = [[NSDate date] dateByAddingTimeInterval:3600*24];
     [self changeSelectionTo:2];
 }
 
@@ -242,26 +247,37 @@
     [self.navigationController pushViewController:screen animated:true];
 }
 
+- (NSDate *)selectedDate {
+    return _selectedDate;
+}
+
 #pragma mark - Layout
 
 - (void) initLayout {
     
-    NSDate *date = [NSDate date];
+    _selectedDate = [NSDate date];
     
     NSDateFormatter *f = [NSDateFormatter new];
     f.dateFormat = @"dd MMM";
-    _todayLabel.text = [[f stringFromDate:date] uppercaseString];
+    _todayLabel.text = [[f stringFromDate:_selectedDate] uppercaseString];
     
-    NSString *t = [[f stringFromDate: [date dateByAddingTimeInterval:24*3600]] uppercaseString];
+    NSString *t = [[f stringFromDate: [_selectedDate dateByAddingTimeInterval:24*3600]] uppercaseString];
     [_tomorrowButton setTitle:t forState:UIControlStateNormal];
     
-    NSString *y = [[f stringFromDate: [date dateByAddingTimeInterval:-24*3600]] uppercaseString];
+    NSString *y = [[f stringFromDate: [_selectedDate dateByAddingTimeInterval:-24*3600]] uppercaseString];
     [_yesterdayButton setTitle:y forState:UIControlStateNormal];
     
     [self addFlowView1];
 }
 
 - (void) changeSelectionTo:(int)index {
+    
+    if (_flowView1.alpha == 1)
+        [_flowView1 reloadData];
+    else if (_flowView2.alpha == 1)
+        [_flowView2 reloadData];
+    else
+        [_flowView3 reloadData];
     
     _selectionViewLeadingConstraint.constant = [_selectionConstants[index][0] floatValue];
     _selectionViewWidthConstraint.constant = [_selectionConstants[index][1] floatValue];

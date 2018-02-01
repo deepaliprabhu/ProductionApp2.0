@@ -18,6 +18,10 @@
     return startOfWeek;
 }
 
+- (BOOL) isSameDayWithDate:(NSDate*)date {
+    return [[NSCalendar currentCalendar] isDate:self inSameDayAsDate:date];
+}
+
 - (BOOL) isSameWeekWithDate:(NSDate *)date {
     
     if (ABS(self.timeIntervalSince1970 - date.timeIntervalSince1970) > (7 * 24 * 60 * 60)) {

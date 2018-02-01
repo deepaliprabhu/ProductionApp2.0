@@ -30,5 +30,6 @@ __CREATEVIEWH(OperatorTargetView)
 
 - (void) goBackFromOperatorView;
 - (void) newInputLogSet;
+- (NSDate*) selectedDate;
 
 @end

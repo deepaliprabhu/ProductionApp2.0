@@ -131,7 +131,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
                             
                             NSString *dateStr = d[@"SCHEDULED"];
                             NSDate *date = [f dateFromString:dateStr];
-                            if ([date isThisWeek]) {
+                            if ([date isSameWeekWithDate:[_delegate selectedDate]]) {
                                 [_runs addObject:r];
                                 break;
                             }
@@ -216,7 +216,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
 
 - (void) getRunningProcesses {
     
-    NSDate *today = [NSDate date];
+    NSDate *today = [_delegate selectedDate];
     NSCalendar *cal = [NSCalendar currentCalendar];
     
     _processesForThisWeek = [NSMutableArray array];

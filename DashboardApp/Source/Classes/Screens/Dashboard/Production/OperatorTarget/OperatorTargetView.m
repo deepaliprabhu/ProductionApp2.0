@@ -13,6 +13,7 @@
 #import "ProcessModel.h"
 #import "DayLogModel.h"
 #import "UIView+Screenshot.h"
+#import "LoadingView.h"
 
 @implementation OperatorTargetView {
     
@@ -91,16 +92,22 @@
 
 - (void) inputLogAt:(int)index {
     
-    _selectedProcess = index;
-    NSDictionary *data = _processesForSelectedDay[index];
-    
-    DailyLogInputScreen *screen = [[DailyLogInputScreen alloc] initWithNibName:@"DailyLogInputScreen" bundle:nil];
-    screen.image = [self.superview screenshot];
-    screen.delegate = self;
-    screen.process = data[@"process"];
-    screen.dayLog = data[@"dayModel"];
-    screen.run = data[@"run"];
-    [_parent presentViewController:screen animated:true completion:nil];
+    if ([[_delegate selectedDate] isSameDayWithDate:[NSDate date]] == false) {
+        
+        [LoadingView showShortMessage:@"Daily log can be inserted only for today's processes"];
+    } else {
+        
+        _selectedProcess = index;
+        NSDictionary *data = _processesForSelectedDay[index];
+        
+        DailyLogInputScreen *screen = [[DailyLogInputScreen alloc] initWithNibName:@"DailyLogInputScreen" bundle:nil];
+        screen.image = [self.superview screenshot];
+        screen.delegate = self;
+        screen.process = data[@"process"];
+        screen.dayLog = data[@"dayModel"];
+        screen.run = data[@"run"];
+        [_parent presentViewController:screen animated:true completion:nil];
+    }
 }
 
 #pragma mark - DayLogInputProtocol
@@ -161,7 +168,7 @@
                             
                             NSString *dateStr = d[@"SCHEDULED"];
                             NSDate *date = [f dateFromString:dateStr];
-                            if ([date isThisWeek]) {
+                            if ([date isSameWeekWithDate:[_delegate selectedDate]]) {
                                 [_runs addObject:r];
                                 break;
                             }
@@ -246,7 +253,7 @@
 
 - (void) getRunningProcesses {
     
-    NSDate *today = [NSDate date];
+    NSDate *today = [_delegate selectedDate];
     NSCalendar *cal = [NSCalendar currentCalendar];
     
     _processesForSelectedDay = [NSMutableArray array];

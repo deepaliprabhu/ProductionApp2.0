@@ -14,5 +14,7 @@
 - (BOOL) isThisWeek;
 - (BOOL) isLastWeek;
 - (BOOL) isNextWeek;
+- (BOOL) isSameWeekWithDate:(NSDate *)date;
+- (BOOL) isSameDayWithDate:(NSDate*)date;
 
 @end

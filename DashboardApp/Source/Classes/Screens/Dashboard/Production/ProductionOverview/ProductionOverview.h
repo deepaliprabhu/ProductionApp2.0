@@ -27,5 +27,6 @@ __CREATEVIEWH(ProductionOverview)
 
 - (void) goToTargets;
 - (void) showDetailsForRun:(Run*)r;
+- (NSDate*) selectedDate;
 
 @end

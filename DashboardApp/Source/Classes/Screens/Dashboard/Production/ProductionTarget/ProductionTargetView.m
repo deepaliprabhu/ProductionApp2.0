@@ -159,26 +159,38 @@
 
 - (void) showOperatorsForRow:(int)row rect:(CGRect)rect {
     
-    _selectedProcess = row;
-    
-    OperatorsPickerScreen *screen = [[OperatorsPickerScreen alloc] init];
-    screen.delegate = self;
-    screen.operators = _operators;
-    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
-    [popover presentPopoverFromRect:rect inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
+    if ([[_delegate selectedDate] isSameDayWithDate:[NSDate date]] == false) {
+     
+        [LoadingView showShortMessage:@"Operator can be changed only for today's processes"];
+    } else {
+        
+        _selectedProcess = row;
+        
+        OperatorsPickerScreen *screen = [[OperatorsPickerScreen alloc] init];
+        screen.delegate = self;
+        screen.operators = _operators;
+        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+        [popover presentPopoverFromRect:rect inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
+    }
 }
 
 - (void) showTargetInputForRow:(int)row rect:(CGRect)rect {
     
-    _selectedProcess = row;
-    
-    NSMutableArray *processes = [NSMutableArray arrayWithArray:_runs[_selectedRunIndex][@"processes"]];
-    NSDictionary *dict = processes[_selectedProcess];
-    ProcessModel *p = dict[@"process"];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:p.processName message:@"Insert a target value for this process:" delegate:self cancelButtonTitle:@"Save" otherButtonTitles:@"Cancel", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alert show];
+    if ([[_delegate selectedDate] isSameDayWithDate:[NSDate date]] == false) {
+        
+        [LoadingView showShortMessage:@"Target can be changed only for today's processes"];
+    } else {
+        
+        _selectedProcess = row;
+        
+        NSMutableArray *processes = [NSMutableArray arrayWithArray:_runs[_selectedRunIndex][@"processes"]];
+        NSDictionary *dict = processes[_selectedProcess];
+        ProcessModel *p = dict[@"process"];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:p.processName message:@"Insert a target value for this process:" delegate:self cancelButtonTitle:@"Save" otherButtonTitles:@"Cancel", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [alert show];
+    }
 }
 
 #pragma mark - OperatorProtocol
@@ -297,7 +309,7 @@
                             
                             NSString *dateStr = d[@"SCHEDULED"];
                             NSDate *date = [f dateFromString:dateStr];
-                            if ([date isThisWeek]) {
+                            if ([date isSameWeekWithDate:[_delegate selectedDate]]) {
                                 [_runs addObject:@{@"run":r}];
                                 if (_runs.count == 1)
                                     [self getProcessesForSelectedRun];
@@ -374,7 +386,7 @@
 
 - (void) getRunningProcessesFrom:(NSArray*)processes andDays:(NSArray*)days {
     
-    NSDate *today = [NSDate date];
+    NSDate *today = [_delegate selectedDate];
     NSCalendar *cal = [NSCalendar currentCalendar];
     
     Run *r = _runs[_selectedRunIndex][@"run"];
