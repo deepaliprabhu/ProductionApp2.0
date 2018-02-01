@@ -44,6 +44,10 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GYg-ca-ZKl">
                     <rect key="frame" x="0.0" y="20" width="1024" height="61"/>
                     <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="navBarBgAsset" translatesAutoresizingMaskIntoConstraints="NO" id="UM2-0l-TEp">
+                            <rect key="frame" x="0.0" y="0.0" width="1024" height="61"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shorts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMB-og-0O7">
                             <rect key="frame" x="262" y="18" width="500" height="25"/>
                             <constraints>
@@ -59,7 +63,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="18"/>
                             <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="Dashboard" image="backButtonIcon"/>
+                            <state key="normal" image="backButtonIcon"/>
                             <connections>
                                 <action selector="backButtonTapped" destination="-1" eventType="touchUpInside" id="KrU-qa-OUb"/>
                             </connections>
@@ -776,9 +780,10 @@
         </view>
     </objects>
     <resources>
-        <image name="backButtonIcon" width="36" height="10"/>
+        <image name="backButtonIcon" width="28" height="19"/>
         <image name="checkmarkSelectedIcon" width="20" height="18"/>
         <image name="checkmarkUnselectedIcon" width="20" height="18"/>
         <image name="dropdownPriceIcon" width="15" height="7"/>
+        <image name="navBarBgAsset" width="1024" height="62"/>
     </resources>
 </document>

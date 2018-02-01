@@ -9,6 +9,10 @@
       "idiom" : "universal",
       "filename" : "navBarBgAsset@2x.jpg",
       "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
