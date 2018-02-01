@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "backButtonIcon.png",
+      "filename" : "backButtonIconWhite.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "backButtonIcon@2x.png",
+      "filename" : "backButtonIconWhite@2x.png",
       "scale" : "2x"
     },
     {

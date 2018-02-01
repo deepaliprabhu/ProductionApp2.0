@@ -17,9 +17,6 @@
     IBOutlet UILabel *_demandsCountLabel;
     IBOutlet UILabel *_feedbacksCountLabel;
     IBOutlet UILabel *_processCountLabel;
-    IBOutlet UIButton *_demandListButton;
-    IBOutlet UIButton *_openRunsButton;
-    IBOutlet UIButton *_rmaButton;
     IBOutlet UIImageView *_statsImageView;
     IBOutlet UIImageView *_reportsImageView;
     IBOutlet UIImageView *_productionImageView;

@@ -29,8 +29,6 @@ __CREATEVIEW(OverviewView, @"OverviewView", 0);
 }
 
 - (void)setRunList:(NSMutableArray*)runList {
-    //[_openRunsButton setBadgeEdgeInsets:UIEdgeInsetsMake(10, 3, 3, 12)];
-    //[_openRunsButton setBadgeString:[NSString stringWithFormat:@"%d",[runList count]]];
     _runCountLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)[runList count]];
 }
 

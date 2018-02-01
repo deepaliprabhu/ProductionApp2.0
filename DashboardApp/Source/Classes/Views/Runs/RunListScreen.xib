@@ -63,7 +63,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="18"/>
                             <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" image="backButtonIcon"/>
+                            <state key="normal" image="backButtonIconWhite"/>
                             <connections>
                                 <action selector="backButtonTapped" destination="-1" eventType="touchUpInside" id="PiG-Ae-gfH"/>
                             </connections>
@@ -189,7 +189,7 @@
         </view>
     </objects>
     <resources>
-        <image name="backButtonIcon" width="28" height="19"/>
+        <image name="backButtonIconWhite" width="28" height="19"/>
         <image name="navBarBgAsset" width="1024" height="62"/>
         <image name="refreshIcon" width="19" height="13"/>
         <image name="runScheduleBg" width="357" height="668"/>
