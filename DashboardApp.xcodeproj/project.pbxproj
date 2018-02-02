@@ -269,7 +269,6 @@
 		9FBA7FEB2003EAAE00D2713A /* DemandsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FBA7FE92003EAAE00D2713A /* DemandsViewCell.xib */; };
 		9FC2B0E31F792502008B7F42 /* RNActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC2B0E01F792502008B7F42 /* RNActivityView.m */; };
 		9FC2B0E41F792502008B7F42 /* UIView+RNActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC2B0E21F792502008B7F42 /* UIView+RNActivityView.m */; };
-		9FD12D7B1F43F77200F0E0A8 /* Icon_alpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FD12D7A1F43F77200F0E0A8 /* Icon_alpha.png */; };
 		9FD12D7F1F43FD4400F0E0A8 /* OverviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FD12D7E1F43FD4400F0E0A8 /* OverviewView.m */; };
 		9FD12D811F43FD5600F0E0A8 /* OverviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FD12D801F43FD5600F0E0A8 /* OverviewView.xib */; };
 		9FD12D861F443A3700F0E0A8 /* RunListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FD12D841F443A3700F0E0A8 /* RunListViewCell.m */; };
@@ -744,7 +743,6 @@
 		9FC2B0E01F792502008B7F42 /* RNActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNActivityView.m; sourceTree = "<group>"; };
 		9FC2B0E11F792502008B7F42 /* UIView+RNActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RNActivityView.h"; sourceTree = "<group>"; };
 		9FC2B0E21F792502008B7F42 /* UIView+RNActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RNActivityView.m"; sourceTree = "<group>"; };
-		9FD12D7A1F43F77200F0E0A8 /* Icon_alpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_alpha.png; sourceTree = "<group>"; };
 		9FD12D7D1F43FD4400F0E0A8 /* OverviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewView.h; sourceTree = "<group>"; };
 		9FD12D7E1F43FD4400F0E0A8 /* OverviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewView.m; sourceTree = "<group>"; };
 		9FD12D801F43FD5600F0E0A8 /* OverviewView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverviewView.xib; sourceTree = "<group>"; };
@@ -1918,7 +1916,6 @@
 			isa = PBXGroup;
 			children = (
 				9F252A551F4D46C00056DA8F /* Dashboard */,
-				9FD12D7A1F43F77200F0E0A8 /* Icon_alpha.png */,
 				9F8AF75D1F559441008027B1 /* placeholder.png */,
 				9F71C43D1FC1582900550F86 /* downArrow.png */,
 				9F056B271F433469002F3B61 /* Icon.png */,
@@ -2239,7 +2236,6 @@
 				89AC0AB41FC60E07008CA56B /* CommentsPartCell.xib in Resources */,
 				89512A201FE9327100BF7456 /* ProcessCell.xib in Resources */,
 				8954345E1FF517B900ECDDEE /* BomHistoryScreen.xib in Resources */,
-				9FD12D7B1F43F77200F0E0A8 /* Icon_alpha.png in Resources */,
 				9FD12D811F43FD5600F0E0A8 /* OverviewView.xib in Resources */,
 				9FE99C381FBF242D006B58DE /* FeedbackListViewController.xib in Resources */,
 				9FD12DA71F449FB400F0E0A8 /* RunPartsViewCell.xib in Resources */,

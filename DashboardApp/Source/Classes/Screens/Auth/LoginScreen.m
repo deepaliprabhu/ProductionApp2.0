@@ -41,7 +41,7 @@
 - (void) keyboardUp {
     
     [UIView animateWithDuration:0.3 animations:^{
-        _centerVerticalConstraint.constant = -200;
+        _centerVerticalConstraint.constant = -70;
         [self.view layoutIfNeeded];
     }];
 }
@@ -98,8 +98,11 @@
 //    _userTextField.text = @"guest@aginova.com";
 //    _passwordTextField.text = @"guest123";
     
-    _loginButton.layer.borderWidth = 2;
-    _loginButton.layer.borderColor = ccolor(224, 224, 224).CGColor;
+    _userTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    _passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    
+    _loginButton.layer.borderWidth = 1;
+    _loginButton.layer.borderColor = ccolor(236, 236, 236).CGColor;
 }
 
 @end

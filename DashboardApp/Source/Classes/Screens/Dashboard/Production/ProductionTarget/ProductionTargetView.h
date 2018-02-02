@@ -28,5 +28,7 @@ __CREATEVIEWH(ProductionTargetView)
 
 - (void) goBackFromTargetView;
 - (void) newTargeWasSet;
+- (void) newProcessTimeWasSet;
+- (NSDate*) selectedDate;
 
 @end

@@ -29,5 +29,7 @@ __CREATEVIEWH(OperatorTargetView)
 @protocol OperatorTargetViewProtocol <NSObject>
 
 - (void) goBackFromOperatorView;
+- (void) newInputLogSet;
+- (NSDate*) selectedDate;
 
 @end

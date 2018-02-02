@@ -44,9 +44,15 @@
     
     NSMutableArray *_runs;
     NSMutableDictionary *_operatorsSchedule;
+    
+    int _selectedOperator;
+    
+    NSDate *_selectedDate;
 }
 
 - (void)viewDidLoad {
+    
+    _selectedOperator = -1;
     
     [super viewDidLoad];
     [self initLayout];
@@ -63,16 +69,19 @@
 
 - (IBAction) todayButtonTapped {
     
+    _selectedDate = [NSDate date];
     [self changeSelectionTo:0];
 }
 
 - (IBAction) yesterdayButtonTapped {
     
+    _selectedDate = [[NSDate date] dateByAddingTimeInterval:-3600*24];
     [self changeSelectionTo:1];
 }
 
 - (IBAction) tomorrowButtonTapped {
     
+    _selectedDate = [[NSDate date] dateByAddingTimeInterval:3600*24];
     [self changeSelectionTo:2];
 }
 
@@ -110,12 +119,16 @@
     }
     
     UserModel *user = _operators[indexPath.row];
-    [cell layoutWithPerson:user time:[_operatorsSchedule[user.name] intValue]];
+    NSArray *times = _operatorsSchedule[user.name];
+    [cell layoutWithPerson:user time:[times[0] intValue] completed:[times[1] intValue] selected:_selectedOperator==indexPath.row];
     
     return cell;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    _selectedOperator = (int)indexPath.row;
+    [tableView reloadData];
     
     UserModel *user = _operators[indexPath.row];
     
@@ -157,6 +170,7 @@
 
 - (void) goBackFromOperatorView {
     
+    _selectedOperator = -1;
     [_operatorsTable reloadData];
     
     [UIView animateWithDuration:0.2 animations:^{
@@ -168,6 +182,12 @@
             [_flowView1 reloadData];
         }];
     }];
+}
+
+- (void) newInputLogSet {
+    
+    [_operatorsSchedule removeAllObjects];
+    [self computeRuns];
 }
 
 #pragma mark - ProductionTargetViewProtocol
@@ -186,6 +206,12 @@
 }
 
 - (void) newTargeWasSet {
+    
+    [_operatorsSchedule removeAllObjects];
+    [self computeRuns];
+}
+
+- (void) newProcessTimeWasSet {
     
     [_operatorsSchedule removeAllObjects];
     [self computeRuns];
@@ -221,26 +247,37 @@
     [self.navigationController pushViewController:screen animated:true];
 }
 
+- (NSDate *)selectedDate {
+    return _selectedDate;
+}
+
 #pragma mark - Layout
 
 - (void) initLayout {
     
-    NSDate *date = [NSDate date];
+    _selectedDate = [NSDate date];
     
     NSDateFormatter *f = [NSDateFormatter new];
     f.dateFormat = @"dd MMM";
-    _todayLabel.text = [[f stringFromDate:date] uppercaseString];
+    _todayLabel.text = [[f stringFromDate:_selectedDate] uppercaseString];
     
-    NSString *t = [[f stringFromDate: [date dateByAddingTimeInterval:24*3600]] uppercaseString];
+    NSString *t = [[f stringFromDate: [_selectedDate dateByAddingTimeInterval:24*3600]] uppercaseString];
     [_tomorrowButton setTitle:t forState:UIControlStateNormal];
     
-    NSString *y = [[f stringFromDate: [date dateByAddingTimeInterval:-24*3600]] uppercaseString];
+    NSString *y = [[f stringFromDate: [_selectedDate dateByAddingTimeInterval:-24*3600]] uppercaseString];
     [_yesterdayButton setTitle:y forState:UIControlStateNormal];
     
     [self addFlowView1];
 }
 
 - (void) changeSelectionTo:(int)index {
+    
+    if (_flowView1.alpha == 1)
+        [_flowView1 reloadData];
+    else if (_flowView2.alpha == 1)
+        [_flowView2 reloadData];
+    else
+        [_flowView3 reloadData];
     
     _selectionViewLeadingConstraint.constant = [_selectionConstants[index][0] floatValue];
     _selectionViewWidthConstraint.constant = [_selectionConstants[index][1] floatValue];
@@ -429,10 +466,14 @@
             for (DayLogModel *d in r.days) {
                 if ((d.processId == p.stepId) && [cal isDate:d.date inSameDayAsDate:today] && (d.person.length > 0)) {
                     int time = [p.processingTime intValue]*d.goal;
+                    int proc = [p.processingTime intValue]*d.target;
                     if (_operatorsSchedule[d.person] == nil)
-                        _operatorsSchedule[d.person] = @(time);
+                        _operatorsSchedule[d.person] = @[@(time), @(proc)];
                     else
-                        _operatorsSchedule[d.person] = @([_operatorsSchedule[d.person] intValue]+time);
+                    {
+                        NSArray *times = _operatorsSchedule[d.person];
+                        _operatorsSchedule[d.person] = @[@([times[0] intValue]+time), @([times[1] intValue]+proc)]; 
+                    }
                 }
             }
         }

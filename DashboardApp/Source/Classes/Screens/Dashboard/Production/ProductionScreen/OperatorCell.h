@@ -11,6 +11,6 @@
 
 @interface OperatorCell : UITableViewCell
 
-- (void) layoutWithPerson:(UserModel*)user time:(int)time;
+- (void) layoutWithPerson:(UserModel*)user time:(int)time completed:(int)compl selected:(BOOL)s;
 
 @end

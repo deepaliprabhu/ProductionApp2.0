@@ -47,8 +47,8 @@
     [center addObserver:self selector:@selector(initDemands) name:kNotificationDemandsReceived object:nil];
     [center addObserver:self selector:@selector(initFeedbacks) name:kNotificationFeedbacksReceived object:nil];
     [center addObserver:self selector:@selector(initProducts) name:kNotificationProductsReceived object:nil];
-    
-    self.navigationController.navigationBar.hidden = true;
+
+    [self initLayout];
 
     UIImage *iconDone = [UIImage imageWithIcon:@"fa-calendar-check-o" backgroundColor:[UIColor clearColor] iconColor:[UIColor blackColor] fontSize:25];
     _doneImageView.image = iconDone;
@@ -444,6 +444,16 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
     nav.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:nav animated:true completion:nil];
+}
+
+#pragma mark - Utils
+
+- (void) initLayout {
+    
+    _leftPaneView.layer.shadowOffset = ccs(0, 1);
+    _leftPaneView.layer.shadowColor = [UIColor blackColor].CGColor;
+    _leftPaneView.layer.shadowRadius = 2;
+    _leftPaneView.layer.shadowOpacity = 0.2;
 }
 
 @end
