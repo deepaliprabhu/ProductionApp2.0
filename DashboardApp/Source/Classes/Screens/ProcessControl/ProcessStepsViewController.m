@@ -50,20 +50,20 @@
     
     productGroupsArray = [NSMutableArray arrayWithObjects:@"Waiting", @"Sentinel", @"Inspector", @"GrillVille", @"Misc.",nil];
     
-    waitingArray = [NSMutableArray arrayWithObjects:@"Pune Approval", @"Mason Approval", @"Lausanne Approval",nil];
+    waitingArray = [NSMutableArray arrayWithObjects:@"Pune Pending", @"Mason Pending", @"Lausanne Pending",nil];
 
     control = [[DZNSegmentedControl alloc] initWithItems:productGroupsArray];
     control.tintColor = [UIColor colorWithRed:41.f/255.f green:169.f/255.f blue:244.f/255.f alpha:1.0];
     control.tag = 1;
     control.selectedSegmentIndex = 0;
-    control.frame = CGRectMake(0, 80, screenRect.size.width/2, 50);
+    control.frame = CGRectMake(0, 0, screenRect.size.width/2, 50);
     [control addTarget:self action:@selector(selectedSegment:) forControlEvents:UIControlEventValueChanged];
     [_leftPaneView addSubview:control];
     
     waitingControl = [[DZNSegmentedControl alloc] initWithItems:waitingArray];
     waitingControl.tintColor = [UIColor colorWithRed:41.f/255.f green:169.f/255.f blue:244.f/255.f alpha:1.0];
     waitingControl.tag = 2;
-    waitingControl.frame = CGRectMake(0, 130, screenRect.size.width/2, 50);
+    waitingControl.frame = CGRectMake(0, 50, screenRect.size.width/2, 50);
     waitingControl.selectedSegmentIndex = 0;
     [waitingControl addTarget:self action:@selector(selectedSegment:) forControlEvents:UIControlEventValueChanged];
     [_leftPaneView addSubview:waitingControl];
@@ -98,17 +98,17 @@
     _submitButton.layer.borderWidth = 1.8f;
     _submitButton.layer.borderColor = [UIColor grayColor].CGColor;
     
-    _puneApprovalButton.layer.cornerRadius = 3.0f;
-    _puneApprovalButton.layer.borderWidth = 0.8f;
-    _puneApprovalButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    _puneApprovalButton.layer.cornerRadius = 8.0f;
+    _puneApprovalButton.layer.borderWidth = 1.8f;
+    _puneApprovalButton.layer.borderColor = [UIColor whiteColor].CGColor;
     
-    _masonApprovalButton.layer.cornerRadius = 3.0f;
-    _masonApprovalButton.layer.borderWidth = 0.8f;
-    _masonApprovalButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    _masonApprovalButton.layer.cornerRadius = 8.0f;
+    _masonApprovalButton.layer.borderWidth = 1.8f;
+    _masonApprovalButton.layer.borderColor = [UIColor whiteColor].CGColor;
     
-    _lausanneApprovalButton.layer.cornerRadius = 3.0f;
-    _lausanneApprovalButton.layer.borderWidth = 0.8f;
-    _lausanneApprovalButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    _lausanneApprovalButton.layer.cornerRadius = 8.0f;
+    _lausanneApprovalButton.layer.borderWidth = 1.8f;
+    _lausanneApprovalButton.layer.borderColor = [UIColor whiteColor].CGColor;
     
     _saveButton.layer.cornerRadius = 8.0f;
     _saveButton.layer.borderWidth = 1.5f;
@@ -123,9 +123,9 @@
     [self.view addSubview:backgroundDimmingView];
     backgroundDimmingView.hidden = true;
     
-    [_puneApprovalButton setTitle:@"Submit Pune" forState:UIControlStateNormal];
-    [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
-    [_lausanneApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
+    [_puneApprovalButton setTitle:@"Submit" forState:UIControlStateNormal];
+    [_masonApprovalButton setTitle:@"Submit" forState:UIControlStateNormal];
+    [_lausanneApprovalButton setTitle:@"Submit" forState:UIControlStateNormal];
     
     stationsArray = [NSMutableArray arrayWithObjects:@"S1-Store Activities",@"S2-Material Issue", @"S3-Contract Manufacturing",@"S4-Misc Activities",@"S5-Inspection & Testing", @"S6-Soldering", @"S7-Moulding", @"S8-Machanical Assembly", @"S9-Final Inspection", @"S10-Product Packaging", @"S11-Case Packaging",@"S12-Dispatch",nil];
     
@@ -308,12 +308,9 @@
         [_changeOrderButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         [_processListTableView setEditing:false];
         [_pcbProductIdButton setTitle:@"Select PCB" forState:UIControlStateNormal];
-        [_puneApprovalButton setTitle:@"Submit Pune" forState:UIControlStateNormal];
-        [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
-        [_lausanneApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
-        _puneApprovalButton.backgroundColor = [UIColor grayColor];
-        _masonApprovalButton.backgroundColor = [UIColor grayColor];
-        _lausanneApprovalButton.backgroundColor = [UIColor grayColor];
+        [self setUpForButton:_puneApprovalButton withStatus:@"Submit"];
+        [self setUpForButton:_masonApprovalButton withStatus:@"Submit"];
+        [self setUpForButton:_lausanneApprovalButton withStatus:@"Submit"];
         selectedProduct = filteredProductsArray[indexPath.row];
         if([selectedProduct.processCntrlAlias isEqualToString:@""]) {
             [_processCntrlIdButton setTitle:selectedProduct.processCntrlId forState:UIControlStateNormal];
@@ -426,12 +423,6 @@
 }
 
 - (void)getProcessFlowForProduct:(ProductModel*)product {
-    _puneApprovalButton.backgroundColor = [UIColor grayColor];
-    _masonApprovalButton.backgroundColor = [UIColor grayColor];
-    _lausanneApprovalButton.backgroundColor = [UIColor grayColor];
-    [_puneApprovalButton setUserInteractionEnabled:false];
-    [_masonApprovalButton setUserInteractionEnabled:false];
-    [_lausanneApprovalButton setUserInteractionEnabled:false];
     
     [self.navigationController.view showActivityViewWithLabel:@"Fetching process flow"];
     [self.navigationController.view hideActivityViewWithAfterDelay:60];
@@ -530,55 +521,65 @@
 
 - (void)setupForStatus:(NSString*)status {
    // _processNoLabel.text = [NSString stringWithFormat:@"%@ (DRAFT)", processCntrlId];
-
+    UIImage *iconApproved = [UIImage imageWithIcon:@"fa-check" backgroundColor:[UIColor clearColor] iconColor:[UIColor whiteColor] fontSize:15];
+    UIImage *iconPending = [UIImage imageWithIcon:@"fa-exclamation-circle" backgroundColor:[UIColor clearColor] iconColor:[UIColor whiteColor] fontSize:15];
+    UIImage *iconSubmit = [UIImage imageWithIcon:@"fa-paper-plane" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:15];
     if ([status isEqualToString:@"OPEN"]||[status isEqualToString:@"Draft"]||[status isEqualToString:@"Open"]||[status isEqualToString:@"archive"]) {
        // _processNoLabel.text = [NSString stringWithFormat:@"%@ (DRAFT)", processCntrlId];
-        [_puneApprovalButton setTitle:@"Submit Pune" forState:UIControlStateNormal];
-        [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
-        [_lausanneApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
-        _puneApprovalButton.backgroundColor = [UIColor redColor];
-        _masonApprovalButton.backgroundColor = [UIColor grayColor];
-        _lausanneApprovalButton.backgroundColor = [UIColor grayColor];
-        [_puneApprovalButton setUserInteractionEnabled:true];
-        [_masonApprovalButton setUserInteractionEnabled:false];
-        [_lausanneApprovalButton setUserInteractionEnabled:false];
+        [self setUpForButton:_puneApprovalButton withStatus:@"Pending"];
+        [self setUpForButton:_masonApprovalButton withStatus:@"Submit"];
+        [self setUpForButton:_lausanneApprovalButton withStatus:@"Submit"];
     }
     else if([status isEqualToString:@"Pune Approved"]) {
-        [_puneApprovalButton setTitle:@"Pune Approved" forState:UIControlStateNormal];
-        [_masonApprovalButton setTitle:@"Submit Mason" forState:UIControlStateNormal];
-        [_lausanneApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
-
-        _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
-        _masonApprovalButton.backgroundColor = [UIColor redColor];
-        _lausanneApprovalButton.backgroundColor = [UIColor grayColor];
-        [_puneApprovalButton setUserInteractionEnabled:false];
-        [_masonApprovalButton setUserInteractionEnabled:true];
-        [_lausanneApprovalButton setUserInteractionEnabled:false];
+        [self setUpForButton:_puneApprovalButton withStatus:@"Approved"];
+        [self setUpForButton:_masonApprovalButton withStatus:@"Pending"];
+        [self setUpForButton:_lausanneApprovalButton withStatus:@"Submit"];
     }
     else if([status isEqualToString:@"Mason Approved"]) {
-        [_puneApprovalButton setTitle:@"Pune Approved" forState:UIControlStateNormal];
-        [_masonApprovalButton setTitle:@"Mason Approved" forState:UIControlStateNormal];
-        [_lausanneApprovalButton setTitle:@"Submit Lausanne" forState:UIControlStateNormal];
-
-        _puneApprovalButton.backgroundColor =  [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
-        _masonApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
-        _lausanneApprovalButton.backgroundColor = [UIColor redColor];
-        [_puneApprovalButton setUserInteractionEnabled:false];
-        [_masonApprovalButton setUserInteractionEnabled:false];
-        [_lausanneApprovalButton setUserInteractionEnabled:true];
+        [self setUpForButton:_puneApprovalButton withStatus:@"Approved"];
+        [self setUpForButton:_masonApprovalButton withStatus:@"Approved"];
+        [self setUpForButton:_lausanneApprovalButton withStatus:@"Pending"];
     }
-    else if([status isEqualToString:@"Lausanne Approved"]) {
+    else if([status isEqualToString:@"Approved"]) {
        // _processNoLabel.text = [NSString stringWithFormat:@"%@", processCntrlId];
         _processNoTF.textColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
-        [_puneApprovalButton setTitle:@"Pune Approved" forState:UIControlStateNormal];
-        [_masonApprovalButton setTitle:@"Mason Approved" forState:UIControlStateNormal];
-        [_lausanneApprovalButton setTitle:@"Lausanne Approved" forState:UIControlStateNormal];
-        _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
-        _masonApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
-        _lausanneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
-        [_puneApprovalButton setUserInteractionEnabled:false];
-        [_masonApprovalButton setUserInteractionEnabled:false];
-        [_lausanneApprovalButton setUserInteractionEnabled:false];
+        [self setUpForButton:_puneApprovalButton withStatus:@"Approved"];
+        [self setUpForButton:_masonApprovalButton withStatus:@"Approved"];
+        [self setUpForButton:_lausanneApprovalButton withStatus:@"Approved"];
+    }
+}
+
+- (void)setUpForButton:(UIButton*)button withStatus:(NSString*)status {
+    UIImage *iconApproved = [UIImage imageWithIcon:@"fa-check" backgroundColor:[UIColor clearColor] iconColor:[UIColor whiteColor] fontSize:15];
+    UIImage *iconPending = [UIImage imageWithIcon:@"fa-exclamation-circle" backgroundColor:[UIColor clearColor] iconColor:[UIColor whiteColor] fontSize:15];
+    UIImage *iconSubmit = [UIImage imageWithIcon:@"fa-paper-plane" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:15];
+    
+    if ([status isEqualToString:@"Approved"]) {
+        [button setTitle:@"Approved" forState:UIControlStateNormal];
+        [button setImage:iconApproved forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
+        button.tintColor = [UIColor whiteColor];
+        button.layer.borderColor = [UIColor clearColor].CGColor;
+        [button setUserInteractionEnabled:false];
+    }
+    else if ([status isEqualToString:@"Pending"]) {
+        [button setTitle:@"Pending" forState:UIControlStateNormal];
+        [button setImage:iconPending forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor redColor];
+        button.tintColor = [UIColor whiteColor];
+        button.layer.borderColor = [UIColor clearColor].CGColor;
+        [button setUserInteractionEnabled:true];
+    }
+    else {
+        [button setTitle:@"Submit" forState:UIControlStateNormal];
+        [button setImage:iconSubmit forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor whiteColor];
+        button.tintColor = [UIColor lightGrayColor];
+        button.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        [button setUserInteractionEnabled:false];
     }
 }
 
@@ -610,31 +611,22 @@
             }
                 break;
             case 1: {
-                _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
-                [_puneApprovalButton setTitle:@"Pune Approved" forState:UIControlStateNormal];
-                _masonApprovalButton.backgroundColor = [UIColor redColor];
-                [_puneApprovalButton setUserInteractionEnabled:false];
-                [_masonApprovalButton setUserInteractionEnabled:true];
-                processStatus = @"Pune Approved";
+                [self setUpForButton:_puneApprovalButton withStatus:@"Approved"];
+                [self setUpForButton:_masonApprovalButton withStatus:@"Pending"];
+                [self setUpForButton:_lausanneApprovalButton withStatus:@"Submit"];
             }
                 break;
             case 2: {
-                _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
-                _masonApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
-                [_masonApprovalButton setTitle:@"Mason Approved" forState:UIControlStateNormal];
-                _lausanneApprovalButton.backgroundColor = [UIColor redColor];
-                [_lausanneApprovalButton setUserInteractionEnabled:true];
-                [_masonApprovalButton setUserInteractionEnabled:false];
+                [self setUpForButton:_puneApprovalButton withStatus:@"Approved"];
+                [self setUpForButton:_masonApprovalButton withStatus:@"Approved"];
+                [self setUpForButton:_lausanneApprovalButton withStatus:@"Pending"];
                 processStatus = @"Mason Approved";
             }
                 break;
             case 3: {
-                _puneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
-                _masonApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
-                _lausanneApprovalButton.backgroundColor = [UIColor colorWithRed:73.f/255.f green:173.f/255.f blue:73.f/255.f alpha:1.f];
-                [_lausanneApprovalButton setTitle:@"Lausanne Approved" forState:UIControlStateNormal];
-                [_lausanneApprovalButton setUserInteractionEnabled:false];
-                [_masonApprovalButton setUserInteractionEnabled:false];
+                [self setUpForButton:_puneApprovalButton withStatus:@"Approved"];
+                [self setUpForButton:_masonApprovalButton withStatus:@"Approved"];
+                [self setUpForButton:_lausanneApprovalButton withStatus:@"Approved"];
                 processStatus = @"Lausanne Approved";
             }
                 break;
