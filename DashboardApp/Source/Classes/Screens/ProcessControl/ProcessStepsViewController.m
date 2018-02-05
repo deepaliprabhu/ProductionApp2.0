@@ -17,15 +17,16 @@
 #import "ConnectionManager.h"
 #import "UIView+RNActivityView.h"
 #import "UIAlertView+Blocks.h"
+#import "UserManager.h"
 
-
-@interface ProcessStepsViewController ()
-
-@end
-
-@implementation ProcessStepsViewController
+@implementation ProcessStepsViewController {
+    
+    __weak IBOutlet UILabel *_editModeLabel;
+    __weak IBOutlet UISwitch *_switchView;
+}
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -130,6 +131,9 @@
     stationsArray = [NSMutableArray arrayWithObjects:@"S1-Store Activities",@"S2-Material Issue", @"S3-Contract Manufacturing",@"S4-Misc Activities",@"S5-Inspection & Testing", @"S6-Soldering", @"S7-Moulding", @"S8-Machanical Assembly", @"S9-Final Inspection", @"S10-Product Packaging", @"S11-Case Packaging",@"S12-Dispatch",nil];
     
     operatorArray = [NSMutableArray arrayWithObjects:@"Govind", @"Archana",@"Arvind",@"Pranali", @"Raman", @"Lalu", @"Venkatesh", @"Sadashiv", @"Sonali", @"Abhijith",nil];
+    
+    _editModeLabel.alpha = [[[UserManager sharedInstance] loggedUser] isAdmin];
+    _switchView.alpha    = [[[UserManager sharedInstance] loggedUser] isAdmin];
 }
 
 - (void)didReceiveMemoryWarning {
