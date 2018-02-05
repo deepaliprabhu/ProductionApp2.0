@@ -53,7 +53,7 @@
     NSMutableDictionary *log = [NSMutableDictionary dictionary];
     log[@"stepid"] = _process.stepId;
     log[@"processno"] = _process.processNo;
-    log[@"operator"] = [[[UserManager sharedInstance] loggedUser] name];
+    log[@"operator"] = _operatorName==nil ? [[[UserManager sharedInstance] loggedUser] name] : _operatorName;
     log[@"comments"] = [_commentsTextView.text isEqualToString:kTextViewPlaceholder] ? @"" : _commentsTextView.text;
     log[@"status"] = @"tmp";
     log[@"qtyTarget"] = [NSString stringWithFormat:@"%d", target];

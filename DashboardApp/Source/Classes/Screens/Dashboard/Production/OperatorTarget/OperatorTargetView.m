@@ -107,6 +107,7 @@
         screen.process = data[@"process"];
         screen.dayLog = data[@"dayModel"];
         screen.run = data[@"run"];
+        screen.operatorName = _user.name;
         [_parent presentViewController:screen animated:true completion:nil];
     }
 }

@@ -61,9 +61,11 @@ static UIFont *_font = nil;
     ProcessModel * p = dict[@"process"];
     _processLabel.text = p.processName;
     
-    NSString *time = [self timeForSeconds:[p.processingTime intValue]];
-    _timeLabel.text = time;
-    w = [LayoutUtils widthForText:time withFont:_font];
+    int processingTime = [p.processingTime intValue];
+    NSString *processTime = [self processTimeForSeconds:processingTime];
+    NSString *totalTime = processingTime == 0 ? @"-" : [self totalTimeForSeconds:processingTime*d.goal];
+    _timeLabel.text = [NSString stringWithFormat:@"%@/%@", processTime, totalTime];
+    w = [LayoutUtils widthForText:_timeLabel.text withFont:_font];
     if (w>72)
         w=72;
     _processTimeButtonConstraint.constant = w/2 + 12;
@@ -71,7 +73,32 @@ static UIFont *_font = nil;
     [self layoutIfNeeded];
 }
 
-- (NSString*) timeForSeconds:(int)time {
+- (NSString*) processTimeForSeconds:(int)time {
+    
+    if (time == 0)
+        return @"-";
+    else {
+        
+        if (time < 100) {
+            return [NSString stringWithFormat:@"%ds", time];
+        } else {
+            int s = time%60;
+            time = (time/60)*60;
+            int h = time/3600;
+            int m = (time%3600)/60;
+            NSString *str = @"";
+            if (s > 0)
+                str = [NSString stringWithFormat:@"%ds", s];
+            if (m > 0)
+                str = [NSString stringWithFormat:@"%dm%@", m, str];
+            if (h > 0)
+                str = [NSString stringWithFormat:@"%dh%@", h, str];
+            return str;
+        }
+    }
+}
+
+- (NSString*) totalTimeForSeconds:(int)time {
     
     if (time == 0)
         return @"-";
@@ -83,7 +110,10 @@ static UIFont *_font = nil;
         if (h == 0) {
             return [NSString stringWithFormat:@"%dm", min];
         } else {
-            return [NSString stringWithFormat:@"%dh %dm", h, min];
+            if (min == 0)
+                return [NSString stringWithFormat:@"%dh", h];
+            else
+                return [NSString stringWithFormat:@"%dh %dm", h, min];
         }
     }
 }

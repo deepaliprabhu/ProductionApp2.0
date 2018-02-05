@@ -20,6 +20,7 @@
 @property (nonatomic, unsafe_unretained) DayLogModel *dayLog;
 @property (nonatomic, unsafe_unretained) Run *run;
 @property (nonatomic, unsafe_unretained) id <DailyLogInputProtocol> delegate;
+@property (nonatomic, strong) NSString *operatorName;
 
 @end
 
