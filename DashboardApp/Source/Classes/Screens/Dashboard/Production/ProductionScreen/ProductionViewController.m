@@ -70,18 +70,21 @@
 - (IBAction) todayButtonTapped {
     
     _selectedDate = [NSDate date];
+    [self reloadData];
     [self changeSelectionTo:0];
 }
 
 - (IBAction) yesterdayButtonTapped {
     
     _selectedDate = [[NSDate date] dateByAddingTimeInterval:-3600*24];
+    [self reloadData];
     [self changeSelectionTo:1];
 }
 
 - (IBAction) tomorrowButtonTapped {
     
     _selectedDate = [[NSDate date] dateByAddingTimeInterval:3600*24];
+    [self reloadData];
     [self changeSelectionTo:2];
 }
 
@@ -349,6 +352,15 @@
     }];
 }
 
+- (void) reloadData {
+    
+    [_runs removeAllObjects];
+    [_operatorsSchedule removeAllObjects];
+    [_operatorsTable reloadData];
+    
+    [self computeRuns];
+}
+
 - (void) computeRuns {
     
     _runs = [NSMutableArray array];
@@ -372,7 +384,7 @@
                             
                             NSString *dateStr = d[@"SCHEDULED"];
                             NSDate *date = [f dateFromString:dateStr];
-                            if ([date isThisWeek]) {
+                            if ([date isSameDayWithDate:_selectedDate]) {
                                 [_runs addObject:r];
                                 break;
                             }
@@ -457,14 +469,12 @@
 
 - (void) getRunningProcesses {
     
-    NSDate *today = [NSDate date];
     NSCalendar *cal = [NSCalendar currentCalendar];
-    
     _operatorsSchedule = [NSMutableDictionary dictionary];
     for (Run *r in _runs) {
         for (ProcessModel *p in r.processes) {
             for (DayLogModel *d in r.days) {
-                if ((d.processId == p.stepId) && [cal isDate:d.date inSameDayAsDate:today] && (d.person.length > 0)) {
+                if ((d.processId == p.stepId) && [cal isDate:d.date inSameDayAsDate:_selectedDate] && (d.person.length > 0)) {
                     int time = [p.processingTime intValue]*d.goal;
                     int proc = [p.processingTime intValue]*d.target;
                     if (_operatorsSchedule[d.person] == nil)
