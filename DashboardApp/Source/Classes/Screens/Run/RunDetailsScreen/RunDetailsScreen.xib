@@ -428,7 +428,7 @@
                                         <action selector="rawButtonTapped" destination="-1" eventType="touchUpInside" id="Plp-MN-2VX"/>
                                     </connections>
                                 </button>
-                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="mLi-a3-4Zv">
+                                <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="mLi-a3-4Zv">
                                     <rect key="frame" x="55" y="49" width="429" height="209"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

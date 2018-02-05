@@ -16,7 +16,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DailyLogCollectionCell" id="gTV-IL-0wX" customClass="DailyLogCollectionCell">
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DailyLogCollectionCell" id="gTV-IL-0wX" customClass="DailyLogCollectionCell">
             <rect key="frame" x="0.0" y="0.0" width="73" height="209"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -90,7 +90,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="glW-tN-sLp">
-                        <rect key="frame" x="18" y="37" width="35" height="17"/>
+                        <rect key="frame" x="19" y="40" width="35" height="17"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="aBf-rG-9Nn"/>
                         </constraints>
@@ -101,17 +101,17 @@
             </view>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="glW-tN-sLp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="18" id="DYl-aZ-4kJ"/>
+                <constraint firstItem="glW-tN-sLp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="19" id="DYl-aZ-4kJ"/>
                 <constraint firstAttribute="trailing" secondItem="ldv-B4-5az" secondAttribute="trailing" id="JKZ-pS-3ut"/>
                 <constraint firstItem="ldv-B4-5az" firstAttribute="top" secondItem="0Ob-gc-86i" secondAttribute="bottom" constant="1" id="KAr-Gb-709"/>
                 <constraint firstAttribute="trailing" secondItem="194-zI-aEr" secondAttribute="trailing" constant="19" id="Kie-lV-MOS"/>
                 <constraint firstItem="0Ob-gc-86i" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="19" id="RVA-w7-B5e"/>
-                <constraint firstItem="cvJ-98-Cmw" firstAttribute="top" secondItem="glW-tN-sLp" secondAttribute="bottom" constant="5" id="RaX-vM-tCK"/>
+                <constraint firstItem="cvJ-98-Cmw" firstAttribute="top" secondItem="glW-tN-sLp" secondAttribute="bottom" constant="2" id="RaX-vM-tCK"/>
                 <constraint firstAttribute="trailing" secondItem="0Ob-gc-86i" secondAttribute="trailing" constant="19" id="V6w-rp-OU7"/>
                 <constraint firstAttribute="bottom" secondItem="ldv-B4-5az" secondAttribute="bottom" id="XZT-ak-eu6"/>
                 <constraint firstAttribute="trailing" secondItem="cvJ-98-Cmw" secondAttribute="trailing" constant="19" id="e5d-yi-sVS"/>
                 <constraint firstItem="ldv-B4-5az" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="f46-Js-sVZ"/>
-                <constraint firstAttribute="trailing" secondItem="glW-tN-sLp" secondAttribute="trailing" constant="20" id="ihP-tW-m7O"/>
+                <constraint firstAttribute="trailing" secondItem="glW-tN-sLp" secondAttribute="trailing" constant="19" id="ihP-tW-m7O"/>
                 <constraint firstItem="194-zI-aEr" firstAttribute="top" secondItem="cvJ-98-Cmw" secondAttribute="bottom" id="nKj-0t-o0B"/>
                 <constraint firstItem="cvJ-98-Cmw" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="19" id="vuw-Qr-D6l"/>
                 <constraint firstItem="0Ob-gc-86i" firstAttribute="top" secondItem="194-zI-aEr" secondAttribute="bottom" id="xrB-Zt-fci"/>
