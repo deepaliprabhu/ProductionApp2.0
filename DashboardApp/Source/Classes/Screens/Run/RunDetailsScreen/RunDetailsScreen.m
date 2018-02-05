@@ -752,7 +752,7 @@
     
     NSCalendar *c = [NSCalendar currentCalendar];
     for (DayLogModel *day in _days) {
-        if ([c isDateInToday:day.date])
+        if ([c isDateInToday:day.date] && [_selectedProcess.processNo isEqualToString:day.processNo])
             return day;
     }
     
