@@ -44,6 +44,7 @@
 
 - (void) reloadData {
     
+    _noWorkLabel.alpha = 0;
     [_spinner startAnimating];
     
     [_runs removeAllObjects];
