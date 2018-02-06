@@ -113,7 +113,7 @@ static UIFont *_font = nil;
             if (min == 0)
                 return [NSString stringWithFormat:@"%dh", h];
             else
-                return [NSString stringWithFormat:@"%dh %dm", h, min];
+                return [NSString stringWithFormat:@"%dh%dm", h, min];
         }
     }
 }

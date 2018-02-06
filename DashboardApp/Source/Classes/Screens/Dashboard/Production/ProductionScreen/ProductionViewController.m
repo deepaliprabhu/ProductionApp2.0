@@ -124,7 +124,15 @@
 - (IBAction) refreshButtonTapped {
     
     if (_flowView1.alpha == 1) {
+        
+        [_operators removeAllObjects];
+        [_runs removeAllObjects];
+        [_operatorsSchedule removeAllObjects];
+        [_operatorsTable reloadData];
+        [self getPersons];
+        
         [_flowView1 reloadData];
+        
     } else if (_flowView2.alpha == 1) {
         [_flowView2 reloadData];
     } else {
@@ -368,6 +376,7 @@
 - (void) getPersons {
     
     _operators = [NSMutableArray array];
+    [_operatorsTable reloadData];
     [LoadingView showLoading:@"Loading..."];
     [[ProdAPI sharedInstance] getPersonsWithCompletion:^(BOOL success, id response) {
       
@@ -423,7 +432,7 @@
                             
                             NSString *dateStr = d[@"SCHEDULED"];
                             NSDate *date = [f dateFromString:dateStr];
-                            if ([date isSameDayWithDate:_selectedDate]) {
+                            if ([date isSameWeekWithDate:_selectedDate]) {
                                 [_runs addObject:r];
                                 break;
                             }
