@@ -34,6 +34,7 @@
     __weak IBOutlet UILabel *_todayLabel;
     __weak IBOutlet UIButton *_yesterdayButton;
     __weak IBOutlet UIButton *_tomorrowButton;
+    __weak IBOutlet UIButton *_refreshButton;
     
     __weak IBOutlet UIImageView *_targetButtonArrowImage;
     
@@ -118,6 +119,17 @@
     [_operatorsTable reloadData];
     
     [self goToTargets];
+}
+
+- (IBAction) refreshButtonTapped {
+    
+    if (_flowView1.alpha == 1) {
+        [_flowView1 reloadData];
+    } else if (_flowView2.alpha == 1) {
+        [_flowView2 reloadData];
+    } else {
+        [_flowView3 reloadData];
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -243,6 +255,7 @@
 - (void) initLayout {
     
     if ([[[UserManager sharedInstance] loggedUser] isAdmin] == false) {
+        
         _targetButtonArrowImage.alpha = 0;
         _targetButtonHeightConstraint.constant = 0;
         [self.view layoutIfNeeded];
