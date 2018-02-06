@@ -186,14 +186,14 @@
     [tableView reloadData];
     
     UserModel *user = _operators[indexPath.row];
-    if (_flowView3.alpha == 0 || [_flowView3.user.username isEqualToString:user.username] == false) {
+    if (_flowView3.alpha == 0 || [[_flowView3 getUserModel].username isEqualToString:user.username] == false) {
         
         _targetsBgView.alpha = 0;
         _overallBgView.alpha = 0;
         
         if (_flowView3.alpha == 1) {
             
-            _flowView3.user = user;
+            [_flowView3 setUserModel:user];
             [_flowView3 reloadData];
         } else {
             
@@ -202,7 +202,7 @@
                 [self addFlowView3];
                 firstLoad = true;
             }
-            _flowView3.user = user;
+            [_flowView3 setUserModel:user];
             _flowView3.alpha = 0;
             
             [UIView animateWithDuration:0.2 animations:^{

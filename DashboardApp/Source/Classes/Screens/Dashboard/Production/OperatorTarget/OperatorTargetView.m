@@ -21,10 +21,15 @@
     __weak IBOutlet UIActivityIndicatorView *_spinner;
     __weak IBOutlet UILabel *_noWorkLabel;
     
+    UserModel *_user;
+    UserModel *_tempUser;
+    
     NSMutableArray *_runs;
     NSMutableArray *_processesForSelectedDay;
     
     int _selectedProcess;
+    
+    BOOL _alreadyLoading;
 }
 
 + (OperatorTargetView*) createView
@@ -32,6 +37,19 @@
     UINib *nib = [UINib nibWithNibName:@"OperatorTargetView" bundle:nil];
     OperatorTargetView *view = [nib instantiateWithOwner:nil options:nil][0];
     return view;
+}
+
+- (void) setUserModel:(UserModel *)user {
+    
+    if (_alreadyLoading) {
+        _tempUser = user;
+    } else {
+        _user = user;
+    }
+}
+
+- (UserModel*) getUserModel {
+    return _user;
 }
 
 - (void) awakeFromNib {
@@ -43,6 +61,11 @@
 }
 
 - (void) reloadData {
+    
+    if (_alreadyLoading == true)
+        return;
+    
+    _alreadyLoading = true;
     
     _noWorkLabel.alpha = 0;
     [_spinner startAnimating];
@@ -284,6 +307,13 @@
     [_tableView reloadData];
     
     _noWorkLabel.alpha = _processesForSelectedDay.count == 0;
+    
+    _alreadyLoading = false;
+    if (_tempUser != nil) {
+        _user = _tempUser;
+        _tempUser = nil;
+        [self reloadData];
+    }
 }
 
 - (BOOL) dayLogAlreadyExists:(DayLogModel*)log inArr:(NSArray*)arr {

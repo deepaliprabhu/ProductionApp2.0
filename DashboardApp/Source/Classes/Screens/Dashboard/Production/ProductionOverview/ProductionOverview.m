@@ -32,7 +32,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     
     [super awakeFromNib];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(computeRuns) name:kNotificationCommonProcessesReceived object:nil];;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(computeRuns) name:kNotificationCommonProcessesReceived object:nil];
     
     [_spinner startAnimating];
     if ([[[DataManager sharedInstance] getCommonProcesses] count] == 0) {
