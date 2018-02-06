@@ -27,6 +27,7 @@
                 <outlet property="_qtyTF" destination="YXE-6D-Ong" id="Vq9-Uj-mhC"/>
                 <outlet property="_rightPaneView" destination="Cia-He-de0" id="AA5-MS-Ivn"/>
                 <outlet property="_runsLabel" destination="rC9-1h-Vr2" id="FZh-As-jo7"/>
+                <outlet property="_runsView" destination="Dz0-R9-4md" id="A8b-og-z31"/>
                 <outlet property="_saveButton" destination="fco-gT-RFD" id="ixF-n8-Oq4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="nAo-7T-dfD"/>
             </connections>
@@ -223,7 +224,7 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rC9-1h-Vr2">
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rC9-1h-Vr2">
                             <rect key="frame" x="75" y="72" width="221" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
@@ -244,6 +245,11 @@
                                 <action selector="saveEditPressed:" destination="-1" eventType="touchUpInside" id="lYH-Gp-THL"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dz0-R9-4md">
+                            <rect key="frame" x="75" y="72" width="208" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.2155427351150003" green="0.52549019610000003" blue="0.49494801805539873" alpha="0.92364728009259256" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>

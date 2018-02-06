@@ -10,6 +10,7 @@
 #import "DataManager.h"
 #import "DemandsViewCell.h"
 #import "UIImage+FontAwesome.h"
+#import "RunDetailsScreen.h"
 
 @implementation DemandsViewController {
     __weak IBOutlet UIButton *_backButton;
@@ -46,6 +47,31 @@
     [_leftPaneView addSubview:demandListView];
 }
 
+- (void)setUpRunsView {
+    [[_runsView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    runsArray = [[NSMutableArray alloc] init];
+    NSString *runString = selectedDemand[@"Runs"];
+    if (![runString isEqualToString:@""]) {
+        NSArray *components = [runString componentsSeparatedByString:@","];
+        runsArray = [components mutableCopy];
+    }
+    for (int i=0; i < runsArray.count; ++i) {
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(5+(i*40), 0, 40, _runsView.frame.size.height)];
+        button.tag = i;
+        [button setTitle:runsArray[i] forState:UIControlStateNormal];
+        [button setFont:[UIFont boldSystemFontOfSize:13.0f]];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(runPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_runsView addSubview:button];
+    }
+}
+
+- (void)runPressed:(UIButton*)sender {
+    RunDetailsScreen *screen = [RunDetailsScreen new];
+    screen.run = [[DataManager sharedInstance] getRunWithId:[runsArray[sender.tag] intValue]];
+    [self.navigationController pushViewController:screen animated:true];
+}
+
 #pragma mark - Actions
 
 - (IBAction)closePressed:(id)sender {
@@ -77,6 +103,7 @@
     selectedDemand = demandsArray[indexPath.row];
     selectedIndex = indexPath.row;
     _rightPaneView.hidden = false;
+    [self setUpRunsView];
     [self showDetailForDemand];
 }
 
@@ -133,6 +160,7 @@
     _stockDateLabel.text = demandData[@"stock_when"];
     _daysOpenLabel.text = demandData[@"Days Open"];*/
     _runsLabel.text = demandData[@"Runs"];
+    [self setUpRunsView];
 }
 
 - (IBAction)pickShippingPressed:(UIButton*)sender {
@@ -151,12 +179,7 @@
 
 - (IBAction)pickRunPressed:(UIButton*)sender {
     //selectedTag = tag;
-    runsArray = [[NSMutableArray alloc] init];
-    NSString *runString = selectedDemand[@"Runs"];
-    if (![runString isEqualToString:@""]) {
-        NSArray *components = [runString componentsSeparatedByString:@","];
-        runsArray = [components mutableCopy];
-    }
+
     if (runsArray.count > 0) {
         if(dropDown == nil) {
             CGFloat f = 235;
