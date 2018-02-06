@@ -10,7 +10,7 @@
 #import "LoadingView.h"
 #import "Defines.h"
 #import "ProdAPI.h"
-#import "UserModel.h"
+#import "UserManager.h"
 #import "OperatorCell.h"
 #import "ProductionOverview.h"
 #import "LayoutUtils.h"
@@ -28,10 +28,16 @@
     
     __weak IBOutlet UITableView *_operatorsTable;
     
+    __weak IBOutlet UIView *_overallBgView;
+    __weak IBOutlet UIView *_targetsBgView;
+    
     __weak IBOutlet UILabel *_todayLabel;
     __weak IBOutlet UIButton *_yesterdayButton;
     __weak IBOutlet UIButton *_tomorrowButton;
     
+    __weak IBOutlet UIImageView *_targetButtonArrowImage;
+    
+    __weak IBOutlet NSLayoutConstraint *_targetButtonHeightConstraint;
     __weak IBOutlet NSLayoutConstraint *_selectionViewLeadingConstraint;
     __weak IBOutlet NSLayoutConstraint *_selectionViewWidthConstraint;
     
@@ -88,6 +94,32 @@
     [self changeSelectionTo:2];
 }
 
+- (IBAction) overallButtonTapped {
+    
+    if (_flowView1.alpha == 1)
+        return;
+    
+    _selectedOperator = -1;
+    _overallBgView.alpha = 1;
+    _targetsBgView.alpha = 0;
+    [_operatorsTable reloadData];
+    
+    [self goToOverall];
+}
+
+- (IBAction) targetsButtonTapped {
+    
+    if (_flowView2.alpha == 1)
+        return;
+    
+    _selectedOperator = -1;
+    _overallBgView.alpha = 0;
+    _targetsBgView.alpha = 1;
+    [_operatorsTable reloadData];
+    
+    [self goToTargets];
+}
+
 #pragma mark - UITableViewDelegate
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
@@ -136,6 +168,9 @@
     UserModel *user = _operators[indexPath.row];
     if (_flowView3.alpha == 0 || [_flowView3.user.username isEqualToString:user.username] == false) {
         
+        _targetsBgView.alpha = 0;
+        _overallBgView.alpha = 0;
+        
         if (_flowView3.alpha == 1) {
             
             _flowView3.user = user;
@@ -170,22 +205,6 @@
 
 #pragma mark - OperatorTargetViewProtocol
 
-- (void) goBackFromOperatorView {
-    
-    _selectedOperator = -1;
-    [_operatorsTable reloadData];
-    
-    [UIView animateWithDuration:0.2 animations:^{
-        _flowView3.alpha = 0;
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            _flowView1.alpha = 1;
-            [_flowView1 reloadData];
-        }];
-    }];
-}
-
 - (void) newInputLogSet {
     
     [_operatorsSchedule removeAllObjects];
@@ -193,19 +212,6 @@
 }
 
 #pragma mark - ProductionTargetViewProtocol
-
-- (void) goBackFromTargetView {
-    
-    [UIView animateWithDuration:0.2 animations:^{
-        _flowView2.alpha = 0;
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            _flowView1.alpha = 1;
-            [_flowView1 reloadData];
-        }];
-    }];
-}
 
 - (void) newTargeWasSet {
     
@@ -220,27 +226,6 @@
 }
 
 #pragma mark - ProductionOverviewProcotol
-
-- (void) goToTargets {
-    
-    BOOL firstLoad = false;
-    if (_flowView2 == nil) {
-        [self addFlowView2];
-        firstLoad = true;
-    }
-    _flowView2.alpha = 0;
-    
-    [UIView animateWithDuration:0.2 animations:^{
-        _flowView1.alpha = 0;
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            _flowView2.alpha = 1;
-            if (firstLoad == false)
-                [_flowView2 reloadData];
-        }];
-    }];
-}
 
 - (void) showDetailsForRun:(Run*)run {
 
@@ -257,6 +242,13 @@
 
 - (void) initLayout {
     
+    if ([[[UserManager sharedInstance] loggedUser] isAdmin] == false) {
+        _targetButtonArrowImage.alpha = 0;
+        _targetButtonHeightConstraint.constant = 0;
+        [self.view layoutIfNeeded];
+    }
+    
+    _overallBgView.alpha = 1;
     _selectedDate = [NSDate date];
     
     NSDateFormatter *f = [NSDateFormatter new];
@@ -324,6 +316,41 @@
 }
 
 #pragma mark - Utils
+
+- (void) goToOverall {
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        _flowView2.alpha = 0;
+        _flowView3.alpha = 0;
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            _flowView1.alpha = 1;
+            [_flowView1 reloadData];
+        }];
+    }];
+}
+
+- (void) goToTargets {
+    
+    BOOL firstLoad = false;
+    if (_flowView2 == nil) {
+        [self addFlowView2];
+        firstLoad = true;
+    }
+    _flowView2.alpha = 0;
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        _flowView1.alpha = 0;
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            _flowView2.alpha = 1;
+            if (firstLoad == false)
+                [_flowView2 reloadData];
+        }];
+    }];
+}
 
 - (void) getPersons {
     

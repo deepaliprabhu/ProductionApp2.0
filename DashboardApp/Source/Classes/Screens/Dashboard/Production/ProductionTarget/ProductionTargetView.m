@@ -57,12 +57,6 @@
     [self computeRuns];
 }
 
-#pragma mark - Actions
-
-- (IBAction) backButtonTapped {
-    [_delegate goBackFromTargetView];
-}
-
 #pragma mark - UITableViewDelegate
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {

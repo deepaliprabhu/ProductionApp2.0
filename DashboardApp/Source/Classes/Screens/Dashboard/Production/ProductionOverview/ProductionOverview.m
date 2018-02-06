@@ -19,7 +19,6 @@
 
 @implementation ProductionOverview {
     
-    __weak IBOutlet UIButton *_targetButton;
     __weak IBOutlet UITableView *_processesTable;
     __weak IBOutlet UIActivityIndicatorView *_spinner;
     
@@ -35,19 +34,12 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(computeRuns) name:kNotificationCommonProcessesReceived object:nil];;
     
-    _targetButton.layer.masksToBounds = true;
-    _targetButton.layer.cornerRadius  = 7;
-    _targetButton.layer.borderWidth   = 1;
-    _targetButton.layer.borderColor   = ccolor(102, 102, 102).CGColor;
-    
     [_spinner startAnimating];
     if ([[[DataManager sharedInstance] getCommonProcesses] count] == 0) {
         [[ServerManager sharedInstance] getProcessList];
     } else {
         [self computeRuns];
     }
-    
-    _targetButton.alpha = [[[UserManager sharedInstance] loggedUser] isAdmin];
 }
 
 - (void) dealloc {
@@ -63,12 +55,6 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     [_processesTable reloadData];
     
     [self computeRuns];
-}
-
-#pragma mark - Actions
-
-- (IBAction) targetButtonTapped {
-    [_delegate goToTargets];
 }
 
 #pragma mark - UITableViewDelegate

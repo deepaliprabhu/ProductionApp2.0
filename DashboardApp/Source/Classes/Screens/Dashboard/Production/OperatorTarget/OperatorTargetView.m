@@ -56,11 +56,6 @@
 
 #pragma mark - Actions
 
-- (IBAction) backButtonTapped {
-    _noWorkLabel.alpha = 0;
-    [_delegate goBackFromOperatorView];
-}
-
 #pragma mark - UITableViewDelegate
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
