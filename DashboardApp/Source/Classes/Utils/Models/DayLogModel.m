@@ -33,7 +33,12 @@ static NSDateFormatter *_formatter = nil;
     model.comments = data[@"comments"];
 
     if ([data[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == false) {
-        model.date = [_formatter dateFromString:data[@"datetime"]];
+        
+        NSString *day = data[@"day"];
+        if (day.length > 0)
+            model.date = [_formatter dateFromString:day];
+        else
+            model.date = [_formatter dateFromString:data[@"datetime"]];
     }
     
     return model;
@@ -56,6 +61,7 @@ static NSDateFormatter *_formatter = nil;
     log[@"qtyRework"] = [NSString stringWithFormat:@"%d", _rework];
     log[@"qtyReject"] = [NSString stringWithFormat:@"%d", _reject];
     log[@"qtyGoal"] = [NSString stringWithFormat:@"%d", _goal];
+    log[@"day"] = [_formatter stringFromDate:_date];
     
     return log;
 }

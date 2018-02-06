@@ -192,7 +192,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
                 
                 NSMutableArray *daysArr = [NSMutableArray array];
                 NSArray *days = [response firstObject][@"processes"];
-                days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
+                days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false], [NSSortDescriptor sortDescriptorWithKey:@"day" ascending:false]]];
                 for (int i=0; i<days.count; i++) {
                     
                     NSDictionary *dict = days[i];

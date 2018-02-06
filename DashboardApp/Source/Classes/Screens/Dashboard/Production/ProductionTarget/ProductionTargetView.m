@@ -176,9 +176,9 @@
 
 - (void) showTargetInputForRow:(int)row rect:(CGRect)rect {
     
-    if ([[_delegate selectedDate] isSameDayWithDate:[NSDate date]] == false) {
-        
-        [LoadingView showShortMessage:@"Target can be changed only for today's processes"];
+    NSDate *yesterday = [[NSDate date] dateByAddingTimeInterval:-24*3600];
+    if ([[_delegate selectedDate] isSameDayWithDate:yesterday] == true) {
+        [LoadingView showShortMessage:@"Target cannot be changed for yesterday's processes"];
     } else {
         
         _selectedProcess = row;
@@ -250,7 +250,8 @@
         day.person = temp.person;
         day.comments = temp.comments;
     }
-    day.goal   = newTarget;
+    day.date = [_delegate selectedDate];
+    day.goal = newTarget;
     ProcessModel *p = dict[@"process"];
     day.processNo = p.processNo;
     day.processId = p.stepId;
@@ -366,7 +367,7 @@
         NSMutableArray *daysArr = [NSMutableArray array];
         if (success) {
             NSArray *days = [response firstObject][@"processes"];
-            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
+            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false], [NSSortDescriptor sortDescriptorWithKey:@"day" ascending:false]]];
             for (int i=0; i<days.count; i++) {
                 
                 NSDictionary *dict = days[i];

@@ -134,7 +134,6 @@
     [tableView reloadData];
     
     UserModel *user = _operators[indexPath.row];
-    
     if (_flowView3.alpha == 0 || [_flowView3.user.username isEqualToString:user.username] == false) {
         
         if (_flowView3.alpha == 1) {
@@ -445,7 +444,7 @@
                 
                 NSMutableArray *daysArr = [NSMutableArray array];
                 NSArray *days = [response firstObject][@"processes"];
-                days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
+                days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false], [NSSortDescriptor sortDescriptorWithKey:@"day" ascending:false]]];
                 for (int i=0; i<days.count; i++) {
                     
                     NSDictionary *dict = days[i];
