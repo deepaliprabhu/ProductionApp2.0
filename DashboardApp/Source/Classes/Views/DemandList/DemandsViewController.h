@@ -20,6 +20,7 @@
     IBOutlet UIView *_leftPaneView;
     IBOutlet UIView *_rightPaneView;
     IBOutlet UIView *_statsView;
+    IBOutlet UIView *_runsView;
     IBOutlet UIButton *_saveButton;
     
     IBOutlet UILabel *_urgentQtyLabel;
