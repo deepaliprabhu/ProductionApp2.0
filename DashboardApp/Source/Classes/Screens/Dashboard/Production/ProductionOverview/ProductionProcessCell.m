@@ -29,7 +29,7 @@
     _processLabel.text = p.processName?p.processName:@"";
     _statusLabel.text = dict[@"status"];
     _targetLabel.text = dict[@"target"];
-    _operatorLabel.text = dict[@"person"];
+    _operatorLabel.text = [[dict[@"person"] componentsSeparatedByString:@" "] firstObject];
 }
 
 - (IBAction) viewButtonTapped {

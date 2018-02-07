@@ -237,7 +237,7 @@
         NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:data];
         newDict[@"process"] = p;
         [localProcesses replaceObjectAtIndex:_selectedProcess withObject:newDict];
-        [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"processes": localProcesses}];
+        [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"runId": @(r.runId), @"processes": localProcesses}];
         [_processesTable reloadData];
         
         [_delegate newProcessTimeWasSet];
@@ -321,7 +321,8 @@
                             NSString *dateStr = d[@"SCHEDULED"];
                             NSDate *date = [f dateFromString:dateStr];
                             if ([date isSameWeekWithDate:[_delegate selectedDate]]) {
-                                [_runs addObject:@{@"run":r}];
+                                [_runs addObject:@{@"run":r, @"runId":@(r.runId)}];
+                                [_runs sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"runId" ascending:true]]];
                                 if (_runs.count == 1)
                                     [self getProcessesForSelectedRun];
                                 break;
@@ -427,7 +428,7 @@
     
     [processesForSelectedRun sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"step" ascending:true]]];
     
-    [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"processes": processesForSelectedRun}];
+    [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"runId": @(r.runId), @"processes": processesForSelectedRun}];
     [_processesTable reloadData];
     [_spinner stopAnimating];
 }
@@ -462,7 +463,7 @@
             newDict[@"dayModel"] = day;
             [processes replaceObjectAtIndex:_selectedProcess withObject:newDict];
             
-            [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"processes": processes}];
+            [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"runId": @(r.runId), @"processes": processes}];
             [_processesTable reloadData];
             
         } else {

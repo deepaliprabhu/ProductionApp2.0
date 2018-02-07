@@ -52,6 +52,7 @@ static UIFont *_font = nil;
     _targetButtonConstraint.constant = w/2 + 12;
     
     NSString *person = (d.person == nil || d.person.length == 0)? @"-" : d.person;
+    person = [[person componentsSeparatedByString:@" "] firstObject];
     _operatorLabel.text = person;
     w = [LayoutUtils widthForText:person withFont:_font];
     if (w>117)
