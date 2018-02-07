@@ -15,6 +15,7 @@
 #import "UIView+Screenshot.h"
 #import "LoadingView.h"
 #import "WeeklyGraphCell.h"
+#import "ProcessInfoScreen.h"
 
 @implementation OperatorTargetView {
     
@@ -141,6 +142,18 @@
     [cell layoutWithData:_processesForSelectedDay[indexPath.row] atRow:(int)indexPath.row];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    ProcessModel *p = _processesForSelectedDay[indexPath.row][@"process"];
+    ProcessInfoScreen *screen = [[ProcessInfoScreen alloc] initWithNibName:@"ProcessInfoScreen" bundle:nil];;
+    screen.process = p;
+    
+    CGRect r = [tableView rectForRowAtIndexPath:indexPath];
+    r = [tableView convertRect:r toView:self.superview];
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:r inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
 #pragma mark - CellProtocol

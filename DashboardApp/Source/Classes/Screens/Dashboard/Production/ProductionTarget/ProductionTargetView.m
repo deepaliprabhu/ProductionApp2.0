@@ -14,6 +14,7 @@
 #import "ProcessModel.h"
 #import "DayLogModel.h"
 #import "LoadingView.h"
+#import "ProcessInfoScreen.h"
 
 @implementation ProductionTargetView {
     
@@ -89,6 +90,19 @@
     [cell layoutWithData:arr[indexPath.row] atRow:(int)indexPath.row];
     
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSArray *arr = _runs[_selectedRunIndex][@"processes"];
+    ProcessModel *p = arr[indexPath.row][@"process"];
+    ProcessInfoScreen *screen = [[ProcessInfoScreen alloc] initWithNibName:@"ProcessInfoScreen" bundle:nil];;
+    screen.process = p;
+    
+    CGRect r = [tableView rectForRowAtIndexPath:indexPath];
+    r = [tableView convertRect:r toView:self.superview];
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:r inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
 #pragma mark - UICollectionViewDelegate
