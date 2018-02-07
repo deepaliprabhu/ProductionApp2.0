@@ -153,9 +153,10 @@
 
 - (void) showOperatorsForRow:(int)row rect:(CGRect)rect {
     
-    if ([[_delegate selectedDate] isSameDayWithDate:[NSDate date]] == false) {
+    NSDate *yesterday = [[NSDate date] dateByAddingTimeInterval:-24*3600];
+    if ([[_delegate selectedDate] isSameDayWithDate:yesterday] == true) {
      
-        [LoadingView showShortMessage:@"Operator can be changed only for today's processes"];
+        [LoadingView showShortMessage:@"Operator cannot be changed for yesterday's processes"];
     } else {
         
         _selectedProcess = row;
@@ -272,6 +273,7 @@
             day.goal   = temp.good;
             day.comments = temp.comments;
         }
+        day.date = [_delegate selectedDate];
         day.person = personName;
         ProcessModel *p = dict[@"process"];
         day.processNo = p.processNo;
