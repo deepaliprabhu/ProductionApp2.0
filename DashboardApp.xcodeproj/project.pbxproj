@@ -29,6 +29,10 @@
 		8919BE9B1FB4DD5100EE6839 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8919BE8C1FB4DD5100EE6839 /* UIButton+WebCache.m */; };
 		8919BE9E1FB4E47D00EE6839 /* LayoutUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8919BE9C1FB4E47D00EE6839 /* LayoutUtils.m */; };
 		8919BEA11FB4EEF200EE6839 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 8919BE9F1FB4EEF100EE6839 /* UIView+Screenshot.m */; };
+		892AEEE6202B2AAC002CCCE8 /* WeeklyGraphBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 892AEEE5202B2AAC002CCCE8 /* WeeklyGraphBar.m */; };
+		892AEEE8202B2AD0002CCCE8 /* WeeklyGraphBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892AEEE7202B2AD0002CCCE8 /* WeeklyGraphBar.xib */; };
+		8937BB84202B13B900870BFC /* WeeklyGraphCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8937BB82202B13B900870BFC /* WeeklyGraphCell.m */; };
+		8937BB85202B13B900870BFC /* WeeklyGraphCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8937BB83202B13B900870BFC /* WeeklyGraphCell.xib */; };
 		894018791FB5A0E4002B8AFD /* BRRequestDelete.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018641FB5A0E4002B8AFD /* BRRequestDelete.m */; };
 		8940187A1FB5A0E4002B8AFD /* BRRequestError.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018671FB5A0E4002B8AFD /* BRRequestError.m */; };
 		8940187B1FB5A0E4002B8AFD /* BRStreamInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8940186A1FB5A0E4002B8AFD /* BRStreamInfo.m */; };
@@ -372,6 +376,12 @@
 		8919BE9D1FB4E47D00EE6839 /* LayoutUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutUtils.h; sourceTree = "<group>"; };
 		8919BE9F1FB4EEF100EE6839 /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
 		8919BEA01FB4EEF100EE6839 /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
+		892AEEE4202B2AAC002CCCE8 /* WeeklyGraphBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeeklyGraphBar.h; sourceTree = "<group>"; };
+		892AEEE5202B2AAC002CCCE8 /* WeeklyGraphBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeeklyGraphBar.m; sourceTree = "<group>"; };
+		892AEEE7202B2AD0002CCCE8 /* WeeklyGraphBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeeklyGraphBar.xib; sourceTree = "<group>"; };
+		8937BB81202B13B900870BFC /* WeeklyGraphCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeeklyGraphCell.h; sourceTree = "<group>"; };
+		8937BB82202B13B900870BFC /* WeeklyGraphCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeeklyGraphCell.m; sourceTree = "<group>"; };
+		8937BB83202B13B900870BFC /* WeeklyGraphCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeeklyGraphCell.xib; sourceTree = "<group>"; };
 		894018641FB5A0E4002B8AFD /* BRRequestDelete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRequestDelete.m; sourceTree = "<group>"; };
 		894018651FB5A0E4002B8AFD /* BRGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRGlobal.h; sourceTree = "<group>"; };
 		894018661FB5A0E4002B8AFD /* BRRequestUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRRequestUpload.h; sourceTree = "<group>"; };
@@ -1079,6 +1089,12 @@
 				896A60B820209CD2001785F0 /* OperatorTargetCell.h */,
 				896A60B920209CD2001785F0 /* OperatorTargetCell.m */,
 				896A60BA20209CD2001785F0 /* OperatorTargetCell.xib */,
+				8937BB81202B13B900870BFC /* WeeklyGraphCell.h */,
+				8937BB82202B13B900870BFC /* WeeklyGraphCell.m */,
+				8937BB83202B13B900870BFC /* WeeklyGraphCell.xib */,
+				892AEEE4202B2AAC002CCCE8 /* WeeklyGraphBar.h */,
+				892AEEE5202B2AAC002CCCE8 /* WeeklyGraphBar.m */,
+				892AEEE7202B2AD0002CCCE8 /* WeeklyGraphBar.xib */,
 			);
 			path = OperatorTarget;
 			sourceTree = "<group>";
@@ -2191,6 +2207,7 @@
 				9F7AB1A61F7D233C0013CBE1 /* drop_down@2x.png in Resources */,
 				8944E49320167BEE004A08AF /* ShortsCell.xib in Resources */,
 				8970C3AF20050A51001F7680 /* RunListScreen.xib in Resources */,
+				892AEEE8202B2AD0002CCCE8 /* WeeklyGraphBar.xib in Resources */,
 				894704A220192F16007364F0 /* OperatorCell.xib in Resources */,
 				D283865B1FB23CA800BB304C /* Roboto-Medium.ttf in Resources */,
 				894B6F0D1FCDAD7600E271B1 /* PODateScreen.xib in Resources */,
@@ -2236,6 +2253,7 @@
 				89AC0AB41FC60E07008CA56B /* CommentsPartCell.xib in Resources */,
 				89512A201FE9327100BF7456 /* ProcessCell.xib in Resources */,
 				8954345E1FF517B900ECDDEE /* BomHistoryScreen.xib in Resources */,
+				8937BB85202B13B900870BFC /* WeeklyGraphCell.xib in Resources */,
 				9FD12D811F43FD5600F0E0A8 /* OverviewView.xib in Resources */,
 				9FE99C381FBF242D006B58DE /* FeedbackListViewController.xib in Resources */,
 				9FD12DA71F449FB400F0E0A8 /* RunPartsViewCell.xib in Resources */,
@@ -2295,6 +2313,7 @@
 				D22767991FAE4B8000215D87 /* Reachability.m in Sources */,
 				9FD12D8E1F443CEF00F0E0A8 /* ConnectionManager.m in Sources */,
 				8940A2C5201A75B5000CE83B /* ProcessEditableCell.m in Sources */,
+				8937BB84202B13B900870BFC /* WeeklyGraphCell.m in Sources */,
 				89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */,
 				9F8567901F73DDB10067ABE1 /* OperatorEntryView.m in Sources */,
 				8952873C1FCF39EE005C46EE /* AuditActionCell.m in Sources */,
@@ -2394,6 +2413,7 @@
 				9F7767401F56D6E90092F603 /* LeftCollectionViewCell.m in Sources */,
 				89897E301FBF0BAC000B39EA /* PartAuditModel.m in Sources */,
 				894F9BD31FBC7B6B00DC2C6B /* PurchasePartCell.m in Sources */,
+				892AEEE6202B2AAC002CCCE8 /* WeeklyGraphBar.m in Sources */,
 				D227678D1FAE4B5400215D87 /* AFAutoPurgingImageCache.m in Sources */,
 				D22767851FAE4B5400215D87 /* AFHTTPSessionManager.m in Sources */,
 				89512A1A1FE926A800BF7456 /* ProcessModel.m in Sources */,

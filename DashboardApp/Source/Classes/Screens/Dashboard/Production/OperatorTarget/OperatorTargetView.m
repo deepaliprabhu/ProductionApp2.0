@@ -14,9 +14,11 @@
 #import "DayLogModel.h"
 #import "UIView+Screenshot.h"
 #import "LoadingView.h"
+#import "WeeklyGraphCell.h"
 
 @implementation OperatorTargetView {
     
+    __weak IBOutlet UICollectionView *_weeklyGraph;
     __weak IBOutlet UITableView *_tableView;
     __weak IBOutlet UIActivityIndicatorView *_spinner;
     __weak IBOutlet UILabel *_noWorkLabel;
@@ -26,10 +28,11 @@
     
     NSMutableArray *_runs;
     NSMutableArray *_processesForSelectedDay;
+    NSMutableArray *_processesForSelectedWeek;
     
     int _selectedProcess;
-    
     BOOL _alreadyLoading;
+    long _maxQuantity;
 }
 
 + (OperatorTargetView*) createView
@@ -56,6 +59,10 @@
     
     [super awakeFromNib];
     
+    [_weeklyGraph registerClass:[WeeklyGraphCell class] forCellWithReuseIdentifier:@"WeeklyGraphCell"];
+    UINib *cellNib = [UINib nibWithNibName:@"WeeklyGraphCell" bundle:nil];
+    [_weeklyGraph registerNib:cellNib forCellWithReuseIdentifier:@"WeeklyGraphCell"];
+    
     [_spinner startAnimating];
     [self computeRuns];
 }
@@ -72,12 +79,41 @@
     
     [_runs removeAllObjects];
     [_processesForSelectedDay removeAllObjects];
+    [_processesForSelectedWeek removeAllObjects];
     [_tableView reloadData];
+    [_weeklyGraph reloadData];
     
     [self computeRuns];
 }
 
 #pragma mark - Actions
+
+#pragma mark - UICollectionViewDelegate
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 7;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSDate *firstDay = [[_delegate selectedDate] firstDateOfWeek];
+    NSDate *selectedDate = [firstDay dateByAddingTimeInterval:indexPath.row*3600*24];
+    NSUInteger c = [self processesForDay:selectedDate].count;
+    return CGSizeMake([WeeklyGraphCell widthForProcessCount:c], 209);
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    WeeklyGraphCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WeeklyGraphCell" forIndexPath:indexPath];
+    NSDate *firstDay = [[_delegate selectedDate] firstDateOfWeek];
+    NSDate *selectedDate = [firstDay dateByAddingTimeInterval:indexPath.row*3600*24];
+    [cell layoutWithDay:selectedDate processes:[self processesForDay:selectedDate] max:_maxQuantity];
+    return cell;
+}
 
 #pragma mark - UITableViewDelegate
 
@@ -276,6 +312,7 @@
     NSDate *today = [_delegate selectedDate];
     NSCalendar *cal = [NSCalendar currentCalendar];
     
+    _processesForSelectedWeek = [NSMutableArray array];
     _processesForSelectedDay = [NSMutableArray array];
     [_tableView reloadData];
     for (Run *r in _runs) {
@@ -283,22 +320,34 @@
         for (ProcessModel *p in r.processes) {
             
             DayLogModel *day = nil;
+            DayLogModel *dayInWeek = nil;
             int t = 0;
             for (DayLogModel *d in r.days) {
                 if (d.processId == p.stepId) {
                     t += d.target;
                     
-                    if ([cal isDate:d.date inSameDayAsDate:today] && [d.person isEqualToString:_user.name]) {
-                        day = d;
+                    if ([d.person isEqualToString:_user.name]) {
+                        
+                        if ([cal isDate:d.date inSameDayAsDate:today]) {
+                            day = d;
+                        } else if ([d.date isSameWeekWithDate:today]) {
+                            dayInWeek = d;
+                        }
                     }
                 }
             }
             
-            if (t < [r quantity] && day != nil) {
+            if (day != nil) {
                 
                 NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
                 NSDictionary *d = @{@"run": r, @"process": p, @"status":status, @"dayModel": day};
                 [_processesForSelectedDay addObject:d];
+                [_processesForSelectedWeek addObject:d];
+            } else if (dayInWeek != nil) {
+                
+                NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
+                NSDictionary *d = @{@"run": r, @"process": p, @"status":status, @"dayModel": dayInWeek};
+                [_processesForSelectedWeek addObject:d];
             }
         }
     }
@@ -313,6 +362,8 @@
         _user = _tempUser;
         _tempUser = nil;
         [self reloadData];
+    } else {
+        [self computeGraph];
     }
 }
 
@@ -325,6 +376,50 @@
     }
     
     return false;
+}
+
+- (void) computeGraph {
+    
+    [self computeYScale];
+    [_weeklyGraph reloadData];
+}
+
+- (void) computeYScale {
+ 
+    _maxQuantity = 0;
+    for (NSDictionary *d in _processesForSelectedWeek) {
+        Run *r = d[@"run"];
+        _maxQuantity = MAX(_maxQuantity, [r quantity]);
+    }
+    
+    for (int i=0; i<6; i++) {
+        
+        long val = _maxQuantity/6*(i+1);
+        if (val > 10) {
+            val = val/10 * 10;
+        }
+
+        UILabel *l = (UILabel*)[self viewWithTag:100+i];
+        l.text = [NSString stringWithFormat:@"%ld", val];
+    }
+}
+
+- (NSArray*) processesForDay:(NSDate*)day {
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    for (NSDictionary *d in _processesForSelectedWeek) {
+        
+        DayLogModel *dayModel = d[@"dayModel"];
+        if ([cal isDate:dayModel.date inSameDayAsDate:day]) {
+            ProcessModel *p = d[@"process"];
+            Run *r = d[@"run"];
+            [arr addObject:@{@"process":p.processNo, @"run": @(r.runId), @"goal": @(dayModel.goal), @"processed":@(dayModel.target)}];
+        }
+    }
+    
+    [arr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"process" ascending:true]]];
+    return arr;
 }
 
 @end

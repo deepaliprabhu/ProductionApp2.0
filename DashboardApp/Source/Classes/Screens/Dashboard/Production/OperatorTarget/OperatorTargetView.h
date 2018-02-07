@@ -14,7 +14,7 @@
 
 @protocol OperatorTargetViewProtocol;
 
-@interface OperatorTargetView : UIView <UITableViewDelegate, UITableViewDataSource, OperatorTargetCellProtocol, DailyLogInputProtocol>
+@interface OperatorTargetView : UIView <UITableViewDelegate, UITableViewDataSource, OperatorTargetCellProtocol, DailyLogInputProtocol, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, unsafe_unretained) id <OperatorTargetViewProtocol> delegate;
 @property (nonatomic, unsafe_unretained) UIViewController *parent;
