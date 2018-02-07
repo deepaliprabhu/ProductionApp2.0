@@ -16,6 +16,7 @@
 #import "DayLogModel.h"
 #import "Constants.h"
 #import "UserManager.h"
+#import "ProcessInfoScreen.h"
 
 @implementation ProductionOverview {
     
@@ -83,6 +84,18 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     [cell layoutWithData:_processesForThisWeek[indexPath.row]];
     
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    ProcessModel *p = _processesForThisWeek[indexPath.row][@"process"];
+    ProcessInfoScreen *screen = [[ProcessInfoScreen alloc] initWithNibName:@"ProcessInfoScreen" bundle:nil];;
+    screen.process = p;
+    
+    CGRect r = [tableView rectForRowAtIndexPath:indexPath];
+    r = [tableView convertRect:r toView:self.superview];
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:r inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
 #pragma mark - CellProtocol
@@ -214,7 +227,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
             NSNumber *g = nil;
             int t = 0;
             for (DayLogModel *d in r.days) {
-                if (d.processId == p.stepId) {
+                if (d.processNo == p.processNo) {
                     t += d.target;
                     
                     if ([cal isDate:d.date inSameDayAsDate:today]) {
@@ -229,7 +242,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
                 NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
                 NSString *goal = g == nil ? @"-" : [g stringValue];
                 NSString *person = (pers == nil || pers.length == 0)? @"-" : pers;
-                NSDictionary *d = @{@"run": @(r.runId), @"process": p.processName?p.processName:@"", @"status":status, @"target": goal, @"person": person};
+                NSDictionary *d = @{@"run": @(r.runId), @"process": p, @"status":status, @"target": goal, @"person": person};
                 [_processesForThisWeek addObject:d];
             }
         }

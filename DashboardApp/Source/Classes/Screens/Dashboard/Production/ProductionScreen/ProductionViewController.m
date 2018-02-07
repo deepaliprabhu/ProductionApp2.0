@@ -522,7 +522,7 @@
     for (Run *r in _runs) {
         for (ProcessModel *p in r.processes) {
             for (DayLogModel *d in r.days) {
-                if ((d.processId == p.stepId) && [cal isDate:d.date inSameDayAsDate:_selectedDate] && (d.person.length > 0)) {
+                if ((d.processNo == p.processNo) && [cal isDate:d.date inSameDayAsDate:_selectedDate] && (d.person.length > 0)) {
                     int time = [p.processingTime intValue]*d.goal;
                     int proc = [p.processingTime intValue]*d.target;
                     if (_operatorsSchedule[d.person] == nil)

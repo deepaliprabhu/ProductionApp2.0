@@ -31,6 +31,8 @@
 		8919BEA11FB4EEF200EE6839 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 8919BE9F1FB4EEF100EE6839 /* UIView+Screenshot.m */; };
 		892AEEE6202B2AAC002CCCE8 /* WeeklyGraphBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 892AEEE5202B2AAC002CCCE8 /* WeeklyGraphBar.m */; };
 		892AEEE8202B2AD0002CCCE8 /* WeeklyGraphBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892AEEE7202B2AD0002CCCE8 /* WeeklyGraphBar.xib */; };
+		892AEEEC202B5D09002CCCE8 /* ProcessInfoScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 892AEEEA202B5D09002CCCE8 /* ProcessInfoScreen.m */; };
+		892AEEED202B5D09002CCCE8 /* ProcessInfoScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892AEEEB202B5D09002CCCE8 /* ProcessInfoScreen.xib */; };
 		8937BB84202B13B900870BFC /* WeeklyGraphCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8937BB82202B13B900870BFC /* WeeklyGraphCell.m */; };
 		8937BB85202B13B900870BFC /* WeeklyGraphCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8937BB83202B13B900870BFC /* WeeklyGraphCell.xib */; };
 		894018791FB5A0E4002B8AFD /* BRRequestDelete.m in Sources */ = {isa = PBXBuildFile; fileRef = 894018641FB5A0E4002B8AFD /* BRRequestDelete.m */; };
@@ -379,6 +381,9 @@
 		892AEEE4202B2AAC002CCCE8 /* WeeklyGraphBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeeklyGraphBar.h; sourceTree = "<group>"; };
 		892AEEE5202B2AAC002CCCE8 /* WeeklyGraphBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeeklyGraphBar.m; sourceTree = "<group>"; };
 		892AEEE7202B2AD0002CCCE8 /* WeeklyGraphBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeeklyGraphBar.xib; sourceTree = "<group>"; };
+		892AEEE9202B5D09002CCCE8 /* ProcessInfoScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessInfoScreen.h; sourceTree = "<group>"; };
+		892AEEEA202B5D09002CCCE8 /* ProcessInfoScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessInfoScreen.m; sourceTree = "<group>"; };
+		892AEEEB202B5D09002CCCE8 /* ProcessInfoScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProcessInfoScreen.xib; sourceTree = "<group>"; };
 		8937BB81202B13B900870BFC /* WeeklyGraphCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeeklyGraphCell.h; sourceTree = "<group>"; };
 		8937BB82202B13B900870BFC /* WeeklyGraphCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeeklyGraphCell.m; sourceTree = "<group>"; };
 		8937BB83202B13B900870BFC /* WeeklyGraphCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeeklyGraphCell.xib; sourceTree = "<group>"; };
@@ -1044,6 +1049,9 @@
 				894704AA201944FD007364F0 /* ProductionRunCell.h */,
 				894704AB201944FD007364F0 /* ProductionRunCell.m */,
 				894704AC201944FD007364F0 /* ProductionRunCell.xib */,
+				892AEEE9202B5D09002CCCE8 /* ProcessInfoScreen.h */,
+				892AEEEA202B5D09002CCCE8 /* ProcessInfoScreen.m */,
+				892AEEEB202B5D09002CCCE8 /* ProcessInfoScreen.xib */,
 			);
 			path = ProductionOverview;
 			sourceTree = "<group>";
@@ -2266,6 +2274,7 @@
 				9F8567911F73DDB10067ABE1 /* OperatorEntryView.xib in Resources */,
 				9F252A5B1F4D4F400056DA8F /* demandsBgImage.png in Resources */,
 				89AC0AAF1FC5A84D008CA56B /* AlternatePartCell.xib in Resources */,
+				892AEEED202B5D09002CCCE8 /* ProcessInfoScreen.xib in Resources */,
 				9FA264671F48A32C004C882E /* TasklistViewCell.xib in Resources */,
 				9F022F6A1F618E03000E138B /* RunProcessStepsView.xib in Resources */,
 				895287381FCF2B33005C46EE /* StockLogScreen.xib in Resources */,
@@ -2439,6 +2448,7 @@
 				8919BE981FB4DD5100EE6839 /* NSData+ImageContentType.m in Sources */,
 				9F471CF81F53FF3600B294B7 /* InProcessView.m in Sources */,
 				9F3FF6CF1F4BDF7500F52F64 /* NSString+FontAwesome.m in Sources */,
+				892AEEEC202B5D09002CCCE8 /* ProcessInfoScreen.m in Sources */,
 				8919BE921FB4DD5100EE6839 /* UIImage+GIF.m in Sources */,
 				895287371FCF2B33005C46EE /* StockLogScreen.m in Sources */,
 				9F03A91A1F4563C900A7A316 /* DemandListView.m in Sources */,

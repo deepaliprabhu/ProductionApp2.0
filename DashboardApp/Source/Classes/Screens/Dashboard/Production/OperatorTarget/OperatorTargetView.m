@@ -320,18 +320,20 @@
         for (ProcessModel *p in r.processes) {
             
             DayLogModel *day = nil;
-            DayLogModel *dayInWeek = nil;
             int t = 0;
             for (DayLogModel *d in r.days) {
-                if (d.processId == p.stepId) {
+                if (d.processNo == p.processNo) {
                     t += d.target;
                     
                     if ([d.person isEqualToString:_user.name]) {
                         
                         if ([cal isDate:d.date inSameDayAsDate:today]) {
                             day = d;
+                            NSDictionary *dict = @{@"run": r, @"process": p, @"dayModel": d};
+                            [_processesForSelectedWeek addObject:dict];
                         } else if ([d.date isSameWeekWithDate:today]) {
-                            dayInWeek = d;
+                            NSDictionary *dict = @{@"run": r, @"process": p, @"dayModel": d};
+                            [_processesForSelectedWeek addObject:dict];
                         }
                     }
                 }
@@ -342,12 +344,6 @@
                 NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
                 NSDictionary *d = @{@"run": r, @"process": p, @"status":status, @"dayModel": day};
                 [_processesForSelectedDay addObject:d];
-                [_processesForSelectedWeek addObject:d];
-            } else if (dayInWeek != nil) {
-                
-                NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
-                NSDictionary *d = @{@"run": r, @"process": p, @"status":status, @"dayModel": dayInWeek};
-                [_processesForSelectedWeek addObject:d];
             }
         }
     }

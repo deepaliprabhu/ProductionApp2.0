@@ -7,6 +7,7 @@
 //
 
 #import "ProductionProcessCell.h"
+#import "ProcessModel.h"
 
 @implementation ProductionProcessCell {
     
@@ -23,7 +24,9 @@
     
     _runId = [dict[@"run"] intValue];
     _runLabel.text = [NSString stringWithFormat:@"%d", _runId];
-    _processLabel.text = dict[@"process"];
+    
+    ProcessModel *p = dict[@"process"];
+    _processLabel.text = p.processName?p.processName:@"";
     _statusLabel.text = dict[@"status"];
     _targetLabel.text = dict[@"target"];
     _operatorLabel.text = dict[@"person"];

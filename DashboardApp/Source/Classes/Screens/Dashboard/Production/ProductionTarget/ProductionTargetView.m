@@ -393,7 +393,7 @@
         DayLogModel *dayModel = nil;
         int t = 0;
         for (DayLogModel *d in days) {
-            if (d.processId == p.stepId) {
+            if (d.processNo == p.processNo) {
                 t += d.target;
                 
                 if ([cal isDate:d.date inSameDayAsDate:today]) {
@@ -404,12 +404,14 @@
         
         if (t < [r quantity]) {
             NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
-            NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"process": p, @"status":status}];
+            NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"process": p, @"status":status, @"step": @([p.stepId intValue])}];
             if (dayModel)
                 d[@"dayModel"] = dayModel;
             [processesForSelectedRun addObject:d];
         }
     }
+    
+    [processesForSelectedRun sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"step" ascending:true]]];
     
     [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"processes": processesForSelectedRun}];
     [_processesTable reloadData];
