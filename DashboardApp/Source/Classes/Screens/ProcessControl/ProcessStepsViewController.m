@@ -194,6 +194,7 @@
 - (void) initProcesses {
     commonProcessStepsArray = [__DataManager getCommonProcesses];
     filteredCommonProcessStepsArray = commonProcessStepsArray;
+    [self setUpCommonProcessTable];
     [_commonProcessListTableView reloadData];
 }
 
@@ -492,6 +493,7 @@
     
     if (tag == 2) {
         [__ServerManager getProcessList];
+        return;
     }
     
     if ([json isKindOfClass:[NSArray class]]){
@@ -510,7 +512,7 @@
             }
             [self setupForStatus:jsonDict[@"status"]];
             NSLog(@"processes Array=%@",processStepsArray);
-            processStepsArray = [__DataManager reorderProcessSteps:processStepsArray];
+           // processStepsArray = [__DataManager reorderProcessSteps:processStepsArray];
             [selectedProduct setProcessSteps:processStepsArray];
             selectedProduct.pcbProductID = pcbProductId;
             [_processListTableView reloadData];
@@ -816,6 +818,16 @@
         NSMutableDictionary *processData = commonProcessStepsArray[index];
         [self removeProcessWithNo:processData[@"processno"]];
     }
+    if (alteredIndexArray.count > 0) {
+        if ([processStatus isEqualToString:@"Draft"]) {
+            [_puneApprovalButton setUserInteractionEnabled:true];
+        }
+    }
+    //[_editProcessFlowView removeFromSuperview];
+    indexArray = alteredIndexArray;
+    filteredIndexArray = indexArray;
+    processStepsArray = [__DataManager reorderProcesses:alteredProcessesArray];
+    [_processListTableView reloadData];
 }
 
 - (void)removeProcessWithNo:(NSString*)processNo {
@@ -933,8 +945,11 @@
 }
 
 - (void)showAddProcessView {
+    NSMutableDictionary *lastProcess = commonProcessStepsArray[commonProcessStepsArray.count-1];
+    int processNo = [[lastProcess[@"processno"] stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue]+1;
     _processNoTF.enabled = true;
     _processNoTF.userInteractionEnabled = true;
+    _processNoTF.text = [NSString stringWithFormat:@"P%d",processNo];
     [_stationIdButton setTitle:@"Pick Station" forState:UIControlStateNormal];
     [_operator1Button setTitle:@"Pick Operator1" forState:UIControlStateNormal];
     [_operator2Button setTitle:@"Pick Operator2" forState:UIControlStateNormal];
@@ -964,18 +979,34 @@
     NSLog(@"orig processData=%@",processData);
     
     [processData setObject:[NSString stringWithFormat:@"S%d",selectedStation+1] forKey:@"stationid"];
-    [processData setObject:_operator1Button.titleLabel.text forKey:@"op1"];
-    [processData setObject:_operator2Button.titleLabel.text forKey:@"op2"];
-    [processData setObject:_operator3Button.titleLabel.text forKey:@"op3"];
+    if (![_operator1Button.titleLabel.text isEqualToString:@"Pick Operator1"]) {
+        [processData setObject:_operator1Button.titleLabel.text forKey:@"op1"];
+    }
+    else {
+        [processData setObject:@"" forKey:@"op1"];
+    }
+    if (![_operator2Button.titleLabel.text isEqualToString:@"Pick Operator2"]) {
+        [processData setObject:_operator2Button.titleLabel.text forKey:@"op2"];
+    }
+    else {
+        [processData setObject:@"" forKey:@"op2"];
+    }
+    if (![_operator3Button.titleLabel.text isEqualToString:@"Pick Operator3"]) {
+        [processData setObject:_operator3Button.titleLabel.text forKey:@"op3"];
+    }
+    else {
+        [processData setObject:@"" forKey:@"op3"];
+    }
+
     [processData setObject:_processNameTF.text forKey:@"processname"];
     [processData setObject:_timeTF.text forKey:@"time"];
     
     if (_addProcessView.tag == 1) {
         NSMutableDictionary *lastProcess = commonProcessStepsArray[commonProcessStepsArray.count-1];
         int processNo = [[lastProcess[@"processno"] stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue]+1;
-        [processData setObject:_processNoTF.text forKey:@"processno"];
+        [processData setObject:[_processNoTF.text uppercaseString] forKey:@"processno"];
         NSString *wiString = @"- Take the Active Test Rig and Connect to the PC by using male female connector.\n- Take the assembled PCB EZ-1000-000x Rev D and load the PCB in the fixture.\n- Open the firmware folder, select 'Gourmet Check Dual BT' file and Run this firmware in to the PCB.\n- If during runtime any errors are found, note the particular error onto a sticky note and place the PCB into the rework bin.\n- If no errors were found during the run time after completion, place the PCB into the 'Goods OK' bin.\n";
-       // [processData setObject:wiString forKey:@"workinstructions"];
+        [processData setObject:@"" forKey:@"workinstructions"];
         [self addProcessToList:processData];
     }
     else {
@@ -1030,11 +1061,11 @@
         selectedStation = index;
     }
     else if(dropDown.tag == 2){
-        selectedOperatorIndex = index;
-    }
-    else {
         pcbProductId = pcbProductsArray[index];
         selectedProduct.pcbProductID = pcbProductId;
+    }
+    else {
+        selectedOperatorIndex = index;
     }
 }
 
@@ -1074,6 +1105,10 @@
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Delete Option is disabled for now. Please contact Arthur/Deepali for deleting processes." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
     alertView.tag = 0;
     [alertView show];
+    
+   /* [self deleteCommonProcessFromListAtIndex:selectedIndex];
+    [_addProcessView removeFromSuperview];
+    backgroundDimmingView.hidden = true;*/
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -1122,7 +1157,7 @@
         CGFloat f = 220;
         dropDown = [[NIDropDown alloc]showDropDown:sender :&f :pcbProductsArray :nil :@"down"];
         dropDown.backgroundColor = [UIColor whiteColor];
-        dropDown.tag = 3;
+        dropDown.tag = 2;
         dropDown.delegate = self;
     }
     else {
