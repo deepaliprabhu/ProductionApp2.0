@@ -6,6 +6,17 @@
       "scale" : "1x"
     },
     {
+      "resizing" : {
+        "mode" : "3-part-vertical",
+        "center" : {
+          "mode" : "tile",
+          "height" : 1
+        },
+        "cap-insets" : {
+          "top" : 32,
+          "bottom" : 33
+        }
+      },
       "idiom" : "universal",
       "filename" : "enterDataButton@2x.png",
       "scale" : "2x"

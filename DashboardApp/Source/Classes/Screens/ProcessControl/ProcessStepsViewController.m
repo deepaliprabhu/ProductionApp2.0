@@ -933,6 +933,8 @@
 }
 
 - (void)showAddProcessView {
+    _processNoTF.enabled = true;
+    _processNoTF.userInteractionEnabled = true;
     [_stationIdButton setTitle:@"Pick Station" forState:UIControlStateNormal];
     [_operator1Button setTitle:@"Pick Operator1" forState:UIControlStateNormal];
     [_operator2Button setTitle:@"Pick Operator2" forState:UIControlStateNormal];
@@ -1044,7 +1046,8 @@
     selectedIndex = index;
     NSMutableDictionary *processData = commonProcessStepsArray[index];
     NSLog(@"selected processData=%@",processData);
-    
+    _processNoTF.enabled = false;
+    _processNoTF.userInteractionEnabled = false;
     int stationIndex = [[processData[@"stationid"] substringFromIndex:1] intValue];
     [_stationIdButton setTitle:stationsArray[stationIndex-1] forState:UIControlStateNormal];
     if (![processData[@"op1"] isEqualToString:@""]) {

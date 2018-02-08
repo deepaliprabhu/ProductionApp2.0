@@ -30,7 +30,7 @@
     index = index_;
     _productNameLabel.text = p.name;
     
-    if ([p photoURL] == nil)
+    /*if ([p photoURL] == nil)
         [_productImageView setImage:[UIImage imageNamed:@"placeholder.png"]];
     else
     {
@@ -38,6 +38,18 @@
         [_productImageView sd_setImageWithURL:[p photoURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             //[_spinner stopAnimating];
         }];
+    }*/
+    if([[p.name lowercaseString] containsString:@"receptor"] || [[p.name lowercaseString] containsString:@"inspector"]) {
+        [_productImageView setImage:[UIImage imageNamed:@"inspectorIcon.png"]];
+    }
+    else if([[p.name lowercaseString] containsString:@"grillville"] || [[p.group lowercaseString] containsString:@"grillville"]){
+         [_productImageView setImage:[UIImage imageNamed:@"grillvilleIcon.png"]];
+    }
+    else if ([[p.name lowercaseString] containsString:@"sentinel"] || [[p.group lowercaseString] containsString:@"sentinel"]) {
+         [_productImageView setImage:[UIImage imageNamed:@"sentinelIcon.png"]];
+    }
+    else {
+        [_productImageView setImage:[UIImage imageNamed:@"miscIcon.png"]];
     }
     
     if (isAdmin == true)
