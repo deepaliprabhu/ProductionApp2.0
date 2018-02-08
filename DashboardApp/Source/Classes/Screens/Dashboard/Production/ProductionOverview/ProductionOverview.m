@@ -16,10 +16,10 @@
 #import "DayLogModel.h"
 #import "Constants.h"
 #import "UserManager.h"
+#import "ProcessInfoScreen.h"
 
 @implementation ProductionOverview {
     
-    __weak IBOutlet UIButton *_targetButton;
     __weak IBOutlet UITableView *_processesTable;
     __weak IBOutlet UIActivityIndicatorView *_spinner;
     
@@ -33,12 +33,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     
     [super awakeFromNib];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(computeRuns) name:kNotificationCommonProcessesReceived object:nil];;
-    
-    _targetButton.layer.masksToBounds = true;
-    _targetButton.layer.cornerRadius  = 7;
-    _targetButton.layer.borderWidth   = 1;
-    _targetButton.layer.borderColor   = ccolor(102, 102, 102).CGColor;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(computeRuns) name:kNotificationCommonProcessesReceived object:nil];
     
     [_spinner startAnimating];
     if ([[[DataManager sharedInstance] getCommonProcesses] count] == 0) {
@@ -46,8 +41,6 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     } else {
         [self computeRuns];
     }
-    
-    _targetButton.alpha = [[[UserManager sharedInstance] loggedUser] isAdmin];
 }
 
 - (void) dealloc {
@@ -63,12 +56,6 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     [_processesTable reloadData];
     
     [self computeRuns];
-}
-
-#pragma mark - Actions
-
-- (IBAction) targetButtonTapped {
-    [_delegate goToTargets];
 }
 
 #pragma mark - UITableViewDelegate
@@ -97,6 +84,18 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     [cell layoutWithData:_processesForThisWeek[indexPath.row]];
     
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    ProcessModel *p = _processesForThisWeek[indexPath.row][@"process"];
+    ProcessInfoScreen *screen = [[ProcessInfoScreen alloc] initWithNibName:@"ProcessInfoScreen" bundle:nil];;
+    screen.process = p;
+    
+    CGRect r = [tableView rectForRowAtIndexPath:indexPath];
+    r = [tableView convertRect:r toView:self.superview];
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:r inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
 #pragma mark - CellProtocol
@@ -192,7 +191,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
                 
                 NSMutableArray *daysArr = [NSMutableArray array];
                 NSArray *days = [response firstObject][@"processes"];
-                days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
+                days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false], [NSSortDescriptor sortDescriptorWithKey:@"day" ascending:false]]];
                 for (int i=0; i<days.count; i++) {
                     
                     NSDictionary *dict = days[i];
@@ -228,7 +227,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
             NSNumber *g = nil;
             int t = 0;
             for (DayLogModel *d in r.days) {
-                if (d.processId == p.stepId) {
+                if (d.processNo == p.processNo) {
                     t += d.target;
                     
                     if ([cal isDate:d.date inSameDayAsDate:today]) {
@@ -243,7 +242,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
                 NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
                 NSString *goal = g == nil ? @"-" : [g stringValue];
                 NSString *person = (pers == nil || pers.length == 0)? @"-" : pers;
-                NSDictionary *d = @{@"run": @(r.runId), @"process": p.processName?p.processName:@"", @"status":status, @"target": goal, @"person": person};
+                NSDictionary *d = @{@"run": @(r.runId), @"process": p, @"status":status, @"target": goal, @"person": person};
                 [_processesForThisWeek addObject:d];
             }
         }

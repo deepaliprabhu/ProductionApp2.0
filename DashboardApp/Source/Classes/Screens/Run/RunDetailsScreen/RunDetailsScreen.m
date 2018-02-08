@@ -419,7 +419,7 @@
     
     [self layoutProcessTitle];
     if (_days.count > 0)
-        [self layoutQuantitiesForProcess:_selectedProcess.stepId];
+        [self layoutQuantitiesForProcess:_selectedProcess.processNo];
     
     _passedTestsLabel.text = @"";
     _failedTestsLabel.text = @"";
@@ -716,7 +716,7 @@
             
             _days = [NSMutableArray array];
             NSArray *days = [response firstObject][@"processes"];
-            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
+            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false], [NSSortDescriptor sortDescriptorWithKey:@"day" ascending:false]]];
             for (int i=0; i<days.count; i++) {
                 
                 NSDictionary *dict = days[i];
@@ -741,7 +741,7 @@
     
     NSCalendar *c = [NSCalendar currentCalendar];
     for (DayLogModel *d in _days) {
-        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processId isEqualToString:log.processId])
+        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processNo isEqualToString:log.processNo])
             return true;
     }
     
@@ -802,7 +802,7 @@
     int rework = 0;
     int good = 0;
     for (DayLogModel *d in _days) {
-        if ([d.processId isEqualToString:process]) {
+        if ([d.processNo isEqualToString:process]) {
             total += d.target;
             rework += d.rework;
             good += d.good;
@@ -819,7 +819,7 @@
     _filteredDays = [NSMutableArray array];
     _maxDayLogValue = (int)_run.quantity;
     for (DayLogModel *d in _days) {
-        if (d.date != nil && d.processId == p.stepId)
+        if (d.date != nil && d.processNo == p.processNo)
             [_filteredDays addObject: d];
     }
     
@@ -852,7 +852,7 @@
     
     int t = 0;
     for (DayLogModel *d in _days) {
-        if (d.processId == p.stepId) {
+        if (d.processNo == p.processNo) {
             t += d.target;
 //            t += d.reject + d.rework + d.good;
         }
@@ -866,7 +866,7 @@
     NSCalendar *c = [NSCalendar currentCalendar];
     for (DayLogModel *d in _days) {
         
-        if (d.date != nil && d.processId == p.stepId) {
+        if (d.date != nil && d.processNo == p.processNo) {
             if ([c isDateInToday:d.date]) {
                 return d.target;
             }

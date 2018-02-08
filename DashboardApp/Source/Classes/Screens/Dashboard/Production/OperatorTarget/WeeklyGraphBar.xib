@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WeeklyGraphBar">
+            <rect key="frame" x="0.0" y="0.0" width="22" height="179"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nSw-5w-iUL">
+                    <rect key="frame" x="0.0" y="57" width="10" height="122"/>
+                    <color key="backgroundColor" red="0.15686274509803921" green="0.7803921568627451" blue="0.27058823529411763" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="122" id="Eaw-N6-Fke"/>
+                        <constraint firstAttribute="width" constant="10" id="WSE-si-bof"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5xC-CL-ibn">
+                    <rect key="frame" x="12" y="57" width="10" height="122"/>
+                    <color key="backgroundColor" red="0.074509803921568626" green="0.52941176470588236" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="122" id="W4d-my-RIh"/>
+                        <constraint firstAttribute="width" constant="10" id="hbj-na-ufy"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="x5S-sh-AdS">
+                    <rect key="frame" x="0.0" y="26" width="22" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="31" id="EyY-Aa-HS3"/>
+                        <constraint firstAttribute="width" constant="22" id="G2e-FE-ZrO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
+                    <color key="textColor" red="0.47450980392156861" green="0.47450980392156861" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="x5S-sh-AdS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="K99-Zo-1ru"/>
+                <constraint firstAttribute="bottom" secondItem="x5S-sh-AdS" secondAttribute="bottom" constant="122" id="Xve-tP-fa3"/>
+                <constraint firstAttribute="bottom" secondItem="nSw-5w-iUL" secondAttribute="bottom" id="aX2-id-oEW"/>
+                <constraint firstItem="nSw-5w-iUL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ceh-2s-dBq"/>
+                <constraint firstAttribute="bottom" secondItem="5xC-CL-ibn" secondAttribute="bottom" id="hY9-fN-Y1S"/>
+                <constraint firstAttribute="trailing" secondItem="5xC-CL-ibn" secondAttribute="trailing" id="zo0-hg-4z2"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="_goalHeightConstraint" destination="W4d-my-RIh" id="yEB-sF-y6s"/>
+                <outlet property="_processLabel" destination="x5S-sh-AdS" id="03X-D3-2Rc"/>
+                <outlet property="_processLabelBottomConstraint" destination="Xve-tP-fa3" id="92T-nV-GRU"/>
+                <outlet property="_statusHeightConstraint" destination="Eaw-N6-Fke" id="u9h-2S-Nd1"/>
+            </connections>
+            <point key="canvasLocation" x="26" y="52.5"/>
+        </view>
+    </objects>
+</document>

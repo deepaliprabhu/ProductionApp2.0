@@ -14,21 +14,21 @@
 
 @protocol OperatorTargetViewProtocol;
 
-@interface OperatorTargetView : UIView <UITableViewDelegate, UITableViewDataSource, OperatorTargetCellProtocol, DailyLogInputProtocol>
+@interface OperatorTargetView : UIView <UITableViewDelegate, UITableViewDataSource, OperatorTargetCellProtocol, DailyLogInputProtocol, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic, strong) UserModel *user;
 @property (nonatomic, unsafe_unretained) id <OperatorTargetViewProtocol> delegate;
 @property (nonatomic, unsafe_unretained) UIViewController *parent;
 
 __CREATEVIEWH(OperatorTargetView)
 
 - (void) reloadData;
+- (void) setUserModel:(UserModel*)user;
+- (UserModel*) getUserModel;
 
 @end
 
 @protocol OperatorTargetViewProtocol <NSObject>
 
-- (void) goBackFromOperatorView;
 - (void) newInputLogSet;
 - (NSDate*) selectedDate;
 

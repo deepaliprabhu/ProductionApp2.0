@@ -71,9 +71,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JhR-yK-WhK">
-                        <rect key="frame" x="446" y="8" width="117" height="26"/>
+                        <rect key="frame" x="446" y="8" width="137" height="26"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="117" id="71j-QX-YqA"/>
+                            <constraint firstAttribute="width" constant="137" id="71j-QX-YqA"/>
                             <constraint firstAttribute="height" constant="26" id="XXI-wW-sQt"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
@@ -81,7 +81,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iF-kI-Y3c">
-                        <rect key="frame" x="446" y="0.0" width="117" height="42"/>
+                        <rect key="frame" x="446" y="0.0" width="137" height="42"/>
                         <state key="normal" image="disclosureAsset"/>
                         <connections>
                             <action selector="operatorButtonTapped" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Wi9-Iq-klZ"/>

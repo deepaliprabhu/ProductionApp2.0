@@ -14,6 +14,7 @@
 #import "ProcessModel.h"
 #import "DayLogModel.h"
 #import "LoadingView.h"
+#import "ProcessInfoScreen.h"
 
 @implementation ProductionTargetView {
     
@@ -57,12 +58,6 @@
     [self computeRuns];
 }
 
-#pragma mark - Actions
-
-- (IBAction) backButtonTapped {
-    [_delegate goBackFromTargetView];
-}
-
 #pragma mark - UITableViewDelegate
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
@@ -95,6 +90,19 @@
     [cell layoutWithData:arr[indexPath.row] atRow:(int)indexPath.row];
     
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSArray *arr = _runs[_selectedRunIndex][@"processes"];
+    ProcessModel *p = arr[indexPath.row][@"process"];
+    ProcessInfoScreen *screen = [[ProcessInfoScreen alloc] initWithNibName:@"ProcessInfoScreen" bundle:nil];;
+    screen.process = p;
+    
+    CGRect r = [tableView rectForRowAtIndexPath:indexPath];
+    r = [tableView convertRect:r toView:self.superview];
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    [popover presentPopoverFromRect:r inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -159,9 +167,10 @@
 
 - (void) showOperatorsForRow:(int)row rect:(CGRect)rect {
     
-    if ([[_delegate selectedDate] isSameDayWithDate:[NSDate date]] == false) {
+    NSDate *yesterday = [[NSDate date] dateByAddingTimeInterval:-24*3600];
+    if ([[_delegate selectedDate] isSameDayWithDate:yesterday] == true) {
      
-        [LoadingView showShortMessage:@"Operator can be changed only for today's processes"];
+        [LoadingView showShortMessage:@"Operator cannot be changed for yesterday's processes"];
     } else {
         
         _selectedProcess = row;
@@ -176,9 +185,9 @@
 
 - (void) showTargetInputForRow:(int)row rect:(CGRect)rect {
     
-    if ([[_delegate selectedDate] isSameDayWithDate:[NSDate date]] == false) {
-        
-        [LoadingView showShortMessage:@"Target can be changed only for today's processes"];
+    NSDate *yesterday = [[NSDate date] dateByAddingTimeInterval:-24*3600];
+    if ([[_delegate selectedDate] isSameDayWithDate:yesterday] == true) {
+        [LoadingView showShortMessage:@"Target cannot be changed for yesterday's processes"];
     } else {
         
         _selectedProcess = row;
@@ -228,7 +237,7 @@
         NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:data];
         newDict[@"process"] = p;
         [localProcesses replaceObjectAtIndex:_selectedProcess withObject:newDict];
-        [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"processes": localProcesses}];
+        [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"runId": @(r.runId), @"processes": localProcesses}];
         [_processesTable reloadData];
         
         [_delegate newProcessTimeWasSet];
@@ -250,7 +259,8 @@
         day.person = temp.person;
         day.comments = temp.comments;
     }
-    day.goal   = newTarget;
+    day.date = [_delegate selectedDate];
+    day.goal = newTarget;
     ProcessModel *p = dict[@"process"];
     day.processNo = p.processNo;
     day.processId = p.stepId;
@@ -277,6 +287,7 @@
             day.goal   = temp.good;
             day.comments = temp.comments;
         }
+        day.date = [_delegate selectedDate];
         day.person = personName;
         ProcessModel *p = dict[@"process"];
         day.processNo = p.processNo;
@@ -310,7 +321,8 @@
                             NSString *dateStr = d[@"SCHEDULED"];
                             NSDate *date = [f dateFromString:dateStr];
                             if ([date isSameWeekWithDate:[_delegate selectedDate]]) {
-                                [_runs addObject:@{@"run":r}];
+                                [_runs addObject:@{@"run":r, @"runId":@(r.runId)}];
+                                [_runs sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"runId" ascending:true]]];
                                 if (_runs.count == 1)
                                     [self getProcessesForSelectedRun];
                                 break;
@@ -366,7 +378,7 @@
         NSMutableArray *daysArr = [NSMutableArray array];
         if (success) {
             NSArray *days = [response firstObject][@"processes"];
-            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
+            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false], [NSSortDescriptor sortDescriptorWithKey:@"day" ascending:false]]];
             for (int i=0; i<days.count; i++) {
                 
                 NSDictionary *dict = days[i];
@@ -396,7 +408,7 @@
         DayLogModel *dayModel = nil;
         int t = 0;
         for (DayLogModel *d in days) {
-            if (d.processId == p.stepId) {
+            if (d.processNo == p.processNo) {
                 t += d.target;
                 
                 if ([cal isDate:d.date inSameDayAsDate:today]) {
@@ -407,14 +419,16 @@
         
         if (t < [r quantity]) {
             NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
-            NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"process": p, @"status":status}];
+            NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"process": p, @"status":status, @"step": @([p.stepId intValue])}];
             if (dayModel)
                 d[@"dayModel"] = dayModel;
             [processesForSelectedRun addObject:d];
         }
     }
     
-    [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"processes": processesForSelectedRun}];
+    [processesForSelectedRun sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"step" ascending:true]]];
+    
+    [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"runId": @(r.runId), @"processes": processesForSelectedRun}];
     [_processesTable reloadData];
     [_spinner stopAnimating];
 }
@@ -449,7 +463,7 @@
             newDict[@"dayModel"] = day;
             [processes replaceObjectAtIndex:_selectedProcess withObject:newDict];
             
-            [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"processes": processes}];
+            [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"runId": @(r.runId), @"processes": processes}];
             [_processesTable reloadData];
             
         } else {
