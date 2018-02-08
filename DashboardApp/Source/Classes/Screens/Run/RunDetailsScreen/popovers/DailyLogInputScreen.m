@@ -45,6 +45,8 @@
 
 - (IBAction) saveButtonTapped {
  
+    [self.view endEditing:true];
+    
     int good = [_goodTextField.text intValue];
     int reject = [_rejectTextField.text intValue];
     int rework = [_reworkTextField.text intValue];
