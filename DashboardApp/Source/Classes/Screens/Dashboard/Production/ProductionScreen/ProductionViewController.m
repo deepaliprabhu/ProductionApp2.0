@@ -450,6 +450,12 @@
 
 - (void) getProcesses {
     
+    if (_runs.count == 0) {
+        [_operatorsSchedule removeAllObjects];
+        [_operatorsTable reloadData];
+        return;
+    }
+    
     __block int currentRequests = 0;
     for (Run *r in _runs) {
         

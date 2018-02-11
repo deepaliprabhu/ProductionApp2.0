@@ -148,6 +148,13 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
 
 - (void) getProcesses {
     
+    if (_runs.count == 0) {
+        [_processesForThisWeek removeAllObjects];
+        [_spinner stopAnimating];
+        [_processesTable reloadData];
+        return;
+    }
+    
     __block int currentRequests = 0;
     for (Run *r in _runs) {
         
