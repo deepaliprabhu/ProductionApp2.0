@@ -667,7 +667,17 @@
             
             [LoadingView removeLoading];
             _processes = [NSMutableArray array];
-            NSArray *processes = [response firstObject][@"processes"];
+            NSMutableArray *processes = [NSMutableArray arrayWithArray:[response firstObject][@"processes"]];
+            [processes sortUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+               
+                int i1 = [obj1[@"stepid"] intValue];
+                int i2 = [obj2[@"stepid"] intValue];
+                if (i1<i2)
+                    return NSOrderedAscending;
+                else
+                    return NSOrderedDescending;
+            }];
+            
             for (int i=0; i<processes.count;i++) {
                 
                 NSDictionary *processData = processes[i];
@@ -716,7 +726,7 @@
             
             _days = [NSMutableArray array];
             NSArray *days = [response firstObject][@"processes"];
-            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false], [NSSortDescriptor sortDescriptorWithKey:@"day" ascending:false]]];
+            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
             for (int i=0; i<days.count; i++) {
                 
                 NSDictionary *dict = days[i];
@@ -784,16 +794,6 @@
     _2YearsAgoTitleLabel.text = cstrf(@"%d", y-2);
     
     [self getSales];
-}
-
-- (DayLogModel*) dayForProcess:(NSString*)process {
-    
-    for (DayLogModel *d in _days) {
-        if ([d.processId isEqualToString:process])
-            return d;
-    }
-    
-    return nil;
 }
 
 - (void) layoutQuantitiesForProcess:(NSString*)process {

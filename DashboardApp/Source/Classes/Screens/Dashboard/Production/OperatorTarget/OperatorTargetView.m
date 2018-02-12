@@ -200,7 +200,7 @@
             NSMutableArray *arr = [NSMutableArray arrayWithArray:r.days];
             for (int i=0;i<arr.count;i++) {
                 DayLogModel *d = arr[i];
-                if ([d.processId isEqualToString:day.processId] && [d.processNo isEqualToString:day.processNo]) {
+                if ([d.processNo isEqualToString:day.processNo]) {
                     [arr replaceObjectAtIndex:i withObject:day];
                     break;
                 }
@@ -310,7 +310,7 @@
                 
                 NSMutableArray *daysArr = [NSMutableArray array];
                 NSArray *days = [response firstObject][@"processes"];
-                days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false], [NSSortDescriptor sortDescriptorWithKey:@"day" ascending:false]]];
+                days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
                 for (int i=0; i<days.count; i++) {
                     
                     NSDictionary *dict = days[i];
@@ -392,7 +392,7 @@
     
     NSCalendar *c = [NSCalendar currentCalendar];
     for (DayLogModel *d in arr) {
-        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processId isEqualToString:log.processId])
+        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processNo isEqualToString:log.processNo])
             return true;
     }
     

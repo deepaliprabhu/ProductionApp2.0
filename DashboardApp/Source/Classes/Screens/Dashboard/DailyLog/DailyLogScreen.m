@@ -183,7 +183,7 @@
     
     NSCalendar *c = [NSCalendar currentCalendar];
     for (DayLogModel *d in logs) {
-        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processId isEqualToString:log.processId])
+        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processNo isEqualToString:log.processNo])
             return true;
     }
     

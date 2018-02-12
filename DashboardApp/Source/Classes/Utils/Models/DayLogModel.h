@@ -17,7 +17,7 @@
 @property (nonatomic, unsafe_unretained) int good;
 @property (nonatomic, unsafe_unretained) int target;
 @property (nonatomic, unsafe_unretained) int goal;
-@property (nonatomic, strong) NSString *processId;
+@property (nonatomic, unsafe_unretained) int dayLogID;
 @property (nonatomic, strong) NSString *processNo;
 @property (nonatomic, strong) NSString *person;
 @property (nonatomic, strong) NSString *comments;
