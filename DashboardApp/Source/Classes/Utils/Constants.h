@@ -14,6 +14,7 @@
 #define kNotificationFeedbacksReceived     @"FEEDBACKSRECEIVED"
 #define kNotificationCommonProcessesReceived     @"COMMONPROCESSESRECEIVED"
 #define kNotificationProductsReceived     @"PRODUCTSRECEIVED"
+#define kNotificationProcessUpdateSuccessful     @"PROCESSUPDATED"
 
 
 

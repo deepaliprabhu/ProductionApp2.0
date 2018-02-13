@@ -63,6 +63,10 @@
     IBOutlet UILabel *_processCntrlIdLabel;
     IBOutlet UITextField *_aliasTF;
     
+    IBOutlet UIView *_updateGroupView;
+    IBOutlet UIButton *_groupButton;
+    IBOutlet UILabel *_nameLabel;
+    
     UIView *backgroundDimmingView;
     
     DZNSegmentedControl *control;
@@ -90,12 +94,14 @@
     BOOL screenIsForAdmin;
     
     ProductModel *selectedProduct;
+    ProductModel *updatingProduct;
     
     NSString *processCntrlId;
     NSString *processCntrlIdAlias;
     NSString *processStatus;
     NSString *pcbProductId;
     UIPopoverController *_adminPopover;
+    UIPopoverController *_groupPopover;
     
     int selectedStation;
     int selectedIndex;

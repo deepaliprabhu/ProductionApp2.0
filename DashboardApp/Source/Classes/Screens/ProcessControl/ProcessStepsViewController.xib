@@ -35,9 +35,11 @@
                 <outlet property="_createStepButton" destination="C99-it-uWH" id="SBR-Fj-iP6"/>
                 <outlet property="_editModeLabel" destination="5ek-qK-plr" id="eua-uj-5YK"/>
                 <outlet property="_editProcessFlowView" destination="xqZ-tr-rQf" id="wc3-x5-0q6"/>
+                <outlet property="_groupButton" destination="gsc-Fu-Iwr" id="yL8-f2-vqR"/>
                 <outlet property="_lausanneApprovalButton" destination="gYy-IQ-7eY" id="K2T-Og-9S9"/>
                 <outlet property="_leftPaneView" destination="oJ3-QE-4ji" id="spb-Gh-fEM"/>
                 <outlet property="_masonApprovalButton" destination="xAF-G1-PoZ" id="EG3-sv-qOB"/>
+                <outlet property="_nameLabel" destination="xnN-Zz-Rf5" id="klg-I0-KYw"/>
                 <outlet property="_operator1Button" destination="Hv8-UA-yXA" id="g8O-If-0Sk"/>
                 <outlet property="_operator1Label" destination="ZmT-m7-7Gb" id="c9v-nE-nEj"/>
                 <outlet property="_operator2Button" destination="dHh-wV-mye" id="TF7-RB-3ny"/>
@@ -67,6 +69,7 @@
                 <outlet property="_switchView" destination="fhr-fG-Mv9" id="8d1-qY-OxY"/>
                 <outlet property="_timeLabel" destination="wmC-LD-FlN" id="FWk-de-k4U"/>
                 <outlet property="_timeTF" destination="4vI-we-SwE" id="ShV-mj-OXo"/>
+                <outlet property="_updateGroupView" destination="t7L-DB-gsx" id="S4R-fG-g6n"/>
                 <outlet property="_wiTableView" destination="Lqh-HU-lAS" id="GYW-re-oTS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -119,6 +122,19 @@
                             </state>
                             <connections>
                                 <action selector="closePressed:" destination="-1" eventType="touchUpInside" id="S3W-2f-oZT"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ml-uc-hcP">
+                            <rect key="frame" x="740" y="11" width="97" height="42"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="18"/>
+                            <inset key="imageEdgeInsets" minX="-3" minY="0.0" maxX="10" maxY="0.0"/>
+                            <state key="normal" title="Refresh" image="refreshIcon"/>
+                            <state key="highlighted">
+                                <color key="titleColor" red="0.45098039220000002" green="0.45098039220000002" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="refreshPressed:" destination="-1" eventType="touchUpInside" id="xuc-lG-lOj"/>
                             </connections>
                         </button>
                     </subviews>
@@ -724,7 +740,7 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="375.5" y="1322"/>
+            <point key="canvasLocation" x="-207" y="1474"/>
         </view>
         <view contentMode="scaleToFill" id="1DM-ip-tEL">
             <rect key="frame" x="0.0" y="0.0" width="430" height="116"/>
@@ -775,10 +791,70 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="853" y="1039"/>
         </view>
+        <view contentMode="scaleToFill" id="t7L-DB-gsx">
+            <rect key="frame" x="0.0" y="0.0" width="482" height="257"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Change Group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I1V-SY-M0v">
+                    <rect key="frame" x="20" y="50" width="310" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pTl-3g-mRI">
+                    <rect key="frame" x="0.0" y="223" width="106" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <state key="normal" title="Update"/>
+                    <connections>
+                        <action selector="updateGroupPressed:" destination="-1" eventType="touchUpInside" id="66d-lT-8HW"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Zt-UL-n0E">
+                    <rect key="frame" x="376" y="223" width="106" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <state key="normal" title="Cancel"/>
+                    <connections>
+                        <action selector="cancelUpdateGroupPressed:" destination="-1" eventType="touchUpInside" id="lYD-v8-bA6"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="--" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnN-Zz-Rf5">
+                    <rect key="frame" x="0.0" y="0.0" width="482" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="downArrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="3w9-oJ-5zW">
+                    <rect key="frame" x="438" y="82" width="24" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsc-Fu-Iwr">
+                    <rect key="frame" x="24" y="77" width="438" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="Pick Group">
+                        <color key="titleColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="pickGroupPressed:" destination="-1" eventType="touchUpInside" id="tFd-h8-v66"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yaU-85-jKe">
+                    <rect key="frame" x="20" y="107" width="442" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="0.74761284719999999" colorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-80" y="1864.5"/>
+        </view>
     </objects>
     <resources>
         <image name="backButtonIconWhite" width="28" height="19"/>
         <image name="downArrow.png" width="32" height="24"/>
         <image name="navBarBgAsset" width="1024" height="62"/>
+        <image name="refreshIcon" width="19" height="13"/>
     </resources>
 </document>

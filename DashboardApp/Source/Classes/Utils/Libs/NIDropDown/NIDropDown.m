@@ -65,6 +65,8 @@
         table.frame = CGRectMake(0, 0, btn.size.width, *height);
         [UIView commitAnimations];
         [b.superview.superview addSubview:self];
+        [b.superview.superview setClipsToBounds:false];
+        [self setClipsToBounds:false];
         [self addSubview:table];
     }
     return self;

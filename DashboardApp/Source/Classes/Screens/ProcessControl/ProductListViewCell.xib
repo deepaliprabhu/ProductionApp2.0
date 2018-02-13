@@ -35,17 +35,21 @@
                         </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Vw-hJ-AHg">
-                        <rect key="frame" x="290" y="12" width="15" height="15"/>
+                        <rect key="frame" x="290" y="12.5" width="14" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eT6-OV-UlL">
-                        <rect key="frame" x="8" y="2" width="35" height="35"/>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lm6-Uu-E1j">
+                        <rect key="frame" x="8" y="3" width="35" height="35"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    </imageView>
+                        <inset key="imageEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                        <connections>
+                            <action selector="groupButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="RPZ-pd-mFh"/>
+                        </connections>
+                    </button>
                 </subviews>
             </tableViewCellContentView>
             <connections>
-                <outlet property="_productImageView" destination="eT6-OV-UlL" id="Q8n-Iy-tsC"/>
+                <outlet property="_groupButton" destination="lm6-Uu-E1j" id="pEp-1J-A4g"/>
                 <outlet property="_productNameLabel" destination="WKG-vJ-vo5" id="bNL-tT-yW2"/>
                 <outlet property="_stateButton" destination="aV1-9K-N2n" id="1Ni-em-Z25"/>
                 <outlet property="_statusImageView" destination="5Vw-hJ-AHg" id="3OO-fx-feb"/>

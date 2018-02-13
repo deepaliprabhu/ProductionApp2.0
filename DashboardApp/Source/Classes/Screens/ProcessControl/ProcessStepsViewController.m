@@ -49,7 +49,7 @@
     processStatus = @"Draft";
     pcbProductId = @"";
     
-    productGroupsArray = [NSMutableArray arrayWithObjects:@"Waiting", @"Sentinel", @"Inspector", @"GrillVille", @"Misc.",nil];
+    productGroupsArray = [NSMutableArray arrayWithObjects:@"Waiting", @"Argus", @"Receptor", @"GrillVille", @"Misc.",nil];
     
     waitingArray = [NSMutableArray arrayWithObjects:@"Pune Pending", @"Mason Pending", @"Lausanne Pending",nil];
 
@@ -87,6 +87,7 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(initProductList) name:kNotificationProductsReceived object:nil];
     [center addObserver:self selector:@selector(initProcesses) name:kNotificationCommonProcessesReceived object:nil];
+    [center addObserver:self selector:@selector(processUpdateSuccess) name:kNotificationProcessUpdateSuccessful object:nil];
     UIImage *iconCog = [UIImage imageWithIcon:@"fa-pencil" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:20];
     [_addStepButton setImage:iconCog forState:UIControlStateNormal];
     UIImage *iconRight = [UIImage imageWithIcon:@"fa-chevron-circle-right" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:20];
@@ -196,6 +197,14 @@
     filteredCommonProcessStepsArray = commonProcessStepsArray;
     [self setUpCommonProcessTable];
     [_commonProcessListTableView reloadData];
+}
+
+- (void) processUpdateSuccess {
+    [self.navigationController.view hideActivityView];
+    [self initProcesses];
+     [self loadProductProcessFlow:selectedProduct];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Process changes updated successfully!" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+    [alertView show];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -474,6 +483,14 @@
     
 }
 
+- (void)updateGroup {
+    //[self.navigationController.view showActivityViewWithLabel:@"Adding new process"];
+    //[self.navigationController.view hideActivityViewWithAfterDelay:60];
+    ConnectionManager *connectionManager = [ConnectionManager new];
+    connectionManager.delegate = self;
+    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php\?call=update_product_group&productid=%@&group=%@",updatingProduct.productID,[updatingProduct.group uppercaseString]] withTag:5];
+}
+
 
 - (void) parseJsonResponse:(NSData*)jsonData withTag:(int)tag {
     NSLog(@"jsonData = %@", jsonData);
@@ -512,7 +529,7 @@
             }
             [self setupForStatus:jsonDict[@"status"]];
             NSLog(@"processes Array=%@",processStepsArray);
-           // processStepsArray = [__DataManager reorderProcessSteps:processStepsArray];
+            processStepsArray = [__DataManager reorderProcessSteps:processStepsArray];
             [selectedProduct setProcessSteps:processStepsArray];
             selectedProduct.pcbProductID = pcbProductId;
             [_processListTableView reloadData];
@@ -675,12 +692,12 @@
         if (!p.isVisible && !screenIsForAdmin) {
             continue;
         }
-        if ([[p.name lowercaseString] containsString:@"sentinel"])
+        if ([[p.name lowercaseString] containsString:@"sentinel"]|| [[p.group lowercaseString] isEqualToString:@"argus"])
         {
             if (index == 1)
                 [filteredArray addObject:p];
         }
-        else if ([[p.name lowercaseString] containsString:@"receptor"] || [[p.name lowercaseString] containsString:@"inspector"])
+        else if ([[p.name lowercaseString] containsString:@"receptor"] || [[p.name lowercaseString] containsString:@"inspector"]|| [[p.group lowercaseString] isEqualToString:@"receptor"])
         {
             if (index == 2)
                 [filteredArray addObject:p];
@@ -895,6 +912,36 @@
     [_adminPopover presentPopoverFromRect:cell.frame inView:cell.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
 }
 
+- (void)updateGroupPressedAtIndex:(int)index {
+    ProductListViewCell *cell = [_productListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    ProductModel *product = filteredProductsArray[index];
+    updatingProduct = product;
+    _nameLabel.text = product.name;
+    [_groupButton setTitle:product.group forState:UIControlStateNormal];
+    _updateGroupView.frame = CGRectMake(0, 0, _updateGroupView.frame.size.width, _updateGroupView.frame.size.height);
+    UIViewController *vc = [UIViewController new];
+    //[vc setView:_updateGroupView];
+    //vc.view.frame =  CGRectMake(100, self.view.frame.size.height/2-_updateGroupView.frame.size.height/2, _updateGroupView.frame.size.width, 50);
+    [vc setPreferredContentSize:CGSizeMake(_updateGroupView.frame.size.width, _updateGroupView.frame.size.height)];
+    [vc.view addSubview:_updateGroupView];
+    [vc.view setClipsToBounds:false];
+    _groupPopover = [[UIPopoverController alloc] initWithContentViewController:vc];
+    [_groupPopover presentPopoverFromRect:cell.frame inView:cell.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
+}
+
+- (IBAction)updateGroupPressed:(id)sender {
+    updatingProduct.group = [_groupButton.titleLabel.text uppercaseString];
+    [_updateGroupView removeFromSuperview];
+    [_groupPopover dismissPopoverAnimated:true];
+    [self updateGroup];
+}
+
+- (IBAction)cancelUpdateGroupPressed:(id)sender {
+    [_updateGroupView removeFromSuperview];
+    [_groupPopover dismissPopoverAnimated:true];
+}
+
+
 #pragma mark - ProductAdminPopoverDelegate
 
 - (void) statusChangedForProducts {
@@ -1047,7 +1094,22 @@
         CGFloat f = 220;
         dropDown = [[NIDropDown alloc]showDropDown:sender :&f :operatorArray :nil :@"down"];
         dropDown.backgroundColor = [UIColor whiteColor];
-        dropDown.tag = 2;
+        dropDown.tag = 3;
+        dropDown.delegate = self;
+    }
+    else {
+        [dropDown hideDropDown:sender];
+        dropDown = nil;
+    }
+}
+
+- (IBAction)pickGroupPressed:(id)sender {
+    NSMutableArray *groupsArray = [NSMutableArray arrayWithObjects:@"ARGUS", @"GRILLVILLE", @"RECEPTOR", @"ICELSIUS", @"ICELSIUS BLUE", @"ICELSIUS WIRELESS", @"CORROSION", @"SUPPORT",@"OTHERS", nil];
+    if(dropDown == nil) {
+        CGFloat f = 150;
+        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :groupsArray :nil :@"down"];
+        dropDown.backgroundColor = [UIColor whiteColor];
+        dropDown.tag = 4;
         dropDown.delegate = self;
     }
     else {
@@ -1064,8 +1126,11 @@
         pcbProductId = pcbProductsArray[index];
         selectedProduct.pcbProductID = pcbProductId;
     }
-    else {
+    else if(dropDown.tag == 3){
         selectedOperatorIndex = index;
+    }
+    else {
+        
     }
 }
 
@@ -1190,6 +1255,11 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Please enter a valid alias name." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [alertView show];
     }
+}
+
+- (IBAction)refreshPressed:(id)sender {
+    [__ServerManager getProductList];
+    [__ServerManager getProcessList];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

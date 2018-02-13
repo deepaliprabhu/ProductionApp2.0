@@ -303,6 +303,8 @@
 		9FEEE58E1EEFEFA2005B5ECA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FEEE58C1EEFEFA2005B5ECA /* LaunchScreen.storyboard */; };
 		9FF0A61B1F7E447C006486AA /* ProductProcessStepsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0A6191F7E447C006486AA /* ProductProcessStepsView.m */; };
 		9FF0A61C1F7E447C006486AA /* ProductProcessStepsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FF0A61A1F7E447C006486AA /* ProductProcessStepsView.xib */; };
+		9FF8FA2A2031B00200014CAC /* ProductGroupPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF8FA282031B00200014CAC /* ProductGroupPopover.m */; };
+		9FF8FA2B2031B00200014CAC /* ProductGroupPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FF8FA292031B00200014CAC /* ProductGroupPopover.xib */; };
 		D227675B1FAE49A400215D87 /* ProdAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = D227675A1FAE49A300215D87 /* ProdAPI.m */; };
 		D22767851FAE4B5400215D87 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D22767621FAE4B5400215D87 /* AFHTTPSessionManager.m */; };
 		D22767861FAE4B5400215D87 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D22767651FAE4B5400215D87 /* AFNetworkReachabilityManager.m */; };
@@ -805,6 +807,9 @@
 		9FF0A6181F7E447C006486AA /* ProductProcessStepsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductProcessStepsView.h; sourceTree = "<group>"; };
 		9FF0A6191F7E447C006486AA /* ProductProcessStepsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductProcessStepsView.m; sourceTree = "<group>"; };
 		9FF0A61A1F7E447C006486AA /* ProductProcessStepsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductProcessStepsView.xib; sourceTree = "<group>"; };
+		9FF8FA272031B00200014CAC /* ProductGroupPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGroupPopover.h; sourceTree = "<group>"; };
+		9FF8FA282031B00200014CAC /* ProductGroupPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGroupPopover.m; sourceTree = "<group>"; };
+		9FF8FA292031B00200014CAC /* ProductGroupPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductGroupPopover.xib; sourceTree = "<group>"; };
 		D22767591FAE49A100215D87 /* ProdAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProdAPI.h; sourceTree = "<group>"; };
 		D227675A1FAE49A300215D87 /* ProdAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProdAPI.m; sourceTree = "<group>"; };
 		D22767611FAE4B5400215D87 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -1702,6 +1707,9 @@
 				3BCDA4151FB346560021BC03 /* ProductAdminPopover.h */,
 				3BCDA4161FB346560021BC03 /* ProductAdminPopover.m */,
 				3BCDA4171FB346560021BC03 /* ProductAdminPopover.xib */,
+				9FF8FA272031B00200014CAC /* ProductGroupPopover.h */,
+				9FF8FA282031B00200014CAC /* ProductGroupPopover.m */,
+				9FF8FA292031B00200014CAC /* ProductGroupPopover.xib */,
 			);
 			name = ProductGroupView;
 			sourceTree = "<group>";
@@ -2228,6 +2236,7 @@
 				9F8AF75E1F559441008027B1 /* placeholder.png in Resources */,
 				9F8567931F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.xib in Resources */,
 				89A76E502006A41500D7B0A9 /* AuditLogCell.xib in Resources */,
+				9FF8FA2B2031B00200014CAC /* ProductGroupPopover.xib in Resources */,
 				894704AE201944FD007364F0 /* ProductionRunCell.xib in Resources */,
 				9F252A591F4D4D9E0056DA8F /* shipmentBgImage.png in Resources */,
 				9F3144B91F7ABFD200B9D32C /* left_arrow.png in Resources */,
@@ -2454,6 +2463,7 @@
 				9F03A91A1F4563C900A7A316 /* DemandListView.m in Sources */,
 				9FEEE5801EEFEFA2005B5ECA /* main.m in Sources */,
 				8970C3BB20056A55001F7680 /* RunScheduleSlotCell.m in Sources */,
+				9FF8FA2A2031B00200014CAC /* ProductGroupPopover.m in Sources */,
 				8919BE991FB4DD5100EE6839 /* UIImageView+WebCache.m in Sources */,
 				9FD12D931F443DBC00F0E0A8 /* Run.m in Sources */,
 				894C5F5E1FBB147600FA4E5D /* RunPartCell.m in Sources */,
