@@ -1260,6 +1260,7 @@
 - (IBAction)refreshPressed:(id)sender {
     [__ServerManager getProductList];
     [__ServerManager getProcessList];
+    [self getProcessFlowForProduct:selectedProduct];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
