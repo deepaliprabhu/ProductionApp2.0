@@ -308,6 +308,8 @@
     f.dateFormat = @"yyyy-MM-dd";
     
     NSArray *runs = [[DataManager sharedInstance] getRuns];
+    NSUInteger requests = runs.count;
+    __block NSUInteger currentRequests = 0;
     for (Run *r in runs) {
         
         [[ProdAPI sharedInstance] getSlotsForRun:[r getRunId] completion:^(BOOL success, id response) {
@@ -332,6 +334,10 @@
                 }
             }
 
+            currentRequests++;
+            if (currentRequests == requests && _runs.count == 0) {
+                [_spinner stopAnimating];
+            }
             [_runsCollection reloadData];
         }];
     }

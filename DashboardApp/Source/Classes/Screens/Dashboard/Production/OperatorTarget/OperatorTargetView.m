@@ -255,6 +255,18 @@
 
 - (void) getProcesses {
     
+    if (_runs.count == 0) {
+        
+        [_processesForSelectedWeek removeAllObjects];
+        [_processesForSelectedDay removeAllObjects];
+        [_tableView reloadData];
+        [_spinner stopAnimating];
+        _noWorkLabel.alpha = 1;
+        [self computeGraph];
+        
+        return;
+    }
+    
     __block int currentRequests = 0;
     for (Run *r in _runs) {
         
