@@ -17,6 +17,7 @@
     IBOutlet UIImageView *_statusImageView;
     IBOutlet UILabel *_productNameLabel;
     IBOutlet UIButton *_stateButton;
+    IBOutlet UIButton *_groupButton;
     
     BOOL isActive;
     int index;
@@ -28,4 +29,5 @@ __pd(ProductListViewCellDelegate);
 
 @protocol ProductListViewCellDelegate <NSObject>
 - (void)stateButtonPressedAtIndex:(int)index;
+- (void)updateGroupPressedAtIndex:(int)index;
 @end

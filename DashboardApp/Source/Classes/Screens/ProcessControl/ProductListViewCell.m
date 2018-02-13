@@ -40,16 +40,16 @@
         }];
     }*/
     if([[p.name lowercaseString] containsString:@"receptor"] || [[p.name lowercaseString] containsString:@"inspector"]) {
-        [_productImageView setImage:[UIImage imageNamed:@"inspectorIcon.png"]];
+        [_groupButton setImage:[UIImage imageNamed:@"inspectorIcon.png"] forState:UIControlStateNormal];
     }
     else if([[p.name lowercaseString] containsString:@"grillville"] || [[p.group lowercaseString] containsString:@"grillville"]){
-         [_productImageView setImage:[UIImage imageNamed:@"grillvilleIcon.png"]];
+        [_groupButton setImage:[UIImage imageNamed:@"grillvilleIcon.png"] forState:UIControlStateNormal];
     }
     else if ([[p.name lowercaseString] containsString:@"sentinel"] || [[p.group lowercaseString] containsString:@"sentinel"]) {
-         [_productImageView setImage:[UIImage imageNamed:@"sentinelIcon.png"]];
+        [_groupButton setImage:[UIImage imageNamed:@"sentinelIcon.png"] forState:UIControlStateNormal];
     }
     else {
-        [_productImageView setImage:[UIImage imageNamed:@"miscIcon.png"]];
+        [_groupButton setImage:[UIImage imageNamed:@"miscIcon.png"] forState:UIControlStateNormal];
     }
     
     if (isAdmin == true)
@@ -98,6 +98,10 @@
         isActive = true;
     }*/
     [_delegate stateButtonPressedAtIndex:index];
+}
+
+- (IBAction)groupButtonPressed:(id)sender {
+    [_delegate updateGroupPressedAtIndex:index];
 }
 
 @end

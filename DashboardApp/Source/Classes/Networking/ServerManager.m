@@ -9,6 +9,7 @@
 #import "ServerManager.h"
 #import "DataManager.h"
 #import <UIKit/UIKit.h>
+#import "Constants.h"
 
 static ServerManager *_sharedInstance = nil;
 
@@ -106,21 +107,21 @@ static ServerManager *_sharedInstance = nil;
     NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateProcessList&do=update%@",[self urlEncodeUsingEncoding:jsonString]];
     connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
-    [connectionManager makeRequest:urlString];
+    [connectionManager makeRequest:urlString withTag:11];
 }
 
 - (void)addProcessFlowWithJsonString:(NSString*)jsonString {
     NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateProcessFlow&do=add%@",[self urlEncodeUsingEncoding:jsonString]];
     connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
-    [connectionManager makeRequest:urlString];
+    [connectionManager makeRequest:urlString withTag:12];
 }
 
 - (void)updateProcessFlowWithJsonString:(NSString*)jsonString {
     NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateProcessFlow&do=update%@",[self urlEncodeUsingEncoding:jsonString]];
     connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
-    [connectionManager makeRequest:urlString];
+    [connectionManager makeRequest:urlString withTag:13];
 }
 
 - (void)addRunProcessFlowWithJsonString:(NSString*)jsonString {
@@ -240,6 +241,7 @@ static ServerManager *_sharedInstance = nil;
         }
         return;
     }
+
     dataString = [dataString stringByReplacingOccurrencesOfString:@"<pre>" withString:@""];
     dataString = [dataString stringByReplacingOccurrencesOfString:@"<br>" withString:@""];
     dataString = [dataString stringByReplacingOccurrencesOfString:@"ryanbigger@yahoo.com	" withString:@"ryanbigger@yahoo.com"];
@@ -263,6 +265,12 @@ static ServerManager *_sharedInstance = nil;
 
     if (tag == 6) {
         NSLog(@"rma data string = %@",dataString);
+    }
+    
+    if ((tag >= 11)&&(tag <= 13)) {
+        if ([dataString isEqualToString:@"1"]) {
+            __notifyObj(kNotificationProcessUpdateSuccessful, nil);
+        }
     }
 
     jsonData = [dataString dataUsingEncoding:NSUTF8StringEncoding];
@@ -333,6 +341,12 @@ static ServerManager *_sharedInstance = nil;
                 break;
             case 10: {
                 [__DataManager setProductsArray:json];
+            }
+                break;
+            case 11:
+            case 12:
+            case 13: {
+                __notifyObj(kNotificationProcessUpdateSuccessful, nil);
             }
                 break;
             default:
