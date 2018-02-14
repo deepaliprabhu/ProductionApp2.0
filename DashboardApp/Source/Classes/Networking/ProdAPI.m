@@ -332,7 +332,14 @@ static ProdAPI *_sharedInstance = nil;
         if (data != nil)
         {
             id obj = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-//            NSString* respStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];// [NSString stringWithUTF8String:data];
+            if (obj == nil) {
+                NSString *str = [[NSString alloc] initWithData:responseObject encoding:NSASCIIStringEncoding];
+                NSArray* words = [str componentsSeparatedByCharactersInSet :[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                str = [words componentsJoinedByString:@""];
+                
+                obj = [NSJSONSerialization JSONObjectWithData:[str dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil];
+            }
+
             block(YES, obj);
         }
         else
