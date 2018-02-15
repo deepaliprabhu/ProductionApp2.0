@@ -80,7 +80,7 @@
         UIImage *iconAdd = [UIImage imageWithIcon:@"fa-plus-circle" backgroundColor:[UIColor clearColor] iconColor:[UIColor grayColor] fontSize:10];
         [_statusImageView setImage:iconAdd];
     }
-    else if ([p.status isEqualToString:@"OPEN"]||[p.status isEqualToString:@"Draft"]||[p.status isEqualToString:@"Open"]||[p.status isEqualToString:@"Pune Approved"]||[p.status isEqualToString:@"Mason Approved"]) {
+    else if ([p.status isEqualToString:@"OPEN"]||[p.status isEqualToString:@"Draft"]||[p.status isEqualToString:@"Open"]||[p.status isEqualToString:@"Pune Approved"]||[p.status isEqualToString:@"Mason Approved"]||[p.status isEqualToString:@"Mason Rejected"]||[p.status isEqualToString:@"Lausanne Rejected"]) {
         UIImage *iconAdd = [UIImage imageWithIcon:@"fa-exclamation-circle" backgroundColor:[UIColor clearColor] iconColor:[UIColor redColor] fontSize:10];
         [_statusImageView setImage:iconAdd];
     }

@@ -2642,7 +2642,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aginova.productionapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "557ff26b-b045-480c-91ec-5973da93a595";
-				PROVISIONING_PROFILE_SPECIFIER = "AdHoc] ProductionApp 2.0";
+				PROVISIONING_PROFILE_SPECIFIER = "Production App 2 AdHoc";
 			};
 			name = Debug;
 		};
@@ -2661,7 +2661,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aginova.productionapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "557ff26b-b045-480c-91ec-5973da93a595";
-				PROVISIONING_PROFILE_SPECIFIER = "AdHoc] ProductionApp 2.0";
+				PROVISIONING_PROFILE_SPECIFIER = "Production App 2 AdHoc";
 			};
 			name = Release;
 		};
