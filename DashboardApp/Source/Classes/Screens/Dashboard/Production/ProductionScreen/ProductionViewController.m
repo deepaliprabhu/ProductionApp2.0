@@ -19,6 +19,7 @@
 #import "OperatorTargetView.h"
 #import "DataManager.h"
 #import "NSDate+Utils.h"
+#import "UIView+RNActivityView.h"
 
 @interface ProductionViewController () <UITableViewDelegate, UITableViewDataSource, ProductionOverviewProtocol, ProductionTargetViewProtocol, OperatorTargetViewProtocol>
 
@@ -195,10 +196,8 @@
             [_flowView3 reloadData];
         } else {
             
-            BOOL firstLoad = false;
             if (_flowView3 == nil) {
                 [self addFlowView3];
-                firstLoad = true;
             }
             [_flowView3 setUserModel:user];
             _flowView3.alpha = 0;
@@ -213,8 +212,8 @@
                 
                 [UIView animateWithDuration:0.2 animations:^{
                     _flowView3.alpha = 1;
-                    if (firstLoad == false)
-                        [_flowView3 reloadData];
+                } completion:^(BOOL finished) {
+                    [_flowView3 reloadData];
                 }];
             }];
         }
@@ -308,6 +307,7 @@
     [self.view addSubview:_flowView1];
     [LayoutUtils addLeadingConstraintFromView:_flowView1 toView:self.view constant:356];
     [LayoutUtils addTopConstraintFromView:_flowView1 toView:self.view constant:81];
+    [_flowView1 reloadData];
 }
 
 - (void) addFlowView2 {
@@ -317,7 +317,8 @@
     _flowView2.operators = _operators;
     _flowView2.translatesAutoresizingMaskIntoConstraints = false;
     [LayoutUtils addContraintWidth:668 andHeight:687 forView:_flowView2];
-    [self.view addSubview:_flowView2];
+    [self.view insertSubview:_flowView2 belowSubview:_flowView1];
+//    [self.view addSubview:_flowView2];
     [LayoutUtils addLeadingConstraintFromView:_flowView2 toView:self.view constant:356];
     [LayoutUtils addTopConstraintFromView:_flowView2 toView:self.view constant:81];
 }
@@ -329,7 +330,8 @@
     _flowView3.parent = self;
     _flowView3.translatesAutoresizingMaskIntoConstraints = false;
     [LayoutUtils addContraintWidth:668 andHeight:687 forView:_flowView3];
-    [self.view addSubview:_flowView3];
+    [self.view insertSubview:_flowView3 belowSubview:_flowView1];
+//    [self.view addSubview:_flowView3];
     [LayoutUtils addLeadingConstraintFromView:_flowView3 toView:self.view constant:356];
     [LayoutUtils addTopConstraintFromView:_flowView3 toView:self.view constant:81];
 }
@@ -345,6 +347,7 @@
         
         [UIView animateWithDuration:0.2 animations:^{
             _flowView1.alpha = 1;
+        } completion:^(BOOL finished) {
             [_flowView1 reloadData];
         }];
     }];
@@ -352,10 +355,8 @@
 
 - (void) goToTargets {
     
-    BOOL firstLoad = false;
     if (_flowView2 == nil) {
         [self addFlowView2];
-        firstLoad = true;
     }
     _flowView2.alpha = 0;
     
@@ -365,8 +366,8 @@
         
         [UIView animateWithDuration:0.2 animations:^{
             _flowView2.alpha = 1;
-            if (firstLoad == false)
-                [_flowView2 reloadData];
+        } completion:^(BOOL finished) {
+            [_flowView2 reloadData];
         }];
     }];
 }
@@ -375,12 +376,10 @@
     
     _operators = [NSMutableArray array];
     [_operatorsTable reloadData];
-    [LoadingView showLoading:@"Loading..."];
     [[ProdAPI sharedInstance] getPersonsWithCompletion:^(BOOL success, id response) {
       
         if (success) {
             
-            [LoadingView removeLoading];
             for (NSDictionary *dict in response) {
                 
                 UserModel *u = [UserModel objectFromData:dict];

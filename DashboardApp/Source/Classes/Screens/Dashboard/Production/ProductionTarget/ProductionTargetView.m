@@ -15,6 +15,7 @@
 #import "DayLogModel.h"
 #import "LoadingView.h"
 #import "ProcessInfoScreen.h"
+#import "UIView+RNActivityView.h"
 
 @implementation ProductionTargetView {
     
@@ -42,9 +43,6 @@
     [_runsCollection registerClass:[RunTargetCell class] forCellWithReuseIdentifier:@"RunTargetCell"];
     UINib *cellNib = [UINib nibWithNibName:@"RunTargetCell" bundle:nil];
     [_runsCollection registerNib:cellNib forCellWithReuseIdentifier:@"RunTargetCell"];
-    
-    [_spinner startAnimating];
-    [self computeRuns];
 }
 
 - (void) reloadData {
@@ -302,6 +300,8 @@
 
 - (void) computeRuns {
     
+    [self.superview showActivityViewWithLabel:@"fetching data"];
+    
     _runs = [NSMutableArray array];
     
     NSDateFormatter *f = [NSDateFormatter new];
@@ -336,6 +336,7 @@
             currentRequests++;
             if (currentRequests == requests) {
                 if (_runs.count == 0) {
+                    [self.superview hideActivityView];
                     [_spinner stopAnimating];
                 } else {
                     [self getProcessesForSelectedRun];
@@ -351,10 +352,12 @@
     Run *r = _runs[_selectedRunIndex][@"run"];
     NSArray *pr = _runs[_selectedRunIndex][@"processes"];
     if (pr.count) {
+        [self.superview hideActivityView];
         [_spinner stopAnimating];
         [_processesTable reloadData];
     } else {
         
+        [self.superview showActivityViewWithLabel:@"fetching data"];
         [_spinner startAnimating];
         [[ProdAPI sharedInstance] getProcessFlowForProduct:[r getProductNumber] completion:^(BOOL success, id response) {
             
@@ -440,6 +443,7 @@
     [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"runId": @(r.runId), @"processes": processesForSelectedRun}];
     [_processesTable reloadData];
     [_spinner stopAnimating];
+    [self.superview hideActivityView];
 }
 
 #pragma mark - Utils
