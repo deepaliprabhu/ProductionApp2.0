@@ -347,7 +347,7 @@
             DayLogModel *day = nil;
             int t = 0;
             for (DayLogModel *d in r.days) {
-                if (d.processNo == p.processNo) {
+                if ([d.processNo isEqualToString:p.processNo]) {
                     t += d.target;
                     
                     if ([d.person isEqualToString:_user.name]) {

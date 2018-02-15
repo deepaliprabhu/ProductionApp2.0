@@ -234,7 +234,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
             NSNumber *g = nil;
             int t = 0;
             for (DayLogModel *d in r.days) {
-                if (d.processNo == p.processNo) {
+                if ([d.processNo isEqualToString:p.processNo]) {
                     t += d.target;
                     
                     if ([cal isDate:d.date inSameDayAsDate:today]) {

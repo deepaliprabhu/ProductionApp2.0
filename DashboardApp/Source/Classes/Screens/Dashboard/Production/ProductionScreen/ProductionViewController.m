@@ -124,20 +124,18 @@
 - (IBAction) refreshButtonTapped {
     
     if (_flowView1.alpha == 1) {
-        
-        [_operators removeAllObjects];
-        [_runs removeAllObjects];
-        [_operatorsSchedule removeAllObjects];
-        [_operatorsTable reloadData];
-        [self getPersons];
-        
         [_flowView1 reloadData];
-        
     } else if (_flowView2.alpha == 1) {
         [_flowView2 reloadData];
     } else {
         [_flowView3 reloadData];
     }
+    
+    [_operators removeAllObjects];
+    [_runs removeAllObjects];
+    [_operatorsSchedule removeAllObjects];
+    [_operatorsTable reloadData];
+    [self getPersons];
 }
 
 #pragma mark - UITableViewDelegate
@@ -528,7 +526,7 @@
     for (Run *r in _runs) {
         for (ProcessModel *p in r.processes) {
             for (DayLogModel *d in r.days) {
-                if ((d.processNo == p.processNo) && [cal isDate:d.date inSameDayAsDate:_selectedDate] && (d.person.length > 0)) {
+                if ([d.processNo isEqualToString:p.processNo] && [cal isDate:d.date inSameDayAsDate:_selectedDate] && (d.person.length > 0)) {
                     int time = [p.processingTime intValue]*d.goal;
                     int proc = [p.processingTime intValue]*d.target;
                     if (_operatorsSchedule[d.person] == nil)

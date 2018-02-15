@@ -2631,7 +2631,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Aginova Sarl (9CZL8YQHSV)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andrei Ghidoarca (83P6QK4WWK)";
 				DEVELOPMENT_TEAM = 9CZL8YQHSV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2641,8 +2641,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aginova.productionapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "557ff26b-b045-480c-91ec-5973da93a595";
-				PROVISIONING_PROFILE_SPECIFIER = "Production App 2 AdHoc";
+				PROVISIONING_PROFILE = "7bc11b4c-2531-4b5f-9c8f-83e15818342e";
+				PROVISIONING_PROFILE_SPECIFIER = "DEV] Production 2.0";
 			};
 			name = Debug;
 		};
@@ -2650,7 +2650,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Aginova Sarl (9CZL8YQHSV)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andrei Ghidoarca (83P6QK4WWK)";
 				DEVELOPMENT_TEAM = 9CZL8YQHSV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2660,8 +2660,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aginova.productionapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "557ff26b-b045-480c-91ec-5973da93a595";
-				PROVISIONING_PROFILE_SPECIFIER = "Production App 2 AdHoc";
+				PROVISIONING_PROFILE = "7bc11b4c-2531-4b5f-9c8f-83e15818342e";
+				PROVISIONING_PROFILE_SPECIFIER = "DEV] Production 2.0";
 			};
 			name = Release;
 		};

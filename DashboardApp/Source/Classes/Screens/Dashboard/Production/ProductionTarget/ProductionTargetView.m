@@ -326,8 +326,6 @@
                             if ([date isSameWeekWithDate:[_delegate selectedDate]]) {
                                 [_runs addObject:@{@"run":r, @"runId":@(r.runId)}];
                                 [_runs sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"runId" ascending:true]]];
-                                if (_runs.count == 1)
-                                    [self getProcessesForSelectedRun];
                                 break;
                             }
                         }
@@ -336,8 +334,12 @@
             }
 
             currentRequests++;
-            if (currentRequests == requests && _runs.count == 0) {
-                [_spinner stopAnimating];
+            if (currentRequests == requests) {
+                if (_runs.count == 0) {
+                    [_spinner stopAnimating];
+                } else {
+                    [self getProcessesForSelectedRun];
+                }
             }
             [_runsCollection reloadData];
         }];
@@ -415,7 +417,7 @@
         DayLogModel *dayModel = nil;
         int t = 0;
         for (DayLogModel *d in days) {
-            if (d.processNo == p.processNo) {
+            if ([d.processNo isEqualToString:p.processNo]) {
                 t += d.target;
                 
                 if ([cal isDate:d.date inSameDayAsDate:today]) {
