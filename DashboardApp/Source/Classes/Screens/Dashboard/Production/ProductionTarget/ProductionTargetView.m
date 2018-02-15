@@ -252,10 +252,11 @@
     DayLogModel *day = [DayLogModel new];
     if ([dict[@"dayModel"] isKindOfClass:[DayLogModel class]]) {
         DayLogModel *temp = dict[@"dayModel"];
+        day.dayLogID = temp.dayLogID;
         day.target = temp.target;
         day.rework = temp.rework;
         day.reject = temp.reject;
-        day.goal   = temp.good;
+        day.good   = temp.good;
         day.person = temp.person;
         day.comments = temp.comments;
     }
@@ -263,7 +264,6 @@
     day.goal = newTarget;
     ProcessModel *p = dict[@"process"];
     day.processNo = p.processNo;
-    day.processId = p.stepId;
     
     [self saveNew:day];
     [_delegate newTargeWasSet];
@@ -280,20 +280,21 @@
         DayLogModel *day = [DayLogModel new];
         if ([dict[@"dayModel"] isKindOfClass:[DayLogModel class]]) {
             DayLogModel *temp = dict[@"dayModel"];
+            day.dayLogID = temp.dayLogID;
             day.target = temp.target;
             day.rework = temp.rework;
             day.reject = temp.reject;
             day.goal   = temp.goal;
-            day.goal   = temp.good;
+            day.good   = temp.good;
             day.comments = temp.comments;
         }
         day.date = [_delegate selectedDate];
         day.person = personName;
         ProcessModel *p = dict[@"process"];
         day.processNo = p.processNo;
-        day.processId = p.stepId;
         
         [self saveNew:day];
+        [_delegate newTargeWasSet];
     }
 }
 
@@ -384,7 +385,7 @@
         NSMutableArray *daysArr = [NSMutableArray array];
         if (success) {
             NSArray *days = [response firstObject][@"processes"];
-            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false], [NSSortDescriptor sortDescriptorWithKey:@"day" ascending:false]]];
+            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
             for (int i=0; i<days.count; i++) {
                 
                 NSDictionary *dict = days[i];
@@ -445,7 +446,7 @@
     
     NSCalendar *c = [NSCalendar currentCalendar];
     for (DayLogModel *d in arr) {
-        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processId isEqualToString:log.processId])
+        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processNo isEqualToString:log.processNo])
             return true;
     }
     

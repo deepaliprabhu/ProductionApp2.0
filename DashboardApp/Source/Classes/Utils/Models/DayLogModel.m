@@ -21,24 +21,20 @@ static NSDateFormatter *_formatter = nil;
     });
     
     DayLogModel *model = [DayLogModel new];
+    model.dayLogID = [data[@"id"] intValue];
     model.data = data;
-    model.reject = [data[@"qtyReject"] intValue];
     model.rework = [data[@"qtyRework"] intValue];
     model.good = [data[@"qtyGood"] intValue];
     model.target = [data[@"qtyTarget"] intValue];
+//    model.reject = [data[@"qtyReject"] intValue];
+    model.reject = model.target - model.good - model.rework;
     model.goal = [data[@"qtyGoal"] intValue];
-    model.processId = data[@"stepid"];
     model.processNo = data[@"processno"];
     model.person = data[@"operator"];
     model.comments = data[@"comments"];
 
     if ([data[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == false) {
-        
-        NSString *day = data[@"day"];
-        if (day.length > 0)
-            model.date = [_formatter dateFromString:day];
-        else
-            model.date = [_formatter dateFromString:data[@"datetime"]];
+        model.date = [_formatter dateFromString:data[@"datetime"]];
     }
     
     return model;
@@ -51,17 +47,20 @@ static NSDateFormatter *_formatter = nil;
 - (NSDictionary *)params {
     
     NSMutableDictionary *log = [NSMutableDictionary dictionary];
-    log[@"stepid"] = _processId;
+//    log[@"stepid"] = _processId;
     log[@"processno"] = _processNo;
     log[@"operator"] = _person;
     log[@"comments"] = _comments;
-    log[@"status"] = @"tmp";
+//    log[@"status"] = @"tmp";
     log[@"qtyTarget"] = [NSString stringWithFormat:@"%d", _target];
     log[@"qtyGood"] = [NSString stringWithFormat:@"%d", _good];
     log[@"qtyRework"] = [NSString stringWithFormat:@"%d", _rework];
     log[@"qtyReject"] = [NSString stringWithFormat:@"%d", _reject];
     log[@"qtyGoal"] = [NSString stringWithFormat:@"%d", _goal];
-    log[@"day"] = [_formatter stringFromDate:_date];
+    log[@"datetime"] = [_formatter stringFromDate:_date];
+    
+    if (_dayLogID != 0)
+        log[@"id"] = @(_dayLogID);
     
     return log;
 }

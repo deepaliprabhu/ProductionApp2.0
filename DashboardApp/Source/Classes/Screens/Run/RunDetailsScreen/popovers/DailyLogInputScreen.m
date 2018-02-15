@@ -45,25 +45,14 @@
 
 - (IBAction) saveButtonTapped {
  
+    if (_operatorName == nil) {
+        [LoadingView showShortMessage:@"No operator is selected!"];
+        return;
+    }
+     
     [self.view endEditing:true];
     
-    int good = [_goodTextField.text intValue];
-    int reject = [_rejectTextField.text intValue];
-    int rework = [_reworkTextField.text intValue];
-    int target = [_targetTextField.text intValue];
-    
-    NSMutableDictionary *log = [NSMutableDictionary dictionary];
-    log[@"stepid"] = _process.stepId;
-    log[@"processno"] = _process.processNo;
-    log[@"operator"] = _operatorName==nil ? [[[UserManager sharedInstance] loggedUser] name] : _operatorName;
-    log[@"comments"] = [_commentsTextView.text isEqualToString:kTextViewPlaceholder] ? @"" : _commentsTextView.text;
-    log[@"status"] = @"tmp";
-    log[@"qtyTarget"] = [NSString stringWithFormat:@"%d", target];
-    log[@"qtyGood"] = [NSString stringWithFormat:@"%d", good];
-    log[@"qtyRework"] = [NSString stringWithFormat:@"%d", rework];
-    log[@"qtyReject"] = [NSString stringWithFormat:@"%d", reject];
-    log[@"qtyGoal"] = [NSString stringWithFormat:@"%d", _dayLog.goal];
-    
+    NSDictionary *log = [self params];
     NSString *json = [NSString stringWithFormat:@"[%@]" ,[ProdAPI jsonString:log]];
     [LoadingView showLoading:@"Loading..."];
     [[ProdAPI sharedInstance] addDailyLog:json forRunFlow:[_run getRunFlowId] completion:^(BOOL success, id response) {
@@ -168,9 +157,6 @@
     _titleLabel.text = [NSString stringWithFormat:@"%@ - %@", _process.processName, [f stringFromDate:[NSDate date]]];
     _commentsTextView.text = kTextViewPlaceholder;
     [self fillDayLog];
-    
-    if (_dayLog.comments.length > 0)
-        _commentsTextView.text = _dayLog.comments;
 }
 
 - (void) fillDayLog {
@@ -181,6 +167,10 @@
         _rejectTextField.text = [NSString stringWithFormat:@"%d", _dayLog.reject];
         _reworkTextField.text = [NSString stringWithFormat:@"%d", _dayLog.rework];
         _goodTextField.text = [NSString stringWithFormat:@"%d", _dayLog.good];
+        
+        if (_dayLog.comments.length > 0)
+            _commentsTextView.text = _dayLog.comments;
+        
     } else {
     
         _targetTextField.text = @"0";
@@ -188,6 +178,35 @@
         _reworkTextField.text = @"0";
         _goodTextField.text = @"0";
     }
+}
+
+#pragma mark - Utils
+
+- (NSDictionary*) params {
+    
+    int good = [_goodTextField.text intValue];
+//    int reject = [_rejectTextField.text intValue];
+    int rework = [_reworkTextField.text intValue];
+    int target = [_targetTextField.text intValue];
+    
+    NSMutableDictionary *log = [NSMutableDictionary dictionary];
+    //    log[@"stepid"] = _process.stepId;
+    log[@"processno"] = _process.processNo;
+    log[@"operator"] = _operatorName;
+    log[@"comments"] = [_commentsTextView.text isEqualToString:kTextViewPlaceholder] ? @"" : _commentsTextView.text;
+    //    log[@"status"] = @"tmp";
+    log[@"qtyTarget"] = [NSString stringWithFormat:@"%d", target];
+    log[@"qtyGood"] = [NSString stringWithFormat:@"%d", good];
+    log[@"qtyRework"] = [NSString stringWithFormat:@"%d", rework];
+//    log[@"qtyReject"] = [NSString stringWithFormat:@"%d", reject];
+    log[@"qtyGoal"] = [NSString stringWithFormat:@"%d", _dayLog.goal];
+    log[@"id"] = @(_dayLog.dayLogID);
+    
+    NSDateFormatter *f = [NSDateFormatter new];
+    f.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    log[@"datetime"] = [f stringFromDate:[NSDate date]];
+    
+    return log;
 }
 
 @end
