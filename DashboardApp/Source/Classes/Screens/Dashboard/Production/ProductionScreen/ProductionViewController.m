@@ -388,6 +388,7 @@
             }
             
             [_operators sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:true]]];
+            _flowView2.operators = _operators;
             [_operatorsTable reloadData];
             [self computeRuns];
             
