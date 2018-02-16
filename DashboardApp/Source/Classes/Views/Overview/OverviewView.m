@@ -45,7 +45,7 @@ __CREATEVIEW(OverviewView, @"OverviewView", 0);
     int productionCount = 0;
     for (int i=0; i < productsList.count; ++i) {
         ProductModel *product = productsList[i];
-        if ([product.status isEqualToString:@"OPEN"]||[product.status isEqualToString:@"Draft"]||[product.status isEqualToString:@"Open"]||[product.status isEqualToString:@"Pune Approved"]||[product.status isEqualToString:@"Mason Approved"]) {
+        if ([product.status isEqualToString:@"OPEN"]||[product.status isEqualToString:@"Draft"]||[product.status isEqualToString:@"Open"]||[product.status isEqualToString:@"Pune Approved"]||[product.status isEqualToString:@"Mason Approved"]||[product.status isEqualToString:@"Mason Rejected"]||[product.status isEqualToString:@"Lausanne Rejected"]) {
             count++;
         }
         if ([product.productStatus isEqualToString:@"Production"]) {

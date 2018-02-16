@@ -11,7 +11,7 @@
 #import "NIDropDown.h"
 #import "CKCalendarView.h"
 
-@interface DemandsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, DemandListViewDelegate, NIDropDownDelegate, CKCalendarDelegate>{
+@interface DemandsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, DemandListViewDelegate, NIDropDownDelegate, CKCalendarDelegate>{
     IBOutlet UITableView *_tableView;
     IBOutlet UILabel *_productNameLabel;
     IBOutlet UITextView *_notesTextView;
@@ -22,6 +22,7 @@
     IBOutlet UIView *_statsView;
     IBOutlet UIView *_runsView;
     IBOutlet UIButton *_saveButton;
+    IBOutlet UIButton *_editButton;
     
     IBOutlet UILabel *_urgentQtyLabel;
     IBOutlet UILabel *_urgentDateLabel;

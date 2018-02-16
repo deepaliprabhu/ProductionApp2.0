@@ -26,6 +26,9 @@
     UIImage *iconRight = [UIImage imageWithIcon:@"fa-chevron-circle-right" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:20];
     [_saveButton setImage:iconRight forState:UIControlStateNormal];
     
+    UIImage *iconPencil = [UIImage imageWithIcon:@"fa-pencil" backgroundColor:[UIColor clearColor] iconColor:[UIColor whiteColor] fontSize:20];
+    [_editButton setImage:iconPencil forState:UIControlStateNormal];
+    
     [self initLayout];
     
     if (_productNumber == nil) {
@@ -111,8 +114,8 @@
 
 - (void) initLayout {
 
-    _notesTextView.layer.borderWidth = 0.4f;
-    _notesTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    //_notesTextView.layer.borderWidth = 0.4f;
+    //_notesTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _statsView.layer.borderWidth = 0.4f;
     _statsView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     
@@ -266,6 +269,13 @@
     NSLog(@"calendar layout: %@", NSStringFromCGRect(frame));
 }
 
+- (IBAction)editNotesPressed:(id)sender {
+    _notesTextView.editable = true;
+    _notesTextView.userInteractionEnabled = true;
+    _notesTextView.layer.borderWidth = 0.4f;
+    _notesTextView.layer.borderColor = [UIColor whiteColor].CGColor;
+}
+
 - (IBAction)saveEditPressed:(id)sender {
    /* if ([_pickShippingButton.titleLabel.text isEqualToString:@"Pick Shipping"]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Please enter Shipping" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
@@ -280,7 +290,7 @@
         [cell setExpectedDate:[NSString stringWithFormat:@"%@(%d)",selectedShipping,[_qtyTF.text intValue]]];
     }*/
     
-    [self updateDemand];
+    [self updateDemandData];
 }
 
 -(NSString *)urlEncodeUsingEncoding:(NSString*)string {
@@ -312,6 +322,16 @@
         NSString *reqString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/action.php?do=update&call=update_demand_details&demandid=%@&shipping=%@&RunID=%d",selectedDemand[@"Demand Id"],encodedString,selectedRunId];
         [connectionManager makeRequest:reqString withTag:5];
     }
+}
+
+- (void)updateDemandData {
+    NSString *encodedString;
+    // [self.navigationController.view showActivityViewWithLabel:@"updating demand"];
+    // [self.navigationController.view hideActivityViewWithAfterDelay:60];
+    ConnectionManager *connectionManager = [ConnectionManager new];
+    connectionManager.delegate = self;
+    NSString *reqString = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_demand_data&demandid=%@&notes=%@&immediate=%@&immediate_date=%@&longterm=%@&longterm_date=%@&stock=%@&stock_date=%@",selectedDemand[@"Demand Id"], [self urlEncodeUsingEncoding:_notesTextView.text],[self urlEncodeUsingEncoding:selectedDemand[@"urgent_qty"]], [self urlEncodeUsingEncoding:selectedDemand[@"urgent_when"]], [self urlEncodeUsingEncoding:selectedDemand[@"long_term_qty"]], [self urlEncodeUsingEncoding:selectedDemand[@"long_when"]], [self urlEncodeUsingEncoding:selectedDemand[@"Mason_Stock"]],[self urlEncodeUsingEncoding:selectedDemand[@"stock_when"]]];
+        [connectionManager makeRequest:reqString withTag:5];
 }
 
 - (void) parseJsonResponse:(NSData*)jsonData withTag:(int)tag{
@@ -355,6 +375,14 @@
 
 - (void) parseJsonResponse:(NSData*)jsonData {
     
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return false;
+    }
+    return true;
 }
 
 
