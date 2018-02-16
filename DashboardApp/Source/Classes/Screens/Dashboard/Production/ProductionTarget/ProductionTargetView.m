@@ -470,6 +470,14 @@
     [[ProdAPI sharedInstance] addDailyLog:json forRunFlow:[r getRunFlowId] completion:^(BOOL success, id response) {
         
         if (success) {
+            
+            if ([response isKindOfClass:[NSArray class]]) {
+                if ([response count] > 0) {
+                    int dayId = [response[0][@"id"] intValue];
+                    day.dayLogID = dayId;
+                }
+            }
+            
             [LoadingView removeLoading];
             
             NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:dict];

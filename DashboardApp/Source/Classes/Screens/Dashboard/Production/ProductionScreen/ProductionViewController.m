@@ -203,11 +203,8 @@
             _flowView3.alpha = 0;
             
             [UIView animateWithDuration:0.2 animations:^{
-                
-                if (_flowView1.alpha == 1)
-                    _flowView1.alpha = 0;
-                else
-                    _flowView2.alpha = 0;
+                _flowView1.alpha = 0;
+                _flowView2.alpha = 0;
             } completion:^(BOOL finished) {
                 
                 [UIView animateWithDuration:0.2 animations:^{
@@ -362,6 +359,7 @@
     
     [UIView animateWithDuration:0.2 animations:^{
         _flowView1.alpha = 0;
+        _flowView3.alpha = 0;
     } completion:^(BOOL finished) {
         
         [UIView animateWithDuration:0.2 animations:^{
