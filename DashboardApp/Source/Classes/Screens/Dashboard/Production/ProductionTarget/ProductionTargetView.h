@@ -16,7 +16,7 @@
 @interface ProductionTargetView : UIView <UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource, ProcessEditableCellProtocol, OperatorsPickerScreenProtocol, UIAlertViewDelegate>
 
 @property (nonatomic, unsafe_unretained) id <ProductionTargetViewProtocol> delegate;
-@property (nonatomic, unsafe_unretained) NSArray *operators;
+@property (nonatomic, strong) NSArray *operators;
 
 __CREATEVIEWH(ProductionTargetView)
 

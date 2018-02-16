@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SplashScreen">
             <connections>
+                <outlet property="_versionLabel" destination="eL7-4e-gbt" id="wJV-hu-Rp9"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -30,8 +31,15 @@
                     <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                 </imageView>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="eiG-kM-ffy">
-                    <rect key="frame" x="494" y="190.5" width="37" height="37"/>
+                    <rect key="frame" x="494" y="215.5" width="37" height="37"/>
                 </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Version 1.1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eL7-4e-gbt">
+                    <rect key="frame" x="466" y="175" width="93" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.95123898659999995" green="0.96497924199999996" blue="0.97589627950000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -39,7 +47,7 @@
                 <constraint firstAttribute="trailing" secondItem="cM5-7f-QE1" secondAttribute="trailing" id="Af7-HC-Bm5"/>
                 <constraint firstItem="cM5-7f-QE1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="FqW-n0-6IX"/>
                 <constraint firstItem="Uj8-N9-TFJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ONa-DD-Ziw"/>
-                <constraint firstItem="eiG-kM-ffy" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-175" id="Usy-ca-DEG"/>
+                <constraint firstItem="eiG-kM-ffy" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-150" id="Usy-ca-DEG"/>
                 <constraint firstItem="cM5-7f-QE1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lOz-Rc-BiV"/>
                 <constraint firstItem="eiG-kM-ffy" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ssT-Pv-QG5"/>
                 <constraint firstAttribute="trailing" secondItem="Uj8-N9-TFJ" secondAttribute="trailing" id="t90-NV-3UI"/>

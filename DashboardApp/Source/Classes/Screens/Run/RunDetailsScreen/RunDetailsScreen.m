@@ -819,7 +819,7 @@
     _filteredDays = [NSMutableArray array];
     _maxDayLogValue = (int)_run.quantity;
     for (DayLogModel *d in _days) {
-        if (d.date != nil && d.processNo == p.processNo)
+        if (d.date != nil && [d.processNo isEqualToString:p.processNo])
             [_filteredDays addObject: d];
     }
     
@@ -852,7 +852,7 @@
     
     int t = 0;
     for (DayLogModel *d in _days) {
-        if (d.processNo == p.processNo) {
+        if ([d.processNo isEqualToString:p.processNo]) {
             t += d.target;
 //            t += d.reject + d.rework + d.good;
         }
@@ -866,7 +866,7 @@
     NSCalendar *c = [NSCalendar currentCalendar];
     for (DayLogModel *d in _days) {
         
-        if (d.date != nil && d.processNo == p.processNo) {
+        if (d.date != nil && [d.processNo isEqualToString:p.processNo]) {
             if ([c isDateInToday:d.date]) {
                 return d.target;
             }

@@ -52,12 +52,20 @@
      
     [self.view endEditing:true];
     
-    NSDictionary *log = [self params];
+    NSMutableDictionary *log = [NSMutableDictionary dictionaryWithDictionary:[self params]];
     NSString *json = [NSString stringWithFormat:@"[%@]" ,[ProdAPI jsonString:log]];
     [LoadingView showLoading:@"Loading..."];
     [[ProdAPI sharedInstance] addDailyLog:json forRunFlow:[_run getRunFlowId] completion:^(BOOL success, id response) {
        
         if (success) {
+            
+            if ([response isKindOfClass:[NSArray class]]) {
+                if ([response count] > 0) {
+                    int dayId = [response[0][@"id"] intValue];
+                    log[@"id"] = [NSString stringWithFormat:@"%d", dayId];
+                }
+            }
+            
             [LoadingView removeLoading];
             if (_dayLog == nil)
                 [_delegate newLogAdded:log];

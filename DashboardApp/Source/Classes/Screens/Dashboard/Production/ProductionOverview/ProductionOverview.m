@@ -17,6 +17,7 @@
 #import "Constants.h"
 #import "UserManager.h"
 #import "ProcessInfoScreen.h"
+#import "UIView+RNActivityView.h"
 
 @implementation ProductionOverview {
     
@@ -34,13 +35,6 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     [super awakeFromNib];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(computeRuns) name:kNotificationCommonProcessesReceived object:nil];
-    
-    [_spinner startAnimating];
-    if ([[[DataManager sharedInstance] getCommonProcesses] count] == 0) {
-        [[ServerManager sharedInstance] getProcessList];
-    } else {
-        [self computeRuns];
-    }
 }
 
 - (void) dealloc {
@@ -55,7 +49,11 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
     [_processesForThisWeek removeAllObjects];
     [_processesTable reloadData];
     
-    [self computeRuns];
+    if ([[[DataManager sharedInstance] getCommonProcesses] count] == 0) {
+        [[ServerManager sharedInstance] getProcessList];
+    } else {
+        [self computeRuns];
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -109,6 +107,8 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
 
 - (void) computeRuns {
     
+    [self.superview showActivityViewWithLabel:@"fetching data"];
+    
     _runs = [NSMutableArray array];
     
     NSDateFormatter *f = [NSDateFormatter new];
@@ -149,6 +149,8 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
 - (void) getProcesses {
     
     if (_runs.count == 0) {
+        
+        [self.superview hideActivityView];
         [_processesForThisWeek removeAllObjects];
         [_spinner stopAnimating];
         [_processesTable reloadData];
@@ -234,7 +236,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
             NSNumber *g = nil;
             int t = 0;
             for (DayLogModel *d in r.days) {
-                if (d.processNo == p.processNo) {
+                if ([d.processNo isEqualToString:p.processNo]) {
                     t += d.target;
                     
                     if ([cal isDate:d.date inSameDayAsDate:today]) {
@@ -255,6 +257,7 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
         }
     }
     
+    [self.superview hideActivityView];
     [_spinner stopAnimating];
     [_processesTable reloadData];
 }

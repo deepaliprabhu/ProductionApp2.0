@@ -16,12 +16,15 @@
 
 @end
 
-@implementation SplashScreen
+@implementation SplashScreen {
+    __weak IBOutlet UILabel *_versionLabel;
+}
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     
+    _versionLabel.text = cstrf(@"Version %@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self login];
     });

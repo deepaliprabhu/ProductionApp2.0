@@ -16,6 +16,7 @@
 #import "LoadingView.h"
 #import "WeeklyGraphCell.h"
 #import "ProcessInfoScreen.h"
+#import "UIView+RNActivityView.h"
 
 @implementation OperatorTargetView {
     
@@ -63,9 +64,6 @@
     [_weeklyGraph registerClass:[WeeklyGraphCell class] forCellWithReuseIdentifier:@"WeeklyGraphCell"];
     UINib *cellNib = [UINib nibWithNibName:@"WeeklyGraphCell" bundle:nil];
     [_weeklyGraph registerNib:cellNib forCellWithReuseIdentifier:@"WeeklyGraphCell"];
-    
-    [_spinner startAnimating];
-    [self computeRuns];
 }
 
 - (void) reloadData {
@@ -216,6 +214,8 @@
 
 - (void) computeRuns {
     
+    [self.superview showActivityViewWithLabel:@"fetching data"];
+    
     _runs = [NSMutableArray array];
     
     NSDateFormatter *f = [NSDateFormatter new];
@@ -257,6 +257,7 @@
     
     if (_runs.count == 0) {
         
+        [self.superview hideActivityView];
         [_processesForSelectedWeek removeAllObjects];
         [_processesForSelectedDay removeAllObjects];
         [_tableView reloadData];
@@ -347,7 +348,7 @@
             DayLogModel *day = nil;
             int t = 0;
             for (DayLogModel *d in r.days) {
-                if (d.processNo == p.processNo) {
+                if ([d.processNo isEqualToString:p.processNo]) {
                     t += d.target;
                     
                     if ([d.person isEqualToString:_user.name]) {
@@ -374,6 +375,7 @@
     }
     
     [_spinner stopAnimating];
+    [self.superview hideActivityView];
     [_tableView reloadData];
     
     _noWorkLabel.alpha = _processesForSelectedDay.count == 0;

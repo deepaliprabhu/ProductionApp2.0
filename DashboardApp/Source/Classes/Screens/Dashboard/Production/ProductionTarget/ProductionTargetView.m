@@ -15,6 +15,7 @@
 #import "DayLogModel.h"
 #import "LoadingView.h"
 #import "ProcessInfoScreen.h"
+#import "UIView+RNActivityView.h"
 
 @implementation ProductionTargetView {
     
@@ -42,9 +43,6 @@
     [_runsCollection registerClass:[RunTargetCell class] forCellWithReuseIdentifier:@"RunTargetCell"];
     UINib *cellNib = [UINib nibWithNibName:@"RunTargetCell" bundle:nil];
     [_runsCollection registerNib:cellNib forCellWithReuseIdentifier:@"RunTargetCell"];
-    
-    [_spinner startAnimating];
-    [self computeRuns];
 }
 
 - (void) reloadData {
@@ -302,6 +300,8 @@
 
 - (void) computeRuns {
     
+    [self.superview showActivityViewWithLabel:@"fetching data"];
+    
     _runs = [NSMutableArray array];
     
     NSDateFormatter *f = [NSDateFormatter new];
@@ -326,8 +326,6 @@
                             if ([date isSameWeekWithDate:[_delegate selectedDate]]) {
                                 [_runs addObject:@{@"run":r, @"runId":@(r.runId)}];
                                 [_runs sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"runId" ascending:true]]];
-                                if (_runs.count == 1)
-                                    [self getProcessesForSelectedRun];
                                 break;
                             }
                         }
@@ -336,8 +334,13 @@
             }
 
             currentRequests++;
-            if (currentRequests == requests && _runs.count == 0) {
-                [_spinner stopAnimating];
+            if (currentRequests == requests) {
+                if (_runs.count == 0) {
+                    [self.superview hideActivityView];
+                    [_spinner stopAnimating];
+                } else {
+                    [self getProcessesForSelectedRun];
+                }
             }
             [_runsCollection reloadData];
         }];
@@ -349,10 +352,12 @@
     Run *r = _runs[_selectedRunIndex][@"run"];
     NSArray *pr = _runs[_selectedRunIndex][@"processes"];
     if (pr.count) {
+        [self.superview hideActivityView];
         [_spinner stopAnimating];
         [_processesTable reloadData];
     } else {
         
+        [self.superview showActivityViewWithLabel:@"fetching data"];
         [_spinner startAnimating];
         [[ProdAPI sharedInstance] getProcessFlowForProduct:[r getProductNumber] completion:^(BOOL success, id response) {
             
@@ -415,7 +420,7 @@
         DayLogModel *dayModel = nil;
         int t = 0;
         for (DayLogModel *d in days) {
-            if (d.processNo == p.processNo) {
+            if ([d.processNo isEqualToString:p.processNo]) {
                 t += d.target;
                 
                 if ([cal isDate:d.date inSameDayAsDate:today]) {
@@ -438,6 +443,7 @@
     [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"runId": @(r.runId), @"processes": processesForSelectedRun}];
     [_processesTable reloadData];
     [_spinner stopAnimating];
+    [self.superview hideActivityView];
 }
 
 #pragma mark - Utils
@@ -464,6 +470,14 @@
     [[ProdAPI sharedInstance] addDailyLog:json forRunFlow:[r getRunFlowId] completion:^(BOOL success, id response) {
         
         if (success) {
+            
+            if ([response isKindOfClass:[NSArray class]]) {
+                if ([response count] > 0) {
+                    int dayId = [response[0][@"id"] intValue];
+                    day.dayLogID = dayId;
+                }
+            }
+            
             [LoadingView removeLoading];
             
             NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:dict];
