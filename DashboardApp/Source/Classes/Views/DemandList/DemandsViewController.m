@@ -22,9 +22,15 @@
     // Do any additional setup after loading the view from its nib.
     _saveButton.layer.cornerRadius = 4.0f;
     _saveButton.layer.borderColor = [UIColor whiteColor].CGColor;
-    _saveButton.layer.borderWidth = 1.5f;
-    UIImage *iconRight = [UIImage imageWithIcon:@"fa-chevron-circle-right" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:20];
+    _saveButton.layer.borderWidth = 1.2f;
+    
+    _updateButton.layer.cornerRadius = 4.0f;
+    _updateButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    _updateButton.layer.borderWidth = 1.2f;
+    
+    UIImage *iconRight = [UIImage imageWithIcon:@"fa-paper-plane" backgroundColor:[UIColor clearColor] iconColor:[UIColor darkGrayColor] fontSize:20];
     [_saveButton setImage:iconRight forState:UIControlStateNormal];
+    [_updateButton setImage:iconRight forState:UIControlStateNormal];
     
     UIImage *iconPencil = [UIImage imageWithIcon:@"fa-pencil" backgroundColor:[UIColor clearColor] iconColor:[UIColor whiteColor] fontSize:20];
     [_editButton setImage:iconPencil forState:UIControlStateNormal];
@@ -163,6 +169,9 @@
     _stockDateLabel.text = demandData[@"stock_when"];
     _daysOpenLabel.text = demandData[@"Days Open"];*/
     _runsLabel.text = demandData[@"Runs"];
+    _immediateTF.text = demandData[@"urgent_qty"];
+    _longTermTF.text = demandData[@"long_term_qty"];
+    _stockTF.text = demandData[@"Mason_Stock"];
     [self setUpRunsView];
 }
 
@@ -290,6 +299,10 @@
         [cell setExpectedDate:[NSString stringWithFormat:@"%@(%d)",selectedShipping,[_qtyTF.text intValue]]];
     }*/
     
+    [self updateDemand];
+}
+
+- (IBAction)updatePressed:(id)sender {
     [self updateDemandData];
 }
 
@@ -330,7 +343,7 @@
     // [self.navigationController.view hideActivityViewWithAfterDelay:60];
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
-    NSString *reqString = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_demand_data&demandid=%@&notes=%@&immediate=%@&immediate_date=%@&longterm=%@&longterm_date=%@&stock=%@&stock_date=%@",selectedDemand[@"Demand Id"], [self urlEncodeUsingEncoding:_notesTextView.text],[self urlEncodeUsingEncoding:selectedDemand[@"urgent_qty"]], [self urlEncodeUsingEncoding:selectedDemand[@"urgent_when"]], [self urlEncodeUsingEncoding:selectedDemand[@"long_term_qty"]], [self urlEncodeUsingEncoding:selectedDemand[@"long_when"]], [self urlEncodeUsingEncoding:selectedDemand[@"Mason_Stock"]],[self urlEncodeUsingEncoding:selectedDemand[@"stock_when"]]];
+    NSString *reqString = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_demand_data&demandid=%@&notes=%@&immediate=%@&immediate_date=%@&longterm=%@&longterm_date=%@&stock=%@&stock_date=%@",selectedDemand[@"Demand Id"], [self urlEncodeUsingEncoding:_notesTextView.text],[self urlEncodeUsingEncoding:_immediateTF.text], [self urlEncodeUsingEncoding:selectedDemand[@"urgent_when"]], [self urlEncodeUsingEncoding:_longTermTF.text], [self urlEncodeUsingEncoding:selectedDemand[@"long_when"]], [self urlEncodeUsingEncoding:_stockTF.text],[self urlEncodeUsingEncoding:selectedDemand[@"stock_when"]]];
         [connectionManager makeRequest:reqString withTag:5];
 }
 

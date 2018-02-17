@@ -23,6 +23,7 @@
     IBOutlet UIView *_runsView;
     IBOutlet UIButton *_saveButton;
     IBOutlet UIButton *_editButton;
+    IBOutlet UIButton *_updateButton;
     
     IBOutlet UILabel *_urgentQtyLabel;
     IBOutlet UILabel *_urgentDateLabel;
@@ -33,6 +34,9 @@
     IBOutlet UIButton *_pickShippingButton;
     IBOutlet UIButton *_pickRunButton;
     IBOutlet UITextField *_qtyTF;
+    IBOutlet UITextField *_immediateTF;
+    IBOutlet UITextField *_longTermTF;
+    IBOutlet UITextField *_stockTF;
     
     DemandListView *demandListView;
     NIDropDown *dropDown;
