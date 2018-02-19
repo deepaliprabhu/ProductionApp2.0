@@ -11,6 +11,7 @@
 #import "DemandsViewCell.h"
 #import "UIImage+FontAwesome.h"
 #import "RunDetailsScreen.h"
+#import "Constants.h"
 
 @implementation DemandsViewController {
     __weak IBOutlet UIButton *_backButton;
@@ -20,6 +21,8 @@
     
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(initDemands) name:kNotificationDemandsReceived object:nil];
     _saveButton.layer.cornerRadius = 4.0f;
     _saveButton.layer.borderColor = [UIColor whiteColor].CGColor;
     _saveButton.layer.borderWidth = 1.2f;
@@ -56,6 +59,13 @@
     [_leftPaneView addSubview:demandListView];
 }
 
+
+- (void) initDemands {
+    demandsArray = [__DataManager getDemandList];
+    NSLog(@"demandListArray = %@",demandsArray);
+    [demandListView setDemandList:demandsArray];
+}
+
 - (void)setUpRunsView {
     [[_runsView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     runsArray = [[NSMutableArray alloc] init];
@@ -79,6 +89,12 @@
     RunDetailsScreen *screen = [RunDetailsScreen new];
     screen.run = [[DataManager sharedInstance] getRunWithId:[runsArray[sender.tag] intValue]];
     [self.navigationController pushViewController:screen animated:true];
+}
+
+- (IBAction)refreshPressed:(id)sender {
+     [self.navigationController.view showActivityViewWithLabel:@"updating demand"];
+     [self.navigationController.view hideActivityViewWithAfterDelay:2];
+    [__ServerManager getDemands];
 }
 
 #pragma mark - Actions
@@ -316,6 +332,8 @@
 
 
 - (void)updateDemand {
+     [self.navigationController.view showActivityViewWithLabel:@"updating demand"];
+     [self.navigationController.view hideActivityViewWithAfterDelay:2];
     NSString *encodedString;
     if ([selectedShipping isEqualToString:@"--"]) {
         encodedString = @"--";
@@ -339,8 +357,8 @@
 
 - (void)updateDemand:(NSMutableDictionary*)demand {
     NSString *encodedString;
-    // [self.navigationController.view showActivityViewWithLabel:@"updating demand"];
-    // [self.navigationController.view hideActivityViewWithAfterDelay:60];
+     [self.navigationController.view showActivityViewWithLabel:@"updating demand"];
+     [self.navigationController.view hideActivityViewWithAfterDelay:2];
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     NSString *reqString = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_demand_data&demandid=%@&notes=%@&immediate=%@&immediate_date=%@&longterm=%@&longterm_date=%@&stock=%@&stock_date=%@&sequenceid=%@",demand[@"Demand Id"], [self urlEncodeUsingEncoding:demand[@"Notes"]],[self urlEncodeUsingEncoding:demand[@"urgent_qty"]], [self urlEncodeUsingEncoding:demand[@"urgent_when"]], [self urlEncodeUsingEncoding:demand[@"long_term_qty"]], [self urlEncodeUsingEncoding:demand[@"long_when"]], [self urlEncodeUsingEncoding:demand[@"Mason_Stock"]],[self urlEncodeUsingEncoding:demand[@"stock_when"]],[self urlEncodeUsingEncoding:demand[@"SequenceId"]]];
@@ -349,8 +367,8 @@
 
 - (void)updateDemandData {
     NSString *encodedString;
-    // [self.navigationController.view showActivityViewWithLabel:@"updating demand"];
-    // [self.navigationController.view hideActivityViewWithAfterDelay:60];
+     [self.navigationController.view showActivityViewWithLabel:@"updating demand"];
+     [self.navigationController.view hideActivityViewWithAfterDelay:2];
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     NSString *reqString = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_demand_data&demandid=%@&notes=%@&immediate=%@&immediate_date=%@&longterm=%@&longterm_date=%@&stock=%@&stock_date=%@",selectedDemand[@"Demand Id"], [self urlEncodeUsingEncoding:_notesTextView.text],[self urlEncodeUsingEncoding:_immediateTF.text], [self urlEncodeUsingEncoding:selectedDemand[@"urgent_when"]], [self urlEncodeUsingEncoding:_longTermTF.text], [self urlEncodeUsingEncoding:selectedDemand[@"long_when"]], [self urlEncodeUsingEncoding:_stockTF.text],[self urlEncodeUsingEncoding:selectedDemand[@"stock_when"]]];

@@ -71,20 +71,6 @@
     [_overviewView addSubview:runListView];
     runListView.hidden = true;
     
-    demandListView = [DemandListView createView];
-    demandListView.frame = CGRectMake(0, 0, _overviewView.frame.size.width, _overviewView.frame.size.height);
-    [demandListView initView];
-    demandListView.delegate = self;
-    [_overviewView addSubview:demandListView];
-    demandListView.hidden = true;
-    
-    feedbackListView = [FeedbackListView createView];
-    feedbackListView.frame = CGRectMake(0, 0, _overviewView.frame.size.width, _overviewView.frame.size.height);
-    [feedbackListView initView];
-     feedbackListView.delegate = self;
-    [_overviewView addSubview:feedbackListView];
-     feedbackListView.hidden = true;
-    
     overviewView = [OverviewView createView];
     overviewView.frame = CGRectMake(0, 0, _overviewView.frame.size.width, _overviewView.frame.size.height);
     [overviewView initView];

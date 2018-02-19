@@ -10,6 +10,7 @@
 #import "DemandListView.h"
 #import "NIDropDown.h"
 #import "CKCalendarView.h"
+#import "UIView+RNActivityView.h"
 
 @interface DemandsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, DemandListViewDelegate, NIDropDownDelegate, CKCalendarDelegate>{
     IBOutlet UITableView *_tableView;

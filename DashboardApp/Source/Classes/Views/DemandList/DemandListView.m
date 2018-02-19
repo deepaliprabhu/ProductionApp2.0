@@ -30,6 +30,7 @@ __CREATEVIEW(DemandListView, @"DemandListView", 0);
 
 - (void)setDemandList:(NSMutableArray*)demandList {
     demandsArray = [demandList mutableCopy];
+    demandsArray = [self sortDemandsArray:demandsArray];
     [_tableView reloadData];
 }
 
@@ -72,7 +73,7 @@ __CREATEVIEW(DemandListView, @"DemandListView", 0);
     if (cell == nil) {
         cell = [[NSBundle mainBundle] loadNibNamed:simpleTableIdentifier owner:nil options:nil][0];
     }
-    //cell.delegate = self;
+    cell.delegate = self;
     [cell setCellData:[demandsArray objectAtIndex:indexPath.row]];
     return cell;
 }
@@ -138,6 +139,8 @@ __CREATEVIEW(DemandListView, @"DemandListView", 0);
         [demandData setObject:[NSString stringWithFormat:@"%d",i+1] forKey:@"SequenceId"];
       //  NSLog(@"replaced SequenceId = %@",demandData[@"SequenceId"]);
         [demandsArray replaceObjectAtIndex:i withObject:demandData];
+    }
+    for (int i=0; i < demandsArray.count; ++i) {
         [_delegate updateDemand:demandsArray[i]];
     }
     //processStepsArray = [__DataManager reorderProcessSteps:processStepsArray];
