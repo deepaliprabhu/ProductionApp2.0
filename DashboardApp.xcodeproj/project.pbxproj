@@ -79,6 +79,10 @@
 		894B6F0D1FCDAD7600E271B1 /* PODateScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894B6F0B1FCDAD7600E271B1 /* PODateScreen.xib */; };
 		894B6F111FCDCBB700E271B1 /* RunCommentsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B6F0F1FCDCBB700E271B1 /* RunCommentsScreen.m */; };
 		894B6F121FCDCBB700E271B1 /* RunCommentsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894B6F101FCDCBB700E271B1 /* RunCommentsScreen.xib */; };
+		894BF8BA203B7595002214D4 /* HourScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894BF8B4203B7593002214D4 /* HourScheduleCell.m */; };
+		894BF8BB203B7595002214D4 /* HourScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894BF8B5203B7593002214D4 /* HourScheduleCell.xib */; };
+		894BF8BC203B7595002214D4 /* ScheduleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 894BF8B7203B7594002214D4 /* ScheduleView.m */; };
+		894BF8BD203B7595002214D4 /* ScheduleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894BF8B8203B7594002214D4 /* ScheduleView.xib */; };
 		894C5F5A1FBB0ED300FA4E5D /* RunModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 894C5F591FBB0ED300FA4E5D /* RunModel.m */; };
 		894C5F5E1FBB147600FA4E5D /* RunPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894C5F5C1FBB147600FA4E5D /* RunPartCell.m */; };
 		894C5F5F1FBB147600FA4E5D /* RunPartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894C5F5D1FBB147600FA4E5D /* RunPartCell.xib */; };
@@ -464,6 +468,12 @@
 		894B6F0E1FCDCBB700E271B1 /* RunCommentsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunCommentsScreen.h; sourceTree = "<group>"; };
 		894B6F0F1FCDCBB700E271B1 /* RunCommentsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunCommentsScreen.m; sourceTree = "<group>"; };
 		894B6F101FCDCBB700E271B1 /* RunCommentsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunCommentsScreen.xib; sourceTree = "<group>"; };
+		894BF8B4203B7593002214D4 /* HourScheduleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HourScheduleCell.m; sourceTree = "<group>"; };
+		894BF8B5203B7593002214D4 /* HourScheduleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HourScheduleCell.xib; sourceTree = "<group>"; };
+		894BF8B6203B7593002214D4 /* ScheduleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleView.h; sourceTree = "<group>"; };
+		894BF8B7203B7594002214D4 /* ScheduleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleView.m; sourceTree = "<group>"; };
+		894BF8B8203B7594002214D4 /* ScheduleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleView.xib; sourceTree = "<group>"; };
+		894BF8B9203B7594002214D4 /* HourScheduleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HourScheduleCell.h; sourceTree = "<group>"; };
 		894C5F581FBB0ED300FA4E5D /* RunModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunModel.h; sourceTree = "<group>"; };
 		894C5F591FBB0ED300FA4E5D /* RunModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunModel.m; sourceTree = "<group>"; };
 		894C5F5B1FBB147600FA4E5D /* RunPartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunPartCell.h; sourceTree = "<group>"; };
@@ -1070,6 +1080,12 @@
 				8947049E20192F16007364F0 /* OperatorCell.h */,
 				8947049F20192F16007364F0 /* OperatorCell.m */,
 				894704A020192F16007364F0 /* OperatorCell.xib */,
+				894BF8B6203B7593002214D4 /* ScheduleView.h */,
+				894BF8B7203B7594002214D4 /* ScheduleView.m */,
+				894BF8B8203B7594002214D4 /* ScheduleView.xib */,
+				894BF8B9203B7594002214D4 /* HourScheduleCell.h */,
+				894BF8B4203B7593002214D4 /* HourScheduleCell.m */,
+				894BF8B5203B7593002214D4 /* HourScheduleCell.xib */,
 			);
 			path = ProductionScreen;
 			sourceTree = "<group>";
@@ -2229,6 +2245,7 @@
 				894B6F0D1FCDAD7600E271B1 /* PODateScreen.xib in Resources */,
 				D2A44F321FAF2BBA00DF37B8 /* LoadingView.xib in Resources */,
 				8970C3BC20056A55001F7680 /* RunScheduleSlotCell.xib in Resources */,
+				894BF8BB203B7595002214D4 /* HourScheduleCell.xib in Resources */,
 				3B649A881FB3236400B8DC78 /* PartsCell.xib in Resources */,
 				894704A720193D12007364F0 /* ProductionOverview.xib in Resources */,
 				D28386561FB23B5E00BB304C /* Roboto-Bold.ttf in Resources */,
@@ -2289,6 +2306,7 @@
 				895287381FCF2B33005C46EE /* StockLogScreen.xib in Resources */,
 				9F3144BC1F7ABFD200B9D32C /* right_arrow@2x.png in Resources */,
 				9F85678F1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.xib in Resources */,
+				894BF8BD203B7595002214D4 /* ScheduleView.xib in Resources */,
 				89037EA51FE7C4DF00242005 /* RunDetailsScreen.xib in Resources */,
 				D28386541FB2285600BB304C /* RunPartsScreen.xib in Resources */,
 				894704B920194E22007364F0 /* ProductionTargetView.xib in Resources */,
@@ -2360,6 +2378,7 @@
 				D22767891FAE4B5400215D87 /* AFURLResponseSerialization.m in Sources */,
 				9FD12D901F443CEF00F0E0A8 /* ServerManager.m in Sources */,
 				8950A7271FC6C14E006C66CB /* AddCommentScreen.m in Sources */,
+				894BF8BC203B7595002214D4 /* ScheduleView.m in Sources */,
 				9F4DE41A1F558EBC0016DB03 /* MBCircularProgressBarView.m in Sources */,
 				8940187C1FB5A0E4002B8AFD /* BRRequestDownload.m in Sources */,
 				D22767901FAE4B5400215D87 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
@@ -2392,6 +2411,7 @@
 				9FD12D7F1F43FD4400F0E0A8 /* OverviewView.m in Sources */,
 				894018811FB5A0E4002B8AFD /* BRRequestListDirectory.m in Sources */,
 				8919BE931FB4DD5100EE6839 /* UIImage+MultiFormat.m in Sources */,
+				894BF8BA203B7595002214D4 /* HourScheduleCell.m in Sources */,
 				8919BE9E1FB4E47D00EE6839 /* LayoutUtils.m in Sources */,
 				89815E19201FEE610021ADA2 /* OperatorsPickerScreen.m in Sources */,
 				8919BEA11FB4EEF200EE6839 /* UIView+Screenshot.m in Sources */,

@@ -19,7 +19,7 @@
 - (void) layoutWithPerson:(UserModel*)user time:(int)time completed:(int)compl selected:(BOOL)s {
 
     _backgroundView.alpha = s;
-    _operatorLabel.text = user.name;
+    _operatorLabel.text = [[user.name componentsSeparatedByString:@" "] firstObject];
     
     if (time>0 && time<30*60)
         time = 30*60;
