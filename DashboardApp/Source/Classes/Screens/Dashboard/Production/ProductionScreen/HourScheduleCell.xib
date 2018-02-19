@@ -24,17 +24,17 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Llv-nj-Rqa">
-                        <rect key="frame" x="85" y="33" width="15" height="12"/>
+                        <rect key="frame" x="85" y="33" width="15" height="10"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="VFy-uf-tAd"/>
-                            <constraint firstAttribute="height" constant="12" id="wQX-ix-H1c"/>
+                            <constraint firstAttribute="height" constant="10" id="wQX-ix-H1c"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="12"/>
+                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="10"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pqI-lB-gBj">
                         <rect key="frame" x="0.0" y="0.0" width="2" height="45"/>
-                        <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="2" id="LSO-dL-9t6"/>
                         </constraints>
@@ -44,13 +44,14 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="pqI-lB-gBj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="BNd-hS-0Iu"/>
-                <constraint firstAttribute="bottom" secondItem="Llv-nj-Rqa" secondAttribute="bottom" id="Cb4-B6-Y59"/>
+                <constraint firstAttribute="bottom" secondItem="Llv-nj-Rqa" secondAttribute="bottom" constant="2" id="Cb4-B6-Y59"/>
                 <constraint firstAttribute="trailing" secondItem="Llv-nj-Rqa" secondAttribute="trailing" id="PFn-ak-D0b"/>
                 <constraint firstAttribute="bottom" secondItem="pqI-lB-gBj" secondAttribute="bottom" id="V5U-d0-cj0"/>
                 <constraint firstItem="pqI-lB-gBj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="fBF-Iz-v1g"/>
             </constraints>
             <connections>
                 <outlet property="_hourLabel" destination="Llv-nj-Rqa" id="2px-ta-3tz"/>
+                <outlet property="_separatorView" destination="pqI-lB-gBj" id="tpQ-uF-NTh"/>
             </connections>
             <point key="canvasLocation" x="25" y="52.5"/>
         </collectionViewCell>

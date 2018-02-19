@@ -28,16 +28,17 @@
     __weak IBOutlet NSLayoutConstraint *_processedViewWidthConstraint;
     
     int _totalHours;
+    BOOL _selected;
 }
 
 __CREATEVIEW(ScheduleView, @"ScheduleView", 0);
 
 + (CGFloat) width {
-    return 286;
+    return 190;
 }
 
 + (CGFloat) height {
-    return 65;
+    return 45;
 }
 
 - (void) awakeFromNib {
@@ -49,12 +50,14 @@ __CREATEVIEW(ScheduleView, @"ScheduleView", 0);
     [_collectionView registerNib:cellNib forCellWithReuseIdentifier:@"HourScheduleCell"];
 }
 
-- (void) layoutScheduleWithData:(NSArray*)times {
+- (void) layoutScheduleWithData:(NSArray*)times isSelected:(BOOL)s {
+    
+    _selected = s;
     
     float target = [times[0] floatValue];
     float compl = [times[1] floatValue];
     float interval = 3600.0f;
-    float totalWidth = 286.0f;
+    float totalWidth = [ScheduleView width];
     
     _totalHours = MAX(ceil(MAX(target, compl)/3600.0f), 8);
     _targetViewWidthConstraint.constant = (target/(_totalHours*interval))*totalWidth;
@@ -98,7 +101,7 @@ __CREATEVIEW(ScheduleView, @"ScheduleView", 0);
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     HourScheduleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HourScheduleCell" forIndexPath:indexPath];
-    [cell layoutWithHour:(int)indexPath.row+1];
+    [cell layoutWithHour:(int)indexPath.row+1 selected:_selected];
     return cell;
 }
 

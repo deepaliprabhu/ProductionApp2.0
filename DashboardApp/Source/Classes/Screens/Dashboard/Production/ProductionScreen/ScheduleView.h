@@ -16,6 +16,6 @@ __CREATEVIEWH(ScheduleView);
 + (CGFloat) width;
 + (CGFloat) height;
 
-- (void) layoutScheduleWithData:(NSArray*)times;
+- (void) layoutScheduleWithData:(NSArray*)times isSelected:(BOOL)s;
 
 @end

@@ -10,6 +10,6 @@
 
 @interface HourScheduleCell : UICollectionViewCell
 
-- (void) layoutWithHour:(int)h;
+- (void) layoutWithHour:(int)h selected:(BOOL)s;
 
 @end
