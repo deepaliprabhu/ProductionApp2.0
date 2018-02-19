@@ -19,11 +19,11 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TZb-mR-BlZ">
-                        <rect key="frame" x="0.0" y="0.0" width="678" height="49"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <rect key="frame" x="0.0" y="0.0" width="678" height="57"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZ6-P1-XZh">
-                                <rect key="frame" x="8" y="7" width="211" height="21"/>
+                                <rect key="frame" x="30" y="7" width="189" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="textColor"/>
@@ -92,6 +92,13 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rql-cL-ueG">
+                                <rect key="frame" x="3" y="8" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -121,6 +128,7 @@
                 <outlet property="_nameLabel" destination="dZ6-P1-XZh" id="sh7-oz-8pt"/>
                 <outlet property="_notesTextView" destination="chX-Go-lkh" id="lmW-Gp-o25"/>
                 <outlet property="_runsLabel" destination="gTe-6g-F7q" id="bpR-ro-Iyp"/>
+                <outlet property="_sequenceLabel" destination="Rql-cL-ueG" id="0Sh-IY-qcz"/>
                 <outlet property="_shippingLabel" destination="hL8-PS-8mi" id="8QJ-QB-aDR"/>
                 <outlet property="_stockDateLabel" destination="rJ0-Of-cz3" id="UiL-vN-3XZ"/>
                 <outlet property="_stockLabel" destination="Wlo-iz-Pzm" id="aIb-JO-uOg"/>

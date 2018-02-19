@@ -19,6 +19,7 @@
     IBOutlet UILabel *_titleLabel;
     IBOutlet UIButton *_pickShippingButton;
     IBOutlet UIButton *_pickRunButton;
+    IBOutlet UIButton *_changeOrderButton;
     IBOutlet UITextField *_qtyTF;
     
     NSMutableArray *demandsArray;
@@ -44,4 +45,5 @@ __CREATEVIEWH(DemandListView);
 @protocol DemandListViewDelegate <NSObject>
 - (void) closeSelected;
 - (void) showDetailForDemand:(NSMutableDictionary*)demandData;
+- (void) updateDemand:(NSMutableDictionary*)demand;
 @end

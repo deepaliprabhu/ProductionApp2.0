@@ -11,6 +11,7 @@
 
 @protocol DemandListViewCellDelegate;
 @interface DemandListViewCell : UITableViewCell {
+    IBOutlet UILabel *_sequenceLabel;
     IBOutlet UILabel *_nameLabel;
     IBOutlet UILabel *_daysOpenLabel;
     IBOutlet UILabel *_immediateLabel;

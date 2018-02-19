@@ -11,6 +11,7 @@
 #import "UIView+RNActivityView.h"
 #import "ConnectionManager.h"
 #import "DataManager.h"
+#import "UIAlertView+Blocks.h"
 
 
 @implementation DemandListView
@@ -22,13 +23,31 @@ __CREATEVIEW(DemandListView, @"DemandListView", 0);
     
     shippingOptionsArray = [@[@"--", @"Next Week", @"Shipped", @"Pick a date"] mutableCopy];
     //self.layer.cornerRadius = 8.0;
-    demandsArray = [__DataManager getDemandList];
+    demandsArray = [[__DataManager getDemandList] mutableCopy];
+    demandsArray = [self sortDemandsArray:demandsArray];
     [_tableView reloadData];
 }
 
 - (void)setDemandList:(NSMutableArray*)demandList {
-    demandsArray = demandList;
+    demandsArray = [demandList mutableCopy];
     [_tableView reloadData];
+}
+
+- (NSMutableArray*)sortDemandsArray:(NSMutableArray *) processesArray{
+    for (int i=0; i < processesArray.count-1; ++i) {
+        for (int j=i+1; j < processesArray.count; ++j) {
+            NSMutableDictionary *processDatai = processesArray[i];
+            NSMutableDictionary *processDataj = processesArray[j];
+            int processNoi = [processDatai[@"SequenceId"] intValue];
+            int processNoj = [processDataj[@"SequenceId"] intValue];
+            if (processNoi>processNoj) {
+                NSMutableDictionary *tempDict = processDatai;
+                processesArray[i] = processesArray[j];
+                processesArray[j] = tempDict;
+            }
+        }
+    }
+    return processesArray;
 }
 
 /*
@@ -40,7 +59,7 @@ __CREATEVIEW(DemandListView, @"DemandListView", 0);
 */
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 55.0f;
+    return 57.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -58,12 +77,71 @@ __CREATEVIEW(DemandListView, @"DemandListView", 0);
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return true;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleNone;
+}
+
+- (BOOL)tableView:(UITableView *)tableview shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return true;
+}
+
+- (void) tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    // [_processListTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    if (sourceIndexPath.row != destinationIndexPath.row) {
+        
+        [UIAlertView showWithTitle:nil message:@"Are you sure you want to change the order of these Steps?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            
+            if (buttonIndex == 1) {
+                [self changeOrderFrom:(int)sourceIndexPath.row to:(int)destinationIndexPath.row];
+            } else {
+                [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+            }
+        }];
+    }
+}
+
+
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     selectedIndex = indexPath.row;
     selectedDemand = demandsArray[indexPath.row];
     _titleLabel.text = selectedDemand[@"Product"];
    // [self showShippingDetailView];
     [_delegate showDetailForDemand:selectedDemand];
+}
+
+- (void) changeOrderFrom:(int)from to:(int)to {
+    
+    NSMutableDictionary *r = demandsArray[from];
+    if (from < to) {
+        [demandsArray insertObject:r atIndex:to+1];
+        [demandsArray removeObjectAtIndex:from];
+    } else {
+        [demandsArray insertObject:r atIndex:to];
+        [demandsArray removeObjectAtIndex:from+1];
+    }
+    [self updateSequenceIds];
+    //[_processListTableView reloadData];
+}
+
+- (void)updateSequenceIds {
+    for (int i=0; i < demandsArray.count; ++i) {
+        NSMutableDictionary *demandData = [demandsArray[i] mutableCopy];
+        [demandData setObject:[NSString stringWithFormat:@"%d",i+1] forKey:@"SequenceId"];
+      //  NSLog(@"replaced SequenceId = %@",demandData[@"SequenceId"]);
+        [demandsArray replaceObjectAtIndex:i withObject:demandData];
+        [_delegate updateDemand:demandsArray[i]];
+    }
+    //processStepsArray = [__DataManager reorderProcessSteps:processStepsArray];
+    [_tableView reloadData];
 }
 
 - (IBAction)closePressed:(id)sender {
@@ -169,6 +247,17 @@ __CREATEVIEW(DemandListView, @"DemandListView", 0);
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return true;
+}
+
+- (IBAction)changeOrderPressed:(id)sender {
+    if (_tableView.editing) {
+        _tableView.editing = false;
+        [_changeOrderButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    }
+    else {
+        _tableView.editing = true;
+        [_changeOrderButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - CKCalendarDelegate

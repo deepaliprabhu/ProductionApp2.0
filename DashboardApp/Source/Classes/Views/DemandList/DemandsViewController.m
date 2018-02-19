@@ -337,6 +337,16 @@
     }
 }
 
+- (void)updateDemand:(NSMutableDictionary*)demand {
+    NSString *encodedString;
+    // [self.navigationController.view showActivityViewWithLabel:@"updating demand"];
+    // [self.navigationController.view hideActivityViewWithAfterDelay:60];
+    ConnectionManager *connectionManager = [ConnectionManager new];
+    connectionManager.delegate = self;
+    NSString *reqString = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_demand_data&demandid=%@&notes=%@&immediate=%@&immediate_date=%@&longterm=%@&longterm_date=%@&stock=%@&stock_date=%@&sequenceid=%@",demand[@"Demand Id"], [self urlEncodeUsingEncoding:demand[@"Notes"]],[self urlEncodeUsingEncoding:demand[@"urgent_qty"]], [self urlEncodeUsingEncoding:demand[@"urgent_when"]], [self urlEncodeUsingEncoding:demand[@"long_term_qty"]], [self urlEncodeUsingEncoding:demand[@"long_when"]], [self urlEncodeUsingEncoding:demand[@"Mason_Stock"]],[self urlEncodeUsingEncoding:demand[@"stock_when"]],[self urlEncodeUsingEncoding:demand[@"SequenceId"]]];
+    [connectionManager makeRequest:reqString withTag:5];
+}
+
 - (void)updateDemandData {
     NSString *encodedString;
     // [self.navigationController.view showActivityViewWithLabel:@"updating demand"];

@@ -13,6 +13,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    _sequenceLabel.layer.cornerRadius = 10.0f;
+    _sequenceLabel.layer.borderColor = [UIColor grayColor].CGColor;
+    _sequenceLabel.layer.borderWidth = 1.0f;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -33,6 +36,7 @@
     _longTermDateLabel.text = cellData[@"long_when"];
     _stockDateLabel.text = cellData[@"stock_when"];
     _notesTextView.text = cellData[@"Notes"];
+    _sequenceLabel.text = cellData[@"SequenceId"];
 }
 
 - (void)setExpectedDate:(NSString*)dateString {
