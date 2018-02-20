@@ -23,6 +23,15 @@
     // Do any additional setup after loading the view from its nib.
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(initDemands) name:kNotificationDemandsReceived object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification
+                                               object:nil];
     _saveButton.layer.cornerRadius = 4.0f;
     _saveButton.layer.borderColor = [UIColor whiteColor].CGColor;
     _saveButton.layer.borderWidth = 1.2f;
@@ -424,6 +433,17 @@
         return false;
     }
     return true;
+}
+
+- (void)keyboardDidShow: (NSNotification *) notif{
+    self.view.transform = CGAffineTransformMakeTranslation(0, -300);
+}
+
+- (void)keyboardDidHide: (NSNotification *) notif{
+    if (self.view.frame.origin.y < 0) {
+        self.view.transform = CGAffineTransformMakeTranslation(0, 0);
+    }
+    
 }
 
 
