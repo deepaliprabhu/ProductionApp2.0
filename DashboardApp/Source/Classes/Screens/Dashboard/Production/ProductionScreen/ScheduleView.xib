@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view tag="100" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Mf-dO-WXS" customClass="ScheduleView">
+            <rect key="frame" x="0.0" y="0.0" width="286" height="45"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nho-lg-zTd">
+                    <rect key="frame" x="0.0" y="0.0" width="286" height="30"/>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="vny-N0-CXf"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mn7-tz-XpX">
+                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="30"/>
+                    <color key="backgroundColor" red="0.20000000000000001" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" id="AuA-3d-4IO"/>
+                        <constraint firstAttribute="height" constant="30" id="I7s-nY-sKE"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C6x-PO-N1l">
+                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="30"/>
+                    <color key="backgroundColor" red="0.074509803921568626" green="0.65490196079999996" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" id="AP2-E7-v9d"/>
+                        <constraint firstAttribute="height" constant="30" id="wBx-5x-sUh"/>
+                    </constraints>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="rqd-aT-eH7">
+                    <rect key="frame" x="0.0" y="0.0" width="286" height="45"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="Wbd-ir-fab"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Rrg-bv-UM8">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="5Mf-dO-WXS" id="gtp-VP-eYz"/>
+                        <outlet property="delegate" destination="5Mf-dO-WXS" id="vAx-MF-kcK"/>
+                    </connections>
+                </collectionView>
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZDV-8G-SvC">
+                    <rect key="frame" x="72" y="17" width="26" height="13"/>
+                    <color key="backgroundColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="13" id="IFx-5j-13y"/>
+                        <constraint firstAttribute="width" constant="26" id="mBt-mF-j9D"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="11"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8x9-5p-OZw">
+                    <rect key="frame" x="72" y="0.0" width="26" height="13"/>
+                    <color key="backgroundColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="26" id="suW-nc-TWz"/>
+                        <constraint firstAttribute="height" constant="13" id="vHv-Vx-49n"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="11"/>
+                    <color key="textColor" red="0.14117647059999999" green="0.65490196079999996" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="C6x-PO-N1l" firstAttribute="leading" secondItem="5Mf-dO-WXS" secondAttribute="leading" id="3hp-7U-9WH"/>
+                <constraint firstItem="Mn7-tz-XpX" firstAttribute="top" secondItem="5Mf-dO-WXS" secondAttribute="top" id="8nj-Fe-dU7"/>
+                <constraint firstAttribute="trailing" secondItem="Nho-lg-zTd" secondAttribute="trailing" id="ABc-uq-21B"/>
+                <constraint firstItem="Nho-lg-zTd" firstAttribute="top" secondItem="5Mf-dO-WXS" secondAttribute="top" id="GB5-jG-Rc7"/>
+                <constraint firstItem="rqd-aT-eH7" firstAttribute="leading" secondItem="5Mf-dO-WXS" secondAttribute="leading" id="Jga-bp-5Cz"/>
+                <constraint firstItem="ZDV-8G-SvC" firstAttribute="top" secondItem="5Mf-dO-WXS" secondAttribute="top" constant="17" id="PCR-Cb-DL9"/>
+                <constraint firstAttribute="trailing" secondItem="rqd-aT-eH7" secondAttribute="trailing" id="TWJ-qB-TZs"/>
+                <constraint firstItem="Mn7-tz-XpX" firstAttribute="leading" secondItem="5Mf-dO-WXS" secondAttribute="leading" id="b5c-fo-6CC"/>
+                <constraint firstItem="8x9-5p-OZw" firstAttribute="top" secondItem="5Mf-dO-WXS" secondAttribute="top" id="dMe-CF-s4e"/>
+                <constraint firstItem="C6x-PO-N1l" firstAttribute="top" secondItem="5Mf-dO-WXS" secondAttribute="top" id="gyc-qa-7dX"/>
+                <constraint firstItem="Nho-lg-zTd" firstAttribute="leading" secondItem="5Mf-dO-WXS" secondAttribute="leading" id="ifh-uZ-8zg"/>
+                <constraint firstItem="ZDV-8G-SvC" firstAttribute="leading" secondItem="5Mf-dO-WXS" secondAttribute="leading" constant="72" id="jCJ-hB-n8p"/>
+                <constraint firstItem="8x9-5p-OZw" firstAttribute="leading" secondItem="5Mf-dO-WXS" secondAttribute="leading" constant="72" id="xXL-0d-tpN"/>
+                <constraint firstItem="rqd-aT-eH7" firstAttribute="top" secondItem="5Mf-dO-WXS" secondAttribute="top" id="yEe-Ub-fxY"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="_collectionView" destination="rqd-aT-eH7" id="VWU-dD-8lF"/>
+                <outlet property="_processedLabel" destination="8x9-5p-OZw" id="XdZ-FR-6Bg"/>
+                <outlet property="_processedLabelLeadingConstraint" destination="xXL-0d-tpN" id="UrQ-TZ-6ij"/>
+                <outlet property="_processedLabelWidthConstraint" destination="suW-nc-TWz" id="Kr0-PG-udA"/>
+                <outlet property="_processedViewWidthConstraint" destination="AP2-E7-v9d" id="z9j-ay-oet"/>
+                <outlet property="_targetLabel" destination="ZDV-8G-SvC" id="yuH-9v-cQ9"/>
+                <outlet property="_targetLabelLeadingConstraint" destination="jCJ-hB-n8p" id="jJL-BN-EoX"/>
+                <outlet property="_targetLabelWidthConstraint" destination="mBt-mF-j9D" id="5VG-Uh-HuC"/>
+                <outlet property="_targetViewWidthConstraint" destination="AuA-3d-4IO" id="1Xx-9d-7XZ"/>
+            </connections>
+            <point key="canvasLocation" x="49" y="72"/>
+        </view>
+    </objects>
+</document>

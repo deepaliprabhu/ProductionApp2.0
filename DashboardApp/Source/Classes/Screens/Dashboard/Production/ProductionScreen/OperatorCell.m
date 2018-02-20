@@ -8,36 +8,36 @@
 
 #import "OperatorCell.h"
 #import "Defines.h"
+#import "ScheduleView.h"
+#import "LayoutUtils.h"
 
 @implementation OperatorCell {
     
     __weak IBOutlet UILabel *_operatorLabel;
-    __weak IBOutlet UIView *_scheduleHolderView;
     __weak IBOutlet UIView *_backgroundView;
 }
 
-- (void) layoutWithPerson:(UserModel*)user time:(int)time completed:(int)compl selected:(BOOL)s {
+- (void) layoutWithPerson:(UserModel*)user times:(NSArray*)times selected:(BOOL)s {
 
     _backgroundView.alpha = s;
-    _operatorLabel.text = user.name;
+    _operatorLabel.text = [[user.name componentsSeparatedByString:@" "] firstObject];
+  
+    [[self viewWithTag:100] removeFromSuperview];
+    [self addScheduleViewWith:times selected:s];
+}
+
+- (void) addScheduleViewWith:(NSArray*)times selected:(BOOL)s {
     
-    if (time>0 && time<30*60)
-        time = 30*60;
-    if (compl>0 && compl<30*60)
-        time = 30*60;
+    ScheduleView *scheduleView = [ScheduleView createView];
+    scheduleView.userInteractionEnabled = false;
+    scheduleView.translatesAutoresizingMaskIntoConstraints = false;
+    [LayoutUtils addContraintWidth:[ScheduleView width] andHeight:[ScheduleView height] forView:scheduleView];
+    [self addSubview:scheduleView];
     
-    for (int i=0; i<16; i++) {
-        
-        UIView *v = [_scheduleHolderView viewWithTag:i];
-        int s = (i+1)*30*60;
-        
-        if (compl>=s)
-            v.backgroundColor = ccolor(19, 167, 243);
-        else if (time>=s)
-            v.backgroundColor = ccolor(51, 204, 51);
-        else
-            v.backgroundColor = ccolor(204, 204, 204);
-    }
+    [LayoutUtils addTopConstraintFromView:scheduleView toView:self constant:9];
+    [LayoutUtils addTrailingConstraintFromView:scheduleView toView:self constant:-20];
+    
+    [scheduleView layoutScheduleWithData:times isSelected:s];
 }
 
 @end

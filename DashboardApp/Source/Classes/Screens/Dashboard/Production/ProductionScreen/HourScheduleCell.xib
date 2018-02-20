@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Light.ttf">
+            <string>Roboto-Light</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HourScheduleCell" id="gTV-IL-0wX" customClass="HourScheduleCell">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="45"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="45"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Llv-nj-Rqa">
+                        <rect key="frame" x="85" y="33" width="15" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="VFy-uf-tAd"/>
+                            <constraint firstAttribute="height" constant="10" id="wQX-ix-H1c"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="10"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pqI-lB-gBj">
+                        <rect key="frame" x="0.0" y="0.0" width="2" height="45"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="2" id="LSO-dL-9t6"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="pqI-lB-gBj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="BNd-hS-0Iu"/>
+                <constraint firstAttribute="bottom" secondItem="Llv-nj-Rqa" secondAttribute="bottom" constant="2" id="Cb4-B6-Y59"/>
+                <constraint firstAttribute="trailing" secondItem="Llv-nj-Rqa" secondAttribute="trailing" id="PFn-ak-D0b"/>
+                <constraint firstAttribute="bottom" secondItem="pqI-lB-gBj" secondAttribute="bottom" id="V5U-d0-cj0"/>
+                <constraint firstItem="pqI-lB-gBj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="fBF-Iz-v1g"/>
+            </constraints>
+            <connections>
+                <outlet property="_hourLabel" destination="Llv-nj-Rqa" id="2px-ta-3tz"/>
+                <outlet property="_separatorView" destination="pqI-lB-gBj" id="tpQ-uF-NTh"/>
+            </connections>
+            <point key="canvasLocation" x="25" y="52.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

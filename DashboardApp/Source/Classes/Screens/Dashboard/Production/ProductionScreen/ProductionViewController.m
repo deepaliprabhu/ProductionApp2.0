@@ -161,7 +161,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 48;
+    return 54;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -174,7 +174,7 @@
     
     UserModel *user = _operators[indexPath.row];
     NSArray *times = _operatorsSchedule[user.name];
-    [cell layoutWithPerson:user time:[times[0] intValue] completed:[times[1] intValue] selected:_selectedOperator==indexPath.row];
+    [cell layoutWithPerson:user times:times selected:_selectedOperator==indexPath.row];
     
     return cell;
 }
@@ -528,11 +528,11 @@
                     int time = [p.processingTime intValue]*d.goal;
                     int proc = [p.processingTime intValue]*d.target;
                     if (_operatorsSchedule[d.person] == nil)
-                        _operatorsSchedule[d.person] = @[@(time), @(proc)];
+                        _operatorsSchedule[d.person] = @[@(time), @(proc), @(d.target), @(d.goal)];
                     else
                     {
                         NSArray *times = _operatorsSchedule[d.person];
-                        _operatorsSchedule[d.person] = @[@([times[0] intValue]+time), @([times[1] intValue]+proc)]; 
+                        _operatorsSchedule[d.person] = @[@([times[0] intValue]+time), @([times[1] intValue]+proc), @([times[2] intValue]+d.target), @([times[3] intValue]+d.goal)];
                     }
                 }
             }
