@@ -371,7 +371,7 @@
      [self.navigationController.view hideActivityViewWithAfterDelay:2];
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
-    NSString *reqString = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_demand_data&demandid=%@&notes=%@&immediate=%@&immediate_date=%@&longterm=%@&longterm_date=%@&stock=%@&stock_date=%@",selectedDemand[@"Demand Id"], [self urlEncodeUsingEncoding:_notesTextView.text],[self urlEncodeUsingEncoding:_immediateTF.text], [self urlEncodeUsingEncoding:selectedDemand[@"urgent_when"]], [self urlEncodeUsingEncoding:_longTermTF.text], [self urlEncodeUsingEncoding:selectedDemand[@"long_when"]], [self urlEncodeUsingEncoding:_stockTF.text],[self urlEncodeUsingEncoding:selectedDemand[@"stock_when"]]];
+    NSString *reqString = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_demand_data&demandid=%@&notes=%@&immediate=%@&immediate_date=%@&longterm=%@&longterm_date=%@&stock=%@&stock_date=%@&sequenceid=%@",selectedDemand[@"Demand Id"], [self urlEncodeUsingEncoding:_notesTextView.text],[self urlEncodeUsingEncoding:_immediateTF.text], [self urlEncodeUsingEncoding:selectedDemand[@"urgent_when"]], [self urlEncodeUsingEncoding:_longTermTF.text], [self urlEncodeUsingEncoding:selectedDemand[@"long_when"]], [self urlEncodeUsingEncoding:_stockTF.text],[self urlEncodeUsingEncoding:selectedDemand[@"stock_when"]],[self urlEncodeUsingEncoding:selectedDemand[@"SequenceId"]]];
         [connectionManager makeRequest:reqString withTag:5];
 }
 

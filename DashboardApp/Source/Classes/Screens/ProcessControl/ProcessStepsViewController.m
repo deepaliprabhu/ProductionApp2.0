@@ -1205,6 +1205,7 @@
     else if(dropDown.tag == 2){
         pcbProductId = pcbProductsArray[index];
         selectedProduct.pcbProductID = pcbProductId;
+        [self setUpForButton:_puneApprovalButton withStatus:@"Save"];
     }
     else if(dropDown.tag == 3){
         selectedOperatorIndex = index;
