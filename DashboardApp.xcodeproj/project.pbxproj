@@ -29,6 +29,8 @@
 		8919BE9B1FB4DD5100EE6839 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8919BE8C1FB4DD5100EE6839 /* UIButton+WebCache.m */; };
 		8919BE9E1FB4E47D00EE6839 /* LayoutUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8919BE9C1FB4E47D00EE6839 /* LayoutUtils.m */; };
 		8919BEA11FB4EEF200EE6839 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 8919BE9F1FB4EEF100EE6839 /* UIView+Screenshot.m */; };
+		891CB788203CC62700E91AEC /* PlanningView.m in Sources */ = {isa = PBXBuildFile; fileRef = 891CB787203CC62700E91AEC /* PlanningView.m */; };
+		891CB78A203CC62F00E91AEC /* PlanningView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 891CB789203CC62F00E91AEC /* PlanningView.xib */; };
 		892AEEE6202B2AAC002CCCE8 /* WeeklyGraphBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 892AEEE5202B2AAC002CCCE8 /* WeeklyGraphBar.m */; };
 		892AEEE8202B2AD0002CCCE8 /* WeeklyGraphBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892AEEE7202B2AD0002CCCE8 /* WeeklyGraphBar.xib */; };
 		892AEEEC202B5D09002CCCE8 /* ProcessInfoScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 892AEEEA202B5D09002CCCE8 /* ProcessInfoScreen.m */; };
@@ -384,6 +386,9 @@
 		8919BE9D1FB4E47D00EE6839 /* LayoutUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutUtils.h; sourceTree = "<group>"; };
 		8919BE9F1FB4EEF100EE6839 /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
 		8919BEA01FB4EEF100EE6839 /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
+		891CB786203CC62700E91AEC /* PlanningView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlanningView.h; sourceTree = "<group>"; };
+		891CB787203CC62700E91AEC /* PlanningView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlanningView.m; sourceTree = "<group>"; };
+		891CB789203CC62F00E91AEC /* PlanningView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanningView.xib; sourceTree = "<group>"; };
 		892AEEE4202B2AAC002CCCE8 /* WeeklyGraphBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeeklyGraphBar.h; sourceTree = "<group>"; };
 		892AEEE5202B2AAC002CCCE8 /* WeeklyGraphBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeeklyGraphBar.m; sourceTree = "<group>"; };
 		892AEEE7202B2AD0002CCCE8 /* WeeklyGraphBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeeklyGraphBar.xib; sourceTree = "<group>"; };
@@ -971,6 +976,16 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
+		891CB785203CC5FE00E91AEC /* PlanningScreen */ = {
+			isa = PBXGroup;
+			children = (
+				891CB786203CC62700E91AEC /* PlanningView.h */,
+				891CB787203CC62700E91AEC /* PlanningView.m */,
+				891CB789203CC62F00E91AEC /* PlanningView.xib */,
+			);
+			path = PlanningScreen;
+			sourceTree = "<group>";
+		};
 		894018631FB5A0E4002B8AFD /* BlackRaccoon */ = {
 			isa = PBXGroup;
 			children = (
@@ -1048,6 +1063,7 @@
 				894704A8201944D1007364F0 /* ProductionOverview */,
 				894704B420194E0B007364F0 /* ProductionTarget */,
 				894704BA20195332007364F0 /* OperatorTarget */,
+				891CB785203CC5FE00E91AEC /* PlanningScreen */,
 			);
 			path = Production;
 			sourceTree = "<group>";
@@ -2276,6 +2292,7 @@
 				89697BA52008B45A00C96103 /* DailyLogScreen.xib in Resources */,
 				9F03A9221F45667700A7A316 /* DemandListViewCell.xib in Resources */,
 				9F471CFA1F53FF4600B294B7 /* InProcessView.xib in Resources */,
+				891CB78A203CC62F00E91AEC /* PlanningView.xib in Resources */,
 				9F7AB1A41F7D233C0013CBE1 /* check_mark@2x.png in Resources */,
 				9F40AD801F2F469A002C64BA /* HomeViewController.xib in Resources */,
 				897BA32E1FF65FF900C8DA9A /* FailedTestsScreen.xib in Resources */,
@@ -2389,6 +2406,7 @@
 				9F471CF31F53DD3700B294B7 /* SSDrawingUtilities.m in Sources */,
 				894018801FB5A0E4002B8AFD /* BRRequest+_UserData.m in Sources */,
 				9F056B321F433F51002F3B61 /* RunListView.m in Sources */,
+				891CB788203CC62700E91AEC /* PlanningView.m in Sources */,
 				89697BA82008D9CB00C96103 /* DailyLogHeaderView.m in Sources */,
 				9F7FE56E1F7B8DD8005CB4DF /* ProductGroupView.m in Sources */,
 				9FD12D9A1F44707A00F0E0A8 /* MIBadgeButton.m in Sources */,
