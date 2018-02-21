@@ -104,7 +104,7 @@ static ServerManager *_sharedInstance = nil;
 }
 
 - (void)updateCommonProcessesWithJsonString:(NSString*)jsonString {
-    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateProcessList&do=update%@",[self urlEncodeUsingEncoding:jsonString]];
+    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateProcessList%@",[self urlEncodeUsingEncoding:jsonString]];
     connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makeRequest:urlString withTag:11];
@@ -118,7 +118,7 @@ static ServerManager *_sharedInstance = nil;
 }
 
 - (void)updateProcessFlowWithJsonString:(NSString*)jsonString {
-    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateProcessFlow&do=update%@",[self urlEncodeUsingEncoding:jsonString]];
+    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateProcessFlow%@",[self urlEncodeUsingEncoding:jsonString]];
     connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makeRequest:urlString withTag:13];

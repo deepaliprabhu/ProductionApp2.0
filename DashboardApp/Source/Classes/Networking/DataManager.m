@@ -299,7 +299,7 @@ static DataManager *_sharedInstance = nil;
 }
 
 
--(NSString*) jsonString:(NSDictionary*)data WithPrettyPrint:(BOOL) prettyPrint {
+-(NSString*) jsonString:(NSMutableArray*)data WithPrettyPrint:(BOOL) prettyPrint {
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data
                                                        options:(NSJSONWritingOptions)    (prettyPrint ? NSJSONWritingPrettyPrinted : 0)
@@ -310,6 +310,7 @@ static DataManager *_sharedInstance = nil;
         return @"{}";
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        jsonString = [jsonString stringByReplacingOccurrencesOfString:@"'" withString:@""];
         return jsonString;
     }
 }
