@@ -22,17 +22,16 @@
     __weak IBOutlet UILabel *_targetTotalLabel;
     __weak IBOutlet UILabel *_operatorsTotalLabel;
     __weak IBOutlet UILabel *_hoursTotalLabel;
-    __weak IBOutlet NSLayoutConstraint *_tableHeightConstraint;
     __weak IBOutlet UIButton *_totalButton;
+    __weak IBOutlet UILabel *_totalTimeLabel;
     
     IBOutletCollection(UIButton) NSArray *_buttons;
     
     int _selectedRunIndex;
-    NSArray *_runs;
+    NSMutableArray *_runs;
     NSMutableArray *_processes;
     NSMutableDictionary *_selectedProcesses;
     
-    UILabel *_totalTime;
     
     int _operators;
     int _hours;
@@ -59,7 +58,13 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
 
 - (void) reloadData {
     
-    _runs = [[[DataManager sharedInstance] getRuns] sortedArrayUsingComparator:^NSComparisonResult(Run *obj1, Run *obj2) {
+    _runs = [NSMutableArray array];
+    for (Run *r in [[DataManager sharedInstance] getRuns]) {
+        if ([r isLocked])
+            [_runs addObject:r];
+    }
+    
+    [_runs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [obj1 getRunId] > [obj2 getRunId];
     }];
     [_runsCollection reloadData];
@@ -159,14 +164,6 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     return 29;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 31;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return [self footerView];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *identifier = @"ProcessCell";
@@ -194,32 +191,10 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     
     [tableView reloadData];
     [self layoutTotal];
+    _totalTimeLabel.text = [NSString stringWithFormat:@"%ds", [self totalPerProduct]];
 }
 
 #pragma mark - Layout
-
-- (UIView*) footerView {
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 31)];
-    view.backgroundColor = ccolor(234, 235, 236);
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(32, 7, 200, 17)];
-    label.backgroundColor = cclear;
-    label.textColor = ccolor(102, 102, 102);
-    label.font = ccFont(@"Roboto-Regular", 14);
-    label.text = @"Total time per unit";
-    [view addSubview:label];
-    
-    _totalTime = [[UILabel alloc] initWithFrame:CGRectMake(385, 5, 70, 21)];
-    _totalTime.textAlignment = NSTextAlignmentCenter;
-    _totalTime.backgroundColor = cclear;
-    _totalTime.textColor = [UIColor blackColor];
-    _totalTime.font = ccFont(@"Roboto-Medium", 16);
-    _totalTime.text = [NSString stringWithFormat:@"%ds", [self totalPerProduct]];
-    [view addSubview:_totalTime];
-    
-    return view;
-}
 
 - (void) layoutLabels {
     
@@ -242,15 +217,6 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
         
         [_totalButton setTitle:[NSString stringWithFormat:@"%.1f", seconds/workPerDay] forState:UIControlStateNormal];
     }
-}
-
-- (void) layoutTable {
-    
-    float min = MIN(_processes.count, 10.5);
-    _tableHeightConstraint.constant = min*29;
-    [UIView animateWithDuration:0.3 animations:^{
-        [self layoutIfNeeded];
-    }];
 }
 
 #pragma mark - Utils
@@ -309,8 +275,8 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
             
             [self fillTimes];
             [_tableView reloadData];
-            [self layoutTable];
             [self resetTotals];
+            _totalTimeLabel.text = [NSString stringWithFormat:@"%ds", [self totalPerProduct]];
             
         } else {
             [LoadingView showShortMessage:@"Error, please try again later!"];
