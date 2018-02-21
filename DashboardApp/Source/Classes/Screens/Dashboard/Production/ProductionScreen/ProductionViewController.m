@@ -20,6 +20,7 @@
 #import "DataManager.h"
 #import "NSDate+Utils.h"
 #import "UIView+RNActivityView.h"
+#import "PlanningView.h"
 
 @interface ProductionViewController () <UITableViewDelegate, UITableViewDataSource, ProductionOverviewProtocol, ProductionTargetViewProtocol, OperatorTargetViewProtocol>
 
@@ -31,6 +32,7 @@
     
     __weak IBOutlet UIView *_overallBgView;
     __weak IBOutlet UIView *_targetsBgView;
+    __weak IBOutlet UIView *_planningBgView;
     
     __weak IBOutlet UILabel *_todayLabel;
     __weak IBOutlet UIButton *_yesterdayButton;
@@ -49,6 +51,7 @@
     ProductionOverview *_flowView1;
     ProductionTargetView *_flowView2;
     OperatorTargetView *_flowView3;
+    PlanningView *_flowView4;
     
     NSMutableArray *_runs;
     NSMutableDictionary *_operatorsSchedule;
@@ -104,6 +107,7 @@
     _selectedOperator = -1;
     _overallBgView.alpha = 1;
     _targetsBgView.alpha = 0;
+    _planningBgView.alpha = 0;
     [_operatorsTable reloadData];
     
     [self goToOverall];
@@ -117,9 +121,24 @@
     _selectedOperator = -1;
     _overallBgView.alpha = 0;
     _targetsBgView.alpha = 1;
+    _planningBgView.alpha = 0;
     [_operatorsTable reloadData];
     
     [self goToTargets];
+}
+
+- (IBAction) planningButtonTapped {
+    
+    if(_flowView4.alpha == 1)
+        return;
+    
+    _selectedOperator = -1;
+    _overallBgView.alpha = 0;
+    _targetsBgView.alpha = 0;
+    _planningBgView.alpha = 1;
+    [_operatorsTable reloadData];
+    
+    [self goToPlanning];
 }
 
 - (IBAction) refreshButtonTapped {
@@ -128,8 +147,10 @@
         [_flowView1 reloadData];
     } else if (_flowView2.alpha == 1) {
         [_flowView2 reloadData];
-    } else {
+    } else if (_flowView3.alpha == 1) {
         [_flowView3 reloadData];
+    } else {
+        [_flowView4 reloadData];
     }
     
     [_operators removeAllObjects];
@@ -189,6 +210,7 @@
         
         _targetsBgView.alpha = 0;
         _overallBgView.alpha = 0;
+        _planningBgView.alpha = 0;
         
         if (_flowView3.alpha == 1) {
             
@@ -205,6 +227,7 @@
             [UIView animateWithDuration:0.2 animations:^{
                 _flowView1.alpha = 0;
                 _flowView2.alpha = 0;
+                _flowView4.alpha = 0;
             } completion:^(BOOL finished) {
                 
                 [UIView animateWithDuration:0.2 animations:^{
@@ -285,6 +308,8 @@
         [_flowView1 reloadData];
     else if (_flowView2.alpha == 1)
         [_flowView2 reloadData];
+    else if (_flowView4.alpha == 1)
+        [_flowView4 reloadData];
     else
         [_flowView3 reloadData];
     
@@ -333,6 +358,16 @@
     [LayoutUtils addTopConstraintFromView:_flowView3 toView:self.view constant:81];
 }
 
+- (void) addFlowView4 {
+    
+    _flowView4 = [PlanningView createView];
+    _flowView4.translatesAutoresizingMaskIntoConstraints = false;
+    [LayoutUtils addContraintWidth:668 andHeight:687 forView:_flowView4];
+    [self.view insertSubview:_flowView4 belowSubview:_flowView1];
+    [LayoutUtils addLeadingConstraintFromView:_flowView4 toView:self.view constant:356];
+    [LayoutUtils addTopConstraintFromView:_flowView4 toView:self.view constant:81];
+}
+
 #pragma mark - Utils
 
 - (void) goToOverall {
@@ -340,6 +375,7 @@
     [UIView animateWithDuration:0.2 animations:^{
         _flowView2.alpha = 0;
         _flowView3.alpha = 0;
+        _flowView4.alpha = 0;
     } completion:^(BOOL finished) {
         
         [UIView animateWithDuration:0.2 animations:^{
@@ -360,12 +396,34 @@
     [UIView animateWithDuration:0.2 animations:^{
         _flowView1.alpha = 0;
         _flowView3.alpha = 0;
+        _flowView4.alpha = 0;
     } completion:^(BOOL finished) {
         
         [UIView animateWithDuration:0.2 animations:^{
             _flowView2.alpha = 1;
         } completion:^(BOOL finished) {
             [_flowView2 reloadData];
+        }];
+    }];
+}
+
+- (void) goToPlanning {
+    
+    if (_flowView4 == nil) {
+        [self addFlowView4];
+    }
+    _flowView4.alpha = 0;
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        _flowView1.alpha = 0;
+        _flowView3.alpha = 0;
+        _flowView2.alpha = 0;
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            _flowView4.alpha = 1;
+        } completion:^(BOOL finished) {
+            [_flowView4 reloadData];
         }];
     }];
 }
