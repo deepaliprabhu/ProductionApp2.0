@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Defines.h"
 
-@interface PlanningView : UIView
+@interface PlanningView : UIView <UITableViewDelegate, UITableViewDataSource>
 
 __CREATEVIEWH(PlanningView)
 

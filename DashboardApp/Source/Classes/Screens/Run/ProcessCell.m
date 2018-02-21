@@ -15,6 +15,18 @@
     __weak IBOutlet UILabel *_processedLabel;
     __weak IBOutlet UIImageView *_shapeView;
     __weak IBOutlet UIView *_bgView;
+    
+    BOOL _forPlanning;
+}
+
+- (void) layoutWithPlanning:(ProcessModel*)process {
+    
+    _forPlanning = true;
+    _shapeView.alpha = 0;
+    _bgView.alpha = 0;
+    _titleLabel.text = process.processName;
+    _processedLabel.text = process.processingTime;
+    _processNoLabel.text = process.processNo;
 }
 
 - (void) layoutWith:(ProcessModel*)process {
@@ -25,13 +37,23 @@
 }
 
 - (void) setSelected:(BOOL)selected {
-    _shapeView.alpha = selected;
-    _bgView.alpha = selected;
+    
+    if (_forPlanning == false) {
+        _shapeView.alpha = selected;
+        _bgView.alpha = selected;
+    } else {
+        [super setSelected:selected];
+    }
 }
 
 - (void) setSelected:(BOOL)selected animated:(BOOL)animated {
-    _shapeView.alpha = selected;
-    _bgView.alpha = selected;
+    
+    if (_forPlanning == false) {
+        _shapeView.alpha = selected;
+        _bgView.alpha = selected;
+    } else {
+        [super setSelected:selected animated:animated];
+    }
 }
 
 @end
