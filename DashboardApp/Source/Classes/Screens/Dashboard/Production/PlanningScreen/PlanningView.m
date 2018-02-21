@@ -18,6 +18,14 @@
     
     __weak IBOutlet UICollectionView *_runsCollection;
     __weak IBOutlet UITableView *_tableView;
+    __weak IBOutlet UISlider *_slider;
+    __weak IBOutlet UILabel *_targetTotalLabel;
+    __weak IBOutlet UILabel *_operatorsTotalLabel;
+    __weak IBOutlet UILabel *_hoursTotalLabel;
+    __weak IBOutlet NSLayoutConstraint *_tableHeightConstraint;
+    __weak IBOutlet UIButton *_totalButton;
+    
+    IBOutletCollection(UIButton) NSArray *_buttons;
     
     int _selectedRunIndex;
     NSArray *_runs;
@@ -25,6 +33,10 @@
     NSMutableDictionary *_selectedProcesses;
     
     UILabel *_totalTime;
+    
+    int _operators;
+    int _hours;
+    int _target;
 }
 
 __CREATEVIEW(PlanningView, @"PlanningView", 0)
@@ -36,6 +48,13 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     [_runsCollection registerClass:[RunTargetCell class] forCellWithReuseIdentifier:@"RunTargetCell"];
     UINib *cellNib = [UINib nibWithNibName:@"RunTargetCell" bundle:nil];
     [_runsCollection registerNib:cellNib forCellWithReuseIdentifier:@"RunTargetCell"];
+    
+    for (UIButton *b in _buttons) {
+        b.layer.masksToBounds = true;
+        b.layer.cornerRadius  = 6;
+        b.layer.borderWidth   = 1;
+        b.layer.borderColor   = ccolor(102, 102, 102).CGColor;
+    }
 }
 
 - (void) reloadData {
@@ -47,6 +66,55 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     
     _selectedRunIndex = 0;
     [self getProcessFlow];
+}
+
+#pragma mark - Actions
+
+- (IBAction) sliderDidChange {
+    
+    int total = [_runs[_selectedRunIndex] getQuantity];
+    _target = _slider.value*total;
+    _targetTotalLabel.text = [NSString stringWithFormat:@"%d", _target];
+    [self layoutTotal];
+}
+
+- (IBAction) operatorMinusButtonTapped {
+    
+    if (_operators == 0)
+        return;
+    
+    _operators--;
+    [self layoutLabels];
+    [self layoutTotal];
+}
+
+- (IBAction) operatorPlusButtonTapped {
+    
+    _operators++;
+    [self layoutLabels];
+    [self layoutTotal];
+}
+
+- (IBAction) hoursMinusButtonTapped {
+    
+    if (_hours == 0)
+        return;
+    
+    _hours--;
+    [self layoutLabels];
+    [self layoutTotal];
+}
+
+- (IBAction) hoursPlusButtonTapped {
+    
+    _hours++;
+    [self layoutLabels];
+    [self layoutTotal];
+}
+
+- (IBAction) totalButtonTapped {
+    
+    
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -125,6 +193,7 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
         _selectedProcesses[p.processNo] = nil;
     
     [tableView reloadData];
+    [self layoutTotal];
 }
 
 #pragma mark - Layout
@@ -138,7 +207,7 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     label.backgroundColor = cclear;
     label.textColor = ccolor(102, 102, 102);
     label.font = ccFont(@"Roboto-Regular", 14);
-    label.text = @"Total time";
+    label.text = @"Total time per unit";
     [view addSubview:label];
     
     _totalTime = [[UILabel alloc] initWithFrame:CGRectMake(385, 5, 70, 21)];
@@ -152,7 +221,49 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     return view;
 }
 
+- (void) layoutLabels {
+    
+    _operatorsTotalLabel.text = [NSString stringWithFormat:@"%d", _operators];
+    _hoursTotalLabel.text = [NSString stringWithFormat:@"%d", _hours];
+    _targetTotalLabel.text = [NSString stringWithFormat:@"%d", _target];
+    
+    Run *r = _runs[_selectedRunIndex];
+    [_slider setValue:(float)_target/(float)[r getQuantity]];
+}
+
+- (void) layoutTotal {
+    
+    if (_hours == 0 || _operators == 0) {
+        [_totalButton setTitle:@"∞" forState:UIControlStateNormal];
+    } else {
+        
+        float seconds = [self totalPerProduct]*_target;
+        float workPerDay = _operators*_hours*3600;
+        
+        [_totalButton setTitle:[NSString stringWithFormat:@"%.1f", seconds/workPerDay] forState:UIControlStateNormal];
+    }
+}
+
+- (void) layoutTable {
+    
+    float min = MIN(_processes.count, 10.5);
+    _tableHeightConstraint.constant = min*29;
+    [UIView animateWithDuration:0.3 animations:^{
+        [self layoutIfNeeded];
+    }];
+}
+
 #pragma mark - Utils
+
+- (void) resetTotals {
+    
+    _operators = 1;
+    _hours = 8;
+    Run *r = _runs[_selectedRunIndex];
+    _target = [r getQuantity];
+    [self layoutLabels];
+    [self layoutTotal];
+}
 
 - (void) getProcessFlow {
     
@@ -198,6 +309,8 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
             
             [self fillTimes];
             [_tableView reloadData];
+            [self layoutTable];
+            [self resetTotals];
             
         } else {
             [LoadingView showShortMessage:@"Error, please try again later!"];
