@@ -95,6 +95,7 @@
     
     UIImage *iconPlus = [UIImage imageWithIcon:@"fa-plus-circle" backgroundColor:[UIColor clearColor] iconColor:[UIColor blueColor] fontSize:25];
     [_createStepButton setImage:iconPlus forState:UIControlStateNormal];
+    [_createProductButton setImage:iconPlus forState:UIControlStateNormal];
     
     
     _submitButton.layer.cornerRadius = 8.0f;
