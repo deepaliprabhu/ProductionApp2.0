@@ -319,6 +319,7 @@ static DataManager *_sharedInstance = nil;
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         jsonString = [jsonString stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        jsonString = [self urlEncodeUsingEncoding:jsonString];
         return jsonString;
     }
 }
