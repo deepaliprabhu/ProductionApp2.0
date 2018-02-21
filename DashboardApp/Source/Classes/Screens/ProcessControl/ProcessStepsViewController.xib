@@ -32,6 +32,7 @@
                 <outlet property="_changeOrderButton" destination="Vom-Ff-MMB" id="jKa-Az-qt3"/>
                 <outlet property="_closeButton" destination="LXt-np-KzC" id="Yek-Uk-EDM"/>
                 <outlet property="_commonProcessListTableView" destination="hdW-cT-SIn" id="XeK-ML-Ush"/>
+                <outlet property="_createProductButton" destination="LOS-PP-S75" id="FdX-s9-Thz"/>
                 <outlet property="_createStepButton" destination="C99-it-uWH" id="SBR-Fj-iP6"/>
                 <outlet property="_editModeLabel" destination="5ek-qK-plr" id="eua-uj-5YK"/>
                 <outlet property="_editProcessFlowView" destination="xqZ-tr-rQf" id="wc3-x5-0q6"/>
@@ -144,7 +145,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                     <subviews>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TcV-0A-Vvu">
-                            <rect key="frame" x="0.0" y="188" width="511" height="483"/>
+                            <rect key="frame" x="0.0" y="188" width="511" height="428"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -152,6 +153,17 @@
                                 <outlet property="delegate" destination="-1" id="x6A-44-uK9"/>
                             </connections>
                         </tableView>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOS-PP-S75">
+                            <rect key="frame" x="8" y="624" width="267" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="tintColor" red="0.1808258888" green="0.70648402590000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <inset key="titleEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="-3" minY="-3" maxX="-3" maxY="-3"/>
+                            <state key="normal" title="Create New Product">
+                                <color key="titleColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -408,7 +420,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="tintColor" red="0.18082588875203276" green="0.70648402585186454" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <inset key="titleEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <inset key="titleEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <inset key="imageEdgeInsets" minX="-3" minY="-3" maxX="-3" maxY="-3"/>
                     <state key="normal" title="Create New Step">
                         <color key="titleColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

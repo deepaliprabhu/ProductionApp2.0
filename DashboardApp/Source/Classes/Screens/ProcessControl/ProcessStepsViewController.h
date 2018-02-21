@@ -29,6 +29,7 @@
     IBOutlet UIButton *_pcbProductIdButton;
     IBOutlet UIButton *_processCntrlIdButton;
     IBOutlet UIButton *_changeOrderButton;
+    IBOutlet UIButton *_createProductButton;
     IBOutlet UILabel *_productNameLabel;
     IBOutlet UILabel *_productIdLabel;
     IBOutlet UILabel *_processNoLabel;

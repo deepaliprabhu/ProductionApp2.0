@@ -95,6 +95,7 @@
     
     UIImage *iconPlus = [UIImage imageWithIcon:@"fa-plus-circle" backgroundColor:[UIColor clearColor] iconColor:[UIColor blueColor] fontSize:25];
     [_createStepButton setImage:iconPlus forState:UIControlStateNormal];
+    [_createProductButton setImage:iconPlus forState:UIControlStateNormal];
     
     
     _submitButton.layer.cornerRadius = 8.0f;
@@ -1248,13 +1249,13 @@
 }
 
 - (IBAction)deleteCommonProcess:(id)sender {
-    /*UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Delete Option is disabled for now. Please contact Arthur/Deepali for deleting processes." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Delete Option is disabled for now. Please contact Arthur/Deepali for deleting processes." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
     alertView.tag = 0;
-    [alertView show];*/
+    [alertView show];
     
-    [self deleteCommonProcessFromListAtIndex:selectedIndex];
+   /* [self deleteCommonProcessFromListAtIndex:selectedIndex];
     [_addProcessView removeFromSuperview];
-    backgroundDimmingView.hidden = true;
+    backgroundDimmingView.hidden = true;*/
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

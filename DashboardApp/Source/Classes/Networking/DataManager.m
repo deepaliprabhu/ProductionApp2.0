@@ -298,6 +298,14 @@ static DataManager *_sharedInstance = nil;
     NSLog(@"json string = %@",jsonString);
 }
 
+-(NSString *)urlEncodeUsingEncoding:(NSString*)string {
+    return (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL,
+                                                                                 (CFStringRef)string,
+                                                                                 NULL,
+                                                                                 (CFStringRef)@"!*'\"()& ",
+                                                                                 CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)));
+}
+
 
 -(NSString*) jsonString:(NSMutableArray*)data WithPrettyPrint:(BOOL) prettyPrint {
     NSError *error;
@@ -311,6 +319,7 @@ static DataManager *_sharedInstance = nil;
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         jsonString = [jsonString stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        jsonString = [self urlEncodeUsingEncoding:jsonString];
         return jsonString;
     }
 }
