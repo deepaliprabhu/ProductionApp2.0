@@ -71,6 +71,7 @@
                 <outlet property="_timeTF" destination="4vI-we-SwE" id="ShV-mj-OXo"/>
                 <outlet property="_updateGroupView" destination="t7L-DB-gsx" id="S4R-fG-g6n"/>
                 <outlet property="_wiTableView" destination="Lqh-HU-lAS" id="GYW-re-oTS"/>
+                <outlet property="_workInstructionsTV" destination="rwL-oO-fJX" id="Jhk-vn-azf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -432,7 +433,7 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-145.5" y="886.5"/>
+            <point key="canvasLocation" x="-186" y="754"/>
         </view>
         <view contentMode="scaleToFill" id="Uxh-7H-CK5">
             <rect key="frame" x="0.0" y="0.0" width="467" height="499"/>
@@ -549,7 +550,7 @@
             <point key="canvasLocation" x="375.5" y="737.5"/>
         </view>
         <view contentMode="scaleToFill" id="zki-lW-fce">
-            <rect key="frame" x="0.0" y="0.0" width="467" height="462"/>
+            <rect key="frame" x="0.0" y="0.0" width="467" height="773"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Station:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oyb-Qq-b31">
@@ -594,7 +595,7 @@
                     </connections>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kk-sS-u2u">
-                    <rect key="frame" x="0.0" y="432" width="75" height="30"/>
+                    <rect key="frame" x="0.0" y="743" width="75" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                     <state key="normal" title="Cancel">
@@ -625,7 +626,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZQ-lj-l7W">
-                    <rect key="frame" x="397" y="432" width="70" height="30"/>
+                    <rect key="frame" x="397" y="743" width="70" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                     <state key="normal" title="Save">
@@ -713,7 +714,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W7f-gC-kv6">
-                    <rect key="frame" x="202" y="432" width="70" height="30"/>
+                    <rect key="frame" x="198" y="743" width="70" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                     <state key="normal" title="Delete">
@@ -730,10 +731,28 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rwL-oO-fJX">
+                    <rect key="frame" x="16" y="461" width="431" height="261"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="1fQ-dQ-faV"/>
+                    </connections>
+                </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Work Instructions:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMB-EV-Mpb">
+                    <rect key="frame" x="20" y="432" width="207" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-207" y="1474"/>
+            <point key="canvasLocation" x="-134.5" y="1849.5"/>
         </view>
         <view contentMode="scaleToFill" id="1DM-ip-tEL">
             <rect key="frame" x="0.0" y="0.0" width="430" height="116"/>
@@ -841,7 +860,7 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-80" y="1864.5"/>
+            <point key="canvasLocation" x="456" y="1415"/>
         </view>
     </objects>
     <resources>

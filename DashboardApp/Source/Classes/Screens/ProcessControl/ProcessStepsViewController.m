@@ -1084,6 +1084,7 @@
     [_operator3Button setTitle:@"Pick Operator3" forState:UIControlStateNormal];
     _processNameTF.text = @"";
     _timeTF.text = @"";
+    _workInstructionsTV.text = @"";
     backgroundDimmingView.hidden = false;
     [self.view bringSubviewToFront:backgroundDimmingView];
     _addProcessView.frame = CGRectMake(self.view.frame.size.width/2-_addProcessView.frame.size.width/2, self.view.frame.size.height/2-_addProcessView.frame.size.height/2, _addProcessView.frame.size.width, _addProcessView.frame.size.height);
@@ -1133,8 +1134,7 @@
         NSMutableDictionary *lastProcess = commonProcessStepsArray[commonProcessStepsArray.count-1];
         int processNo = [[lastProcess[@"processno"] stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue]+1;
         [processData setObject:[_processNoTF.text uppercaseString] forKey:@"processno"];
-        NSString *wiString = @"- Take the Active Test Rig and Connect to the PC by using male female connector.\n- Take the assembled PCB EZ-1000-000x Rev D and load the PCB in the fixture.\n- Open the firmware folder, select 'Gourmet Check Dual BT' file and Run this firmware in to the PCB.\n- If during runtime any errors are found, note the particular error onto a sticky note and place the PCB into the rework bin.\n- If no errors were found during the run time after completion, place the PCB into the 'Goods OK' bin.\n";
-        [processData setObject:@"" forKey:@"workinstructions"];
+        [processData setObject:_workInstructionsTV.text forKey:@"workinstructions"];
         [self addProcessToList:processData];
     }
     else {
@@ -1146,6 +1146,7 @@
         [processData setObject:_processNameTF.text forKey:@"processname"];
         [processData setObject:_processNoTF.text forKey:@"processno"];
         [processData setObject:_timeTF.text forKey:@"time"];
+        [processData setObject:_workInstructionsTV.text forKey:@"workinstructions"];
         [commonProcessStepsArray replaceObjectAtIndex:selectedIndex withObject:processData];
         [__DataManager updateProcessAtIndex:selectedIndex process:processData];
         [__DataManager syncCommonProcesses];
@@ -1240,6 +1241,7 @@
     _processNoTF.text = processData[@"processno"];
     _processNameTF.text = processData[@"processname"];
     _timeTF.text = processData[@"time"];
+    _workInstructionsTV.text = processData[@"workinstructions"];
     backgroundDimmingView.hidden = false;
     [self.view bringSubviewToFront:backgroundDimmingView];
     _addProcessView.frame = CGRectMake(self.view.frame.size.width/2-_addProcessView.frame.size.width/2, self.view.frame.size.height/2-_addProcessView.frame.size.height/2, _addProcessView.frame.size.width, _addProcessView.frame.size.height);
@@ -1359,6 +1361,7 @@
     }*/
     [dropDown hideDropDown:_pcbProductIdButton];
     dropDown = nil;
+    [_workInstructionsTV resignFirstResponder];
 }
 
 - (void)keyboardDidShow: (NSNotification *) notif{
