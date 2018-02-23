@@ -501,6 +501,11 @@
     [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php\?call=update_product_group&productid=%@&group=%@",updatingProduct.productID,[updatingProduct.group uppercaseString]] withTag:5];
 }
 
+- (void)getMCNFile{
+    ConnectionManager *connectionManager = [ConnectionManager new];
+    connectionManager.delegate = self;
+    [connectionManager makeRequest:[NSString stringWithFormat:@"http://www.aginova.info/aginova/json/get_file.php?productid=%@",selectedProduct.productNumber] withTag:6];
+}
 
 - (void) parseJsonResponse:(NSData*)jsonData withTag:(int)tag {
     NSLog(@"jsonData = %@", jsonData);
@@ -526,24 +531,33 @@
     if ([json isKindOfClass:[NSArray class]]){
         NSLog(@"json Array = %@",json);
         if (json.count > 0) {
-            _changeOrderButton.hidden = false;
-            NSDictionary *jsonDict = json[0];
-            NSMutableArray* jsonProcessesArray = jsonDict[@"processes"];
-            NSLog(@"json processes array=%@",jsonProcessesArray);
-            processStepsArray=[jsonProcessesArray mutableCopy];
-            processCntrlId = jsonDict[@"process_ctrl_id"];
-            processStatus = jsonDict[@"status"];
-            pcbProductId = jsonDict[@"pcb_productid"];
-            if (![pcbProductId isEqualToString:@""]) {
-                [_pcbProductIdButton setTitle:pcbProductId forState:UIControlStateNormal];
+            if (tag == 6) {
+                NSLog(@"MCN file = %@",json[2][@"specification file"]);
+                NSURL *url = [NSURL URLWithString:[self urlEncodeUsingEncoding:json[2][@"specification file"]]];
+                if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                    [[UIApplication sharedApplication] openURL:url];
+                }
             }
-            [self setupForStatus:jsonDict[@"status"]];
-            NSLog(@"processes Array=%@",processStepsArray);
-            processStepsArray = [__DataManager reorderProcessSteps:processStepsArray];
-            [selectedProduct setProcessSteps:processStepsArray];
-            selectedProduct.status = processStatus;
-            selectedProduct.pcbProductID = pcbProductId;
-            [_processListTableView reloadData];
+            else {
+                _changeOrderButton.hidden = false;
+                NSDictionary *jsonDict = json[0];
+                NSMutableArray* jsonProcessesArray = jsonDict[@"processes"];
+                NSLog(@"json processes array=%@",jsonProcessesArray);
+                processStepsArray=[jsonProcessesArray mutableCopy];
+                processCntrlId = jsonDict[@"process_ctrl_id"];
+                processStatus = jsonDict[@"status"];
+                pcbProductId = jsonDict[@"pcb_productid"];
+                if (![pcbProductId isEqualToString:@""]) {
+                    [_pcbProductIdButton setTitle:pcbProductId forState:UIControlStateNormal];
+                }
+                [self setupForStatus:jsonDict[@"status"]];
+                NSLog(@"processes Array=%@",processStepsArray);
+                processStepsArray = [__DataManager reorderProcessSteps:processStepsArray];
+                [selectedProduct setProcessSteps:processStepsArray];
+                selectedProduct.status = processStatus;
+                selectedProduct.pcbProductID = pcbProductId;
+                [_processListTableView reloadData];
+            }
         }
     }
     else if ([json isKindOfClass:[NSDictionary class]]) {
@@ -968,7 +982,7 @@
     [self.navigationController.view hideActivityViewWithAfterDelay:3];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",selectedProduct.processCntrlAlias,@"alias",selectedProduct.productID,@"ProductId", pcbProductId, @"PCBProductId",@"1.0", @"VersionId", processStatus, @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
+    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",selectedProduct.processCntrlAlias,@"alias",selectedProduct.productID,@"ProductId", pcbProductId, @"PCBProductId",@"1.0", @"VersionId", @"Draft", @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
     if (![selectedProduct.processCntrlId isEqualToString:@"DRAFT"]) {
         [__DataManager updateProcesses:processStepsArray withProcessData:processData];
     }
@@ -1133,6 +1147,11 @@
     if (_addProcessView.tag == 1) {
         NSMutableDictionary *lastProcess = commonProcessStepsArray[commonProcessStepsArray.count-1];
         int processNo = [[lastProcess[@"processno"] stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue]+1;
+        if ([_processNoTF.text isEqualToString:@""]||[_processNameTF.text isEqualToString:@""]) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Please fill in all details" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+            [alertView show];
+            return;
+        }
         [processData setObject:[_processNoTF.text uppercaseString] forKey:@"processno"];
         [processData setObject:_workInstructionsTV.text forKey:@"workinstructions"];
         [self addProcessToList:processData];
@@ -1345,6 +1364,10 @@
     [__ServerManager getProductList];
     [__ServerManager getProcessList];
     [self getProcessFlowForProduct:selectedProduct];
+}
+
+- (IBAction)viewMCNPressed:(id)sender {
+    [self getMCNFile];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
