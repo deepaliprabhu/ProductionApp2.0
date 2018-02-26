@@ -515,6 +515,11 @@
     NSString *dataString = [[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] mutableCopy];
     
     NSLog(@"datastring = %@", dataString);
+    if ([dataString isEqualToString:@"No MCN File Found!"]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"No MCN file found" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        alertView.tag = 4;
+        [alertView show];
+    }
     jsonData = [dataString dataUsingEncoding:NSUTF8StringEncoding];
     NSMutableArray *json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
     
@@ -1105,6 +1110,7 @@
     _addProcessView.layer.cornerRadius = 12.0f;
     [self.view addSubview:_addProcessView];
     _addProcessView.tag = 1;
+    _deleteButton.hidden = true;
 }
 
 - (IBAction)saveNewProcessPressed:(id)sender {
@@ -1241,6 +1247,7 @@
 }
 
 - (void)editProcessAtIndex:(int)index {
+    _deleteButton.hidden = false;
     selectedIndex = index;
     NSMutableDictionary *processData = commonProcessStepsArray[index];
     NSLog(@"selected processData=%@",processData);

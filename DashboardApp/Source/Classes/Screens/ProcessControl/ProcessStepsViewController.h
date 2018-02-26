@@ -40,6 +40,7 @@
     IBOutlet UITableView *_commonProcessListTableView;
     IBOutlet UIButton *_saveButton;
     IBOutlet UIButton *_closeButton;
+    IBOutlet UIButton *_deleteButton;
     IBOutlet UIButton *_createStepButton;
     
     IBOutlet UIView *_processInfoView;

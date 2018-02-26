@@ -34,6 +34,7 @@
                 <outlet property="_commonProcessListTableView" destination="hdW-cT-SIn" id="XeK-ML-Ush"/>
                 <outlet property="_createProductButton" destination="LOS-PP-S75" id="FdX-s9-Thz"/>
                 <outlet property="_createStepButton" destination="C99-it-uWH" id="SBR-Fj-iP6"/>
+                <outlet property="_deleteButton" destination="W7f-gC-kv6" id="1Hh-x0-taq"/>
                 <outlet property="_editModeLabel" destination="5ek-qK-plr" id="eua-uj-5YK"/>
                 <outlet property="_editProcessFlowView" destination="xqZ-tr-rQf" id="wc3-x5-0q6"/>
                 <outlet property="_groupButton" destination="gsc-Fu-Iwr" id="yL8-f2-vqR"/>
