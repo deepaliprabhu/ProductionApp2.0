@@ -501,6 +501,11 @@
     [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php\?call=update_product_group&productid=%@&group=%@",updatingProduct.productID,[updatingProduct.group uppercaseString]] withTag:5];
 }
 
+- (void)getMCNFile{
+    ConnectionManager *connectionManager = [ConnectionManager new];
+    connectionManager.delegate = self;
+    [connectionManager makeRequest:[NSString stringWithFormat:@"http://www.aginova.info/aginova/json/get_file.php?productid=%@",selectedProduct.productNumber] withTag:6];
+}
 
 - (void) parseJsonResponse:(NSData*)jsonData withTag:(int)tag {
     NSLog(@"jsonData = %@", jsonData);
@@ -510,6 +515,11 @@
     NSString *dataString = [[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] mutableCopy];
     
     NSLog(@"datastring = %@", dataString);
+    if ([dataString isEqualToString:@"No MCN File Found!"]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"No MCN file found" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        alertView.tag = 4;
+        [alertView show];
+    }
     jsonData = [dataString dataUsingEncoding:NSUTF8StringEncoding];
     NSMutableArray *json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
     
@@ -526,24 +536,33 @@
     if ([json isKindOfClass:[NSArray class]]){
         NSLog(@"json Array = %@",json);
         if (json.count > 0) {
-            _changeOrderButton.hidden = false;
-            NSDictionary *jsonDict = json[0];
-            NSMutableArray* jsonProcessesArray = jsonDict[@"processes"];
-            NSLog(@"json processes array=%@",jsonProcessesArray);
-            processStepsArray=[jsonProcessesArray mutableCopy];
-            processCntrlId = jsonDict[@"process_ctrl_id"];
-            processStatus = jsonDict[@"status"];
-            pcbProductId = jsonDict[@"pcb_productid"];
-            if (![pcbProductId isEqualToString:@""]) {
-                [_pcbProductIdButton setTitle:pcbProductId forState:UIControlStateNormal];
+            if (tag == 6) {
+                NSLog(@"MCN file = %@",json[2][@"specification file"]);
+                NSURL *url = [NSURL URLWithString:[self urlEncodeUsingEncoding:json[2][@"specification file"]]];
+                if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                    [[UIApplication sharedApplication] openURL:url];
+                }
             }
-            [self setupForStatus:jsonDict[@"status"]];
-            NSLog(@"processes Array=%@",processStepsArray);
-            processStepsArray = [__DataManager reorderProcessSteps:processStepsArray];
-            [selectedProduct setProcessSteps:processStepsArray];
-            selectedProduct.status = processStatus;
-            selectedProduct.pcbProductID = pcbProductId;
-            [_processListTableView reloadData];
+            else {
+                _changeOrderButton.hidden = false;
+                NSDictionary *jsonDict = json[0];
+                NSMutableArray* jsonProcessesArray = jsonDict[@"processes"];
+                NSLog(@"json processes array=%@",jsonProcessesArray);
+                processStepsArray=[jsonProcessesArray mutableCopy];
+                processCntrlId = jsonDict[@"process_ctrl_id"];
+                processStatus = jsonDict[@"status"];
+                pcbProductId = jsonDict[@"pcb_productid"];
+                if (![pcbProductId isEqualToString:@""]) {
+                    [_pcbProductIdButton setTitle:pcbProductId forState:UIControlStateNormal];
+                }
+                [self setupForStatus:jsonDict[@"status"]];
+                NSLog(@"processes Array=%@",processStepsArray);
+                processStepsArray = [__DataManager reorderProcessSteps:processStepsArray];
+                [selectedProduct setProcessSteps:processStepsArray];
+                selectedProduct.status = processStatus;
+                selectedProduct.pcbProductID = pcbProductId;
+                [_processListTableView reloadData];
+            }
         }
     }
     else if ([json isKindOfClass:[NSDictionary class]]) {
@@ -968,7 +987,7 @@
     [self.navigationController.view hideActivityViewWithAfterDelay:3];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",selectedProduct.processCntrlAlias,@"alias",selectedProduct.productID,@"ProductId", pcbProductId, @"PCBProductId",@"1.0", @"VersionId", processStatus, @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
+    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",selectedProduct.processCntrlAlias,@"alias",selectedProduct.productID,@"ProductId", pcbProductId, @"PCBProductId",@"1.0", @"VersionId", @"Draft", @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
     if (![selectedProduct.processCntrlId isEqualToString:@"DRAFT"]) {
         [__DataManager updateProcesses:processStepsArray withProcessData:processData];
     }
@@ -1084,12 +1103,14 @@
     [_operator3Button setTitle:@"Pick Operator3" forState:UIControlStateNormal];
     _processNameTF.text = @"";
     _timeTF.text = @"";
+    _workInstructionsTV.text = @"";
     backgroundDimmingView.hidden = false;
     [self.view bringSubviewToFront:backgroundDimmingView];
     _addProcessView.frame = CGRectMake(self.view.frame.size.width/2-_addProcessView.frame.size.width/2, self.view.frame.size.height/2-_addProcessView.frame.size.height/2, _addProcessView.frame.size.width, _addProcessView.frame.size.height);
     _addProcessView.layer.cornerRadius = 12.0f;
     [self.view addSubview:_addProcessView];
     _addProcessView.tag = 1;
+    _deleteButton.hidden = true;
 }
 
 - (IBAction)saveNewProcessPressed:(id)sender {
@@ -1132,9 +1153,13 @@
     if (_addProcessView.tag == 1) {
         NSMutableDictionary *lastProcess = commonProcessStepsArray[commonProcessStepsArray.count-1];
         int processNo = [[lastProcess[@"processno"] stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue]+1;
+        if ([_processNoTF.text isEqualToString:@""]||[_processNameTF.text isEqualToString:@""]) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Please fill in all details" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+            [alertView show];
+            return;
+        }
         [processData setObject:[_processNoTF.text uppercaseString] forKey:@"processno"];
-        NSString *wiString = @"- Take the Active Test Rig and Connect to the PC by using male female connector.\n- Take the assembled PCB EZ-1000-000x Rev D and load the PCB in the fixture.\n- Open the firmware folder, select 'Gourmet Check Dual BT' file and Run this firmware in to the PCB.\n- If during runtime any errors are found, note the particular error onto a sticky note and place the PCB into the rework bin.\n- If no errors were found during the run time after completion, place the PCB into the 'Goods OK' bin.\n";
-        [processData setObject:@"" forKey:@"workinstructions"];
+        [processData setObject:_workInstructionsTV.text forKey:@"workinstructions"];
         [self addProcessToList:processData];
     }
     else {
@@ -1146,6 +1171,7 @@
         [processData setObject:_processNameTF.text forKey:@"processname"];
         [processData setObject:_processNoTF.text forKey:@"processno"];
         [processData setObject:_timeTF.text forKey:@"time"];
+        [processData setObject:_workInstructionsTV.text forKey:@"workinstructions"];
         [commonProcessStepsArray replaceObjectAtIndex:selectedIndex withObject:processData];
         [__DataManager updateProcessAtIndex:selectedIndex process:processData];
         [__DataManager syncCommonProcesses];
@@ -1221,6 +1247,7 @@
 }
 
 - (void)editProcessAtIndex:(int)index {
+    _deleteButton.hidden = false;
     selectedIndex = index;
     NSMutableDictionary *processData = commonProcessStepsArray[index];
     NSLog(@"selected processData=%@",processData);
@@ -1240,6 +1267,7 @@
     _processNoTF.text = processData[@"processno"];
     _processNameTF.text = processData[@"processname"];
     _timeTF.text = processData[@"time"];
+    _workInstructionsTV.text = processData[@"workinstructions"];
     backgroundDimmingView.hidden = false;
     [self.view bringSubviewToFront:backgroundDimmingView];
     _addProcessView.frame = CGRectMake(self.view.frame.size.width/2-_addProcessView.frame.size.width/2, self.view.frame.size.height/2-_addProcessView.frame.size.height/2, _addProcessView.frame.size.width, _addProcessView.frame.size.height);
@@ -1345,6 +1373,10 @@
     [self getProcessFlowForProduct:selectedProduct];
 }
 
+- (IBAction)viewMCNPressed:(id)sender {
+    [self getMCNFile];
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
     
@@ -1359,6 +1391,7 @@
     }*/
     [dropDown hideDropDown:_pcbProductIdButton];
     dropDown = nil;
+    [_workInstructionsTV resignFirstResponder];
 }
 
 - (void)keyboardDidShow: (NSNotification *) notif{

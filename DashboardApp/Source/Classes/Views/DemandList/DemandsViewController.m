@@ -198,6 +198,18 @@
     _longTermTF.text = demandData[@"long_term_qty"];
     _stockTF.text = demandData[@"Mason_Stock"];
     [self setUpRunsView];
+    NSString *shippingString = demandData[@"Shipping"];
+    if ([shippingString containsString:@"("]) {
+        NSArray *array = [shippingString componentsSeparatedByString:@"("];
+        [_pickShippingButton setTitle:array[0] forState:UIControlStateNormal];
+        NSString *qtyString = [array[1] stringByReplacingOccurrencesOfString:@")" withString:@""];
+        _qtyTF.text = qtyString;
+        selectedShipping = array[0];
+    }
+    else {
+        [_pickShippingButton setTitle:@"Pick Shipping" forState:UIControlStateNormal];
+        _qtyTF.text = @"";
+    }
 }
 
 - (IBAction)pickShippingPressed:(UIButton*)sender {

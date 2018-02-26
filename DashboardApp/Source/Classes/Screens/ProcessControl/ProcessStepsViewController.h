@@ -13,7 +13,7 @@
 #import "ProductAdminPopover.h"
 #import "NIDropDown.h"
 
-@interface ProcessStepsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ProductAdminPopoverDelegate, NIDropDownDelegate, UITextFieldDelegate, UIAlertViewDelegate, UISearchBarDelegate> {
+@interface ProcessStepsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ProductAdminPopoverDelegate, NIDropDownDelegate, UITextFieldDelegate, UITextViewDelegate, UIAlertViewDelegate, UISearchBarDelegate> {
     
     IBOutlet UITableView *_productListTableView;
     IBOutlet UITableView *_processListTableView;
@@ -40,6 +40,7 @@
     IBOutlet UITableView *_commonProcessListTableView;
     IBOutlet UIButton *_saveButton;
     IBOutlet UIButton *_closeButton;
+    IBOutlet UIButton *_deleteButton;
     IBOutlet UIButton *_createStepButton;
     
     IBOutlet UIView *_processInfoView;
@@ -59,6 +60,7 @@
     IBOutlet UITextField *_processNoTF;
     IBOutlet UITextField *_processNameTF;
     IBOutlet UITextField *_timeTF;
+    IBOutlet UITextView *_workInstructionsTV;
     
     IBOutlet UIView *_aliasView;
     IBOutlet UILabel *_processCntrlIdLabel;
