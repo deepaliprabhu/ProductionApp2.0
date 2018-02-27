@@ -39,4 +39,8 @@
     [_delegate changeTimeForProcessAtIndex:_index];
 }
 
+- (IBAction) targetButtonTapped {
+    [_delegate changeTargetForProcessAtIndex:_index];
+}
+
 @end

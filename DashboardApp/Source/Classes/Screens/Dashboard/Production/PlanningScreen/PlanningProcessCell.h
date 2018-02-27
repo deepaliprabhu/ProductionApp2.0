@@ -22,5 +22,6 @@
 @protocol PlanningProcessCellProtocol <NSObject>
 
 - (void) changeTimeForProcessAtIndex:(int)index;
+- (void) changeTargetForProcessAtIndex:(int)index;
 
 @end

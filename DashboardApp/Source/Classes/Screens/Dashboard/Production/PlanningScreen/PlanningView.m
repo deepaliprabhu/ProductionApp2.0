@@ -13,6 +13,7 @@
 #import "LoadingView.h"
 #import "ProdAPI.h"
 #import "DayLogModel.h"
+#import "NSDate+Utils.h"
 
 @implementation PlanningView {
     
@@ -139,7 +140,7 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
 }
 
 - (IBAction) nextButtonTapped {
-    
+    [self getSlots];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -240,9 +241,13 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     
     if (buttonIndex == 0) {
         
-        int target = [[alertView textFieldAtIndex:0].text intValue];
-        if (target >= 0) {
-            [self processTimeChangedTo:target];
+        int value = [[alertView textFieldAtIndex:0].text intValue];
+        if (value >= 0) {
+            if (alertView.tag == 1) {
+                [self targetChangedTo:value];
+            } else {
+                [self processTimeChangedTo:value];
+            }
         }
     }
 }
@@ -256,6 +261,17 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     ProcessModel *p = _processes[index];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:p.processName message:@"Insert processing time for this process(seconds):" delegate:self cancelButtonTitle:@"Save" otherButtonTitles:@"Cancel", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+}
+
+- (void) changeTargetForProcessAtIndex:(int)index {
+    
+    _selectedIndex = index;
+    
+    ProcessModel *p = _processes[index];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:p.processName message:@"Insert a target value for this process:" delegate:self cancelButtonTitle:@"Save" otherButtonTitles:@"Cancel", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alert.tag = 1;
     [alert show];
 }
 
@@ -420,6 +436,21 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     [self setTargets];
 }
 
+- (void) targetChangedTo:(int)value {
+ 
+    Run *r = _runs[_selectedRunIndex];
+    ProcessModel *p = _processes[_selectedIndex];
+    if (value > [r getQuantity] - p.processed) {
+        value = [r getQuantity] - p.processed;
+    }
+    
+    _targets[p.processNo] = @(value);
+    
+    [_tableView reloadData];
+    [self layoutTotal];
+    _totalTimeLabel.text = [NSString stringWithFormat:@"%ds", [self totalPerProduct]];
+}
+
 - (void) processTimeChangedTo:(int)seconds {
     
     ProcessModel *p = _processes[_selectedIndex];
@@ -456,6 +487,46 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
         
         [_delegate newProcessTimeWasSet];
     }
+}
+
+- (void) getSlots {
+    
+    [LoadingView showLoading:@"Loading..."];
+    
+    NSDateFormatter *f = [NSDateFormatter new];
+    f = [NSDateFormatter new];
+    f.dateFormat = @"yyyy-MM-dd";
+    
+    Run *r = _runs[_selectedRunIndex];
+    [[ProdAPI sharedInstance] getSlotsForRun:[r getRunId] completion:^(BOOL success, id response) {
+        
+        if (success) {
+            if ([response isKindOfClass:[NSArray class]]) {
+                BOOL hasSlots = false;
+                for (NSDictionary *d in response) {
+                    
+                    if ([d[@"STATUS"] isEqualToString:@"running"]) {
+                        
+                        NSString *dateStr = d[@"SCHEDULED"];
+                        NSDate *date = [f dateFromString:dateStr];
+                        if ([date isSameWeekWithDate:[_delegate selectedDate]]) {
+                            hasSlots = true;
+                            break;
+                        }
+                    }
+                }
+                
+                if (hasSlots) {
+                    [LoadingView removeLoading];
+                } else {
+                    [LoadingView showShortMessage:@"This run is not scheduled for this week!"];
+                }
+            }
+        } else {
+            
+            [LoadingView showShortMessage:@"Error, please try again later!"];
+        }
+    }];
 }
 
 #pragma mark - Utils
