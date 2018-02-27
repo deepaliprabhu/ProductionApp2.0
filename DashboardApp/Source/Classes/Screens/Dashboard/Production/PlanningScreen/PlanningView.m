@@ -138,6 +138,10 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     _totalTimeLabel.text = [NSString stringWithFormat:@"%ds", [self totalPerProduct]];
 }
 
+- (IBAction) nextButtonTapped {
+    
+}
+
 #pragma mark - UICollectionViewDelegate
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -178,6 +182,19 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 29;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return _selectedProcesses.count ? 50 : 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    if (_selectedProcesses.count == 0) {
+        return nil;
+    } else {
+        return [self nextButton];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -275,6 +292,26 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     }
 }
 
+- (UIView*) nextButton {
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 50)];
+    view.backgroundColor = cclear;
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 5, _tableView.bounds.size.width, 40);
+    btn.backgroundColor = ccolor(234, 235, 236);
+    [btn setTitle:@"Next >" forState:UIControlStateNormal];
+    [btn setTitleColor:ccblack forState:UIControlStateHighlighted];
+    [btn setTitleColor:ccolor(102, 102, 102) forState:UIControlStateNormal];
+    [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    [btn setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
+    btn.titleLabel.font = ccFont(@"Roboto-Regular", 21);
+    [btn addTarget:self action:@selector(nextButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:btn];
+    
+    return view;
+}
+
 #pragma mark - Services
 
 - (void) getProcessFlow {
@@ -320,10 +357,11 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
             }];
             
             [self fillTimes];
-            [_tableView reloadData];
             [self resetTotals];
             _totalTimeLabel.text = [NSString stringWithFormat:@"%ds", [self totalPerProduct]];
+            [_tableView reloadData];
             [self getDailyLog];
+            [_selectButton setImage:ccimg(@"selectAllButton") forState:UIControlStateNormal];
             
         } else {
             [LoadingView showShortMessage:@"Error, please try again later!"];
