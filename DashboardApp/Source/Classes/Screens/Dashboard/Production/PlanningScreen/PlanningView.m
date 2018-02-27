@@ -14,6 +14,7 @@
 #import "ProdAPI.h"
 #import "DayLogModel.h"
 #import "NSDate+Utils.h"
+#import "OperatorsPlanningScreen.h"
 
 @implementation PlanningView {
     
@@ -35,7 +36,7 @@
     NSMutableDictionary *_selectedProcesses;
     NSMutableDictionary *_targets;
     
-    int _operators;
+    int _noOfOperators;
     int _hours;
     int _target;
     int _selectedIndex;
@@ -89,17 +90,17 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
 
 - (IBAction) operatorMinusButtonTapped {
     
-    if (_operators == 0)
+    if (_noOfOperators == 0)
         return;
     
-    _operators--;
+    _noOfOperators--;
     [self layoutLabels];
     [self layoutTotal];
 }
 
 - (IBAction) operatorPlusButtonTapped {
     
-    _operators++;
+    _noOfOperators++;
     [self layoutLabels];
     [self layoutTotal];
 }
@@ -140,6 +141,12 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
 }
 
 - (IBAction) nextButtonTapped {
+    
+    if (_targets == 0 || _noOfOperators == 0) {
+        [LoadingView showShortMessage:@"Set targets or operators"];
+        return;
+    }
+    
     [self getSlots];
 }
 
@@ -279,7 +286,7 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
 
 - (void) layoutLabels {
     
-    _operatorsTotalLabel.text = [NSString stringWithFormat:@"%d", _operators];
+    _operatorsTotalLabel.text = [NSString stringWithFormat:@"%d", _noOfOperators];
     _hoursTotalLabel.text = [NSString stringWithFormat:@"%d", _hours];
     _targetTotalLabel.text = [NSString stringWithFormat:@"%d", _target];
     
@@ -289,7 +296,7 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
 
 - (void) layoutTotal {
     
-    if (_hours == 0 || _operators == 0) {
+    if (_hours == 0 || _noOfOperators == 0) {
         _totalOverallLabel.text = @"∞";
     } else {
         
@@ -303,7 +310,7 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
                 seconds += [_targets[processNo] intValue]*[s intValue];
             }
         }
-        float workPerDay = _operators*_hours*3600;
+        float workPerDay = _noOfOperators*_hours*3600;
         _totalOverallLabel.text = [NSString stringWithFormat:@"%.1f", seconds/workPerDay];
     }
 }
@@ -518,6 +525,7 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
                 
                 if (hasSlots) {
                     [LoadingView removeLoading];
+                    [self goToOperators];
                 } else {
                     [LoadingView showShortMessage:@"This run is not scheduled for this week!"];
                 }
@@ -531,9 +539,19 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
 
 #pragma mark - Utils
 
+- (void) goToOperators {
+    
+    OperatorsPlanningScreen *screen = [[OperatorsPlanningScreen alloc] initWithNibName:@"OperatorsPlanningScreen" bundle:nil];
+    screen.numberOfOperators = _noOfOperators;
+    screen.operators = _operators;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
+    nav.modalPresentationStyle = UIModalPresentationFormSheet;
+    [_parent presentViewController:nav animated:true completion:nil];
+}
+
 - (void) resetTotals {
     
-    _operators = 1;
+    _noOfOperators = 1;
     _hours = 8;
     Run *r = _runs[_selectedRunIndex];
     _target = [r getQuantity];

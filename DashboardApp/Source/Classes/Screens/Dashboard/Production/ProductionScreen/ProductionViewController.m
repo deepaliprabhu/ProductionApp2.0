@@ -361,7 +361,9 @@
 - (void) addFlowView4 {
     
     _flowView4 = [PlanningView createView];
+    _flowView4.parent = self;
     _flowView4.delegate = self;
+    _flowView4.operators = _operators;
     _flowView4.translatesAutoresizingMaskIntoConstraints = false;
     [LayoutUtils addContraintWidth:668 andHeight:687 forView:_flowView4];
     [self.view insertSubview:_flowView4 belowSubview:_flowView1];
@@ -446,6 +448,7 @@
             
             [_operators sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:true]]];
             _flowView2.operators = _operators;
+            _flowView4.operators = _operators;
             [_operatorsTable reloadData];
             [self computeRuns];
             

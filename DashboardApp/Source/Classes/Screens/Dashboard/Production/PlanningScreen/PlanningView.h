@@ -15,6 +15,8 @@
 @interface PlanningView : UIView <UITableViewDelegate, UITableViewDataSource, PlanningProcessCellProtocol, UIAlertViewDelegate>
 
 @property (nonatomic, unsafe_unretained) id <PlanningViewProtocol> delegate;
+@property (nonatomic, unsafe_unretained) UIViewController *parent;
+@property (nonatomic, strong) NSArray *operators;
 __CREATEVIEWH(PlanningView)
 
 - (void) reloadData;
