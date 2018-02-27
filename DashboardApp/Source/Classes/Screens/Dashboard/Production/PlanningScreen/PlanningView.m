@@ -10,7 +10,6 @@
 #import "RunTargetCell.h"
 #import "Run.h"
 #import "DataManager.h"
-#import "PlanningProcessCell.h"
 #import "LoadingView.h"
 #import "ProdAPI.h"
 
@@ -36,6 +35,7 @@
     int _operators;
     int _hours;
     int _target;
+    int _selectedIndex;
 }
 
 __CREATEVIEW(PlanningView, @"PlanningView", 0)
@@ -171,10 +171,11 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     if (cell == nil) {
         cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        cell.delegate = self;
     }
     
     ProcessModel *p = _processes[indexPath.row];
-    [cell layoutWithPlanning:p];
+    [cell layoutWithPlanning:p atIndex:(int)indexPath.row];
     
     cell.accessoryType = (_selectedProcesses[p.processNo] != nil) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     
@@ -192,6 +193,31 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     [tableView reloadData];
     [self layoutTotal];
     _totalTimeLabel.text = [NSString stringWithFormat:@"%ds", [self totalPerProduct]];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == 0) {
+        
+        int target = [[alertView textFieldAtIndex:0].text intValue];
+        if (target >= 0) {
+            [self processTimeChangedTo:target];
+        }
+    }
+}
+
+#pragma mark - CellProtocol
+
+- (void) changeTimeForProcessAtIndex:(int)index {
+ 
+    _selectedIndex = index;
+    
+    ProcessModel *p = _processes[index];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:p.processName message:@"Insert processing time for this process(seconds):" delegate:self cancelButtonTitle:@"Save" otherButtonTitles:@"Cancel", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
 }
 
 #pragma mark - Layout
@@ -299,6 +325,44 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
         total += [obj intValue];
     }
     return total;
+}
+
+- (void) processTimeChangedTo:(int)seconds {
+    
+    ProcessModel *p = _processes[_selectedIndex];
+    
+    NSArray *processes = [__DataManager getCommonProcesses];
+    NSDictionary *dict = nil;
+    int index = -1;
+    for (int i=0; i<processes.count; i++) {
+        NSDictionary *d = processes[i];
+        if ([d[@"processno"] isEqualToString:p.processNo]) {
+            dict = d;
+            index = i;
+            break;
+        }
+    }
+    
+    if (dict != nil) {
+        
+        NSString *secondsString = [NSString stringWithFormat:@"%d", seconds];
+        NSMutableDictionary *processData = [NSMutableDictionary dictionaryWithDictionary:dict];
+        [processData setObject:secondsString forKey:@"time"];
+        
+        [__DataManager updateProcessAtIndex:index process:processData];
+        [__DataManager syncCommonProcesses];
+        
+        p.processingTime = secondsString;
+        [_processes replaceObjectAtIndex:_selectedIndex withObject:p];
+        if (_selectedProcesses[p.processNo] != nil)
+            _selectedProcesses[p.processNo] = secondsString;
+        
+        [_tableView reloadData];
+        [self layoutTotal];
+        _totalTimeLabel.text = [NSString stringWithFormat:@"%ds", [self totalPerProduct]];
+        
+        [_delegate newProcessTimeWasSet];
+    }
 }
 
 @end

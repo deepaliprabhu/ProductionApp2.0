@@ -9,8 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "ProcessModel.h"
 
+@protocol PlanningProcessCellProtocol;
+
 @interface PlanningProcessCell : UITableViewCell
 
-- (void) layoutWithPlanning:(ProcessModel*)process;
+@property (nonatomic, unsafe_unretained) id <PlanningProcessCellProtocol> delegate;
+
+- (void) layoutWithPlanning:(ProcessModel*)process atIndex:(int)index;
+
+@end
+
+@protocol PlanningProcessCellProtocol <NSObject>
+
+- (void) changeTimeForProcessAtIndex:(int)index;
 
 @end
