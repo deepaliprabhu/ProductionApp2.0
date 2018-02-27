@@ -10,8 +10,8 @@
 
 @interface FinalPlanningStepScreen : UIViewController
 
-@property (nonatomic, unsafe_unretained) NSArray *operators;
-@property (nonatomic, unsafe_unretained) NSArray *processes;
-@property (nonatomic, unsafe_unretained) NSDictionary *targets;
+@property (nonatomic, strong) NSArray *operators;
+@property (nonatomic, strong) NSArray *processes;
+@property (nonatomic, strong) NSDictionary *targets;
 
 @end

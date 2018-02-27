@@ -20,7 +20,11 @@
     
     [super viewDidLoad];
     
-    float h = MIN((_operators.count+1)*44, 616);
+    float h;
+    if (_shouldRemoveNoneFeature)
+        h = MIN(_operators.count*44, 616);
+    else
+        h = MIN((_operators.count+1)*44, 616);
     self.preferredContentSize = CGSizeMake(320, h);
 }
 
@@ -31,7 +35,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _operators.count+1;
+    
+    if (_shouldRemoveNoneFeature)
+        return _operators.count;
+    else
+        return _operators.count+1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -42,11 +50,18 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
-    if (indexPath.row == 0)
-        cell.textLabel.text = @"None";
-    else {
-        UserModel *u = _operators[indexPath.row-1];
+    if (_shouldRemoveNoneFeature) {
+        
+        UserModel *u = _operators[indexPath.row];
         cell.textLabel.text = u.name;
+    } else {
+        
+        if (indexPath.row == 0)
+            cell.textLabel.text = @"None";
+        else {
+            UserModel *u = _operators[indexPath.row-1];
+            cell.textLabel.text = u.name;
+        }
     }
     
     return cell;
@@ -54,10 +69,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
  
-    if (indexPath.row == 0)
-        [_delegate operatorChangedTo:nil];
-    else
-        [_delegate operatorChangedTo:_operators[indexPath.row-1]];
+    if (_shouldRemoveNoneFeature) {
+        [_delegate operatorChangedTo:_operators[indexPath.row]];
+    } else {
+        
+        if (indexPath.row == 0)
+            [_delegate operatorChangedTo:nil];
+        else
+            [_delegate operatorChangedTo:_operators[indexPath.row-1]];
+    }
+    
     [self dismissViewControllerAnimated:true completion:nil];
 }
 

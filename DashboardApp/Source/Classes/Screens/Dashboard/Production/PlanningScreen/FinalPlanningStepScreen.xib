@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FinalPlanningStepScreen">
             <connections>
+                <outlet property="_tableView" destination="lOe-dd-N49" id="ONs-jh-Dug"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,7 +19,23 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lOe-dd-N49">
+                    <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="beb-ub-99z"/>
+                        <outlet property="delegate" destination="-1" id="JG2-PW-6PP"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="0.94117647059999998" green="0.95686274510000002" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="lOe-dd-N49" secondAttribute="trailing" id="T1Y-Zc-ig6"/>
+                <constraint firstItem="lOe-dd-N49" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="abU-J5-x0v"/>
+                <constraint firstAttribute="bottom" secondItem="lOe-dd-N49" secondAttribute="bottom" id="ijs-hj-d9O"/>
+                <constraint firstItem="lOe-dd-N49" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zbd-zc-HWT"/>
+            </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>

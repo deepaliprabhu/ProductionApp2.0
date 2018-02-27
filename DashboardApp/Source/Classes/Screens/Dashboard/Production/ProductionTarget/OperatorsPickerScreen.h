@@ -15,6 +15,7 @@
 
 @property (nonatomic, unsafe_unretained) id <OperatorsPickerScreenProtocol> delegate;
 @property (nonatomic, strong) NSArray *operators;
+@property (nonatomic, unsafe_unretained) BOOL shouldRemoveNoneFeature;
 
 @end
 
