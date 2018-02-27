@@ -15,7 +15,7 @@
 
 @property (nonatomic, unsafe_unretained) id <PlanningProcessCellProtocol> delegate;
 
-- (void) layoutWithPlanning:(ProcessModel*)process atIndex:(int)index;
+- (void) layoutWithPlanning:(ProcessModel*)process leftQty:(int)qty target:(int)target atIndex:(int)index;
 
 @end
 

@@ -12,6 +12,7 @@
 #import "DataManager.h"
 #import "LoadingView.h"
 #import "ProdAPI.h"
+#import "DayLogModel.h"
 
 @implementation PlanningView {
     
@@ -23,6 +24,7 @@
     __weak IBOutlet UILabel *_hoursTotalLabel;
     __weak IBOutlet UIButton *_totalButton;
     __weak IBOutlet UILabel *_totalTimeLabel;
+    __weak IBOutlet UIButton *_selectButton;
     
     IBOutletCollection(UIButton) NSArray *_buttons;
     
@@ -30,7 +32,7 @@
     NSMutableArray *_runs;
     NSMutableArray *_processes;
     NSMutableDictionary *_selectedProcesses;
-    
+    NSMutableDictionary *_targets;
     
     int _operators;
     int _hours;
@@ -44,6 +46,7 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     
     [super awakeFromNib];
     
+    _targets = [NSMutableDictionary dictionary];
     [_runsCollection registerClass:[RunTargetCell class] forCellWithReuseIdentifier:@"RunTargetCell"];
     UINib *cellNib = [UINib nibWithNibName:@"RunTargetCell" bundle:nil];
     [_runsCollection registerNib:cellNib forCellWithReuseIdentifier:@"RunTargetCell"];
@@ -80,7 +83,7 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     int total = [_runs[_selectedRunIndex] getQuantity];
     _target = _slider.value*total;
     _targetTotalLabel.text = [NSString stringWithFormat:@"%d", _target];
-    [self layoutTotal];
+    [self setTargets];
 }
 
 - (IBAction) operatorMinusButtonTapped {
@@ -120,6 +123,24 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
 - (IBAction) totalButtonTapped {
     
     
+}
+
+- (IBAction) selectButtonTapped {
+    
+    if (_selectedProcesses.count > 0) {
+        [_selectedProcesses removeAllObjects];
+        [_selectButton setImage:ccimg(@"deselectAllButton") forState:UIControlStateNormal];
+    } else {
+        
+        for (ProcessModel *p in _processes) {
+            _selectedProcesses[p.processNo] = p.processingTime;
+        }
+        [_selectButton setImage:ccimg(@"selectAllButton") forState:UIControlStateNormal];
+    }
+    
+    [_tableView reloadData];
+    [self layoutTotal];
+    _totalTimeLabel.text = [NSString stringWithFormat:@"%ds", [self totalPerProduct]];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -175,7 +196,8 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     }
     
     ProcessModel *p = _processes[indexPath.row];
-    [cell layoutWithPlanning:p atIndex:(int)indexPath.row];
+    Run *r = _runs[_selectedRunIndex];
+    [cell layoutWithPlanning:p leftQty:[r getQuantity]-p.processed target:[_targets[p.processNo] intValue] atIndex:(int)indexPath.row];
     
     cell.accessoryType = (_selectedProcesses[p.processNo] != nil) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     
@@ -185,10 +207,15 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     ProcessModel *p = _processes[indexPath.row];
-    if (_selectedProcesses[p.processNo] == nil)
+    if (_selectedProcesses[p.processNo] == nil) {
         _selectedProcesses[p.processNo] = p.processingTime;
-    else
+        [_selectButton setImage:ccimg(@"selectAllButton") forState:UIControlStateNormal];
+    }
+    else {
         _selectedProcesses[p.processNo] = nil;
+        if (_selectedProcesses.count == 0)
+            [_selectButton setImage:ccimg(@"deselectAllButton") forState:UIControlStateNormal];
+    }
     
     [tableView reloadData];
     [self layoutTotal];
@@ -238,24 +265,23 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
         [_totalButton setTitle:@"∞" forState:UIControlStateNormal];
     } else {
         
-        float seconds = [self totalPerProduct]*_target;
+        __block float seconds = 0;
+        if (_targets.count == 0)
+            seconds = [self totalPerProduct]*_target;
+        else {
+            
+            for (NSString *processNo in _selectedProcesses) {
+                NSString *s = _selectedProcesses[processNo];
+                seconds += [_targets[processNo] intValue]*[s intValue];
+            }
+        }
         float workPerDay = _operators*_hours*3600;
         
         [_totalButton setTitle:[NSString stringWithFormat:@"%.1f", seconds/workPerDay] forState:UIControlStateNormal];
     }
 }
 
-#pragma mark - Utils
-
-- (void) resetTotals {
-    
-    _operators = 1;
-    _hours = 8;
-    Run *r = _runs[_selectedRunIndex];
-    _target = [r getQuantity];
-    [self layoutLabels];
-    [self layoutTotal];
-}
+#pragma mark - Services
 
 - (void) getProcessFlow {
     
@@ -303,6 +329,7 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
             [_tableView reloadData];
             [self resetTotals];
             _totalTimeLabel.text = [NSString stringWithFormat:@"%ds", [self totalPerProduct]];
+            [self getDailyLog];
             
         } else {
             [LoadingView showShortMessage:@"Error, please try again later!"];
@@ -310,21 +337,55 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     }];
 }
 
-- (void) fillTimes {
+- (void) getDailyLog {
     
-    _selectedProcesses = [NSMutableDictionary dictionary];
-    for (ProcessModel *pr in _processes) {
-        _selectedProcesses[pr.processNo] = pr.processingTime;
-    }
+    [LoadingView showLoading:@"Loading..."];
+    Run *r = _runs[_selectedRunIndex];
+    [[ProdAPI sharedInstance] getDailyLogForRun:[r getRunId] product:[r getProductNumber] completion:^(BOOL success, id response) {
+        
+        if (success) {
+            
+            [LoadingView removeLoading];
+            NSMutableArray *daysArr = [NSMutableArray array];
+            NSArray *days = [response firstObject][@"processes"];
+            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
+            for (int i=0; i<days.count; i++) {
+                
+                NSDictionary *dict = days[i];
+                if ([dict[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == true)
+                    continue;
+                
+                DayLogModel *d = [DayLogModel objFromData:dict];
+                if ([self dayLogAlreadyExists:d inArr:daysArr] == false)
+                    [daysArr addObject:d];
+            }
+            [daysArr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
+            r.days = daysArr;
+            
+            [self computeStatusForProcesses];
+        }
+    }];
 }
 
-- (int) totalPerProduct {
+- (void) computeStatusForProcesses {
     
-    int total = 0;
-    for (NSString *obj in [_selectedProcesses allValues]) {
-        total += [obj intValue];
+    Run *r = _runs[_selectedRunIndex];
+    for (int i=0; i<_processes.count;i++) {
+        
+        ProcessModel *p = _processes[i];
+        int t = 0;
+        for (DayLogModel *d in r.days) {
+            if ([d.processNo isEqualToString:p.processNo]) {
+                t += d.target;
+            }
+        }
+        
+        p.processed = t;
+        [_processes replaceObjectAtIndex:i withObject:p];
     }
-    return total;
+    
+    [_tableView reloadData];
+    [self setTargets];
 }
 
 - (void) processTimeChangedTo:(int)seconds {
@@ -363,6 +424,63 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
         
         [_delegate newProcessTimeWasSet];
     }
+}
+
+#pragma mark - Utils
+
+- (void) resetTotals {
+    
+    _operators = 1;
+    _hours = 8;
+    Run *r = _runs[_selectedRunIndex];
+    _target = [r getQuantity];
+    [self layoutLabels];
+    [self setTargets];
+}
+
+- (void) fillTimes {
+    
+    _targets = [NSMutableDictionary dictionary];
+    _selectedProcesses = [NSMutableDictionary dictionary];
+    for (ProcessModel *pr in _processes) {
+        _selectedProcesses[pr.processNo] = pr.processingTime;
+    }
+}
+
+- (int) totalPerProduct {
+    
+    int total = 0;
+    for (NSString *obj in [_selectedProcesses allValues]) {
+        total += [obj intValue];
+    }
+    return total;
+}
+
+- (BOOL) dayLogAlreadyExists:(DayLogModel*)log inArr:(NSArray*)arr {
+    
+    NSCalendar *c = [NSCalendar currentCalendar];
+    for (DayLogModel *d in arr) {
+        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processNo isEqualToString:log.processNo])
+            return true;
+    }
+    
+    return false;
+}
+
+- (void) setTargets {
+
+    int qty = [_runs[_selectedRunIndex] getQuantity];
+    for (ProcessModel *p in _processes) {
+        
+        if (_target > qty - p.processed) {
+            [_targets setObject:@(qty - p.processed) forKey:p.processNo];
+        } else {
+            [_targets setObject:@(_target) forKey:p.processNo];
+        }
+    }
+    
+    [_tableView reloadData];
+    [self layoutTotal];
 }
 
 @end

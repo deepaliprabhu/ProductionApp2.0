@@ -24,5 +24,6 @@ __CREATEVIEWH(PlanningView)
 @protocol PlanningViewProtocol <NSObject>
 
 - (void) newProcessTimeWasSet;
+- (NSDate*) selectedDate;
 
 @end
