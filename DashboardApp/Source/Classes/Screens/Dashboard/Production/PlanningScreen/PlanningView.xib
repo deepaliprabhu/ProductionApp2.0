@@ -160,20 +160,6 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.91764705879999997" green="0.92156862750000001" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RGQ-vU-CEk">
-                            <rect key="frame" x="483" y="179" width="141" height="35"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="21"/>
-                            <state key="normal">
-                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <state key="highlighted">
-                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <connections>
-                                <action selector="totalButtonTapped" destination="iN0-l3-epB" eventType="touchUpInside" id="R0T-dx-1cV"/>
-                            </connections>
-                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total time per unit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vff-I6-Jec">
                             <rect key="frame" x="42" y="217" width="177" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -182,6 +168,13 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kXJ-ZL-6L2">
                             <rect key="frame" x="483" y="212" width="141" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="21"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUO-PG-caF">
+                            <rect key="frame" x="483" y="179" width="141" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="21"/>
                             <nil key="textColor"/>
@@ -260,7 +253,7 @@
                 <outlet property="_slider" destination="aIj-hQ-BWc" id="qED-xT-WH3"/>
                 <outlet property="_tableView" destination="jp1-Vu-9Tu" id="fN1-Ec-ZK1"/>
                 <outlet property="_targetTotalLabel" destination="JJ2-5F-Aza" id="C9v-pa-LWV"/>
-                <outlet property="_totalButton" destination="RGQ-vU-CEk" id="R12-92-zte"/>
+                <outlet property="_totalOverallLabel" destination="CUO-PG-caF" id="iLf-ED-xEb"/>
                 <outlet property="_totalTimeLabel" destination="kXJ-ZL-6L2" id="2jx-gp-jUY"/>
                 <outletCollection property="_buttons" destination="5Ju-Tx-gg9" id="E96-aE-23D"/>
                 <outletCollection property="_buttons" destination="Yxj-bm-uvF" id="00B-8Y-my1"/>

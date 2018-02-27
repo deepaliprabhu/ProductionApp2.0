@@ -22,7 +22,7 @@
     __weak IBOutlet UILabel *_targetTotalLabel;
     __weak IBOutlet UILabel *_operatorsTotalLabel;
     __weak IBOutlet UILabel *_hoursTotalLabel;
-    __weak IBOutlet UIButton *_totalButton;
+    __weak IBOutlet UILabel *_totalOverallLabel;
     __weak IBOutlet UILabel *_totalTimeLabel;
     __weak IBOutlet UIButton *_selectButton;
     
@@ -118,11 +118,6 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     _hours++;
     [self layoutLabels];
     [self layoutTotal];
-}
-
-- (IBAction) totalButtonTapped {
-    
-    
 }
 
 - (IBAction) selectButtonTapped {
@@ -262,7 +257,7 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
 - (void) layoutTotal {
     
     if (_hours == 0 || _operators == 0) {
-        [_totalButton setTitle:@"∞" forState:UIControlStateNormal];
+        _totalOverallLabel.text = @"∞";
     } else {
         
         __block float seconds = 0;
@@ -276,8 +271,7 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
             }
         }
         float workPerDay = _operators*_hours*3600;
-        
-        [_totalButton setTitle:[NSString stringWithFormat:@"%.1f", seconds/workPerDay] forState:UIControlStateNormal];
+        _totalOverallLabel.text = [NSString stringWithFormat:@"%.1f", seconds/workPerDay];
     }
 }
 
