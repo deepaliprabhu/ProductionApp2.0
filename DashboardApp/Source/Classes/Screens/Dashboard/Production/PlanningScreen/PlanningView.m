@@ -142,8 +142,8 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
 
 - (IBAction) nextButtonTapped {
     
-    if (_targets == 0 || _noOfOperators == 0) {
-        [LoadingView showShortMessage:@"Set targets or operators"];
+    if (_targets == 0 || _noOfOperators == 0 || _selectedProcesses.count == 0) {
+        [LoadingView showShortMessage:@"Set targets, operators or processes"];
         return;
     }
     
@@ -541,9 +541,22 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
 
 - (void) goToOperators {
     
+    NSMutableArray *processes = [NSMutableArray array];
+    for (NSString *processNo in _selectedProcesses) {
+        
+        for (ProcessModel *p in _processes) {
+            if ([processNo isEqualToString:p.processNo]) {
+                [processes addObject:p];
+                break;
+            }
+        }
+    }
+    
     OperatorsPlanningScreen *screen = [[OperatorsPlanningScreen alloc] initWithNibName:@"OperatorsPlanningScreen" bundle:nil];
     screen.numberOfOperators = _noOfOperators;
     screen.operators = _operators;
+    screen.targets = _targets;
+    screen.processes = processes;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
     nav.modalPresentationStyle = UIModalPresentationFormSheet;
     [_parent presentViewController:nav animated:true completion:nil];

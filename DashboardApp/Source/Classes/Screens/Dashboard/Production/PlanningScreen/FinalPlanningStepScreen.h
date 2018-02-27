@@ -1,5 +1,5 @@
 //
-//  OperatorsPlanningScreen.h
+//  FinalPlanningStepScreen.h
 //  DashboardApp
 //
 //  Created by Andrei Ghidoarca on 27/02/2018.
@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OperatorsPlanningScreen : UIViewController
+@interface FinalPlanningStepScreen : UIViewController
 
-@property (nonatomic, unsafe_unretained) int numberOfOperators;
 @property (nonatomic, unsafe_unretained) NSArray *operators;
 @property (nonatomic, unsafe_unretained) NSArray *processes;
 @property (nonatomic, unsafe_unretained) NSDictionary *targets;

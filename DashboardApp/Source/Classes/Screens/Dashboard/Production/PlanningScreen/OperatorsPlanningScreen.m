@@ -9,6 +9,7 @@
 #import "OperatorsPlanningScreen.h"
 #import "OperatorCell.h"
 #import "LoadingView.h"
+#import "FinalPlanningStepScreen.h"
 
 @interface OperatorsPlanningScreen () <UITableViewDelegate, UITableViewDataSource>
 
@@ -35,7 +36,22 @@
 }
 
 - (IBAction) nextButtonTapped {
+ 
+    if (_selectedIndeces.count == 0) {
+        [LoadingView showShortMessage:@"Select at least one operator"];
+        return;
+    }
     
+    NSMutableArray *operators = [NSMutableArray array];
+    for (NSNumber *idx in _selectedIndeces) {
+        [operators addObject:_operators[[idx intValue]]];
+    }
+    
+    FinalPlanningStepScreen *screen = [FinalPlanningStepScreen new];
+    screen.operators = operators;
+    screen.targets = _targets;
+    screen.processes = _processes;
+    [self.navigationController pushViewController:screen animated:true];
 }
 
 #pragma mark - UITableViewDelegate
