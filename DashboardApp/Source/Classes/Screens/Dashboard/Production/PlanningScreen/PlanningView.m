@@ -10,7 +10,7 @@
 #import "RunTargetCell.h"
 #import "Run.h"
 #import "DataManager.h"
-#import "ProcessCell.h"
+#import "PlanningProcessCell.h"
 #import "LoadingView.h"
 #import "ProdAPI.h"
 
@@ -166,8 +166,8 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *identifier = @"ProcessCell";
-    ProcessCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    static NSString *identifier = @"PlanningProcessCell";
+    PlanningProcessCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
         cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
         cell.selectionStyle = UITableViewCellSelectionStyleGray;

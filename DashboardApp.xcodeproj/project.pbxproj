@@ -151,6 +151,8 @@
 		897BA3381FF662C300C8DA9A /* FailReasonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA3361FF662C300C8DA9A /* FailReasonCell.xib */; };
 		89815E19201FEE610021ADA2 /* OperatorsPickerScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 89815E17201FEE610021ADA2 /* OperatorsPickerScreen.m */; };
 		89815E1A201FEE610021ADA2 /* OperatorsPickerScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89815E18201FEE610021ADA2 /* OperatorsPickerScreen.xib */; };
+		89851A49204566AC00C370F6 /* PlanningProcessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89851A47204566AC00C370F6 /* PlanningProcessCell.m */; };
+		89851A4A204566AC00C370F6 /* PlanningProcessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89851A48204566AC00C370F6 /* PlanningProcessCell.xib */; };
 		89854AE71FB97B3A00C6E38D /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADB1FB97B3A00C6E38D /* GMGridView.m */; };
 		89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADF1FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m */; };
 		89854AE91FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854AE01FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m */; };
@@ -579,6 +581,9 @@
 		89815E16201FEE610021ADA2 /* OperatorsPickerScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorsPickerScreen.h; sourceTree = "<group>"; };
 		89815E17201FEE610021ADA2 /* OperatorsPickerScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OperatorsPickerScreen.m; sourceTree = "<group>"; };
 		89815E18201FEE610021ADA2 /* OperatorsPickerScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OperatorsPickerScreen.xib; sourceTree = "<group>"; };
+		89851A46204566AC00C370F6 /* PlanningProcessCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlanningProcessCell.h; sourceTree = "<group>"; };
+		89851A47204566AC00C370F6 /* PlanningProcessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlanningProcessCell.m; sourceTree = "<group>"; };
+		89851A48204566AC00C370F6 /* PlanningProcessCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanningProcessCell.xib; sourceTree = "<group>"; };
 		89854ADB1FB97B3A00C6E38D /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
 		89854ADC1FB97B3A00C6E38D /* GMGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridViewCell.h; sourceTree = "<group>"; };
 		89854ADD1FB97B3A00C6E38D /* GMGridViewCell+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridViewCell+Extended.h"; sourceTree = "<group>"; };
@@ -982,6 +987,9 @@
 				891CB786203CC62700E91AEC /* PlanningView.h */,
 				891CB787203CC62700E91AEC /* PlanningView.m */,
 				891CB789203CC62F00E91AEC /* PlanningView.xib */,
+				89851A46204566AC00C370F6 /* PlanningProcessCell.h */,
+				89851A47204566AC00C370F6 /* PlanningProcessCell.m */,
+				89851A48204566AC00C370F6 /* PlanningProcessCell.xib */,
 			);
 			path = PlanningScreen;
 			sourceTree = "<group>";
@@ -2255,6 +2263,7 @@
 				9F7AB1A61F7D233C0013CBE1 /* drop_down@2x.png in Resources */,
 				8944E49320167BEE004A08AF /* ShortsCell.xib in Resources */,
 				8970C3AF20050A51001F7680 /* RunListScreen.xib in Resources */,
+				89851A4A204566AC00C370F6 /* PlanningProcessCell.xib in Resources */,
 				892AEEE8202B2AD0002CCCE8 /* WeeklyGraphBar.xib in Resources */,
 				894704A220192F16007364F0 /* OperatorCell.xib in Resources */,
 				D283865B1FB23CA800BB304C /* Roboto-Medium.ttf in Resources */,
@@ -2411,6 +2420,7 @@
 				9F7FE56E1F7B8DD8005CB4DF /* ProductGroupView.m in Sources */,
 				9FD12D9A1F44707A00F0E0A8 /* MIBadgeButton.m in Sources */,
 				D283865F1FB2476C00BB304C /* PartModel.m in Sources */,
+				89851A49204566AC00C370F6 /* PlanningProcessCell.m in Sources */,
 				8947049C20191BCC007364F0 /* ProductionViewController.m in Sources */,
 				9FD12D9B1F44707A00F0E0A8 /* MIBadgeLabel.m in Sources */,
 				D22767941FAE4B5400215D87 /* UIRefreshControl+AFNetworking.m in Sources */,
