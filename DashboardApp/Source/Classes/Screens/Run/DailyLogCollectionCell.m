@@ -33,9 +33,9 @@ static NSDateFormatter *_formatter = nil;
     });
 }
 
-- (void) layoutWithDayLog:(DayLogModel*)model maxVal:(int)max {
+- (void) layoutWithDayLog:(NSArray*)logs maxVal:(int)max {
     
-    _timeLabel.text = [_formatter stringFromDate:model.date];
+    _timeLabel.text = [_formatter stringFromDate:[[logs firstObject] date]];
     
     if (max == 0) {
         
@@ -47,12 +47,24 @@ static NSDateFormatter *_formatter = nil;
         _goodLabel.text = @"";
     } else {
         
-        [self layoutLabel:_reworkLabel andConstraint:_reworkHeightConstraint withValue:model.rework andMax:max];
-        [self layoutLabel:_rejectLabel andConstraint:_rejectHeightConstraint withValue:model.reject andMax:max];
-        [self layoutLabel:_goodLabel andConstraint:_goodHeightConstraint withValue:model.good andMax:max];
+        int rework = 0;
+        int reject = 0;
+        int good = 0;
+        for (DayLogModel *day in logs) {
+            rework += day.rework;
+            good += day.good;
+            reject += day.reject;
+        }
+        
+        [self layoutLabel:_reworkLabel andConstraint:_reworkHeightConstraint withValue:rework andMax:max];
+        [self layoutLabel:_rejectLabel andConstraint:_rejectHeightConstraint withValue:reject andMax:max];
+        [self layoutLabel:_goodLabel andConstraint:_goodHeightConstraint withValue:good andMax:max];
     }
     
-    _totalLabel.text = [NSString stringWithFormat:@"%d", [model totalWork]];
+    int total = 0;
+    for (DayLogModel *day in logs)
+        total += [day totalWork];
+    _totalLabel.text = [NSString stringWithFormat:@"%d", total];
     
     [self layoutIfNeeded];
 }

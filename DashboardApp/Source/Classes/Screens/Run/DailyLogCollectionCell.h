@@ -11,6 +11,6 @@
 
 @interface DailyLogCollectionCell : UICollectionViewCell
 
-- (void) layoutWithDayLog:(DayLogModel*)model maxVal:(int)max;
+- (void) layoutWithDayLog:(NSArray*)logs maxVal:(int)max;
 
 @end

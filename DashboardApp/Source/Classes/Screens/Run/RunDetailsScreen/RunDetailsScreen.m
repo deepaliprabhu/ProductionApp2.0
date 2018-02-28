@@ -30,6 +30,7 @@
 #import "LayoutUtils.h"
 #import "DemandsViewController.h"
 #import "UIView+Screenshot.h"
+#import "NSDate+Utils.h"
 
 @interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol, PODateScreenDelegate>
 
@@ -285,7 +286,7 @@
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    DayLogModel *model = _filteredDays[indexPath.row];
+    DayLogModel *model = [_filteredDays[indexPath.row] firstObject];
     DayLogScreen *screen = [[DayLogScreen alloc] initWithNibName:@"DayLogScreen" bundle:nil];
     screen.log = model;
     
@@ -795,9 +796,32 @@
     
     _filteredDays = [NSMutableArray array];
     _maxDayLogValue = (int)_run.quantity;
+    
+    NSMutableArray *processDays = [NSMutableArray array];
     for (DayLogModel *d in _days) {
         if (d.date != nil && [d.processNo isEqualToString:p.processNo])
-            [_filteredDays addObject: d];
+            [processDays addObject: d];
+    }
+    
+    for (int i=0; i<processDays.count;i++) {
+        
+        NSMutableArray *arr = [NSMutableArray array];
+        BOOL canGoNext = true;
+        while (canGoNext) {
+            
+            DayLogModel *d1 = processDays[i];
+            [arr addObject:d1];
+            
+            if (i+1 < processDays.count) {
+                DayLogModel *d2 = processDays[i+1];
+                canGoNext = [d1.date isSameDayWithDate:d2.date];
+            } else {
+                canGoNext = false;
+            }
+            if (canGoNext)
+                i++;
+        }
+        [_filteredDays addObject:arr];
     }
     
     [_dailyLogCollectionView reloadData];
