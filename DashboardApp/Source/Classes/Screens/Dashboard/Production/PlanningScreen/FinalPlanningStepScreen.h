@@ -16,5 +16,6 @@
 @property (nonatomic, strong) NSDictionary *targets;
 @property (nonatomic, strong) Run *run;
 @property (nonatomic, strong) NSDate *date;
+@property (nonatomic, unsafe_unretained) BOOL singleTargetPurpose;
 
 @end

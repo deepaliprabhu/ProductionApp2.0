@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Defines.h"
 #import "ProcessEditableCell.h"
-#import "OperatorsPickerScreen.h"
 
 @protocol ProductionTargetViewProtocol;
 
-@interface ProductionTargetView : UIView <UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource, ProcessEditableCellProtocol, OperatorsPickerScreenProtocol, UIAlertViewDelegate>
+@interface ProductionTargetView : UIView <UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource, ProcessEditableCellProtocol, UIAlertViewDelegate>
 
 @property (nonatomic, unsafe_unretained) id <ProductionTargetViewProtocol> delegate;
 @property (nonatomic, strong) NSArray *operators;
+@property (nonatomic, unsafe_unretained) UIViewController *parent;
 
 __CREATEVIEWH(ProductionTargetView)
 

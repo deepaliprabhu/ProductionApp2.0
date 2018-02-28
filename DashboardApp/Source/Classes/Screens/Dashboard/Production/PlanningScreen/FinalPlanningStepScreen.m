@@ -34,13 +34,26 @@
     [super viewDidLoad];
     [self initLayout];
     _schedule = [NSMutableDictionary dictionary];
+    [self checkForExistingTargets];
     [_tableView reloadData];
+    
+    if (_singleTargetPurpose) {
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self selectProcessAtIndex:0];
+        });
+    }
 }
 
 #pragma mark - Actions
 
 - (IBAction) cancelButtonTapped {
-    [self.navigationController popViewControllerAnimated:true];
+    
+    if (_singleTargetPurpose == true) {
+        [self dismissViewControllerAnimated:true completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:true];
+    }
 }
 
 - (IBAction) scheduleButtonTapped {
@@ -175,21 +188,7 @@
     if (indexPath.row == 0) {
         
         [tableView deselectRowAtIndexPath:indexPath animated:true];
-        
-        _tempProcess = (int)indexPath.section;
-        ProcessModel *p = _processes[_tempProcess];
-        
-        OperatorTargetStepScreen *screen = [[OperatorTargetStepScreen alloc] init];
-        screen.delegate = self;
-        screen.operators = _operators;
-        screen.existingTargets = _schedule[p.processNo];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
-        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:nav];
-        CGRect r = [_tableView rectForRowAtIndexPath:indexPath];
-        r = [_tableView convertRect:r toView:self.view];
-        r.origin.x += 450;
-        r.size.width -= 450;
-        [popover presentPopoverFromRect:r inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
+        [self selectProcessAtIndex:(int)indexPath.section];
     }
 }
 
@@ -208,11 +207,64 @@
 {
     self.title = @"Set operators";
     
-    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonTapped)];
-    self.navigationItem.leftBarButtonItem = left;
+    if (_singleTargetPurpose == true) {
+        
+        UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonTapped)];
+        self.navigationItem.leftBarButtonItem = left;
+    } else {
+        
+        UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonTapped)];
+        self.navigationItem.leftBarButtonItem = left;
+    }
     
     UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:@"Schedule" style:UIBarButtonItemStyleDone target:self action:@selector(scheduleButtonTapped)];
     self.navigationItem.rightBarButtonItem = right;
+}
+
+#pragma mark - Utils
+
+- (void) checkForExistingTargets {
+    
+    for (ProcessModel *p in _processes) {
+        
+        NSMutableArray *schedule = [NSMutableArray array];
+        for (DayLogModel *day in _run.days) {
+            
+            if ([day.date isSameDayWithDate:_date] && [day.processNo isEqualToString:p.processNo]) {
+                [schedule addObject:@{@"operator":day.person, @"target": @(day.goal)}];
+            }
+        }
+        
+        [schedule sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"operator" ascending:true]]];
+        if (schedule.count > 0) {
+            _schedule[p.processNo] = schedule;
+        }
+    }
+}
+
+- (void) selectProcessAtIndex:(int)index {
+    
+    _tempProcess = index;
+    ProcessModel *p = _processes[_tempProcess];
+    
+    OperatorTargetStepScreen *screen = [[OperatorTargetStepScreen alloc] init];
+    screen.delegate = self;
+    screen.operators = _operators;
+    screen.existingTargets = _schedule[p.processNo];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:nav];
+    CGRect r = [_tableView rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:index]];
+    r = [_tableView convertRect:r toView:self.view];
+    
+    if (_singleTargetPurpose) {
+        r.origin.x += 100;
+        r.size.width -= 100;
+        [popover presentPopoverFromRect:r inView:self.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:true];
+    } else {
+        r.origin.x += 450;
+        r.size.width -= 450;
+        [popover presentPopoverFromRect:r inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
+    }
 }
 
 @end
