@@ -9,9 +9,9 @@
 #import "FinalPlanningStepScreen.h"
 #import "ProcessModel.h"
 #import "Defines.h"
-#import "OperatorsPickerScreen.h"
+#import "OperatorTargetStepScreen.h"
 
-@interface FinalPlanningStepScreen () <UITableViewDelegate, UITableViewDataSource, OperatorsPickerScreenProtocol, UIAlertViewDelegate>
+@interface FinalPlanningStepScreen () <UITableViewDelegate, UITableViewDataSource, OperatorTargetStepScreenProtocol>
 
 @end
 
@@ -21,7 +21,6 @@
     NSMutableDictionary *_schedule;
     
     int _tempProcess;
-    NSString *_tempOperator;
 }
 
 - (void)viewDidLoad {
@@ -129,8 +128,7 @@
         
         _tempProcess = (int)indexPath.section;
         
-        OperatorsPickerScreen *screen = [[OperatorsPickerScreen alloc] init];
-        screen.shouldRemoveNoneFeature = true;
+        OperatorTargetStepScreen *screen = [[OperatorTargetStepScreen alloc] init];
         screen.delegate = self;
         screen.operators = _operators;
         UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
@@ -142,34 +140,11 @@
 
 #pragma mark - OperatorPickerProtocol
 
-- (void) operatorChangedTo:(UserModel *)person {
-
-    _tempOperator = person.name;
-    ProcessModel *p = _processes[_tempProcess];
-    NSString *message = [NSString stringWithFormat:@"Insert a target value for %@:", _tempOperator];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:p.processName message:message delegate:self cancelButtonTitle:@"Save" otherButtonTitles:@"Cancel", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alert show];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void) operatorData:(NSArray*)data {
     
-    if (buttonIndex == 0) {
-        
-        int value = [[alertView textFieldAtIndex:0].text intValue];
-        if (value >= 0) {
-            
-            ProcessModel *p = _processes[_tempProcess];
-            if (_schedule[p.processNo] == nil) {
-                _schedule[p.processNo] = @[@{@"operator": _tempOperator, @"target": @(value)}];
-            } else {
-                NSMutableArray *arr = [NSMutableArray arrayWithArray:_schedule[p.processNo]];
-                [arr addObject:@{@"operator": _tempOperator, @"target": @(value)}];
-                _schedule[p.processNo] = arr;
-            }
-            [_tableView reloadData];
-        }
-    }
+    ProcessModel *p = _processes[_tempProcess];
+    _schedule[p.processNo] = data;
+    [_tableView reloadData];
 }
 
 #pragma mark - Layout
