@@ -151,6 +151,12 @@
 		897BA3381FF662C300C8DA9A /* FailReasonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA3361FF662C300C8DA9A /* FailReasonCell.xib */; };
 		89815E19201FEE610021ADA2 /* OperatorsPickerScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 89815E17201FEE610021ADA2 /* OperatorsPickerScreen.m */; };
 		89815E1A201FEE610021ADA2 /* OperatorsPickerScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89815E18201FEE610021ADA2 /* OperatorsPickerScreen.xib */; };
+		89851A49204566AC00C370F6 /* PlanningProcessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89851A47204566AC00C370F6 /* PlanningProcessCell.m */; };
+		89851A4A204566AC00C370F6 /* PlanningProcessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89851A48204566AC00C370F6 /* PlanningProcessCell.xib */; };
+		89851A4E2045CBD600C370F6 /* OperatorsPlanningScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 89851A4C2045CBD600C370F6 /* OperatorsPlanningScreen.m */; };
+		89851A4F2045CBD600C370F6 /* OperatorsPlanningScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89851A4D2045CBD600C370F6 /* OperatorsPlanningScreen.xib */; };
+		89851A532045DF2200C370F6 /* FinalPlanningStepScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 89851A512045DF2200C370F6 /* FinalPlanningStepScreen.m */; };
+		89851A542045DF2200C370F6 /* FinalPlanningStepScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89851A522045DF2200C370F6 /* FinalPlanningStepScreen.xib */; };
 		89854AE71FB97B3A00C6E38D /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADB1FB97B3A00C6E38D /* GMGridView.m */; };
 		89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854ADF1FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m */; };
 		89854AE91FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 89854AE01FB97B3A00C6E38D /* UIGestureRecognizer+GMGridViewAdditions.m */; };
@@ -578,6 +584,15 @@
 		89815E16201FEE610021ADA2 /* OperatorsPickerScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorsPickerScreen.h; sourceTree = "<group>"; };
 		89815E17201FEE610021ADA2 /* OperatorsPickerScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OperatorsPickerScreen.m; sourceTree = "<group>"; };
 		89815E18201FEE610021ADA2 /* OperatorsPickerScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OperatorsPickerScreen.xib; sourceTree = "<group>"; };
+		89851A46204566AC00C370F6 /* PlanningProcessCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlanningProcessCell.h; sourceTree = "<group>"; };
+		89851A47204566AC00C370F6 /* PlanningProcessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlanningProcessCell.m; sourceTree = "<group>"; };
+		89851A48204566AC00C370F6 /* PlanningProcessCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanningProcessCell.xib; sourceTree = "<group>"; };
+		89851A4B2045CBD600C370F6 /* OperatorsPlanningScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorsPlanningScreen.h; sourceTree = "<group>"; };
+		89851A4C2045CBD600C370F6 /* OperatorsPlanningScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OperatorsPlanningScreen.m; sourceTree = "<group>"; };
+		89851A4D2045CBD600C370F6 /* OperatorsPlanningScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OperatorsPlanningScreen.xib; sourceTree = "<group>"; };
+		89851A502045DF2200C370F6 /* FinalPlanningStepScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinalPlanningStepScreen.h; sourceTree = "<group>"; };
+		89851A512045DF2200C370F6 /* FinalPlanningStepScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinalPlanningStepScreen.m; sourceTree = "<group>"; };
+		89851A522045DF2200C370F6 /* FinalPlanningStepScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FinalPlanningStepScreen.xib; sourceTree = "<group>"; };
 		89854ADB1FB97B3A00C6E38D /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
 		89854ADC1FB97B3A00C6E38D /* GMGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridViewCell.h; sourceTree = "<group>"; };
 		89854ADD1FB97B3A00C6E38D /* GMGridViewCell+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridViewCell+Extended.h"; sourceTree = "<group>"; };
@@ -977,9 +992,16 @@
 		891CB785203CC5FE00E91AEC /* PlanningScreen */ = {
 			isa = PBXGroup;
 			children = (
+				89851A552045E4BD00C370F6 /* cells */,
 				891CB786203CC62700E91AEC /* PlanningView.h */,
 				891CB787203CC62700E91AEC /* PlanningView.m */,
 				891CB789203CC62F00E91AEC /* PlanningView.xib */,
+				89851A4B2045CBD600C370F6 /* OperatorsPlanningScreen.h */,
+				89851A4C2045CBD600C370F6 /* OperatorsPlanningScreen.m */,
+				89851A4D2045CBD600C370F6 /* OperatorsPlanningScreen.xib */,
+				89851A502045DF2200C370F6 /* FinalPlanningStepScreen.h */,
+				89851A512045DF2200C370F6 /* FinalPlanningStepScreen.m */,
+				89851A522045DF2200C370F6 /* FinalPlanningStepScreen.xib */,
 			);
 			path = PlanningScreen;
 			sourceTree = "<group>";
@@ -1385,6 +1407,16 @@
 				8944E49620167D25004A08AF /* AlternateShortsCell.xib */,
 			);
 			path = Parts;
+			sourceTree = "<group>";
+		};
+		89851A552045E4BD00C370F6 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				89851A46204566AC00C370F6 /* PlanningProcessCell.h */,
+				89851A47204566AC00C370F6 /* PlanningProcessCell.m */,
+				89851A48204566AC00C370F6 /* PlanningProcessCell.xib */,
+			);
+			path = cells;
 			sourceTree = "<group>";
 		};
 		89854ADA1FB97B3A00C6E38D /* GridView */ = {
@@ -2220,6 +2252,7 @@
 				9FE99C291FBD4E65006B58DE /* FeedbackListViewCell.xib in Resources */,
 				8961A3D71FFE39970058E353 /* ProcessDetailsScreen.xib in Resources */,
 				89619E1A1FBDB4E8005A5BE7 /* PriorityRunCell.xib in Resources */,
+				89851A4F2045CBD600C370F6 /* OperatorsPlanningScreen.xib in Resources */,
 				9FE99C271FBD4E65006B58DE /* FeedbackListView.xib in Resources */,
 				9FBA7FEB2003EAAE00D2713A /* DemandsViewCell.xib in Resources */,
 				9F71C43E1FC1582900550F86 /* downArrow.png in Resources */,
@@ -2252,6 +2285,7 @@
 				9F7AB1A61F7D233C0013CBE1 /* drop_down@2x.png in Resources */,
 				8944E49320167BEE004A08AF /* ShortsCell.xib in Resources */,
 				8970C3AF20050A51001F7680 /* RunListScreen.xib in Resources */,
+				89851A4A204566AC00C370F6 /* PlanningProcessCell.xib in Resources */,
 				892AEEE8202B2AD0002CCCE8 /* WeeklyGraphBar.xib in Resources */,
 				894704A220192F16007364F0 /* OperatorCell.xib in Resources */,
 				D283865B1FB23CA800BB304C /* Roboto-Medium.ttf in Resources */,
@@ -2280,6 +2314,7 @@
 				3BCDA4191FB346560021BC03 /* ProductAdminPopover.xib in Resources */,
 				89697BAF2008E00200C96103 /* DailyLogCell.xib in Resources */,
 				894EE6981FE00EF8009244A7 /* LockConfirmScreen.xib in Resources */,
+				89851A542045DF2200C370F6 /* FinalPlanningStepScreen.xib in Resources */,
 				894C5F5F1FBB147600FA4E5D /* RunPartCell.xib in Resources */,
 				8947049D20191BCC007364F0 /* ProductionViewController.xib in Resources */,
 				8950A7281FC6C14E006C66CB /* AddCommentScreen.xib in Resources */,
@@ -2368,6 +2403,7 @@
 				9F8567901F73DDB10067ABE1 /* OperatorEntryView.m in Sources */,
 				8952873C1FCF39EE005C46EE /* AuditActionCell.m in Sources */,
 				8944E49720167D25004A08AF /* AlternateShortsCell.m in Sources */,
+				89851A4E2045CBD600C370F6 /* OperatorsPlanningScreen.m in Sources */,
 				9FD12D8F1F443CEF00F0E0A8 /* DataManager.m in Sources */,
 				8919BE961FB4DD5100EE6839 /* SDImageCache.m in Sources */,
 				9F85678E1F73DDB10067ABE1 /* OperatorEntryCollectionViewCell.m in Sources */,
@@ -2408,6 +2444,7 @@
 				9F7FE56E1F7B8DD8005CB4DF /* ProductGroupView.m in Sources */,
 				9FD12D9A1F44707A00F0E0A8 /* MIBadgeButton.m in Sources */,
 				D283865F1FB2476C00BB304C /* PartModel.m in Sources */,
+				89851A49204566AC00C370F6 /* PlanningProcessCell.m in Sources */,
 				8947049C20191BCC007364F0 /* ProductionViewController.m in Sources */,
 				9FD12D9B1F44707A00F0E0A8 /* MIBadgeLabel.m in Sources */,
 				D22767941FAE4B5400215D87 /* UIRefreshControl+AFNetworking.m in Sources */,
@@ -2534,6 +2571,7 @@
 				8970C3B6200561FE001F7680 /* RunScheduleCell.m in Sources */,
 				894EE69C1FE02298009244A7 /* LockConfirmationHeaderView.m in Sources */,
 				9FB1BEAE1F514343008D179E /* CollectionViewCell.m in Sources */,
+				89851A532045DF2200C370F6 /* FinalPlanningStepScreen.m in Sources */,
 				9FD12DA01F4473B900F0E0A8 /* RunViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2675,8 +2713,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aginova.productionapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bc10610b-8747-42f4-928d-35f2070e40b8";
-				PROVISIONING_PROFILE_SPECIFIER = "Production App 2 AdHoc";
+				PROVISIONING_PROFILE = "557ff26b-b045-480c-91ec-5973da93a595";
+				PROVISIONING_PROFILE_SPECIFIER = "AdHoc] ProductionApp 2.0";
 			};
 			name = Debug;
 		};
@@ -2694,8 +2732,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aginova.productionapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bc10610b-8747-42f4-928d-35f2070e40b8";
-				PROVISIONING_PROFILE_SPECIFIER = "Production App 2 AdHoc";
+				PROVISIONING_PROFILE = "557ff26b-b045-480c-91ec-5973da93a595";
+				PROVISIONING_PROFILE_SPECIFIER = "AdHoc] ProductionApp 2.0";
 			};
 			name = Release;
 		};

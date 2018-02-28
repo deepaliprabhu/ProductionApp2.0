@@ -8,11 +8,24 @@
 
 #import <UIKit/UIKit.h>
 #import "Defines.h"
+#import "PlanningProcessCell.h"
 
-@interface PlanningView : UIView <UITableViewDelegate, UITableViewDataSource>
+@protocol PlanningViewProtocol;
 
+@interface PlanningView : UIView <UITableViewDelegate, UITableViewDataSource, PlanningProcessCellProtocol, UIAlertViewDelegate>
+
+@property (nonatomic, unsafe_unretained) id <PlanningViewProtocol> delegate;
+@property (nonatomic, unsafe_unretained) UIViewController *parent;
+@property (nonatomic, strong) NSArray *operators;
 __CREATEVIEWH(PlanningView)
 
 - (void) reloadData;
+
+@end
+
+@protocol PlanningViewProtocol <NSObject>
+
+- (void) newProcessTimeWasSet;
+- (NSDate*) selectedDate;
 
 @end

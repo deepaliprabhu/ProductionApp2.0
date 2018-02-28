@@ -12,6 +12,5 @@
 @interface ProcessCell : UITableViewCell
 
 - (void) layoutWith:(ProcessModel*)process;
-- (void) layoutWithPlanning:(ProcessModel*)process;
 
 @end
