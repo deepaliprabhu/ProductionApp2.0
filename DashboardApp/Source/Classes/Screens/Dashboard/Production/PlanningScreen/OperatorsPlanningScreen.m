@@ -49,6 +49,7 @@
     [operators sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:true]]];
     
     FinalPlanningStepScreen *screen = [FinalPlanningStepScreen new];
+    screen.run = _run;
     screen.operators = operators;
     screen.targets = _targets;
     screen.processes = _processes;

@@ -10,6 +10,8 @@
 #import "ProcessModel.h"
 #import "Defines.h"
 #import "OperatorTargetStepScreen.h"
+#import "DayLogModel.h"
+#import "NSDate+Utils.h"
 
 @interface FinalPlanningStepScreen () <UITableViewDelegate, UITableViewDataSource, OperatorTargetStepScreenProtocol>
 
@@ -38,10 +40,22 @@
 }
 
 - (IBAction) scheduleButtonTapped {
-    
-}
-
-- (IBAction) addOperatorButtonTapped:(UIButton*)btn {
+ 
+    for (ProcessModel *p in _processes) {
+        
+        for (NSDictionary *schedule in _schedule[p.processNo]) {
+            
+            for (DayLogModel *day in _run.days) {
+                
+                NSString *op = schedule[@"operator"];
+                int target = [schedule[@"target"] intValue];
+                if ([_date isSameDayWithDate:day.date] && [p.processNo isEqualToString:day.processNo] && [op isEqualToString:day.person]) {
+                    
+                    
+                }
+            }
+        }
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -64,17 +78,6 @@
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 540, 20)];
     view.backgroundColor = cclear;
-    
-//    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(16, 0, 200, 44)];
-//    btn.backgroundColor = cclear;
-//    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//    btn.tag = section;
-//    [btn setTitle:@"Add operator" forState:UIControlStateNormal];
-//    [btn setTitleColor:ccolor(102, 102, 102) forState:UIControlStateNormal];
-//    [btn setTitleColor:ccblack forState:UIControlStateHighlighted];
-//    btn.titleLabel.font = ccFont(@"Roboto-Medium", 16);
-//    [btn addTarget:self action:@selector(addOperatorButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-//    [view addSubview:btn];
     
     return view;
 }

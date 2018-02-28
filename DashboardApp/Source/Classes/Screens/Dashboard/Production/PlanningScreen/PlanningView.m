@@ -563,6 +563,7 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     screen.operators = _operators;
     screen.targets = _targets;
     screen.processes = processes;
+    screen.run = _runs[_selectedRunIndex];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
     nav.modalPresentationStyle = UIModalPresentationFormSheet;
     [_parent presentViewController:nav animated:true completion:nil];
