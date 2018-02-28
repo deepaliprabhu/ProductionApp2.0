@@ -562,6 +562,7 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     screen.numberOfOperators = _noOfOperators;
     screen.operators = _operators;
     screen.targets = _targets;
+    screen.date = [_delegate selectedDate];
     screen.processes = processes;
     screen.run = _runs[_selectedRunIndex];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];

@@ -66,10 +66,17 @@
     _selectedOperator = -1;
     
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:@"NEWDAYPLANNED" object:nil];
+    
     [self initLayout];
     [self getPersons];
     
     _selectionConstants = @[@[@(33), @(137)], @[@(189), @(68)], @[@(273), @(68)]];
+}
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Actions

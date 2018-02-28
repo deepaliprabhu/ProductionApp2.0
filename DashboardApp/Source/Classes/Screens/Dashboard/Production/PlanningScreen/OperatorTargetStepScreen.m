@@ -43,10 +43,7 @@
  
     NSMutableArray *data = [NSMutableArray array];
     for (NSString *operator in _targets) {
-        
-        if ([_targets[operator] intValue] > 0) {
-            [data addObject:@{@"operator": operator, @"target": _targets[operator]}];
-        }
+        [data addObject:@{@"operator": operator, @"target": _targets[operator]}];
     }
     [data sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"operator" ascending:true]]];
     

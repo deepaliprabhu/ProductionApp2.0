@@ -12,6 +12,8 @@
 #import "OperatorTargetStepScreen.h"
 #import "DayLogModel.h"
 #import "NSDate+Utils.h"
+#import "ProdAPI.h"
+#import "LoadingView.h"
 
 @interface FinalPlanningStepScreen () <UITableViewDelegate, UITableViewDataSource, OperatorTargetStepScreenProtocol>
 
@@ -23,6 +25,8 @@
     NSMutableDictionary *_schedule;
     
     int _tempProcess;
+    int _currentRequest;
+    int _totalRequests;
 }
 
 - (void)viewDidLoad {
@@ -41,21 +45,64 @@
 
 - (IBAction) scheduleButtonTapped {
  
-    for (ProcessModel *p in _processes) {
+    _currentRequest = 0;
+    _totalRequests = 0;
+    for (NSString *processNo in _schedule) {
+        _totalRequests += [_schedule[processNo] count];
+    }
+    
+    if (_totalRequests == 0) {
         
-        for (NSDictionary *schedule in _schedule[p.processNo]) {
+        [self dismissViewControllerAnimated:true completion:nil];
+        return;
+    }
+    
+    [LoadingView showLoading:@"Saving..."];
+    for (NSString *processNo in _schedule) {
+        
+        for (NSDictionary *schedule in _schedule[processNo]) {
+            
+            NSString *op = schedule[@"operator"];
+            int target = [schedule[@"target"] intValue];
+            
+            DayLogModel *newDay = [DayLogModel new];
             
             for (DayLogModel *day in _run.days) {
                 
-                NSString *op = schedule[@"operator"];
-                int target = [schedule[@"target"] intValue];
-                if ([_date isSameDayWithDate:day.date] && [p.processNo isEqualToString:day.processNo] && [op isEqualToString:day.person]) {
+                if ([_date isSameDayWithDate:day.date] && [processNo isEqualToString:day.processNo] && [op isEqualToString:day.person]) {
                     
-                    
+                    newDay.dayLogID = day.dayLogID;
+                    newDay.target = day.target;
+                    newDay.rework = day.rework;
+                    newDay.reject = day.reject;
+                    newDay.good   = day.good;
+                    newDay.comments = day.comments;
+                    break;
                 }
             }
+            
+            newDay.person = op;
+            newDay.date = _date;
+            newDay.goal = target;
+            newDay.processNo = processNo;
+            
+            [self saveNew:newDay];
         }
     }
+}
+
+- (void) saveNew:(DayLogModel*)day {
+    
+    NSString *json = [NSString stringWithFormat:@"[%@]" ,[ProdAPI jsonString:[day params]]];
+    [[ProdAPI sharedInstance] addDailyLog:json forRunFlow:[_run getRunFlowId] completion:^(BOOL success, id response) {
+        
+        _currentRequest++;
+        if (_currentRequest == _totalRequests) {
+            [LoadingView removeLoading];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"NEWDAYPLANNED" object:nil];
+            [self dismissViewControllerAnimated:true completion:nil];
+        }
+    }];
 }
 
 #pragma mark - UITableViewDataSource
