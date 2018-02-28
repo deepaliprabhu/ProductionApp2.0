@@ -545,12 +545,18 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
     for (NSString *processNo in _selectedProcesses) {
         
         for (ProcessModel *p in _processes) {
-            if ([processNo isEqualToString:p.processNo]) {
+            if ([processNo isEqualToString:p.processNo] && [_targets[p.processNo] intValue] > 0) {
                 [processes addObject:p];
                 break;
             }
         }
     }
+    [processes sortUsingComparator:^NSComparisonResult(ProcessModel *obj1, ProcessModel *obj2) {
+        
+        int p1 = [[obj1.processNo stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue];
+        int p2 = [[obj2.processNo stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue];
+        return (p1 < p2) ? NSOrderedAscending : NSOrderedDescending;
+    }];
     
     OperatorsPlanningScreen *screen = [[OperatorsPlanningScreen alloc] initWithNibName:@"OperatorsPlanningScreen" bundle:nil];
     screen.numberOfOperators = _noOfOperators;

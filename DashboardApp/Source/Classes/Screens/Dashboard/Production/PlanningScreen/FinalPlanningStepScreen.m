@@ -43,18 +43,6 @@
 }
 
 - (IBAction) addOperatorButtonTapped:(UIButton*)btn {
-    
-    _tempProcess = (int)btn.tag;
-    
-    OperatorsPickerScreen *screen = [[OperatorsPickerScreen alloc] init];
-    screen.shouldRemoveNoneFeature = true;
-    screen.delegate = self;
-    screen.operators = _operators;
-    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
-    CGRect r = [_tableView rectForFooterInSection:btn.tag];
-    r.size.width = 100;
-    r = [_tableView convertRect:r toView:self.view];
-    [popover presentPopoverFromRect:r inView:self.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:true];
 }
 
 #pragma mark - UITableViewDataSource
@@ -70,24 +58,24 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 44;
+    return 20;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 540, 44)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 540, 20)];
     view.backgroundColor = cclear;
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(16, 0, 200, 44)];
-    btn.backgroundColor = cclear;
-    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    btn.tag = section;
-    [btn setTitle:@"Add operator" forState:UIControlStateNormal];
-    [btn setTitleColor:ccolor(102, 102, 102) forState:UIControlStateNormal];
-    [btn setTitleColor:ccblack forState:UIControlStateHighlighted];
-    btn.titleLabel.font = ccFont(@"Roboto-Medium", 16);
-    [btn addTarget:self action:@selector(addOperatorButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:btn];
+//    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(16, 0, 200, 44)];
+//    btn.backgroundColor = cclear;
+//    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    btn.tag = section;
+//    [btn setTitle:@"Add operator" forState:UIControlStateNormal];
+//    [btn setTitleColor:ccolor(102, 102, 102) forState:UIControlStateNormal];
+//    [btn setTitleColor:ccblack forState:UIControlStateHighlighted];
+//    btn.titleLabel.font = ccFont(@"Roboto-Medium", 16);
+//    [btn addTarget:self action:@selector(addOperatorButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+//    [view addSubview:btn];
     
     return view;
 }
@@ -99,12 +87,17 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProcessCell"];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"ProcessCell"];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.textLabel.font = ccFont(@"Roboto-Light", 18);
+            cell.detailTextLabel.textColor = ccolor(51, 204, 51);
         }
         
         ProcessModel *p = _processes[indexPath.section];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", p.processNo, p.processName];
+        NSString *text = [NSString stringWithFormat:@"%@ %@", p.processNo, p.processName];
+        if (text.length > 50) {
+            text = [text substringToIndex:50];
+            text = [NSString stringWithFormat:@"%@...", text];
+        }
+        cell.textLabel.text = text;
         cell.detailTextLabel.text = [_targets[p.processNo] stringValue];
         
         return cell;
@@ -115,6 +108,8 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"OperatorCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.textLabel.font = ccFont(@"Roboto-Light", 18);
+            cell.detailTextLabel.textColor = ccolor(51, 204, 51);
+            cell.indentationLevel = 2;
         }
         
         ProcessModel *p = _processes[indexPath.section];
@@ -123,6 +118,25 @@
         cell.detailTextLabel.text = [data[@"target"] stringValue];
         
         return cell;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == 0) {
+        
+        [tableView deselectRowAtIndexPath:indexPath animated:true];
+        
+        _tempProcess = (int)indexPath.section;
+        
+        OperatorsPickerScreen *screen = [[OperatorsPickerScreen alloc] init];
+        screen.shouldRemoveNoneFeature = true;
+        screen.delegate = self;
+        screen.operators = _operators;
+        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+        CGRect r = [_tableView rectForRowAtIndexPath:indexPath];
+        r = [_tableView convertRect:r toView:self.view];
+        [popover presentPopoverFromRect:r inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:true];
     }
 }
 
@@ -162,7 +176,7 @@
 
 - (void) initLayout
 {
-    self.title = @"";
+    self.title = @"Set operators";
     
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonTapped)];
     self.navigationItem.leftBarButtonItem = left;
