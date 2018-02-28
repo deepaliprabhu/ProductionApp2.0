@@ -119,20 +119,7 @@
         
         if (success) {
             
-            NSMutableArray *singleDays = [NSMutableArray array];
-            NSArray *days = [response firstObject][@"processes"];
-            for (int i=0; i<days.count; i++) {
-                
-                NSDictionary *dict = days[i];
-                if ([dict[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == true)
-                    continue;
-                
-                DayLogModel *d = [DayLogModel objFromData:dict];
-                d.runId = [run getRunId];
-                if ([self dayLogAlreadyExists:d inArray:singleDays] == false)
-                    [singleDays addObject:d];
-            }
-            
+            NSArray *singleDays = [DayLogModel daysFromResponse:response forRun:run];
             if (singleDays.count > 0) {
                 [_allLogs addObjectsFromArray:singleDays];
                 [_allLogs sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:false]]];
@@ -177,17 +164,6 @@
     }
     
     [_tableView reloadData];
-}
-
-- (BOOL) dayLogAlreadyExists:(DayLogModel*)log inArray:(NSArray*)logs {
-    
-    NSCalendar *c = [NSCalendar currentCalendar];
-    for (DayLogModel *d in logs) {
-        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processNo isEqualToString:log.processNo])
-            return true;
-    }
-    
-    return false;
 }
 
 @end

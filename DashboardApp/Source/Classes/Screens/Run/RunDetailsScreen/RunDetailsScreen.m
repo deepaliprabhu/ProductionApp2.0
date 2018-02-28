@@ -724,20 +724,8 @@
         [_dailyLogSpinner stopAnimating];
         if (success) {
             
-            _days = [NSMutableArray array];
-            NSArray *days = [response firstObject][@"processes"];
-            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
-            for (int i=0; i<days.count; i++) {
-                
-                NSDictionary *dict = days[i];
-                if ([dict[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == true)
-                    continue;
-                
-                DayLogModel *d = [DayLogModel objFromData:dict];
-                if ([self dayLogAlreadyExists:d] == false)
-                    [_days addObject:d];
-            }
-            [_days sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
+            NSArray *days = [DayLogModel daysFromResponse:response forRun:nil];
+            _days = [NSMutableArray arrayWithArray:days];
             _rawDataButton.alpha = _days.count == 0 ? 0 : 1;
             [self getTargets];
             [self layoutDailyLogForProcess:_selectedProcess];
@@ -746,17 +734,6 @@
 }
 
 #pragma mark - Utils
-
-- (BOOL) dayLogAlreadyExists:(DayLogModel*)log {
-    
-    NSCalendar *c = [NSCalendar currentCalendar];
-    for (DayLogModel *d in _days) {
-        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processNo isEqualToString:log.processNo])
-            return true;
-    }
-    
-    return false;
-}
 
 - (DayLogModel*) todayLog {
     

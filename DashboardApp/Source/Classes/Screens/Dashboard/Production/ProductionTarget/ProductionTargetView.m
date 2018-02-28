@@ -387,24 +387,12 @@
     Run *r = _runs[_selectedRunIndex][@"run"];
     [[ProdAPI sharedInstance] getDailyLogForRun:[r getRunId] product:[r getProductNumber] completion:^(BOOL success, id response) {
         
-        NSMutableArray *daysArr = [NSMutableArray array];
+        NSArray *days = [NSArray array];
         if (success) {
-            NSArray *days = [response firstObject][@"processes"];
-            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
-            for (int i=0; i<days.count; i++) {
-                
-                NSDictionary *dict = days[i];
-                if ([dict[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == true)
-                    continue;
-                
-                DayLogModel *d = [DayLogModel objFromData:dict];
-                if ([self dayLogAlreadyExists:d inArr:daysArr] == false)
-                    [daysArr addObject:d];
-            }
-            [daysArr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
+            days = [DayLogModel daysFromResponse:response forRun:nil];
         }
         
-        [self getRunningProcessesFrom:processes andDays:daysArr];
+        [self getRunningProcessesFrom:processes andDays:days];
     }];
 }
 
@@ -447,17 +435,6 @@
 }
 
 #pragma mark - Utils
-
-- (BOOL) dayLogAlreadyExists:(DayLogModel*)log inArr:(NSArray*)arr {
-    
-    NSCalendar *c = [NSCalendar currentCalendar];
-    for (DayLogModel *d in arr) {
-        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processNo isEqualToString:log.processNo])
-            return true;
-    }
-    
-    return false;
-}
 
 - (void) saveNew:(DayLogModel*)day {
     
