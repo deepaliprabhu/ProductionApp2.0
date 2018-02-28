@@ -225,8 +225,16 @@ __CREATEVIEW(ProductionOverview, @"ProductionOverview", 0)
                     t += d.target;
                     
                     if ([cal isDate:d.date inSameDayAsDate:today]) {
-                        g = @(d.goal);
-                        pers = d.person;
+                        g = @(d.goal + [g intValue]);
+                        if (pers != nil) {
+                            if ([pers intValue] == 0) {
+                                pers = @"2";
+                            } else {
+                                pers = [NSString stringWithFormat:@"%d", [pers intValue] + 1];
+                            }
+                        } else {
+                            pers = d.person;
+                        }
                     }
                 }
             }
