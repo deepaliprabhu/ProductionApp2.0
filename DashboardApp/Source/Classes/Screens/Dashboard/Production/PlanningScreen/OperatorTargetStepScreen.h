@@ -12,10 +12,8 @@
 
 @interface OperatorTargetStepScreen : UIViewController
 
-@property (nonatomic, unsafe_unretained) int numberOfOperators;
 @property (nonatomic, strong) NSArray *operators;
-@property (nonatomic, strong) NSArray *processes;
-@property (nonatomic, strong) NSDictionary *targets;
+@property (nonatomic, strong) NSArray *existingTargets;
 @property (nonatomic, unsafe_unretained) id <OperatorTargetStepScreenProtocol> delegate;
 
 @end

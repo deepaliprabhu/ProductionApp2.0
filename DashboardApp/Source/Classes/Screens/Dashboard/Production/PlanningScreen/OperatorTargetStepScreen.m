@@ -7,24 +7,99 @@
 //
 
 #import "OperatorTargetStepScreen.h"
+#import "OperatorTargetEditableCell.h"
+#import "Defines.h"
+#import "UserModel.h"
 
-@interface OperatorTargetStepScreen () <UITableViewDelegate, UITableViewDataSource>
+@interface OperatorTargetStepScreen () <UITableViewDelegate, UITableViewDataSource, OperatorTargetEditableCellProtocol>
 
 @end
 
-@implementation OperatorTargetStepScreen
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
+@implementation OperatorTargetStepScreen {
+    
+    __weak IBOutlet UITableView *_tableView;
+    NSMutableDictionary *_targets;
 }
 
-//ProcessModel *p = _processes[_tempProcess];
-//if (_schedule[p.processNo] == nil) {
-//    _schedule[p.processNo] = @[@{@"operator": _tempOperator, @"target": @(value)}];
-//} else {
-//    NSMutableArray *arr = [NSMutableArray arrayWithArray:_schedule[p.processNo]];
-//    [arr addObject:@{@"operator": _tempOperator, @"target": @(value)}];
-//    _schedule[p.processNo] = arr;
-//}
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    [self initLayout];
+    
+    _targets = [NSMutableDictionary dictionary];
+    for (NSDictionary *dict in _existingTargets) {
+        _targets[dict[@"operator"]] = dict[@"target"];
+    }
+    [_tableView reloadData];
+}
+
+#pragma mark - Actions
+
+- (IBAction) cancelButtonTapped {
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (IBAction) doneButtonTapped {
+ 
+    NSMutableArray *data = [NSMutableArray array];
+    for (NSString *operator in _targets) {
+        
+        if ([_targets[operator] intValue] > 0) {
+            [data addObject:@{@"operator": operator, @"target": _targets[operator]}];
+        }
+    }
+    [_delegate operatorData:data];
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
+#pragma mark - UITableViewDelegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _operators.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *identifier = @"OperatorTargetEditableCell";
+    OperatorTargetEditableCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (cell == nil) {
+        cell = __bundle(@"OperatorTargetEditableCell", 0);
+        cell.delegate = self;
+    }
+    
+    UserModel *op = _operators[indexPath.row];
+    [cell layoutWithOperator:op.name andTarget:_targets[op.name] atIndex:(int)indexPath.row];
+
+    return cell;
+}
+
+#pragma mark - CellProtocol
+
+- (void) setTarget:(int)target atIndex:(int)index {
+ 
+    UserModel *op = _operators[index];
+    [_targets setObject:@(target) forKey:op.name];
+    [_tableView reloadData];
+}
+
+#pragma mark - Utils
+
+- (void) initLayout
+{
+    self.title = @"Set targets";
+    
+    float h = MIN(_operators.count*44, 440);
+    self.preferredContentSize = CGSizeMake(400, h);
+    
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
+    self.navigationItem.leftBarButtonItem = left;
+    
+    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonTapped)];
+    self.navigationItem.rightBarButtonItem = right;
+}
 
 @end

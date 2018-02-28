@@ -127,14 +127,19 @@
         [tableView deselectRowAtIndexPath:indexPath animated:true];
         
         _tempProcess = (int)indexPath.section;
+        ProcessModel *p = _processes[_tempProcess];
         
         OperatorTargetStepScreen *screen = [[OperatorTargetStepScreen alloc] init];
         screen.delegate = self;
         screen.operators = _operators;
-        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+        screen.existingTargets = _schedule[p.processNo];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
+        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:nav];
         CGRect r = [_tableView rectForRowAtIndexPath:indexPath];
         r = [_tableView convertRect:r toView:self.view];
-        [popover presentPopoverFromRect:r inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:true];
+        r.origin.x += 450;
+        r.size.width -= 450;
+        [popover presentPopoverFromRect:r inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
     }
 }
 

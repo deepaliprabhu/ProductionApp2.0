@@ -123,6 +123,8 @@
 		895DEA301FF3DA54001ADAFE /* UserDetailsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895DEA2E1FF3DA54001ADAFE /* UserDetailsScreen.xib */; };
 		895F1FBE2046BEF000AE52E0 /* OperatorTargetStepScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 895F1FBC2046BEF000AE52E0 /* OperatorTargetStepScreen.m */; };
 		895F1FBF2046BEF000AE52E0 /* OperatorTargetStepScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895F1FBD2046BEF000AE52E0 /* OperatorTargetStepScreen.xib */; };
+		895F1FC32046C48600AE52E0 /* OperatorTargetEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 895F1FC12046C48600AE52E0 /* OperatorTargetEditableCell.m */; };
+		895F1FC42046C48600AE52E0 /* OperatorTargetEditableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895F1FC22046C48600AE52E0 /* OperatorTargetEditableCell.xib */; };
 		895F5F7A1FCEF17500ED3349 /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 895F5F791FCEF17500ED3349 /* GridView.m */; };
 		895F5F7C1FCEF17D00ED3349 /* GridView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895F5F7B1FCEF17D00ED3349 /* GridView.xib */; };
 		895F5F801FCEF75800ED3349 /* StockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 895F5F7E1FCEF75800ED3349 /* StockCell.m */; };
@@ -544,6 +546,9 @@
 		895F1FBB2046BEF000AE52E0 /* OperatorTargetStepScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorTargetStepScreen.h; sourceTree = "<group>"; };
 		895F1FBC2046BEF000AE52E0 /* OperatorTargetStepScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OperatorTargetStepScreen.m; sourceTree = "<group>"; };
 		895F1FBD2046BEF000AE52E0 /* OperatorTargetStepScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OperatorTargetStepScreen.xib; sourceTree = "<group>"; };
+		895F1FC02046C48600AE52E0 /* OperatorTargetEditableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorTargetEditableCell.h; sourceTree = "<group>"; };
+		895F1FC12046C48600AE52E0 /* OperatorTargetEditableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OperatorTargetEditableCell.m; sourceTree = "<group>"; };
+		895F1FC22046C48600AE52E0 /* OperatorTargetEditableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OperatorTargetEditableCell.xib; sourceTree = "<group>"; };
 		895F5F781FCEF17500ED3349 /* GridView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridView.h; sourceTree = "<group>"; };
 		895F5F791FCEF17500ED3349 /* GridView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridView.m; sourceTree = "<group>"; };
 		895F5F7B1FCEF17D00ED3349 /* GridView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GridView.xib; sourceTree = "<group>"; };
@@ -1420,6 +1425,9 @@
 		89851A552045E4BD00C370F6 /* cells */ = {
 			isa = PBXGroup;
 			children = (
+				895F1FC02046C48600AE52E0 /* OperatorTargetEditableCell.h */,
+				895F1FC12046C48600AE52E0 /* OperatorTargetEditableCell.m */,
+				895F1FC22046C48600AE52E0 /* OperatorTargetEditableCell.xib */,
 				89851A46204566AC00C370F6 /* PlanningProcessCell.h */,
 				89851A47204566AC00C370F6 /* PlanningProcessCell.m */,
 				89851A48204566AC00C370F6 /* PlanningProcessCell.xib */,
@@ -2298,6 +2306,7 @@
 				892AEEE8202B2AD0002CCCE8 /* WeeklyGraphBar.xib in Resources */,
 				894704A220192F16007364F0 /* OperatorCell.xib in Resources */,
 				D283865B1FB23CA800BB304C /* Roboto-Medium.ttf in Resources */,
+				895F1FC42046C48600AE52E0 /* OperatorTargetEditableCell.xib in Resources */,
 				894B6F0D1FCDAD7600E271B1 /* PODateScreen.xib in Resources */,
 				D2A44F321FAF2BBA00DF37B8 /* LoadingView.xib in Resources */,
 				8970C3BC20056A55001F7680 /* RunScheduleSlotCell.xib in Resources */,
@@ -2467,6 +2476,7 @@
 				89697BA42008B45A00C96103 /* DailyLogScreen.m in Sources */,
 				9FBA7FEA2003EAAE00D2713A /* DemandsViewCell.m in Sources */,
 				894F9BDE1FBCA90C00DC2C6B /* HistoryPriceCell.m in Sources */,
+				895F1FC32046C48600AE52E0 /* OperatorTargetEditableCell.m in Sources */,
 				8940187B1FB5A0E4002B8AFD /* BRStreamInfo.m in Sources */,
 				89AC0AAE1FC5A84D008CA56B /* AlternatePartCell.m in Sources */,
 				D22767921FAE4B5400215D87 /* UIImageView+AFNetworking.m in Sources */,
