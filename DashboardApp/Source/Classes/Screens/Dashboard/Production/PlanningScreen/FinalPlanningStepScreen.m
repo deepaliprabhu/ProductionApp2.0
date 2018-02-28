@@ -80,6 +80,7 @@
             
             DayLogModel *newDay = [DayLogModel new];
             
+            BOOL sameGoal = false;
             for (DayLogModel *day in _run.days) {
                 
                 if ([_date isSameDayWithDate:day.date] && [processNo isEqualToString:day.processNo] && [op isEqualToString:day.person]) {
@@ -90,6 +91,7 @@
                     newDay.reject = day.reject;
                     newDay.good   = day.good;
                     newDay.comments = day.comments;
+                    sameGoal = target == day.goal;
                     break;
                 }
             }
@@ -99,7 +101,11 @@
             newDay.goal = target;
             newDay.processNo = processNo;
             
-            [self saveNew:newDay];
+            if (sameGoal) {
+                [self requestFinished];
+            } else {
+                [self saveNew:newDay];
+            }
         }
     }
 }
@@ -108,14 +114,18 @@
     
     NSString *json = [NSString stringWithFormat:@"[%@]" ,[ProdAPI jsonString:[day params]]];
     [[ProdAPI sharedInstance] addDailyLog:json forRunFlow:[_run getRunFlowId] completion:^(BOOL success, id response) {
-        
-        _currentRequest++;
-        if (_currentRequest == _totalRequests) {
-            [LoadingView removeLoading];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"NEWDAYPLANNED" object:nil];
-            [self dismissViewControllerAnimated:true completion:nil];
-        }
+        [self requestFinished];
     }];
+}
+
+- (void) requestFinished {
+    
+    _currentRequest++;
+    if (_currentRequest == _totalRequests) {
+        [LoadingView removeLoading];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NEWDAYPLANNED" object:nil];
+        [self dismissViewControllerAnimated:true completion:nil];
+    }
 }
 
 #pragma mark - UITableViewDataSource

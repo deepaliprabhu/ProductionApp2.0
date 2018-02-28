@@ -349,7 +349,6 @@
     NSMutableArray *processesForSelectedRun = [NSMutableArray array];
     for (ProcessModel *p in processes) {
         
-        DayLogModel *dayModel = nil;
         int t = 0;
         int goal = 0;
         for (DayLogModel *d in days) {
@@ -358,7 +357,6 @@
                 
                 if ([cal isDate:d.date inSameDayAsDate:today]) {
                     goal += d.goal;
-                    dayModel = d;
                 }
             }
         }
@@ -366,8 +364,6 @@
         if (t < [r quantity]) {
             NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
             NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"goal": @(goal), @"process": p, @"status":status, @"step": @([p.stepId intValue])}];
-            if (dayModel)
-                d[@"dayModel"] = dayModel;
             [processesForSelectedRun addObject:d];
         }
     }
