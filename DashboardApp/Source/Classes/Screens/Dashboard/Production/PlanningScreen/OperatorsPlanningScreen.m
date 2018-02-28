@@ -46,6 +46,7 @@
     for (NSNumber *idx in _selectedIndeces) {
         [operators addObject:_operators[[idx intValue]]];
     }
+    [operators sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:true]]];
     
     FinalPlanningStepScreen *screen = [FinalPlanningStepScreen new];
     screen.operators = operators;

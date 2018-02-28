@@ -48,6 +48,8 @@
             [data addObject:@{@"operator": operator, @"target": _targets[operator]}];
         }
     }
+    [data sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"operator" ascending:true]]];
+    
     [_delegate operatorData:data];
     [self dismissViewControllerAnimated:true completion:nil];
 }
