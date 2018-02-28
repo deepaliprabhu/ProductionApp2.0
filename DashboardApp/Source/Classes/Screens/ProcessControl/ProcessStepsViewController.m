@@ -558,6 +558,7 @@
                 [self setupForStatus:jsonDict[@"status"]];
                 NSLog(@"processes Array=%@",processStepsArray);
                 processStepsArray = [__DataManager reorderProcessSteps:processStepsArray];
+               // processStepsArray = [self removeNullProcess:processStepsArray];
                 [selectedProduct setProcessSteps:processStepsArray];
                 selectedProduct.status = processStatus;
                 selectedProduct.pcbProductID = pcbProductId;
@@ -570,6 +571,17 @@
     }
     [_processListTableView reloadData];
     [self setUpCommonProcessTable];
+}
+
+- (NSMutableArray*)removeNullProcess:(NSMutableArray*)array  {
+    NSMutableArray *alteredArray = [[NSMutableArray alloc] init];
+    for (int i=0; i < array.count; ++i) {
+        NSMutableDictionary *arrayData = array[i];
+        if (![arrayData[@"processno"] isEqualToString:@""]) {
+            [alteredArray addObject:arrayData];
+        }
+    }
+    return alteredArray;
 }
 
 - (void)setupForStatus:(NSString*)status {
@@ -684,9 +696,14 @@
 }
 
 - (IBAction)masonApprovalPressed:(id)sender {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Are you sure you want to approve the process for Mason" delegate:self cancelButtonTitle:@"Approve" otherButtonTitles:@"Reject",@"Cancel", nil];
-    alertView.tag = 2;
-    [alertView show];
+    if ([selectedProduct.status isEqualToString:@"Mason Rejected"]) {
+        [self showRemarkView];
+    }
+    else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"Are you sure you want to approve the process for Mason" delegate:self cancelButtonTitle:@"Approve" otherButtonTitles:@"Reject",@"Cancel", nil];
+        alertView.tag = 2;
+        [alertView show];
+    }
 }
 
 - (IBAction)lausanneApprovalPressed:(id)sender {
@@ -739,11 +756,7 @@
     else if (buttonIndex == 1){
         switch (alertView.tag) {
             case 2: {
-                [self setUpForButton:_puneApprovalButton withStatus:@"Pending"];
-                [self setUpForButton:_masonApprovalButton withStatus:@"Rejected"];
-                [self setUpForButton:_lausanneApprovalButton withStatus:@"Submit"];
-                processStatus = @"Mason Rejected";
-                [self submitForApprovalPressed:nil];
+                [self showRemarkView];
             }
                 break;
             case 3: {
@@ -758,6 +771,25 @@
                 break;
         }
     }
+}
+
+- (void)showRemarkView {
+    _remarkView.frame = CGRectMake(0, 0, _remarkView.frame.size.width, _remarkView.frame.size.height);
+    //[self.view addSubview:_remarkView];
+    UIViewController *vc = [UIViewController new];
+    [vc setPreferredContentSize:CGSizeMake(_remarkView.frame.size.width, _remarkView.frame.size.height)];
+    [vc.view addSubview:_remarkView];
+    [vc.view setClipsToBounds:false];
+    _remarkPopover = [[UIPopoverController alloc] initWithContentViewController:vc];
+    [_remarkPopover presentPopoverFromRect:_masonApprovalButton.frame inView:_rightPaneView permittedArrowDirections:UIPopoverArrowDirectionDown animated:true];
+}
+
+- (IBAction)submitRemarkPressed:(id)sender {
+    [self setUpForButton:_puneApprovalButton withStatus:@"Pending"];
+    [self setUpForButton:_masonApprovalButton withStatus:@"Rejected"];
+    [self setUpForButton:_lausanneApprovalButton withStatus:@"Submit"];
+    processStatus = @"Mason Rejected";
+    [self submitForApprovalPressed:nil];
 }
 
 - (void) parseJsonResponse:(NSData*)jsonData {
@@ -940,7 +972,7 @@
     //[_editProcessFlowView removeFromSuperview];
     indexArray = alteredIndexArray;
     filteredIndexArray = indexArray;
-    processStepsArray = [__DataManager reorderProcesses:alteredProcessesArray];
+    processStepsArray = [__DataManager reorderProcessSteps:alteredProcessesArray];
     [_processListTableView reloadData];
    // if ([[selectedProduct.status uppercaseString] isEqualToString:@"OPEN"]) {
         [self setUpForButton:_puneApprovalButton withStatus:@"Save"];
@@ -967,13 +999,15 @@
             NSMutableDictionary *selectedProcess = [[NSMutableDictionary alloc] init];
             [selectedProcess setObject:processDict[@"processno"] forKey:@"processno"];
             [selectedProcess setObject:[NSString stringWithFormat:@"%lu",processStepsArray.count+1] forKey:@"stepid"];
-            [selectedProcess setObject:processDict[@"op1"] forKey:@"op1"];
-            [selectedProcess setObject:processDict[@"op2"] forKey:@"op2"];
-            [selectedProcess setObject:processDict[@"op3"] forKey:@"op3"];
+            [selectedProcess setObject:processDict[@"op1"] forKey:@"operator1"];
+            [selectedProcess setObject:processDict[@"op2"] forKey:@"operator2"];
+            [selectedProcess setObject:processDict[@"op3"] forKey:@"operator3"];
             [selectedProcess setObject:processDict[@"time"] forKey:@"time"];
             [selectedProcess setObject:@"archive" forKey:@"processstatus"];
             [selectedProcess setObject:[dateFormat stringFromDate:[NSDate date]] forKey:@"timestamp"];
             [selectedProcess setObject:@"" forKey:@"comments"];
+           // [selectedProcess setObject:@"" forKey:@"points"];
+            //[selectedProcess setObject:@"" forKey:@"rating"];
             [alteredProcessesArray addObject:selectedProcess];
             break;
         }
@@ -987,13 +1021,14 @@
     [self.navigationController.view hideActivityViewWithAfterDelay:3];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",selectedProduct.processCntrlAlias,@"alias",selectedProduct.productID,@"ProductId", pcbProductId, @"PCBProductId",@"1.0", @"VersionId", @"Draft", @"Status", @"Arvind", @"Originator", @"", @"Approver", @"",@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
+    NSMutableDictionary *processData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@-%@",selectedProduct.productNumber,@"PC1",@"1.0"],@"process_ctrl_id",[NSString stringWithFormat:@"%@_%@_%@",selectedProduct.name, @"PC1", @"1.0"], @"process_ctrl_name",selectedProduct.processCntrlAlias,@"alias",selectedProduct.productID,@"ProductId", pcbProductId, @"PCBProductId",@"1.0", @"VersionId", @"Draft", @"Status", @"Arvind", @"Originator", @"", @"Approver", _remarkTV.text,@"Comments", @"", @"Description",[dateFormat stringFromDate:[NSDate date]], @"Timestamp" , nil];
     if (![selectedProduct.processCntrlId isEqualToString:@"DRAFT"]) {
         [__DataManager updateProcesses:processStepsArray withProcessData:processData];
     }
     else {
         [__DataManager syncProcesses:processStepsArray withProcessData:processData];
     }
+    _remarkTV.text = @"";
     
     //delete removed processes
     for (int i=0; i < deletedProcessArray.count; ++i) {
@@ -1020,8 +1055,6 @@
     [_groupButton setTitle:product.group forState:UIControlStateNormal];
     _updateGroupView.frame = CGRectMake(0, 0, _updateGroupView.frame.size.width, _updateGroupView.frame.size.height);
     UIViewController *vc = [UIViewController new];
-    //[vc setView:_updateGroupView];
-    //vc.view.frame =  CGRectMake(100, self.view.frame.size.height/2-_updateGroupView.frame.size.height/2, _updateGroupView.frame.size.width, 50);
     [vc setPreferredContentSize:CGSizeMake(_updateGroupView.frame.size.width, _updateGroupView.frame.size.height)];
     [vc.view addSubview:_updateGroupView];
     [vc.view setClipsToBounds:false];
@@ -1160,6 +1193,7 @@
         }
         [processData setObject:[_processNoTF.text uppercaseString] forKey:@"processno"];
         [processData setObject:_workInstructionsTV.text forKey:@"workinstructions"];
+        [processData setObject:@"" forKey:@"status"];
         [self addProcessToList:processData];
     }
     else {
@@ -1172,6 +1206,7 @@
         [processData setObject:_processNoTF.text forKey:@"processno"];
         [processData setObject:_timeTF.text forKey:@"time"];
         [processData setObject:_workInstructionsTV.text forKey:@"workinstructions"];
+        [processData setObject:@"" forKey:@"status"];
         [commonProcessStepsArray replaceObjectAtIndex:selectedIndex withObject:processData];
         [__DataManager updateProcessAtIndex:selectedIndex process:processData];
         [__DataManager syncCommonProcesses];
@@ -1281,7 +1316,7 @@
     alertView.tag = 0;
     [alertView show];
     
-   /* [self deleteCommonProcessFromListAtIndex:selectedIndex];
+    /*[self deleteCommonProcessFromListAtIndex:selectedIndex];
     [_addProcessView removeFromSuperview];
     backgroundDimmingView.hidden = true;*/
 }
