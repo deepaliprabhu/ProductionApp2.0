@@ -83,21 +83,21 @@ static ServerManager *_sharedInstance = nil;
     connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makePostRequest:request];*/
-    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/action.php?call=set_job_details&do=update%@",[self urlEncodeUsingEncoding:jsonString]];
+    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/action.php?call=set_job_details&do=update%@",jsonString];
     connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makeRequest:urlString];
 }
 
 - (void)updateRun:(int)runId withJsonString:(NSString*)jsonString {
-    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/action.php?call=update_runs&id=%d&do=update%@",runId,[self urlEncodeUsingEncoding:jsonString]];
+    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/action.php?call=update_runs&id=%d&do=update%@",runId,jsonString];
     connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makeRequest:urlString];
 }
 
 - (void)updateRunProcesses:(int)runId withJsonString:(NSString*)jsonString {
-    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/action.php?call=set_process_details&id=%d&do=update%@",runId,[self urlEncodeUsingEncoding:jsonString]];
+    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/action.php?call=set_process_details&id=%d&do=update%@",runId,jsonString];
     connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makeRequest:urlString];
@@ -111,14 +111,14 @@ static ServerManager *_sharedInstance = nil;
 }
 
 - (void)addProcessFlowWithJsonString:(NSString*)jsonString {
-    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateProcessFlow&do=add%@",[self urlEncodeUsingEncoding:jsonString]];
+    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateProcessFlow&do=add%@",jsonString];
     connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makeRequest:urlString withTag:12];
 }
 
 - (void)updateProcessFlowWithJsonString:(NSString*)jsonString {
-    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateProcessFlow%@",[self urlEncodeUsingEncoding:jsonString]];
+    NSString *urlString = [NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=updateProcessFlow&do=update%@",jsonString];
     connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
     [connectionManager makeRequest:urlString withTag:13];

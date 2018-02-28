@@ -70,6 +70,9 @@
     IBOutlet UIButton *_groupButton;
     IBOutlet UILabel *_nameLabel;
     
+    IBOutlet UIView *_remarkView;
+    IBOutlet UITextView *_remarkTV;
+    
     UIView *backgroundDimmingView;
     
     DZNSegmentedControl *control;
@@ -105,6 +108,7 @@
     NSString *pcbProductId;
     UIPopoverController *_adminPopover;
     UIPopoverController *_groupPopover;
+    UIPopoverController *_remarkPopover;
     
     int selectedStation;
     int selectedIndex;

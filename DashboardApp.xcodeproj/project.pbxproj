@@ -246,6 +246,7 @@
 		9F471D161F542B9300B294B7 /* RoadBlocksViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F471D121F542B9300B294B7 /* RoadBlocksViewCell.xib */; };
 		9F4DE4191F558EBC0016DB03 /* MBCircularProgressBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4DE4161F558EBC0016DB03 /* MBCircularProgressBarLayer.m */; };
 		9F4DE41A1F558EBC0016DB03 /* MBCircularProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4DE4181F558EBC0016DB03 /* MBCircularProgressBarView.m */; };
+		9F5085B6204423B1007D113D /* ProcessFlowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5085B5204423B1007D113D /* ProcessFlowModel.m */; };
 		9F71C43E1FC1582900550F86 /* downArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F71C43D1FC1582900550F86 /* downArrow.png */; };
 		9F7767401F56D6E90092F603 /* LeftCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F77673E1F56D6E90092F603 /* LeftCollectionViewCell.m */; };
 		9F7767411F56D6E90092F603 /* LeftCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F77673F1F56D6E90092F603 /* LeftCollectionViewCell.xib */; };
@@ -317,8 +318,6 @@
 		9FEEE58E1EEFEFA2005B5ECA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FEEE58C1EEFEFA2005B5ECA /* LaunchScreen.storyboard */; };
 		9FF0A61B1F7E447C006486AA /* ProductProcessStepsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0A6191F7E447C006486AA /* ProductProcessStepsView.m */; };
 		9FF0A61C1F7E447C006486AA /* ProductProcessStepsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FF0A61A1F7E447C006486AA /* ProductProcessStepsView.xib */; };
-		9FF8FA2A2031B00200014CAC /* ProductGroupPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF8FA282031B00200014CAC /* ProductGroupPopover.m */; };
-		9FF8FA2B2031B00200014CAC /* ProductGroupPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FF8FA292031B00200014CAC /* ProductGroupPopover.xib */; };
 		D227675B1FAE49A400215D87 /* ProdAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = D227675A1FAE49A300215D87 /* ProdAPI.m */; };
 		D22767851FAE4B5400215D87 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D22767621FAE4B5400215D87 /* AFHTTPSessionManager.m */; };
 		D22767861FAE4B5400215D87 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D22767651FAE4B5400215D87 /* AFNetworkReachabilityManager.m */; };
@@ -731,6 +730,8 @@
 		9F4DE4161F558EBC0016DB03 /* MBCircularProgressBarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCircularProgressBarLayer.m; sourceTree = "<group>"; };
 		9F4DE4171F558EBC0016DB03 /* MBCircularProgressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBCircularProgressBarView.h; sourceTree = "<group>"; };
 		9F4DE4181F558EBC0016DB03 /* MBCircularProgressBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCircularProgressBarView.m; sourceTree = "<group>"; };
+		9F5085B4204423B1007D113D /* ProcessFlowModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessFlowModel.h; sourceTree = "<group>"; };
+		9F5085B5204423B1007D113D /* ProcessFlowModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessFlowModel.m; sourceTree = "<group>"; };
 		9F71C43D1FC1582900550F86 /* downArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downArrow.png; sourceTree = "<group>"; };
 		9F77673D1F56D6E90092F603 /* LeftCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftCollectionViewCell.h; sourceTree = "<group>"; };
 		9F77673E1F56D6E90092F603 /* LeftCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftCollectionViewCell.m; sourceTree = "<group>"; };
@@ -842,9 +843,6 @@
 		9FF0A6181F7E447C006486AA /* ProductProcessStepsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductProcessStepsView.h; sourceTree = "<group>"; };
 		9FF0A6191F7E447C006486AA /* ProductProcessStepsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductProcessStepsView.m; sourceTree = "<group>"; };
 		9FF0A61A1F7E447C006486AA /* ProductProcessStepsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductProcessStepsView.xib; sourceTree = "<group>"; };
-		9FF8FA272031B00200014CAC /* ProductGroupPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGroupPopover.h; sourceTree = "<group>"; };
-		9FF8FA282031B00200014CAC /* ProductGroupPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGroupPopover.m; sourceTree = "<group>"; };
-		9FF8FA292031B00200014CAC /* ProductGroupPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductGroupPopover.xib; sourceTree = "<group>"; };
 		D22767591FAE49A100215D87 /* ProdAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProdAPI.h; sourceTree = "<group>"; };
 		D227675A1FAE49A300215D87 /* ProdAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProdAPI.m; sourceTree = "<group>"; };
 		D22767611FAE4B5400215D87 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -1779,9 +1777,6 @@
 				3BCDA4151FB346560021BC03 /* ProductAdminPopover.h */,
 				3BCDA4161FB346560021BC03 /* ProductAdminPopover.m */,
 				3BCDA4171FB346560021BC03 /* ProductAdminPopover.xib */,
-				9FF8FA272031B00200014CAC /* ProductGroupPopover.h */,
-				9FF8FA282031B00200014CAC /* ProductGroupPopover.m */,
-				9FF8FA292031B00200014CAC /* ProductGroupPopover.xib */,
 			);
 			name = ProductGroupView;
 			sourceTree = "<group>";
@@ -2070,6 +2065,8 @@
 				898574441FE9482200EAB20C /* DayLogModel.m */,
 				8942B8BA1FEC2705003D9B8A /* UserModel.h */,
 				8942B8BB1FEC2705003D9B8A /* UserModel.m */,
+				9F5085B4204423B1007D113D /* ProcessFlowModel.h */,
+				9F5085B5204423B1007D113D /* ProcessFlowModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2312,7 +2309,6 @@
 				9F8AF75E1F559441008027B1 /* placeholder.png in Resources */,
 				9F8567931F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.xib in Resources */,
 				89A76E502006A41500D7B0A9 /* AuditLogCell.xib in Resources */,
-				9FF8FA2B2031B00200014CAC /* ProductGroupPopover.xib in Resources */,
 				894704AE201944FD007364F0 /* ProductionRunCell.xib in Resources */,
 				9F252A591F4D4D9E0056DA8F /* shipmentBgImage.png in Resources */,
 				9F3144B91F7ABFD200B9D32C /* left_arrow.png in Resources */,
@@ -2413,6 +2409,7 @@
 				8940A2C5201A75B5000CE83B /* ProcessEditableCell.m in Sources */,
 				8937BB84202B13B900870BFC /* WeeklyGraphCell.m in Sources */,
 				89854AE81FB97B3A00C6E38D /* GMGridViewLayoutStrategies.m in Sources */,
+				9F5085B6204423B1007D113D /* ProcessFlowModel.m in Sources */,
 				9F8567901F73DDB10067ABE1 /* OperatorEntryView.m in Sources */,
 				8952873C1FCF39EE005C46EE /* AuditActionCell.m in Sources */,
 				8944E49720167D25004A08AF /* AlternateShortsCell.m in Sources */,
@@ -2548,7 +2545,6 @@
 				9F03A91A1F4563C900A7A316 /* DemandListView.m in Sources */,
 				9FEEE5801EEFEFA2005B5ECA /* main.m in Sources */,
 				8970C3BB20056A55001F7680 /* RunScheduleSlotCell.m in Sources */,
-				9FF8FA2A2031B00200014CAC /* ProductGroupPopover.m in Sources */,
 				8919BE991FB4DD5100EE6839 /* UIImageView+WebCache.m in Sources */,
 				9FD12D931F443DBC00F0E0A8 /* Run.m in Sources */,
 				894C5F5E1FBB147600FA4E5D /* RunPartCell.m in Sources */,
