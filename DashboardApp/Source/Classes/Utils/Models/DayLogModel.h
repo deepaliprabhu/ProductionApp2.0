@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Run.h"
 
 @interface DayLogModel : NSObject
 
@@ -26,5 +27,6 @@
 + (DayLogModel*) objFromData:(NSDictionary*)data;
 - (int) totalWork;
 - (NSDictionary*) params;
++ (NSArray *)daysFromResponse:(NSArray *)response forRun:(Run*)run;
 
 @end

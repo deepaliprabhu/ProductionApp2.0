@@ -66,10 +66,17 @@
     _selectedOperator = -1;
     
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:@"NEWDAYPLANNED" object:nil];
+    
     [self initLayout];
     [self getPersons];
     
     _selectionConstants = @[@[@(33), @(137)], @[@(189), @(68)], @[@(273), @(68)]];
+}
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Actions
@@ -337,6 +344,7 @@
     _flowView2 = [ProductionTargetView createView];
     _flowView2.delegate = self;
     _flowView2.operators = _operators;
+    _flowView2.parent = self;
     _flowView2.translatesAutoresizingMaskIntoConstraints = false;
     [LayoutUtils addContraintWidth:668 andHeight:687 forView:_flowView2];
     [self.view insertSubview:_flowView2 belowSubview:_flowView1];
@@ -554,22 +562,7 @@
             
             currentRequests++;
             if (success) {
-                
-                NSMutableArray *daysArr = [NSMutableArray array];
-                NSArray *days = [response firstObject][@"processes"];
-                days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
-                for (int i=0; i<days.count; i++) {
-                    
-                    NSDictionary *dict = days[i];
-                    if ([dict[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == true)
-                        continue;
-                    
-                    DayLogModel *d = [DayLogModel objFromData:dict];
-                    if ([self dayLogAlreadyExists:d inArr:daysArr] == false)
-                        [daysArr addObject:d];
-                }
-                [daysArr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
-                r.days = daysArr;
+                r.days = [DayLogModel daysFromResponse:response forRun:nil];
             }
             
             if (currentRequests == _runs.count) {
@@ -602,17 +595,6 @@
     }
     
     [_operatorsTable reloadData];
-}
-
-- (BOOL) dayLogAlreadyExists:(DayLogModel*)log inArr:(NSArray*)arr {
-    
-    NSCalendar *c = [NSCalendar currentCalendar];
-    for (DayLogModel *d in arr) {
-        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processNo isEqualToString:log.processNo])
-            return true;
-    }
-    
-    return false;
 }
 
 @end

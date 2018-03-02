@@ -19,10 +19,8 @@ static UIFont *_font = nil;
     __weak IBOutlet UILabel *_targetLabel;
     __weak IBOutlet UILabel *_statusLabel;
     __weak IBOutlet UILabel *_timeLabel;
-    __weak IBOutlet UILabel *_operatorLabel;
     
     __weak IBOutlet NSLayoutConstraint *_targetButtonConstraint;
-    __weak IBOutlet NSLayoutConstraint *_operatorButtonConstraint;
     __weak IBOutlet NSLayoutConstraint *_processTimeButtonConstraint;
     
     int _row;
@@ -43,28 +41,20 @@ static UIFont *_font = nil;
     
     _statusLabel.text = dict[@"status"];
     
-    DayLogModel *d = dict[@"dayModel"];
-    NSString *goal = d.goal == 0 ? @"-" : [NSString stringWithFormat: @"%d", d.goal];
+    int goalValue = [dict[@"goal"] intValue];
+    NSString *goal = goalValue == 0 ? @"-" : [NSString stringWithFormat: @"%d", goalValue];
     _targetLabel.text = goal;
     float w = [LayoutUtils widthForText:goal withFont:_font];
     if (w>50)
         w=50;
     _targetButtonConstraint.constant = w/2 + 12;
     
-    NSString *person = (d.person == nil || d.person.length == 0)? @"-" : d.person;
-    person = [[person componentsSeparatedByString:@" "] firstObject];
-    _operatorLabel.text = person;
-    w = [LayoutUtils widthForText:person withFont:_font];
-    if (w>117)
-        w=117;
-    _operatorButtonConstraint.constant = w/2 + 12;
-    
-    ProcessModel * p = dict[@"process"];
-    _processLabel.text = p.processName;
+    ProcessModel *p = dict[@"process"];
+    _processLabel.text = [NSString stringWithFormat:@"%@ %@", p.processNo, p.processName];
     
     int processingTime = [p.processingTime intValue];
     NSString *processTime = [self processTimeForSeconds:processingTime];
-    NSString *totalTime = processingTime == 0 ? @"-" : [self totalTimeForSeconds:processingTime*d.goal];
+    NSString *totalTime = processingTime == 0 ? @"-" : [self totalTimeForSeconds:processingTime*goalValue];
     _timeLabel.text = [NSString stringWithFormat:@"%@/%@", processTime, totalTime];
     w = [LayoutUtils widthForText:_timeLabel.text withFont:_font];
     if (w>72)
@@ -125,12 +115,6 @@ static UIFont *_font = nil;
     
     CGRect r = [self convertRect:_targetLabel.frame toView:self.superview.superview];
     [_delegate showTargetInputForRow:_row rect:r];
-}
-
-- (IBAction) operatorButtonTapped {
-    
-    CGRect r = [self convertRect:_operatorLabel.frame toView:self.superview.superview.superview];
-    [_delegate showOperatorsForRow:_row rect:r];
 }
 
 - (IBAction) processTimeButtonTapped {

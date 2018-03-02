@@ -16,6 +16,7 @@
 #import "LoadingView.h"
 #import "ProcessInfoScreen.h"
 #import "UIView+RNActivityView.h"
+#import "FinalPlanningStepScreen.h"
 
 @implementation ProductionTargetView {
     
@@ -40,9 +41,15 @@
     
     [super awakeFromNib];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSelectedRun) name:@"NEWDAYPLANNED" object:nil];
+    
     [_runsCollection registerClass:[RunTargetCell class] forCellWithReuseIdentifier:@"RunTargetCell"];
     UINib *cellNib = [UINib nibWithNibName:@"RunTargetCell" bundle:nil];
     [_runsCollection registerNib:cellNib forCellWithReuseIdentifier:@"RunTargetCell"];
+}
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void) reloadData {
@@ -54,6 +61,12 @@
     [_runsCollection reloadData];
     [_processesTable reloadData];
     [self computeRuns];
+}
+
+#pragma mark - Actions
+
+- (void) reloadSelectedRun {
+    [self getProcessesForSelectedRunShouldForce:true];
 }
 
 #pragma mark - UITableViewDelegate
@@ -127,7 +140,7 @@
     
     _selectedRunIndex = (int)indexPath.row;
     [_runsCollection reloadData];
-    [self getProcessesForSelectedRun];
+    [self getProcessesForSelectedRunShouldForce:false];
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -138,11 +151,7 @@
     
         int target = [[alertView textFieldAtIndex:0].text intValue];
         if (target >= 0) {
-            if (alertView.tag == 1) {
-                [self processTimeChangedTo:target];
-            } else {
-                [self targetChangedTo:target];
-            }
+            [self processTimeChangedTo:target];
         }
     }
 }
@@ -159,26 +168,7 @@
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:p.processName message:@"Insert processing time for this process(seconds):" delegate:self cancelButtonTitle:@"Save" otherButtonTitles:@"Cancel", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    alert.tag = 1;
     [alert show];
-}
-
-- (void) showOperatorsForRow:(int)row rect:(CGRect)rect {
-    
-    NSDate *yesterday = [[NSDate date] dateByAddingTimeInterval:-24*3600];
-    if ([[_delegate selectedDate] isSameDayWithDate:yesterday] == true) {
-     
-        [LoadingView showShortMessage:@"Operator cannot be changed for yesterday's processes"];
-    } else {
-        
-        _selectedProcess = row;
-        
-        OperatorsPickerScreen *screen = [[OperatorsPickerScreen alloc] init];
-        screen.delegate = self;
-        screen.operators = _operators;
-        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
-        [popover presentPopoverFromRect:rect inView:self.superview permittedArrowDirections:UIPopoverArrowDirectionRight animated:true];
-    }
 }
 
 - (void) showTargetInputForRow:(int)row rect:(CGRect)rect {
@@ -187,16 +177,23 @@
     if ([[_delegate selectedDate] isSameDayWithDate:yesterday] == true) {
         [LoadingView showShortMessage:@"Target cannot be changed for yesterday's processes"];
     } else {
-        
+
         _selectedProcess = row;
         
         NSMutableArray *processes = [NSMutableArray arrayWithArray:_runs[_selectedRunIndex][@"processes"]];
         NSDictionary *dict = processes[_selectedProcess];
         ProcessModel *p = dict[@"process"];
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:p.processName message:@"Insert a target value for this process:" delegate:self cancelButtonTitle:@"Save" otherButtonTitles:@"Cancel", nil];
-        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-        [alert show];
+        FinalPlanningStepScreen *screen = [FinalPlanningStepScreen new];
+        screen.run = _runs[_selectedRunIndex][@"run"];
+        screen.operators = _operators;
+        screen.date = [_delegate selectedDate];
+        screen.processes = @[p];
+        screen.singleTargetPurpose = true;
+        
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:screen];
+        nav.modalPresentationStyle = UIModalPresentationFormSheet;
+        [_parent presentViewController:nav animated:true completion:nil];
     }
 }
 
@@ -239,60 +236,6 @@
         [_processesTable reloadData];
         
         [_delegate newProcessTimeWasSet];
-    }
-}
-
-- (void) targetChangedTo:(int)newTarget {
-    
-    NSMutableArray *processes = [NSMutableArray arrayWithArray:_runs[_selectedRunIndex][@"processes"]];
-    NSDictionary *dict = processes[_selectedProcess];
-    
-    DayLogModel *day = [DayLogModel new];
-    if ([dict[@"dayModel"] isKindOfClass:[DayLogModel class]]) {
-        DayLogModel *temp = dict[@"dayModel"];
-        day.dayLogID = temp.dayLogID;
-        day.target = temp.target;
-        day.rework = temp.rework;
-        day.reject = temp.reject;
-        day.good   = temp.good;
-        day.person = temp.person;
-        day.comments = temp.comments;
-    }
-    day.date = [_delegate selectedDate];
-    day.goal = newTarget;
-    ProcessModel *p = dict[@"process"];
-    day.processNo = p.processNo;
-    
-    [self saveNew:day];
-    [_delegate newTargeWasSet];
-}
-
-- (void) operatorChangedTo:(UserModel*)person {
-    
-    NSString *personName = person ? person.name : @"";
-    
-    NSMutableArray *processes = [NSMutableArray arrayWithArray:_runs[_selectedRunIndex][@"processes"]];
-    NSDictionary *dict = processes[_selectedProcess];
-    if ([dict[@"person"] isEqualToString:personName] == false) {
-        
-        DayLogModel *day = [DayLogModel new];
-        if ([dict[@"dayModel"] isKindOfClass:[DayLogModel class]]) {
-            DayLogModel *temp = dict[@"dayModel"];
-            day.dayLogID = temp.dayLogID;
-            day.target = temp.target;
-            day.rework = temp.rework;
-            day.reject = temp.reject;
-            day.goal   = temp.goal;
-            day.good   = temp.good;
-            day.comments = temp.comments;
-        }
-        day.date = [_delegate selectedDate];
-        day.person = personName;
-        ProcessModel *p = dict[@"process"];
-        day.processNo = p.processNo;
-        
-        [self saveNew:day];
-        [_delegate newTargeWasSet];
     }
 }
 
@@ -339,7 +282,7 @@
                     [self.superview hideActivityView];
                     [_spinner stopAnimating];
                 } else {
-                    [self getProcessesForSelectedRun];
+                    [self getProcessesForSelectedRunShouldForce:false];
                 }
             }
             [_runsCollection reloadData];
@@ -347,11 +290,11 @@
     }
 }
 
-- (void) getProcessesForSelectedRun {
+- (void) getProcessesForSelectedRunShouldForce:(BOOL)force {
     
     Run *r = _runs[_selectedRunIndex][@"run"];
     NSArray *pr = _runs[_selectedRunIndex][@"processes"];
-    if (pr.count) {
+    if (pr.count && force == false) {
         [self.superview hideActivityView];
         [_spinner stopAnimating];
         [_processesTable reloadData];
@@ -387,24 +330,13 @@
     Run *r = _runs[_selectedRunIndex][@"run"];
     [[ProdAPI sharedInstance] getDailyLogForRun:[r getRunId] product:[r getProductNumber] completion:^(BOOL success, id response) {
         
-        NSMutableArray *daysArr = [NSMutableArray array];
+        NSArray *days = [NSArray array];
         if (success) {
-            NSArray *days = [response firstObject][@"processes"];
-            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
-            for (int i=0; i<days.count; i++) {
-                
-                NSDictionary *dict = days[i];
-                if ([dict[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == true)
-                    continue;
-                
-                DayLogModel *d = [DayLogModel objFromData:dict];
-                if ([self dayLogAlreadyExists:d inArr:daysArr] == false)
-                    [daysArr addObject:d];
-            }
-            [daysArr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
+            days = [DayLogModel daysFromResponse:response forRun:nil];
+            r.days = days;
         }
         
-        [self getRunningProcessesFrom:processes andDays:daysArr];
+        [self getRunningProcessesFrom:processes andDays:days];
     }];
 }
 
@@ -417,23 +349,21 @@
     NSMutableArray *processesForSelectedRun = [NSMutableArray array];
     for (ProcessModel *p in processes) {
         
-        DayLogModel *dayModel = nil;
         int t = 0;
+        int goal = 0;
         for (DayLogModel *d in days) {
             if ([d.processNo isEqualToString:p.processNo]) {
                 t += d.target;
                 
                 if ([cal isDate:d.date inSameDayAsDate:today]) {
-                    dayModel = d;
+                    goal += d.goal;
                 }
             }
         }
         
         if (t < [r quantity]) {
             NSString *status = [NSString stringWithFormat:@"%d/%ld", t, (long)[r quantity]];
-            NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"process": p, @"status":status, @"step": @([p.stepId intValue])}];
-            if (dayModel)
-                d[@"dayModel"] = dayModel;
+            NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"goal": @(goal), @"process": p, @"status":status, @"step": @([p.stepId intValue])}];
             [processesForSelectedRun addObject:d];
         }
     }
@@ -447,50 +377,5 @@
 }
 
 #pragma mark - Utils
-
-- (BOOL) dayLogAlreadyExists:(DayLogModel*)log inArr:(NSArray*)arr {
-    
-    NSCalendar *c = [NSCalendar currentCalendar];
-    for (DayLogModel *d in arr) {
-        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processNo isEqualToString:log.processNo])
-            return true;
-    }
-    
-    return false;
-}
-
-- (void) saveNew:(DayLogModel*)day {
-    
-    NSMutableArray *processes = [NSMutableArray arrayWithArray:_runs[_selectedRunIndex][@"processes"]];
-    NSDictionary *dict = processes[_selectedProcess];
-    
-    NSString *json = [NSString stringWithFormat:@"[%@]" ,[ProdAPI jsonString:[day params]]];
-    [LoadingView showLoading:@"Loading..."];
-    Run *r = _runs[_selectedRunIndex][@"run"];
-    [[ProdAPI sharedInstance] addDailyLog:json forRunFlow:[r getRunFlowId] completion:^(BOOL success, id response) {
-        
-        if (success) {
-            
-            if ([response isKindOfClass:[NSArray class]]) {
-                if ([response count] > 0) {
-                    int dayId = [response[0][@"id"] intValue];
-                    day.dayLogID = dayId;
-                }
-            }
-            
-            [LoadingView removeLoading];
-            
-            NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:dict];
-            newDict[@"dayModel"] = day;
-            [processes replaceObjectAtIndex:_selectedProcess withObject:newDict];
-            
-            [_runs replaceObjectAtIndex:_selectedRunIndex withObject:@{@"run":r, @"runId": @(r.runId), @"processes": processes}];
-            [_processesTable reloadData];
-            
-        } else {
-            [LoadingView showShortMessage:@"Error, please try again later!"];
-        }
-    }];
-}
 
 @end

@@ -30,6 +30,7 @@
 #import "LayoutUtils.h"
 #import "DemandsViewController.h"
 #import "UIView+Screenshot.h"
+#import "NSDate+Utils.h"
 
 @interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol, PODateScreenDelegate>
 
@@ -285,7 +286,7 @@
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    DayLogModel *model = _filteredDays[indexPath.row];
+    DayLogModel *model = [_filteredDays[indexPath.row] firstObject];
     DayLogScreen *screen = [[DayLogScreen alloc] initWithNibName:@"DayLogScreen" bundle:nil];
     screen.log = model;
     
@@ -724,20 +725,8 @@
         [_dailyLogSpinner stopAnimating];
         if (success) {
             
-            _days = [NSMutableArray array];
-            NSArray *days = [response firstObject][@"processes"];
-            days = [days sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:false]]];
-            for (int i=0; i<days.count; i++) {
-                
-                NSDictionary *dict = days[i];
-                if ([dict[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == true)
-                    continue;
-                
-                DayLogModel *d = [DayLogModel objFromData:dict];
-                if ([self dayLogAlreadyExists:d] == false)
-                    [_days addObject:d];
-            }
-            [_days sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
+            NSArray *days = [DayLogModel daysFromResponse:response forRun:nil];
+            _days = [NSMutableArray arrayWithArray:days];
             _rawDataButton.alpha = _days.count == 0 ? 0 : 1;
             [self getTargets];
             [self layoutDailyLogForProcess:_selectedProcess];
@@ -746,17 +735,6 @@
 }
 
 #pragma mark - Utils
-
-- (BOOL) dayLogAlreadyExists:(DayLogModel*)log {
-    
-    NSCalendar *c = [NSCalendar currentCalendar];
-    for (DayLogModel *d in _days) {
-        if ([c isDate:log.date inSameDayAsDate:d.date] && [d.processNo isEqualToString:log.processNo])
-            return true;
-    }
-    
-    return false;
-}
 
 - (DayLogModel*) todayLog {
     
@@ -818,9 +796,32 @@
     
     _filteredDays = [NSMutableArray array];
     _maxDayLogValue = (int)_run.quantity;
+    
+    NSMutableArray *processDays = [NSMutableArray array];
     for (DayLogModel *d in _days) {
         if (d.date != nil && [d.processNo isEqualToString:p.processNo])
-            [_filteredDays addObject: d];
+            [processDays addObject: d];
+    }
+    
+    for (int i=0; i<processDays.count;i++) {
+        
+        NSMutableArray *arr = [NSMutableArray array];
+        BOOL canGoNext = true;
+        while (canGoNext) {
+            
+            DayLogModel *d1 = processDays[i];
+            [arr addObject:d1];
+            
+            if (i+1 < processDays.count) {
+                DayLogModel *d2 = processDays[i+1];
+                canGoNext = [d1.date isSameDayWithDate:d2.date];
+            } else {
+                canGoNext = false;
+            }
+            if (canGoNext)
+                i++;
+        }
+        [_filteredDays addObject:arr];
     }
     
     [_dailyLogCollectionView reloadData];

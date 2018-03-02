@@ -46,9 +46,12 @@
     for (NSNumber *idx in _selectedIndeces) {
         [operators addObject:_operators[[idx intValue]]];
     }
+    [operators sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:true]]];
     
     FinalPlanningStepScreen *screen = [FinalPlanningStepScreen new];
+    screen.run = _run;
     screen.operators = operators;
+    screen.date = _date;
     screen.targets = _targets;
     screen.processes = _processes;
     [self.navigationController pushViewController:screen animated:true];
