@@ -58,6 +58,12 @@
 
 - (IBAction) scheduleButtonTapped {
  
+    NSDate *yesterday = [[NSDate date] dateByAddingTimeInterval:-24*3600];
+    if ([_date isSameDayWithDate:yesterday] == true) {
+        [LoadingView showShortMessage:@"Target cannot be changed for yesterday's processes"];
+        return;
+    }
+    
     _currentRequest = 0;
     _totalRequests = 0;
     for (NSString *processNo in _schedule) {
