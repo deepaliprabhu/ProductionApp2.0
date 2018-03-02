@@ -41,14 +41,19 @@
 
 - (IBAction) doneButtonTapped {
  
-    NSMutableArray *data = [NSMutableArray array];
-    for (NSString *operator in _targets) {
-        [data addObject:@{@"operator": operator, @"target": _targets[operator]}];
-    }
-    [data sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"operator" ascending:true]]];
+    [self.view endEditing:true];
     
-    [_delegate operatorData:data];
-    [self dismissViewControllerAnimated:true completion:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        NSMutableArray *data = [NSMutableArray array];
+        for (NSString *operator in _targets) {
+            [data addObject:@{@"operator": operator, @"target": _targets[operator]}];
+        }
+        [data sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"operator" ascending:true]]];
+        
+        [_delegate operatorData:data];
+        [self dismissViewControllerAnimated:true completion:nil];
+    });
 }
 
 #pragma mark - UITableViewDelegate
