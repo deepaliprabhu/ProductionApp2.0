@@ -203,6 +203,7 @@
                     break;
                 }
             }
+            [arr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true]]];
             r.days = arr;
             [self getRunningProcesses];
             break;

@@ -28,6 +28,7 @@
     __weak IBOutlet UITextField *_goodTextField;
     __weak IBOutlet UITextField *_rejectTextField;
     __weak IBOutlet UITextField *_reworkTextField;
+    __weak IBOutlet UITextField *_timeTextField;
     __weak IBOutlet UITextView *_commentsTextView;
 }
 
@@ -87,7 +88,7 @@
 - (BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
     
     int processed = [_targetTextField.text intValue];
-    if (processed == 0 && textField != _targetTextField) {
+    if (processed == 0 && textField != _targetTextField && textField != _timeTextField) {
         [LoadingView showShortMessage:@"Insert processed first"];
         return false;
     }
@@ -102,6 +103,9 @@
 }
 
 - (void) textFieldDidEndEditing:(UITextField *)textField {
+    
+    if (textField == _timeTextField)
+        return;
     
     if (textField.text.length == 0) {
         textField.text = @"0";
@@ -176,6 +180,9 @@
         _reworkTextField.text = [NSString stringWithFormat:@"%d", _dayLog.rework];
         _goodTextField.text = [NSString stringWithFormat:@"%d", _dayLog.good];
         
+        if (_dayLog.time.length == 0 || [_dayLog.time isEqualToString:@"0"])
+            _timeTextField.text = nil;
+        
         if (_dayLog.comments.length > 0)
             _commentsTextView.text = _dayLog.comments;
         
@@ -209,6 +216,11 @@
 //    log[@"qtyReject"] = [NSString stringWithFormat:@"%d", reject];
     log[@"qtyGoal"] = [NSString stringWithFormat:@"%d", _dayLog.goal];
     log[@"id"] = @(_dayLog.dayLogID);
+    
+    if (_timeTextField.text == nil)
+        log[@"actualtime"] = @"";
+    else
+        log[@"actualtime"] = _timeTextField.text;
     
     NSDateFormatter *f = [NSDateFormatter new];
     f.dateFormat = @"yyyy-MM-dd HH:mm:ss";

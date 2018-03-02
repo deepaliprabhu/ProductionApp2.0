@@ -25,6 +25,7 @@
                 <outlet property="_rejectTextField" destination="6HB-0r-54u" id="7zE-H6-Swh"/>
                 <outlet property="_reworkTextField" destination="1c1-IR-yXE" id="Q8g-zP-8ev"/>
                 <outlet property="_targetTextField" destination="Ac8-eG-eXt" id="qM8-SM-8F4"/>
+                <outlet property="_timeTextField" destination="QxV-Cv-Dm5" id="w8L-OO-jqE"/>
                 <outlet property="_titleLabel" destination="ybN-uD-UFP" id="9pW-yO-DJB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -60,6 +61,10 @@
                                 <outlet property="delegate" destination="-1" id="mGi-fK-ZIv"/>
                             </connections>
                         </textView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="textBorderAsset" translatesAutoresizingMaskIntoConstraints="NO" id="p9z-bS-Bgz">
+                            <rect key="frame" x="161" y="250" width="159" height="38"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Comments:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cha-hx-Gbt">
                             <rect key="frame" x="394" y="90" width="102" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -90,6 +95,13 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rejected" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8TC-Aj-vEX">
                             <rect key="frame" x="55" y="214" width="93" height="26"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="20"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time Spent" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aca-zw-EAT">
+                            <rect key="frame" x="36" y="256" width="112" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="20"/>
                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -150,6 +162,16 @@
                                 <outlet property="delegate" destination="-1" id="KoH-lF-oTp"/>
                             </connections>
                         </textField>
+                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="minutes" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QxV-Cv-Dm5">
+                            <rect key="frame" x="179" y="252" width="122" height="34"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="textColor" red="0.0" green="0.59999999999999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="20"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="ta2-3T-dvo"/>
+                            </connections>
+                        </textField>
                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="enter quantity" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6HB-0r-54u">
                             <rect key="frame" x="179" y="210" width="122" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -181,5 +203,6 @@
     </objects>
     <resources>
         <image name="dailyInputBgAsset" width="798" height="447"/>
+        <image name="textBorderAsset" width="159" height="37"/>
     </resources>
 </document>
