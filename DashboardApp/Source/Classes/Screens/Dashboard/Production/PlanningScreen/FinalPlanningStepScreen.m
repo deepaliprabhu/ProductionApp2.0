@@ -37,12 +37,9 @@
     [self checkForExistingTargets];
     [_tableView reloadData];
     
-    if (_singleTargetPurpose) {
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self selectProcessAtIndex:0];
-        });
-    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self selectProcessAtIndex:0];
+    });
 }
 
 #pragma mark - Actions
@@ -72,7 +69,7 @@
     
     if (_totalRequests == 0) {
         
-        [self dismissViewControllerAnimated:true completion:nil];
+        [LoadingView showShortMessage:@"No targets were set"];
         return;
     }
     
