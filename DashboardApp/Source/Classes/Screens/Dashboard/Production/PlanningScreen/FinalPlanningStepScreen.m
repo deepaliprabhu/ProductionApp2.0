@@ -37,12 +37,9 @@
     [self checkForExistingTargets];
     [_tableView reloadData];
     
-    if (_singleTargetPurpose) {
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self selectProcessAtIndex:0];
-        });
-    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self selectProcessAtIndex:0];
+    });
 }
 
 #pragma mark - Actions
@@ -58,6 +55,12 @@
 
 - (IBAction) scheduleButtonTapped {
  
+    NSDate *yesterday = [[NSDate date] dateByAddingTimeInterval:-24*3600];
+    if ([_date isSameDayWithDate:yesterday] == true) {
+        [LoadingView showShortMessage:@"Target cannot be changed for yesterday's processes"];
+        return;
+    }
+    
     _currentRequest = 0;
     _totalRequests = 0;
     for (NSString *processNo in _schedule) {
@@ -66,7 +69,7 @@
     
     if (_totalRequests == 0) {
         
-        [self dismissViewControllerAnimated:true completion:nil];
+        [LoadingView showShortMessage:@"No targets were set"];
         return;
     }
     

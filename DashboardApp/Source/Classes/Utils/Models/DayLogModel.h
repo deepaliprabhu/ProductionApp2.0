@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSString *processNo;
 @property (nonatomic, strong) NSString *person;
 @property (nonatomic, strong) NSString *comments;
+@property (nonatomic, strong) NSString *time;
 @property (nonatomic, unsafe_unretained) int runId;
 
 + (DayLogModel*) objFromData:(NSDictionary*)data;

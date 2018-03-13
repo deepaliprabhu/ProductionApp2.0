@@ -32,6 +32,7 @@ static NSDateFormatter *_formatter = nil;
     model.processNo = data[@"processno"];
     model.person = data[@"operator"];
     model.comments = data[@"comments"];
+    model.time = data[@"actualtime"];
 
     if ([data[@"datetime"] isEqualToString:@"0000-00-00 00:00:00"] == false) {
         model.date = [_formatter dateFromString:data[@"datetime"]];
@@ -58,6 +59,10 @@ static NSDateFormatter *_formatter = nil;
     log[@"qtyReject"] = [NSString stringWithFormat:@"%d", _reject];
     log[@"qtyGoal"] = [NSString stringWithFormat:@"%d", _goal];
     log[@"datetime"] = [_formatter stringFromDate:_date];
+    
+    if (_time != nil) {
+        log[@"actualtime"] = _time;
+    }
     
     if (_dayLogID != 0)
         log[@"id"] = @(_dayLogID);
