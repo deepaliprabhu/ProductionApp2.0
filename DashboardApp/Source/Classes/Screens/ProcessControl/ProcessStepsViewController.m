@@ -453,7 +453,7 @@
     processStepsArray = [[NSMutableArray alloc] init];
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
-    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getProcessFlow&process_ctrl_id=%@-%@-%@",product.productNumber, @"PC1",@"1.0"] withTag:3];
+    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php?call=getProcessFlow&process_ctrl_id=%@-%@-%@",[self urlEncodeUsingEncoding:product.productNumber], @"PC1",@"1.0"] withTag:3];
 }
 
 - (void)deleteProcessFromListAtIndex:(int)index {
@@ -498,13 +498,13 @@
     //[self.navigationController.view hideActivityViewWithAfterDelay:60];
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
-    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php\?call=update_product_group&productid=%@&group=%@",updatingProduct.productID,[updatingProduct.group uppercaseString]] withTag:5];
+    [connectionManager makeRequest:[NSString stringWithFormat:@"http://aginova.info/aginova/json/processes.php\?call=update_product_group&productid=%@&group=%@",[self urlEncodeUsingEncoding:updatingProduct.productID],[updatingProduct.group uppercaseString]] withTag:5];
 }
 
 - (void)getMCNFile{
     ConnectionManager *connectionManager = [ConnectionManager new];
     connectionManager.delegate = self;
-    [connectionManager makeRequest:[NSString stringWithFormat:@"http://www.aginova.info/aginova/json/get_file.php?productid=%@",selectedProduct.productNumber] withTag:6];
+    [connectionManager makeRequest:[NSString stringWithFormat:@"http://www.aginova.info/aginova/json/get_file.php?productid=%@",[self urlEncodeUsingEncoding:selectedProduct.productNumber]] withTag:6];
 }
 
 - (void) parseJsonResponse:(NSData*)jsonData withTag:(int)tag {
@@ -516,7 +516,7 @@
     
     NSLog(@"datastring = %@", dataString);
     if ([dataString isEqualToString:@"No MCN File Found!"]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"No MCN file found" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"\n" message:@"No MCN file found" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         alertView.tag = 4;
         [alertView show];
     }
