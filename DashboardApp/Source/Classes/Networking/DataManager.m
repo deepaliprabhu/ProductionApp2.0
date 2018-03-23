@@ -485,6 +485,7 @@ static DataManager *_sharedInstance = nil;
 
 - (void)updateProcessAtIndex:(int)index process:(NSMutableDictionary*)processData {
     [commonProcessesArray replaceObjectAtIndex:index withObject:processData];
+    editedProcessesArray = [[NSMutableArray alloc] init];
     [editedProcessesArray addObject:processData];
 }
 
