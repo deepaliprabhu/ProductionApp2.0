@@ -537,6 +537,12 @@ __CREATEVIEW(PlanningView, @"PlanningView", 0)
             }
         }
     }
+    
+    if (processes.count == 0) {
+        [LoadingView showShortMessage:@"No processes to plan"];
+        return;
+    }
+    
     [processes sortUsingComparator:^NSComparisonResult(ProcessModel *obj1, ProcessModel *obj2) {
         
         int p1 = [[obj1.processNo stringByReplacingOccurrencesOfString:@"P" withString:@""] intValue];
