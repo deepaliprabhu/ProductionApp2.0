@@ -181,7 +181,7 @@
                             }
                             
                             if (alreadyThere == false) {
-                                p.shortQty = [p.qty intValue]*[run getQuantity];
+                                p.shortQty = [p.qty floatValue]*[run getQuantity];
                                 [_parts addObject:p];
                             }
                         }

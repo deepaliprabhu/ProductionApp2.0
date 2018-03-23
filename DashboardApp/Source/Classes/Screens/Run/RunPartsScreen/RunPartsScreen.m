@@ -958,13 +958,13 @@ typedef enum
             [LoadingView removeLoading];
             for (NSDictionary *d in response) {
                 PartModel *p = [PartModel partFrom:d];
-                p.shortQty = [p.qty intValue]*[_run getQuantity];
+                p.shortQty = [p.qty floatValue]*[_run getQuantity];
                 [_parts addObject:p];
             }
             
             _cost = 0;
             for (PartModel *p in _parts) {
-                _cost += [p.qty intValue]*[p.pricePerUnit floatValue];
+                _cost += [p.qty floatValue]*[p.pricePerUnit floatValue];
             }
             
             [self getHistoryForAlternateParts];
@@ -1051,7 +1051,7 @@ typedef enum
             if ([p.package isEqualToString:@"yes"])
                 continue;
             
-            int needed = (int)_run.quantity;
+            int needed = p.shortQty;
             
             NSMutableArray *alternates = [NSMutableArray array];
             int totalStock = 0;
