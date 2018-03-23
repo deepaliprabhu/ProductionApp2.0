@@ -544,11 +544,16 @@
                 }
             }
             else {
-                _changeOrderButton.hidden = false;
                 NSDictionary *jsonDict = json[0];
                 NSMutableArray* jsonProcessesArray = jsonDict[@"processes"];
                 NSLog(@"json processes array=%@",jsonProcessesArray);
-                processStepsArray=[jsonProcessesArray mutableCopy];
+                if (!jsonProcessesArray) {
+                    [self.navigationController.view hideActivityView];
+                }
+                else {
+                    _changeOrderButton.hidden = false;
+                    processStepsArray=[jsonProcessesArray mutableCopy];
+                }
                 processCntrlId = jsonDict[@"process_ctrl_id"];
                 processStatus = jsonDict[@"status"];
                 pcbProductId = jsonDict[@"pcb_productid"];
@@ -558,7 +563,7 @@
                 [self setupForStatus:jsonDict[@"status"]];
                 NSLog(@"processes Array=%@",processStepsArray);
                 processStepsArray = [__DataManager reorderProcessSteps:processStepsArray];
-               // processStepsArray = [self removeNullProcess:processStepsArray];
+                processStepsArray = [self removeNullProcess:processStepsArray];
                 [selectedProduct setProcessSteps:processStepsArray];
                 selectedProduct.status = processStatus;
                 selectedProduct.pcbProductID = pcbProductId;
