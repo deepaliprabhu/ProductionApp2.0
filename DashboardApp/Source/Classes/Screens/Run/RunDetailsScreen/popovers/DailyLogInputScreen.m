@@ -11,6 +11,7 @@
 #import "ProdAPI.h"
 #import "UserManager.h"
 #import "Defines.h"
+#import "UIAlertView+Blocks.h"
 
 #define kTextViewPlaceholder @"enter comments"
 
@@ -45,7 +46,7 @@
 }
 
 - (IBAction) saveButtonTapped {
- 
+    
     if (_operatorName == nil) {
         [LoadingView showShortMessage:@"No operator is selected!"];
         return;
@@ -53,11 +54,24 @@
      
     [self.view endEditing:true];
     
+    if ([_operatorName isEqualToString:@"admin@aginova.com"]) {
+        
+        [UIAlertView showWithTitle:nil message:@"Daily log entry here will be attributed to \"admin@aginova.com\" as operator. Please comment if different." cancelButtonTitle:@"Continue" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            
+            [self saveDailyLog];
+        }];
+    } else {
+        [self saveDailyLog];
+    }
+}
+
+- (void) saveDailyLog {
+    
     NSMutableDictionary *log = [NSMutableDictionary dictionaryWithDictionary:[self params]];
     NSString *json = [NSString stringWithFormat:@"[%@]" ,[ProdAPI jsonString:log]];
     [LoadingView showLoading:@"Loading..."];
     [[ProdAPI sharedInstance] addDailyLog:json forRunFlow:[_run getRunFlowId] completion:^(BOOL success, id response) {
-       
+        
         if (success) {
             
             if ([response isKindOfClass:[NSArray class]]) {
