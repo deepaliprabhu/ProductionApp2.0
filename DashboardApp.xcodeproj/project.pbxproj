@@ -52,6 +52,8 @@
 		8940A2C1201A6B6A000CE83B /* RunTargetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8940A2BF201A6B6A000CE83B /* RunTargetCell.xib */; };
 		8940A2C5201A75B5000CE83B /* ProcessEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8940A2C3201A75B5000CE83B /* ProcessEditableCell.m */; };
 		8940A2C6201A75B5000CE83B /* ProcessEditableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8940A2C4201A75B5000CE83B /* ProcessEditableCell.xib */; };
+		8940C1B720683B7B0090E6B1 /* BuyerSelectionScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8940C1B520683B7B0090E6B1 /* BuyerSelectionScreen.m */; };
+		8940C1B820683B7B0090E6B1 /* BuyerSelectionScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8940C1B620683B7B0090E6B1 /* BuyerSelectionScreen.xib */; };
 		8942B8BC1FEC2705003D9B8A /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8BB1FEC2705003D9B8A /* UserModel.m */; };
 		8942B8C51FEC293C003D9B8A /* LoginScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8942B8C31FEC293C003D9B8A /* LoginScreen.m */; };
 		8942B8C61FEC293C003D9B8A /* LoginScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8942B8C41FEC293C003D9B8A /* LoginScreen.xib */; };
@@ -436,6 +438,9 @@
 		8940A2C2201A75B5000CE83B /* ProcessEditableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessEditableCell.h; sourceTree = "<group>"; };
 		8940A2C3201A75B5000CE83B /* ProcessEditableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessEditableCell.m; sourceTree = "<group>"; };
 		8940A2C4201A75B5000CE83B /* ProcessEditableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProcessEditableCell.xib; sourceTree = "<group>"; };
+		8940C1B420683B7B0090E6B1 /* BuyerSelectionScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuyerSelectionScreen.h; sourceTree = "<group>"; };
+		8940C1B520683B7B0090E6B1 /* BuyerSelectionScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuyerSelectionScreen.m; sourceTree = "<group>"; };
+		8940C1B620683B7B0090E6B1 /* BuyerSelectionScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BuyerSelectionScreen.xib; sourceTree = "<group>"; };
 		8942B8BA1FEC2705003D9B8A /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		8942B8BB1FEC2705003D9B8A /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		8942B8BE1FEC289D003D9B8A /* UserManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
@@ -1047,6 +1052,16 @@
 			path = BlackRaccoon;
 			sourceTree = "<group>";
 		};
+		8940C1B320683B5F0090E6B1 /* BuyerSelection */ = {
+			isa = PBXGroup;
+			children = (
+				8940C1B420683B7B0090E6B1 /* BuyerSelectionScreen.h */,
+				8940C1B520683B7B0090E6B1 /* BuyerSelectionScreen.m */,
+				8940C1B620683B7B0090E6B1 /* BuyerSelectionScreen.xib */,
+			);
+			path = BuyerSelection;
+			sourceTree = "<group>";
+		};
 		8942B8BD1FEC2877003D9B8A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1180,6 +1195,7 @@
 		894B6F071FCDAD3100E271B1 /* popovers */ = {
 			isa = PBXGroup;
 			children = (
+				8940C1B320683B5F0090E6B1 /* BuyerSelection */,
 				895434591FF517A700ECDDEE /* BOMHistory */,
 				895023FB1FE16876008A1165 /* AddComment */,
 				895023FC1FE16895008A1165 /* ChangePODate */,
@@ -2324,6 +2340,7 @@
 				89A76E552007A67D00D7B0A9 /* DailyLogRawCell.xib in Resources */,
 				9F977EEE1F6272AE009C2B6D /* RunProcessStepsViewCell.xib in Resources */,
 				9F7FE56A1F7B78C2005CB4DF /* ProductListViewController.xib in Resources */,
+				8940C1B820683B7B0090E6B1 /* BuyerSelectionScreen.xib in Resources */,
 				D227678C1FAE4B5400215D87 /* README.md in Resources */,
 				894B6F061FCD994100E271B1 /* PartDescriptionScreen.xib in Resources */,
 				9F7767411F56D6E90092F603 /* LeftCollectionViewCell.xib in Resources */,
@@ -2580,6 +2597,7 @@
 				9F471D081F541F7700B294B7 /* ToDoView.m in Sources */,
 				9FBA7FE52003E5E400D2713A /* DemandsViewController.m in Sources */,
 				8944E49220167BEE004A08AF /* ShortsCell.m in Sources */,
+				8940C1B720683B7B0090E6B1 /* BuyerSelectionScreen.m in Sources */,
 				9FE99C371FBF242D006B58DE /* FeedbackListViewController.m in Sources */,
 				3BCDA4181FB346560021BC03 /* ProductAdminPopover.m in Sources */,
 				9FA5EE5F1FE9492F000AAFA3 /* ProcessStepsViewController.m in Sources */,

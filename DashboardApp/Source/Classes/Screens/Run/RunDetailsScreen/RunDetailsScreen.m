@@ -151,6 +151,7 @@
         screen.process = _selectedProcess;
         screen.dayLog = [self todayLog];
         screen.run = _run;
+        screen.operatorName = @"admin@aginova.com";
         [self presentViewController:screen animated:true completion:nil];
     } else {
         [LoadingView showShortMessage:@"Run has to be locked!"];
@@ -740,7 +741,7 @@
     
     NSCalendar *c = [NSCalendar currentCalendar];
     for (DayLogModel *day in _days) {
-        if ([c isDateInToday:day.date] && [_selectedProcess.processNo isEqualToString:day.processNo])
+        if ([c isDateInToday:day.date] && [_selectedProcess.processNo isEqualToString:day.processNo] && [day.person isEqualToString:@"admin@aginova.com"])
             return day;
     }
     

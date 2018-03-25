@@ -36,6 +36,8 @@
 @property (nonatomic, strong) NSArray *purchases;
 @property (nonatomic, strong) NSArray *runs;
 @property (nonatomic, strong) NSString *partDescription;
+@property (nonatomic, strong) NSString *recentVendor;
+@property (nonatomic, strong) NSString *buyer;
 @property (nonatomic, unsafe_unretained) int shortQty;
 @property (nonatomic, strong) PartAuditModel *audit;
 @property (nonatomic, unsafe_unretained) BOOL isAlternate;

@@ -35,6 +35,7 @@
 #import "UserManager.h"
 #import "BomHistoryScreen.h"
 #import "UserManager.h"
+#import "BuyerSelectionScreen.h"
 
 const CGFloat kMinTableHeight = 119;
 
@@ -45,7 +46,7 @@ typedef enum
     AlShortsComps
 } SelectedComps;
 
-@interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, AddCommentProtocol, PurchaseCellProtocol, PODateScreenDelegate, PartDescriptionScreenProtocol>
+@interface RunPartsScreen () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, AddCommentProtocol, PurchaseCellProtocol, PODateScreenDelegate, PartDescriptionScreenProtocol, BuyerSelectionScreenProtocol>
 
 @end
 
@@ -63,6 +64,9 @@ typedef enum
     __unsafe_unretained IBOutlet UILabel *_noRunsLabel;
     __unsafe_unretained IBOutlet UILabel *_noPurchasesLabel;
     __unsafe_unretained IBOutlet UILabel *_noCommentsLabel;
+    
+    __unsafe_unretained IBOutlet UILabel *_vendorPartLabel;
+    __unsafe_unretained IBOutlet UILabel *_buyerPartLabel;
     
     __unsafe_unretained IBOutlet UIView *_partsHolderView;
     __unsafe_unretained IBOutlet UIButton *_partsButton;
@@ -357,6 +361,15 @@ typedef enum
             [LoadingView showLoading:@"Error, please try again later!"];
         }
     }];
+}
+
+- (IBAction) buyerButtonTapped {
+    
+    BuyerSelectionScreen *screen = [[BuyerSelectionScreen alloc] initWithNibName:@"BuyerSelectionScreen" bundle:nil];
+    screen.delegate = self;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    CGRect rect = [_buyerPartLabel convertRect:_buyerPartLabel.bounds toView:self.view];
+    [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:true];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -656,6 +669,23 @@ typedef enum
     }
 }
 
+#pragma mark - BuyerSelectionScreenProtocol
+
+- (void) newBuyerForSelectedPart:(NSString*)buyer {
+    
+    [LoadingView showLoading:@"Saving"];
+    [[ProdAPI sharedInstance] changeBuyerTo:buyer forPart:_visiblePart.part completion:^(BOOL success, id response) {
+       
+        if (success) {
+            [LoadingView removeLoading];
+            _visiblePart.buyer = buyer;
+            [self setBuyerFor:_visiblePart];
+        } else {
+            [LoadingView showShortMessage:@"Error, please try again later!"];
+        }
+    }];
+}
+
 #pragma mark - Layout
 
 - (void) layoutButtons {
@@ -786,6 +816,7 @@ typedef enum
         else
             _priceLabel.text = [NSString stringWithFormat:@"%@$", part.pricePerUnit];
         
+        [self getBuyInfoForPart:part];
         [self getPurchasesFor:part];
         [self layoutTotalRunQTYFor:part.runs];
         [self getRunsFor:part];
@@ -930,6 +961,31 @@ typedef enum
         
     } else {
         _componentsTable.tableFooterView = nil;
+    }
+}
+
+- (void) setVendorFor:(PartModel*)part {
+    
+    if (part.recentVendor) {
+        if (part.recentVendor.length > 0)
+            _vendorPartLabel.text = part.recentVendor;
+        else
+            _vendorPartLabel.text = @"-";
+    } else {
+        _vendorPartLabel.text = @"-";
+    }
+}
+
+
+- (void) setBuyerFor:(PartModel*)part {
+    
+    if (part.buyer) {
+        if (part.buyer.length > 0)
+            _buyerPartLabel.text = part.buyer;
+        else
+            _buyerPartLabel.text = @"-";
+    } else {
+        _buyerPartLabel.text = @"-";
     }
 }
 
@@ -1288,6 +1344,44 @@ typedef enum
         
         [self layoutBOM];
     }];
+}
+
+- (void) getBuyInfoForPart:(PartModel*)part {
+    
+    if (part.recentVendor != nil) {
+        [self setVendorFor:part];
+    } else {
+        
+        [[ProdAPI sharedInstance] getRecentVendorForPart:part.part completion:^(BOOL success, id response) {
+           
+            if (success) {
+                if ([response isKindOfClass:[NSArray class]]) {
+                    NSArray *a = (NSArray*)response;
+                    if (a.count > 0) {
+                        part.recentVendor = [a firstObject][@"Vendor"];
+                    }
+                }
+            }
+            [self setVendorFor:part];
+        }];
+    }
+    
+    if (part.buyer != nil) {
+        [self setBuyerFor:part];
+    } else {
+        [[ProdAPI sharedInstance] getRecentBuyerForPart:part.part completion:^(BOOL success, id response) {
+            
+            if (success) {
+                if ([response isKindOfClass:[NSArray class]]) {
+                    NSArray *a = (NSArray*)response;
+                    if (a.count > 0) {
+                        part.buyer = [a firstObject][@"Buyer"];
+                    }
+                }
+            }
+            [self setBuyerFor:part];
+        }];
+    }
 }
 
 #pragma mark - Utils

@@ -53,6 +53,9 @@
 - (void) getPersonsWithCompletion:(void (^)(BOOL success, id response))block;
 - (void) getPreTestsWithCompletion:(void (^)(BOOL success, id response))block;
 - (void) getPostTestsWithCompletion:(void (^)(BOOL success, id response))block;
+- (void) getRecentVendorForPart:(NSString*)part completion:(void (^)(BOOL success, id response))block;
+- (void) getRecentBuyerForPart:(NSString*)part completion:(void (^)(BOOL success, id response))block;
+- (void) changeBuyerTo:(NSString*)buyer forPart:(NSString*)part completion:(void (^)(BOOL success, id response))block;
 
 @end
 
