@@ -101,7 +101,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
 - (IBAction)pcbPressed:(id)sender {
     
     _tableView.editing = false;
-    _downImageView.frame = CGRectMake((_pcbButton.frame.origin.x+_pcbButton.frame.size.width/2)-_downImageView.frame.size.width/2-25, _downImageView.frame.origin.y, _downImageView.frame.size.width, _downImageView.frame.size.height);
+    _downImageView.frame = CGRectMake((_pcbButton.frame.origin.x+_pcbButton.frame.size.width/2)-_downImageView.frame.size.width/2, _downImageView.frame.origin.y, _downImageView.frame.size.width, _downImageView.frame.size.height);
     [self filterRunsForIndex:0];
 }
 
@@ -110,6 +110,13 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
     _tableView.editing = false;
     _downImageView.frame = CGRectMake((_assmButton.frame.origin.x+_assmButton.frame.size.width/2)-_downImageView.frame.size.width/2, _downImageView.frame.origin.y, _downImageView.frame.size.width, _downImageView.frame.size.height);
     [self filterRunsForIndex:1];
+}
+
+- (IBAction) packagingPressed {
+    
+    _tableView.editing = false;
+    _downImageView.frame = CGRectMake((_packagingButton.frame.origin.x+_packagingButton.frame.size.width/2)-_downImageView.frame.size.width/2, _downImageView.frame.origin.y, _downImageView.frame.size.width, _downImageView.frame.size.height);
+    [self filterRunsForIndex:4];
 }
 
 - (IBAction)devPressed:(id)sender {
@@ -221,7 +228,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
                     [_filteredRunsArray addObject:run];
                 }
             }
-            [_pcbButton setTitle:[NSString stringWithFormat:@"PCB (%lu)",(unsigned long)_filteredRunsArray.count] forState:UIControlStateNormal];
+            [_pcbButton setTitle:[NSString stringWithFormat:@"Pcb (%lu)",(unsigned long)_filteredRunsArray.count] forState:UIControlStateNormal];
         }
             break;
         case 1: {
@@ -231,7 +238,7 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
                     [_filteredRunsArray addObject:run];
                 }
             }
-            [_assmButton setTitle:[NSString stringWithFormat:@"ASSM (%lu)",(unsigned long)_filteredRunsArray.count] forState:UIControlStateNormal];
+            [_assmButton setTitle:[NSString stringWithFormat:@"Assm (%lu)",(unsigned long)_filteredRunsArray.count] forState:UIControlStateNormal];
         }
             break;
         case 2: {
@@ -247,6 +254,15 @@ __CREATEVIEW(RunListView, @"RunListView", 0);
         case 3: {
             [_filteredRunsArray addObjectsFromArray:_runsArray];
         }
+        case 4:
+            for (int i=0; i < _runsArray.count; ++i) {
+                Run *run = _runsArray[i];
+                if ([[run getRunType] isEqualToString:@"Packaging"]) {
+                    [_filteredRunsArray addObject:run];
+                }
+            }
+            [_packagingButton setTitle:[NSString stringWithFormat:@"Packaging (%lu)",(unsigned long)_filteredRunsArray.count] forState:UIControlStateNormal];
+            
         default:
             break;
     }

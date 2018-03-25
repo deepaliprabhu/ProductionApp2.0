@@ -18,6 +18,7 @@
     IBOutlet UIButton *_assmButton;
     IBOutlet UIButton *_devButton;
     IBOutlet UIButton *_orderButton;
+    IBOutlet UIButton *_packagingButton;
     IBOutlet UITableView *_tableView;
     IBOutlet UIImageView *_downImageView;
 }
