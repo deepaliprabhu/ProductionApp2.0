@@ -9,8 +9,20 @@
 #import "OverviewView.h"
 #import "UIImage+FontAwesome.h"
 #import "ProductModel.h"
+#import "Run.h"
+#import "LayoutUtils.h"
+#import "ProdAPI.h"
+#import "DayLogModel.h"
+#import "NSDate+Utils.h"
 
-@implementation OverviewView
+@implementation OverviewView {
+    
+    __weak IBOutlet UILabel *_roadBlocksLabel;
+    __weak IBOutlet UILabel *_productionProcessesLabel;
+    __weak IBOutlet UILabel *_productionTargetsLabel;
+    __weak IBOutlet NSLayoutConstraint *_processesLabelWidthConstraint;
+    __weak IBOutlet NSLayoutConstraint *_targetsLabelWidthConstraint;
+}
 __CREATEVIEW(OverviewView, @"OverviewView", 0);
 
 - (void)initView {
@@ -29,7 +41,17 @@ __CREATEVIEW(OverviewView, @"OverviewView", 0);
 }
 
 - (void)setRunList:(NSMutableArray*)runList {
+    
     _runCountLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)[runList count]];
+    int count = 0;
+    for (int i=0; i < runList.count; ++i) {
+        Run *run = runList[i];
+        if ([[[run getStatus] lowercaseString] containsString:@"on hold"]) {
+            count++;
+        }
+    }
+    _roadBlocksLabel.text = cstrf(@"%d", count);
+    [self getTargetsCount:runList];
 }
 
 - (void)setDemandList:(NSMutableArray*)demandList {
@@ -83,6 +105,60 @@ __CREATEVIEW(OverviewView, @"OverviewView", 0);
 
 - (IBAction) partsButtonTapped {
     [_delegate partsButtonTapped];
+}
+
+- (IBAction) roadBlocksButtonTapped {
+    
+}
+
+#pragma mark - Layout
+
+- (void) setProcessesNumber:(int)c {
+    
+    _productionProcessesLabel.text = cstrf(@"%d", c);
+    UIFont *f = ccFont(@"Roboto-Bold", 22);
+    _processesLabelWidthConstraint.constant = [LayoutUtils widthForText:_productionProcessesLabel.text withFont:f];
+}
+
+- (void) setTargetsNumber:(int)c {
+    
+    _productionTargetsLabel.text = cstrf(@"%d", c);
+    UIFont *f = ccFont(@"Roboto-Bold", 22);
+    _targetsLabelWidthConstraint.constant = [LayoutUtils widthForText:_productionTargetsLabel.text withFont:f];
+}
+
+#pragma mark - Utils
+
+- (void) getTargetsCount:(NSArray*)runList {
+    
+    __block int requests = 0;
+    __block int goal = 0;
+    __block int prCount = 0;
+    NSDate *today = [NSDate date];
+    for (Run *r in runList) {
+        
+        [[ProdAPI sharedInstance] getDailyLogForRun:[r getRunId] product:[r getProductNumber] completion:^(BOOL success, id response) {
+            
+            if (success) {
+                NSArray *arr = [DayLogModel daysFromResponse:response forRun:nil];
+                NSMutableArray *processes = [NSMutableArray array];
+                for (DayLogModel *d in arr) {
+                    if ([d.date isSameDayWithDate:today]) {
+                        goal += d.goal;
+                        if ([processes containsObject:d.processNo] == false) {
+                            [processes addObject:d.processNo];
+                        }
+                    }
+                }
+                prCount += processes.count;
+            }
+            requests++;
+            if (requests == runList.count) {
+                [self setProcessesNumber:prCount];
+                [self setTargetsNumber:goal];
+            }
+        }];
+    }
 }
 
 @end
