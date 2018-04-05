@@ -842,6 +842,7 @@
 //        int target = [self getTodayTargetForProcess:p];
 //        p.qtyTarget = [NSString stringWithFormat:@"%d", target];
         p.processed = [self getProcessedForProcess:p];
+        p.rejected = [self getRejectedForProcess:p];
     }
     
     [_tableView reloadData];
@@ -856,7 +857,18 @@
     for (DayLogModel *d in _days) {
         if ([d.processNo isEqualToString:p.processNo]) {
             t += d.target;
-//            t += d.reject + d.rework + d.good;
+        }
+    }
+    
+    return t;
+}
+
+- (int) getRejectedForProcess:(ProcessModel*)p {
+    
+    int t = 0;
+    for (DayLogModel *d in _days) {
+        if ([d.processNo isEqualToString:p.processNo]) {
+            t += d.reject;
         }
     }
     
