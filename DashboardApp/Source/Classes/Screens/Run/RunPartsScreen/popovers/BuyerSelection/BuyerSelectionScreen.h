@@ -12,6 +12,7 @@
 
 @interface BuyerSelectionScreen : UIViewController
 
+@property (nonatomic, unsafe_unretained) BOOL forLocation;
 @property (nonatomic, unsafe_unretained) id <BuyerSelectionScreenProtocol> delegate;
 
 @end

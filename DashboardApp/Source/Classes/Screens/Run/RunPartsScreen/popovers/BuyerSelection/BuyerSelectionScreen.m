@@ -21,7 +21,10 @@
     
     [super viewDidLoad];
     
-    _buyers = @[@"arvind@aginova.com", @"ashok@aginova.com", @"elizabeth@aginova.com"];
+    if (_forLocation)
+        _buyers = @[@"Mason", @"Lausanne", @"Customer"];
+    else
+        _buyers = @[@"arvind@aginova.com", @"ashok@aginova.com", @"elizabeth@aginova.com"];
     self.preferredContentSize = CGSizeMake(320, 132);
 }
 

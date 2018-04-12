@@ -48,4 +48,12 @@
     return [_processName isEqualToString:@"Post molding Probe Testing"];
 }
 
+- (BOOL) isPackaging {
+    return [_processName hasPrefix:@"Packaging"];
+}
+
+- (BOOL) isShipping {
+    return [_processName hasPrefix:@"Shipping"];
+}
+
 @end

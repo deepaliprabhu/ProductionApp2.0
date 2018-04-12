@@ -34,5 +34,7 @@
 - (BOOL) isActiveTests;
 - (BOOL) isPreMoldingTests;
 - (BOOL) isPostMoldingTests;
+- (BOOL) isPackaging;
+- (BOOL) isShipping;
 
 @end

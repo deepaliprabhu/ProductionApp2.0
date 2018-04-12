@@ -31,12 +31,67 @@
 #import "DemandsViewController.h"
 #import "UIView+Screenshot.h"
 #import "NSDate+Utils.h"
+#import "TransferCell.h"
+#import "PackagingCell.h"
+#import "BuyerSelectionScreen.h"
 
-@interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol, PODateScreenDelegate>
+@implementation TransferModel
+
++ (NSArray*) transfersFromData:(NSArray*)data {
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    for (NSDictionary *d in data) {
+        TransferModel *model = [TransferModel new];
+        model.product = d[@"PRODUCT"];
+        model.productID = d[@"PRODUCTID"];
+        model.quantity = d[@"QUANTITY"];
+        model.status = d[@"STATUS"];
+        model.to = d[@"TO"];
+        model.trackingID = d[@"TRACKINGID"];
+        model.transferID = d[@"TRANSFER_ID"];
+        [arr addObject:model];
+    }
+    
+    return arr;
+}
+    
+@end
+
+@implementation PackagingModel
+
++ (NSArray*) packagingFromData:(NSArray*)data {
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    for (NSDictionary *d in data) {
+        PackagingModel *model = [PackagingModel new];
+        model.customer = d[@"customer"];
+        model.orderID = d[@"orderid"];
+        model.count = d[@"qty"];
+        model.shipTo = d[@"shipto"];
+        model.status = d[@"status"];
+        [arr addObject:model];
+    }
+    
+    return arr;
+}
+
+@end
+
+@interface RunDetailsScreen () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DailyLogInputProtocol, PODateScreenDelegate, BuyerSelectionScreenProtocol, PackagingCellProtocol>
 
 @end
 
 @implementation RunDetailsScreen {
+    
+    __weak IBOutlet UITableView *_packagingTableView;
+    __weak IBOutlet UIView *_packagingHolderView;
+    __weak IBOutlet UILabel *_shippedLabel;
+    __weak IBOutlet UILabel *_balanceLabel;
+    __weak IBOutlet UILabel *_processedLabel;
+    
+    __weak IBOutlet UITableView *_transfersTableView;
+    __weak IBOutlet UIView *_transfersHolderView;
+    __weak IBOutlet UILabel *_noTransfersLabel;
     
     __weak IBOutlet UILabel *_titleLabel;
     
@@ -89,6 +144,8 @@
     __weak IBOutlet UILabel *_failedTestsLabel;
     __weak IBOutlet UILabel *_reworkTestsLabel;
     
+    NSArray *_transfers;
+    NSArray *_packages;
     NSMutableArray *_processes;
     NSMutableArray *_days;
     NSMutableArray *_filteredDays;
@@ -99,6 +156,7 @@
     int _maxDayLogValue;
     
     ProcessModel *_selectedProcess;
+    __weak PackagingModel *_selectedPackaging;
 }
 
 #pragma mark - View lifecycle
@@ -306,7 +364,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _processes.count;
+    if (tableView == _transfersTableView)
+        return _transfers.count;
+    else if (tableView == _packagingTableView)
+        return _packages.count;
+    else
+        return _processes.count;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -315,22 +378,67 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *identifier = @"ProcessCell";
-    ProcessCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil) {
-        cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
+    if (tableView == _transfersTableView) {
+        
+        static NSString *identifier1 = @"TransferCell";
+        TransferCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier1];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:identifier1 owner:nil options:nil][0];
+        }
+        
+        [cell layoutWith:_transfers[indexPath.row]];
+        
+        return cell;
+    } else if (tableView == _packagingTableView) {
+        
+        static NSString *identifier2 = @"PackagingCell";
+        PackagingCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier2];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:identifier2 owner:nil options:nil][0];
+            cell.delegate = self;
+        }
+        
+        [cell layoutWith:_packages[indexPath.row] atIndex:indexPath.row];
+        
+        return cell;
+    } else {
+        
+        static NSString *identifier = @"ProcessCell";
+        ProcessCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil][0];
+        }
+        
+        [cell layoutWith:_processes[indexPath.row]];
+        
+        return cell;
     }
-    
-    [cell layoutWith:_processes[indexPath.row]];
-    
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    _selectedProcess = _processes[indexPath.row];
-    [self layoutSelectedProcess];
-    [self layoutDailyLogForProcess:_selectedProcess];
+    if (tableView == _tableView) {
+        
+        _selectedProcess = _processes[indexPath.row];
+        
+        if ([_selectedProcess isPackaging]) {
+            [self showDetails:false];
+            _transfersHolderView.alpha = 0;
+            [self showPackaging];
+        } else if ([_selectedProcess isShipping]) {
+            _packagingHolderView.alpha = 0;
+            [self showDetails:false];
+            [self showTransfers];
+        } else {
+            _transfersHolderView.alpha = 0;
+            _packagingHolderView.alpha = 0;
+            [self showDetails:true];
+            [self layoutSelectedProcess];
+            [self layoutDailyLogForProcess:_selectedProcess];
+        }
+    } else {
+        
+    }
 }
 
 #pragma mark - DailyLogInputProtocol
@@ -363,6 +471,42 @@
         [self layoutDailyLogForProcess:_selectedProcess];
         [self getTargets];
     }
+}
+
+#pragma mark - PackagingCellProtocol
+
+- (void) presentShipToOptionsForOrderAtIndex:(int)index {
+    
+    PackagingCell *cell = [_packagingTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    
+    _selectedPackaging = _packages[index];
+    
+    BuyerSelectionScreen *screen = [[BuyerSelectionScreen alloc] initWithNibName:@"BuyerSelectionScreen" bundle:nil];
+    screen.forLocation = true;
+    screen.delegate = self;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:screen];
+    CGRect frame = cell.frame;
+    frame.origin.y -= 10;
+    frame.origin.x = frame.size.width - 70;
+    frame.size.width = 70;
+    [popover presentPopoverFromRect:frame inView:cell.superview permittedArrowDirections:UIPopoverArrowDirectionUp animated:true];
+}
+
+#pragma mark - BuyerSelectionScreenProtocol
+
+- (void) newBuyerForSelectedPart:(NSString *)buyer {
+    
+    [LoadingView showLoading:@"Saving..."];
+    [[ProdAPI sharedInstance] updateShippingTo:@"" forOrder:_selectedPackaging.orderID completion:^(BOOL success, id response) {
+      
+        if (success) {
+            [LoadingView removeLoading];
+            _selectedPackaging.shipTo = buyer;
+            [_packagingTableView reloadData];
+        } else {
+            [LoadingView showShortMessage:@"Error, please try again later."];
+        }
+    }];
 }
 
 #pragma mark - PODateProtocol
@@ -534,6 +678,36 @@
         _detailsHolderViewHeightConstraint.constant = 260;
         [self.view layoutIfNeeded];
     }];
+}
+
+- (void) showDetails:(BOOL)visible {
+    [UIView animateWithDuration:0.3 animations:^{
+        _dailyLogHolderView.alpha = visible;
+        _detailsHolderView.alpha = visible;
+    }];
+}
+
+- (void) showTransfers {
+    
+    _transfersHolderView.alpha = 1;
+    [_transfersTableView reloadData];
+    [self getTransfers];
+}
+
+- (void) showPackaging {
+    
+    int processed = 0;
+    for (ProcessModel *pr in _processes) {
+        if ([[pr.processName lowercaseString] containsString:@"final visual inspection"]) {
+            processed = pr.processed;
+            break;
+        }
+    }
+    _processedLabel.text = cstrf(@"Processed: %d", processed);
+    
+    _packagingHolderView.alpha = 1;
+    [_packagingTableView reloadData];
+    [self getPackaging];
 }
 
 #pragma mark - Services
@@ -733,6 +907,39 @@
             [self layoutDailyLogForProcess:_selectedProcess];
         }
     }];
+}
+
+- (void) getTransfers {
+    
+    if (_transfers.count == 0) {
+        
+        [LoadingView showLoading:@"Loading..."];
+        [[ProdAPI sharedInstance] getTransfersForProduct:[_run getProductNumber] completion:^(BOOL success, id response) {
+          
+            [LoadingView removeLoading];
+            if (success) {
+                _transfers = [TransferModel transfersFromData:response];
+                _noTransfersLabel.alpha = _transfers.count == 0;
+                [_transfersTableView reloadData];
+            }
+        }];
+    }
+}
+
+- (void) getPackaging {
+    
+    if (_packages.count == 0) {
+        
+        [LoadingView showLoading:@"Loading..."];
+        [[ProdAPI sharedInstance] getPackagingForProduct:[_run getProductNumber] completion:^(BOOL success, id response) {
+           
+            [LoadingView removeLoading];
+            if (success) {
+                _packages = [PackagingModel packagingFromData:response];
+                [_packagingTableView reloadData];
+            }
+        }];
+    }
 }
 
 #pragma mark - Utils

@@ -56,6 +56,9 @@
 - (void) getRecentVendorForPart:(NSString*)part completion:(void (^)(BOOL success, id response))block;
 - (void) getRecentBuyerForPart:(NSString*)part completion:(void (^)(BOOL success, id response))block;
 - (void) changeBuyerTo:(NSString*)buyer forPart:(NSString*)part completion:(void (^)(BOOL success, id response))block;
+- (void) getTransfersForProduct:(NSString*)productID completion:(void (^)(BOOL success, id response))block;
+- (void) getPackagingForProduct:(NSString*)productID completion:(void (^)(BOOL success, id response))block;
+- (void) updateShippingTo:(NSString*)location forOrder:(NSString*)orderID completion:(void (^)(BOOL success, id response))block;
 
 @end
 

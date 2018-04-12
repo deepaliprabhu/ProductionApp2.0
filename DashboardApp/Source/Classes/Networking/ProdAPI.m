@@ -327,6 +327,27 @@ static ProdAPI *_sharedInstance = nil;
     [self callGETURL:url completion:block];
 }
 
+- (void) getTransfersForProduct:(NSString*)productID completion:(void (^)(BOOL success, id response))block {
+    
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=get_product_transfer_id&pid=%@", productID];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
+- (void) getPackagingForProduct:(NSString *)productID completion:(void (^)(BOOL, id))block {
+    
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=get_order_details&pid=%@", productID];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
+- (void) updateShippingTo:(NSString*)location forOrder:(NSString*)orderID completion:(void (^)(BOOL success, id response))block {
+    
+    NSString *url = [NSString stringWithFormat:@"http://www.aginova.info/aginova/json/processes.php?call=update_ship_to&orderid=%@&shipto=%@", orderID, location];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self callGETURL:url completion:block];
+}
+
 #pragma mark - Factory
 
 - (void) callPOST:(NSString*)url parameters:(NSDictionary*)params completion:(void (^)(BOOL success, id response))block

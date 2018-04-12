@@ -115,6 +115,8 @@
 		895287381FCF2B33005C46EE /* StockLogScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895287361FCF2B33005C46EE /* StockLogScreen.xib */; };
 		8952873C1FCF39EE005C46EE /* AuditActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8952873A1FCF39EE005C46EE /* AuditActionCell.m */; };
 		8952873D1FCF39EE005C46EE /* AuditActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8952873B1FCF39EE005C46EE /* AuditActionCell.xib */; };
+		895292FA207E8F4900AE77C7 /* PackagingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 895292F8207E8F4900AE77C7 /* PackagingCell.m */; };
+		895292FB207E8F4900AE77C7 /* PackagingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895292F9207E8F4900AE77C7 /* PackagingCell.xib */; };
 		8953D382200CCE49009CFE45 /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8953D381200CCE49009CFE45 /* NSDate+Utils.m */; };
 		8954345D1FF517B900ECDDEE /* BomHistoryScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8954345B1FF517B900ECDDEE /* BomHistoryScreen.m */; };
 		8954345E1FF517B900ECDDEE /* BomHistoryScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8954345C1FF517B900ECDDEE /* BomHistoryScreen.xib */; };
@@ -151,6 +153,8 @@
 		8970C3BC20056A55001F7680 /* RunScheduleSlotCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8970C3BA20056A55001F7680 /* RunScheduleSlotCell.xib */; };
 		8973399B20151EF100776C39 /* PartsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8973399920151EF100776C39 /* PartsScreen.m */; };
 		8973399C20151EF100776C39 /* PartsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8973399A20151EF100776C39 /* PartsScreen.xib */; };
+		897B0A1B20768FF1006AA578 /* TransferCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 897B0A1920768FF1006AA578 /* TransferCell.m */; };
+		897B0A1C20768FF1006AA578 /* TransferCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897B0A1A20768FF1006AA578 /* TransferCell.xib */; };
 		897BA32D1FF65FF900C8DA9A /* FailedTestsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */; };
 		897BA32E1FF65FF900C8DA9A /* FailedTestsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */; };
 		897BA3371FF662C300C8DA9A /* FailReasonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 897BA3351FF662C300C8DA9A /* FailReasonCell.m */; };
@@ -536,6 +540,9 @@
 		895287391FCF39EE005C46EE /* AuditActionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditActionCell.h; sourceTree = "<group>"; };
 		8952873A1FCF39EE005C46EE /* AuditActionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditActionCell.m; sourceTree = "<group>"; };
 		8952873B1FCF39EE005C46EE /* AuditActionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuditActionCell.xib; sourceTree = "<group>"; };
+		895292F7207E8F4900AE77C7 /* PackagingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PackagingCell.h; sourceTree = "<group>"; };
+		895292F8207E8F4900AE77C7 /* PackagingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PackagingCell.m; sourceTree = "<group>"; };
+		895292F9207E8F4900AE77C7 /* PackagingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PackagingCell.xib; sourceTree = "<group>"; };
 		8953D380200CCE49009CFE45 /* NSDate+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utils.h"; sourceTree = "<group>"; };
 		8953D381200CCE49009CFE45 /* NSDate+Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utils.m"; sourceTree = "<group>"; };
 		8954345A1FF517B900ECDDEE /* BomHistoryScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BomHistoryScreen.h; sourceTree = "<group>"; };
@@ -590,6 +597,9 @@
 		8973399820151EF100776C39 /* PartsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PartsScreen.h; sourceTree = "<group>"; };
 		8973399920151EF100776C39 /* PartsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartsScreen.m; sourceTree = "<group>"; };
 		8973399A20151EF100776C39 /* PartsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartsScreen.xib; sourceTree = "<group>"; };
+		897B0A1820768FF1006AA578 /* TransferCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransferCell.h; sourceTree = "<group>"; };
+		897B0A1920768FF1006AA578 /* TransferCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransferCell.m; sourceTree = "<group>"; };
+		897B0A1A20768FF1006AA578 /* TransferCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransferCell.xib; sourceTree = "<group>"; };
 		897BA32A1FF65FF900C8DA9A /* FailedTestsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FailedTestsScreen.h; sourceTree = "<group>"; };
 		897BA32B1FF65FF900C8DA9A /* FailedTestsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FailedTestsScreen.m; sourceTree = "<group>"; };
 		897BA32C1FF65FF900C8DA9A /* FailedTestsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailedTestsScreen.xib; sourceTree = "<group>"; };
@@ -1960,6 +1970,12 @@
 				897BA3341FF662C300C8DA9A /* FailReasonCell.h */,
 				897BA3351FF662C300C8DA9A /* FailReasonCell.m */,
 				897BA3361FF662C300C8DA9A /* FailReasonCell.xib */,
+				897B0A1820768FF1006AA578 /* TransferCell.h */,
+				897B0A1920768FF1006AA578 /* TransferCell.m */,
+				897B0A1A20768FF1006AA578 /* TransferCell.xib */,
+				895292F7207E8F4900AE77C7 /* PackagingCell.h */,
+				895292F8207E8F4900AE77C7 /* PackagingCell.m */,
+				895292F9207E8F4900AE77C7 /* PackagingCell.xib */,
 			);
 			name = cells;
 			path = ..;
@@ -2328,8 +2344,10 @@
 				8970C3BC20056A55001F7680 /* RunScheduleSlotCell.xib in Resources */,
 				894BF8BB203B7595002214D4 /* HourScheduleCell.xib in Resources */,
 				3B649A881FB3236400B8DC78 /* PartsCell.xib in Resources */,
+				895292FB207E8F4900AE77C7 /* PackagingCell.xib in Resources */,
 				894704A720193D12007364F0 /* ProductionOverview.xib in Resources */,
 				D28386561FB23B5E00BB304C /* Roboto-Bold.ttf in Resources */,
+				897B0A1C20768FF1006AA578 /* TransferCell.xib in Resources */,
 				9F3144BA1F7ABFD200B9D32C /* left_arrow@2x.png in Resources */,
 				9F8AF75E1F559441008027B1 /* placeholder.png in Resources */,
 				9F8567931F73DDB10067ABE1 /* OperatorTitleCollectionViewCell.xib in Resources */,
@@ -2420,6 +2438,7 @@
 				895F1FBE2046BEF000AE52E0 /* OperatorTargetStepScreen.m in Sources */,
 				89A76E4F2006A41500D7B0A9 /* AuditLogCell.m in Sources */,
 				8919BE9B1FB4DD5100EE6839 /* UIButton+WebCache.m in Sources */,
+				895292FA207E8F4900AE77C7 /* PackagingCell.m in Sources */,
 				895F5F801FCEF75800ED3349 /* StockCell.m in Sources */,
 				9F471CF41F53DD3700B294B7 /* SSGradientView.m in Sources */,
 				D22767861FAE4B5400215D87 /* AFNetworkReachabilityManager.m in Sources */,
@@ -2505,6 +2524,7 @@
 				89815E19201FEE610021ADA2 /* OperatorsPickerScreen.m in Sources */,
 				8919BEA11FB4EEF200EE6839 /* UIView+Screenshot.m in Sources */,
 				894018791FB5A0E4002B8AFD /* BRRequestDelete.m in Sources */,
+				897B0A1B20768FF1006AA578 /* TransferCell.m in Sources */,
 				9FE99C281FBD4E65006B58DE /* FeedbackListViewCell.m in Sources */,
 				8973399B20151EF100776C39 /* PartsScreen.m in Sources */,
 				9F022F681F618DED000E138B /* RunProcessStepsView.m in Sources */,
