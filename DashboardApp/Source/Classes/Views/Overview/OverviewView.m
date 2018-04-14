@@ -108,7 +108,7 @@ __CREATEVIEW(OverviewView, @"OverviewView", 0);
 }
 
 - (IBAction) roadBlocksButtonTapped {
-    
+    [_delegate roadBlocksSelected];
 }
 
 #pragma mark - Layout

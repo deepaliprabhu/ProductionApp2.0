@@ -23,7 +23,9 @@
     _operatorLabel.text = [[user.name componentsSeparatedByString:@" "] firstObject];
   
     [[self viewWithTag:100] removeFromSuperview];
-    [self addScheduleViewWith:times selected:s];
+    
+    if (times != nil)
+        [self addScheduleViewWith:times selected:s];
 }
 
 - (void) addScheduleViewWith:(NSArray*)times selected:(BOOL)s {

@@ -26,6 +26,7 @@
 #import "DailyLogScreen.h"
 #import "PartsScreen.h"
 #import "ProductionViewController.h"
+#import "RoadBlocksScreen.h"
 
 @interface HomeViewController ()
 
@@ -147,6 +148,11 @@
     
     RunListScreen *screen = [[RunListScreen alloc] initWithNibName:@"RunListScreen" bundle:nil];
     screen.runsList = runsListArray;
+    [self.navigationController pushViewController:screen animated:true];
+}
+
+- (void) roadBlocksSelected {
+    RoadBlocksScreen *screen = [[RoadBlocksScreen alloc] initWithNibName:@"RoadBlocksScreen" bundle:nil];
     [self.navigationController pushViewController:screen animated:true];
 }
 
